@@ -1,0 +1,29 @@
+/mob/living
+	var/datum/language/default_language
+
+/mob/living/verb/set_default_language(language as null|anything in languages)
+	set name = "Set Default Language"
+	set category = "IC"
+
+	if (only_species_language && language != all_languages[src.species_language])
+		to_chat(src, SPAN_NOTICE("You can only speak your species language, [src.species_language]."))
+		return 0
+
+	if(language == all_languages[src.species_language])
+		to_chat(src, SPAN_NOTICE("You will now speak your standard default language, [language], if you do not specify a language when speaking."))
+	else if (language)
+
+		if(language && !can_speak(language))
+			to_chat(src, SPAN_NOTICE("You are unable to speak that language."))
+			return
+
+		to_chat(src, SPAN_NOTICE("You will now speak [language] if you do not specify a language when speaking."))
+	else
+
+		to_chat(src, SPAN_NOTICE("You will now speak whatever your standard default language is if you do not specify one when speaking."))
+
+	default_language = language
+
+// Silicons can't neccessarily speak everything in their languages list
+/mob/living/silicon/set_default_language(language as null|anything in speech_synthesizer_langs)
+	..()

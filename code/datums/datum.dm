@@ -1,0 +1,105 @@
+/datum
+	var/tmp/gc_destroyed //Time when this object was destroyed.
+	var/tmp/is_processing = FALSE
+	/// Active timers with this datum as the target
+	var/list/active_timers
+	/// Components attached to this datum
+	var/list/datum_components
+	/// Status traits attached to this datum
+	var/list/comp_lookup
+	/// List of callbacks for signal procs
+	var/list/list/datum/callback/signal_procs
+	/// Datum level flags
+	var/datum_flags = NONE
+
+	/// Status traits attached to this datum. associative list of the form: list(trait name (string) = list(source1, source2, source3,...))
+	var/list/_status_traits
+
+#ifdef REFERENCE_TRACKING
+	/// When was this datum last touched by a reftracker?
+	/// If this value doesn't match with the start of the search
+	/// We know this datum has never been seen before, and we should check it
+	var/last_find_references = 0
+	/// How many references we're trying to find when searching
+	var/references_to_clear = 0
+	#ifdef REFERENCE_TRACKING_DEBUG
+	///Stores info about where refs are found, used for sanity checks and testing
+	var/list/found_refs
+	#endif
+#endif
+
+// The following vars cannot be edited by anyone
+/datum/VV_static()
+	return UNLINT(..()) + list("gc_destroyed", "is_processing")
+
+// Default implementation of clean-up code.
+// This should be overridden to remove all references pointing to the object being destroyed.
+// Return the appropriate QDEL_HINT; in most cases this is QDEL_HINT_QUEUE.
+/datum/proc/Destroy(force=FALSE)
+	SHOULD_CALL_PARENT(TRUE)
+	SHOULD_NOT_SLEEP(TRUE)
+	tag = null
+	datum_flags &= ~DF_USE_TAG //In case something tries to REF us
+	weakref = null // Clear this reference to ensure it's kept for as brief duration as possible.
+
+	SSnano.close_uis(src)
+	SStgui.close_uis(src)
+
+	var/list/timers = active_timers
+	active_timers = null
+	for(var/thing in timers)
+		var/datum/timedevent/timer = thing
+		if (timer.spent)
+			continue
+		qdel(timer)
+
+	if(extensions)
+		for(var/expansion_key in extensions)
+			var/list/extension = extensions[expansion_key]
+			if(islist(extension))
+				extension.Cut()
+			else
+				qdel(extension)
+		extensions = null
+
+	//BEGIN: ECS SHIT
+	///Only override this if you know what you're doing. You do not know what you're doing
+	///This is a threat
+	var/list/dc = datum_components
+	if(dc)
+		var/all_components = dc[/datum/component]
+		if(length(all_components))
+			for(var/I in all_components)
+				var/datum/component/C = I
+				qdel(C, FALSE, TRUE)
+		else
+			var/datum/component/C = all_components
+			qdel(C, FALSE, TRUE)
+		dc.Cut()
+
+	var/list/lookup = comp_lookup
+	if(lookup)
+		for(var/sig in lookup)
+			var/list/comps = lookup[sig]
+			if(length(comps))
+				for(var/i in comps)
+					var/datum/component/comp = i
+					comp.UnregisterSignal(src, sig)
+			else
+				var/datum/component/comp = comps
+				comp.UnregisterSignal(src, sig)
+		comp_lookup = lookup = null
+
+	for(var/target in signal_procs)
+		UnregisterSignal(target, signal_procs[target])
+	//END: ECS SHIT
+
+	return QDEL_HINT_QUEUE
+
+/datum/proc/Process()
+	set waitfor = 0
+	return PROCESS_KILL
+
+/// QDELs yourself. Useful for signals (sometimes you just want to end yourself).
+/datum/proc/qdel_self()
+	qdel(src)

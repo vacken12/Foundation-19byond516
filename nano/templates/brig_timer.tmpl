@@ -1,0 +1,20 @@
+<table>
+		<tr><td>
+			<h3>Cell Timer</h3>
+		</td>
+		<td colspan=2>
+			{{:helper.link(data.timing ? 'Stop' : 'Start' , 'clock', {'toggle' : 1}, null, null)}}
+			{{:helper.link(data.flash ? 'Flash' : 'Recharging' , 'lightbulb', {'flash' : 1}, data.flash ? null : 'disabled', null)}}
+		</td></tr>
+		<tr><td>
+			{{:helper.link('<div class="uiIcon16 icon-minus"></div>' , 'minus', {'adjust' : -600}, data.timing ? 'disabled' : null, null)}}
+			{{:helper.link('' , 'minus', {'adjust' : -100}, data.timing ? 'disabled' : null, null)}}
+			</td>
+			<td style='width:30%;'>
+			<center><b>{{:data.minutes}}:{{:data.seconds}}</b></center>
+			</td>
+			<td>
+			{{:helper.link('' , 'plus', {'adjust' : 100}, data.timing ? 'disabled' : null, null)}}
+			{{:helper.link('<div class="uiIcon16 icon-plus"></div>' , 'plus', {'adjust' : 600}, data.timing ? 'disabled' : null, null)}}
+			</td></tr>
+	</table>
