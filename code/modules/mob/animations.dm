@@ -1,0 +1,203 @@
+//handles up-down floaty effect in space and zero-gravity
+/mob/var/is_floating = 0
+/mob/var/floatiness = 0
+
+/mob/proc/update_floating()
+
+	if(anchored || buckled || check_solid_ground() || Check_Shoegrip())
+		make_floating(0)
+		return
+
+	make_floating(1)
+	return
+
+/mob/proc/make_floating(n)
+	floatiness = n
+
+	if(floatiness && !is_floating)
+		start_floating()
+	else if(!floatiness && is_floating)
+		stop_floating()
+
+/mob/proc/start_floating()
+
+	is_floating = 1
+
+	var/amplitude = 2 //maximum displacement from original position
+	var/period = 36 //time taken for the mob to go up -> down -> original position, in deciseconds. Should be multiple of 4
+
+	var/top = default_pixel_z + amplitude
+	var/bottom = default_pixel_z - amplitude
+	var/half_period = period / 2
+	var/quarter_period = period / 4
+
+	animate(src, pixel_z = top, time = quarter_period, easing = SINE_EASING | EASE_OUT, loop = -1)		//up
+	animate(pixel_z = bottom, time = half_period, easing = SINE_EASING, loop = -1)						//down
+	animate(pixel_z = default_pixel_z, time = quarter_period, easing = SINE_EASING | EASE_IN, loop = -1)			//back
+
+/mob/proc/stop_floating()
+	animate(src, pixel_z = default_pixel_z, time = 5, easing = SINE_EASING | EASE_IN) //halt animation
+	//reset the pixel offsets to zero
+	is_floating = 0
+
+/atom/movable/proc/do_windup_animation(atom/A, windup_time)
+	var/pixel_x_diff = 0
+	var/pixel_y_diff = 0
+	var/direction = get_dir(src, A)
+	if(direction & NORTH)
+		pixel_y_diff = -8
+	else if(direction & SOUTH)
+		pixel_y_diff = 8
+
+	if(direction & EAST)
+		pixel_x_diff = -8
+	else if(direction & WEST)
+		pixel_x_diff = 8
+
+	var/default_pixel_x = initial(pixel_x)
+	var/default_pixel_y = initial(pixel_y)
+	var/mob/mob = src
+	if(istype(mob))
+		default_pixel_x = mob.default_pixel_x
+		default_pixel_y = mob.default_pixel_y
+
+	animate(src, pixel_x = pixel_x + pixel_x_diff, pixel_y = pixel_y + pixel_y_diff, time = windup_time - 2)
+	animate(pixel_x = default_pixel_x, pixel_y = default_pixel_y, time = 2)
+
+/atom/movable/proc/do_attack_animation(atom/A)
+
+	var/pixel_x_diff = 0
+	var/pixel_y_diff = 0
+	var/turn_dir = 1
+
+	var/direction = get_dir(src, A)
+	if(direction & NORTH)
+		pixel_y_diff = 8
+		turn_dir = pick(-1, 1)
+	else if(direction & SOUTH)
+		pixel_y_diff = -8
+		turn_dir = pick(-1, 1)
+
+	if(direction & EAST)
+		pixel_x_diff = 8
+		turn_dir = 1
+	else if(direction & WEST)
+		pixel_x_diff = -8
+		turn_dir = -1
+
+	var/default_pixel_x = initial(pixel_x)
+	var/default_pixel_y = initial(pixel_y)
+	var/mob/mob = src
+	if(istype(mob))
+		default_pixel_x = mob.default_pixel_x
+		default_pixel_y = mob.default_pixel_y
+
+	var/matrix/initial_transform = matrix(transform)
+	var/matrix/rotated_transform = transform.Turn(15 * turn_dir)
+
+	animate(src, pixel_x = pixel_x + pixel_x_diff, pixel_y = pixel_y + pixel_y_diff, transform = rotated_transform, time = 2, easing = BACK_EASING | EASE_IN)
+	animate(pixel_x = default_pixel_x, pixel_y = default_pixel_y, transform = initial_transform, time = 2, easing = SINE_EASING)
+
+/atom/movable/proc/do_attack_effect(atom/A, effect) //Simple effects for telegraphing or marking attack locations
+	if (effect)
+		var/image/I = image('icons/effects/effects.dmi', A, effect, ABOVE_PROJECTILE_LAYER)
+
+		if (!I)
+			return
+
+		flick_overlay(I, GLOB.clients, 10)
+
+		// And animate the attack!
+		animate(I, alpha = 175, transform = matrix() * 0.75, pixel_x = 0, pixel_y = 0, pixel_z = 0, time = 3)
+		animate(time = 1)
+		animate(alpha = 0, time = 3, easing = CIRCULAR_EASING|EASE_OUT)
+
+/mob/do_attack_animation(atom/A)
+	..()
+	is_floating = 0 // If we were without gravity, the bouncing animation got stopped, so we make sure we restart the bouncing after the next movement.
+
+	// What icon do we use for the attack?
+	var/image/I
+	if(hand && l_hand) // Attacked with item in left hand.
+		I = image(l_hand.icon, A, l_hand.icon_state, A.layer + 1)
+	else if (!hand && r_hand) // Attacked with item in right hand.
+		I = image(r_hand.icon, A, r_hand.icon_state, A.layer + 1)
+	else // Attacked with a fist?
+		return
+
+	// Who can see the attack?
+	var/list/viewing = list()
+	for (var/mob/M in viewers(A))
+		if (M.client)
+			viewing |= M.client
+	flick_overlay(I, viewing, 5) // 5 ticks/half a second
+
+	// Scale the icon.
+	I.transform *= 0.75
+	// Set the direction of the icon animation.
+	var/direction = get_dir(src, A)
+	if(direction & NORTH)
+		I.pixel_y = -16
+	else if(direction & SOUTH)
+		I.pixel_y = 16
+
+	if(direction & EAST)
+		I.pixel_x = -16
+	else if(direction & WEST)
+		I.pixel_x = 16
+
+	if(!direction) // Attacked self?!
+		I.pixel_z = 16
+
+	// And animate the attack!
+	animate(I, alpha = 175, pixel_x = 0, pixel_y = 0, pixel_z = 0, time = 3)
+
+/mob/proc/spin(spintime, speed)
+	spawn()
+		var/D = dir
+		while(spintime >= speed)
+			sleep(speed)
+			switch(D)
+				if(NORTH)
+					D = EAST
+				if(SOUTH)
+					D = WEST
+				if(EAST)
+					D = SOUTH
+				if(WEST)
+					D = NORTH
+			setDir(D)
+			spintime -= speed
+	return
+
+/mob/proc/phase_in(turf/T)
+	if(!T)
+		return
+
+	playsound(T, 'sounds/effects/phasein.ogg', 25, 1)
+	playsound(T, 'sounds/effects/sparks2.ogg', 50, 1)
+	anim(src,'icons/mob/mob.dmi',,"phasein",,dir)
+
+/mob/proc/phase_out(turf/T)
+	if(!T)
+		return
+	playsound(T, SFX_SPARK, 50, 1)
+	anim(src,'icons/mob/mob.dmi',,"phaseout",,dir)
+
+/mob/living/proc/on_structure_offset(offset = 0)
+	if(is_floating) // Do not reset my floaty animation
+		return
+	if(offset)
+		var/check = default_pixel_z + offset
+		if(pixel_z != check)
+			animate(src, pixel_z = check, time = 2, easing = SINE_EASING)
+	else if(pixel_z != default_pixel_z)
+		var/turf/T = get_turf(src)
+		for(var/obj/structure/S in T.contents)
+			if(S?.mob_offset)
+				return
+		animate(src, pixel_z = default_pixel_z, time = 2, easing = SINE_EASING)
+
+/mob/living/Move()
+	. = ..()
+	on_structure_offset(0)

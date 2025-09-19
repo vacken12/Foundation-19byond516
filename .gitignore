@@ -1,0 +1,70 @@
+# ignore misc BYOND files
+Thumbs.db
+*.log
+*.int
+*.rsc
+*.dmb
+*.m.dme
+*.lk
+*.backup
+*.before
+data/
+dmdoc/
+cfg/
+build_log.txt
+use_map
+stopserver
+reboot_called
+atupdate
+
+# ignore config, but not subdirs
+!config/*/
+config/*
+sql/test_db
+
+# byond-tracy, we intentionally do not ship this and do not want to maintain it
+# https://github.com/mafemergency/byond-tracy/
+prof.dll
+libprof.so
+
+# Tracy can read source files when it is in the root folder, even without absolute paths.
+# If you're interested, run this hack:
+# https://gist.github.com/Mothblocks/db5462aa84d7d6b1d1b1276b820f62da
+Tracy.exe
+
+
+# Ignore compiled linux libs in the root folder, e.g. librust_g.so
+/*.so
+
+# VisualStudioCode
+*.code-workspace
+*tools/CreditsTool
+
+# swap
+[._]*.s[a-v][a-z]
+[._]*.sw[a-p]
+[._]s[a-v][a-z]
+[._]sw[a-p]
+
+# session
+Session.vim
+
+# temporary
+.netrwhist
+*~
+
+# auto-generated tag files
+tags
+
+# ignore built libs
+lib/*.dll
+lib/*.so
+
+# python
+*.pyc
+__pycache__
+
+# flyway config
+flyway.conf
+
+.cache

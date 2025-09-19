@@ -1,0 +1,65 @@
+/datum/codex_entry/pen
+	associated_paths = list()
+	associated_strings = list("Paperwork")
+	entry_text = {"Used for writing down your thoughts, on paper or elsewhere. The following special commands are available:<br><br>
+\[br\] : Creates a linebreak.<br>
+\[center\] - \[/center\] : Centers the text.<br>
+\[h1\] - \[/h1\] : Makes the text a first level heading.<br>
+\[h2\] - \[/h2\] : Makes the text a second level headin.<br>
+\[h3\] - \[/h3\] : Makes the text a third level heading.<br>
+\[b\] - \[/b\] : Makes the text bold.<br>
+\[i\] - \[/i\] : Makes the text italic.<br>
+\[u\] - \[/u\] : Makes the text underlined.<br>
+\[small\] - \[/small\] : Decreases the size of the text.<br>
+\[large\] - \[/large\] : Increases the size of the text.<br>
+\[sign\] : Inserts a signature of your name in a foolproof way.<br>
+\[field\] : Inserts an invisible field which lets you start type from there. Useful for forms.<br>
+\[date\] : Inserts today's date.<br>
+\[time\] : Inserts the current time.<br>
+\[table\] - \[/table\] : Creates table using \[row\] and \[cell\] tags.<br>
+\[grid\] - \[/grid\] : Table without visible borders, for layouts.<br>
+\[row\] : New table row.<br>
+\[cell\] : New table cell.<br>
+\[hr\] : Adds a horizontal rule.<br>
+\[ulist\] - \[/ulist\] : An unordered list. (Does not work with crayons)<br>
+\[olist\] - \[/olist\] : An ordered list. (Does not work with crayons)<br>
+\[*\] : A dot used for lists. (Does not work with crayons)<br>
+\[scplogo\] : Inserts the SCP Foundation logo.<br>
+\[ethicslogo\] : Inserts the Ethics Committee logo.<br>
+\[o5logo\] : Inserts the Overseer Council logo.<br>
+\[adminlogo\] : Inserts the Administrative Department logo.<br>
+\[englogo\] : Inserts the Engineering Department logo.<br>
+\[mtflogo\] : Inserts the Mobile Task Force logo.<br>
+\[loglogo\] : Inserts the Logistics Department logo.<br>
+\[manlogo\] : Inserts the Manufacturing Department logo.<br>
+\[medlogo\] : Inserts the Medical Department logo.<br>
+\[scilogo\] : Inserts the Science Department logo.<br>
+\[seclogo\] : Inserts the Security Department logo.<br>
+\[isdlogo\] : Inserts the Internal Security Department logo.<br>
+\[dealogo\] : Inserts the Department of External Affairs logo.<br>
+\[intlogo\] : Inserts the Intelligence Agency logo.<br>
+\[triblogo\] : Inserts the Internal Tribunal Department logo.<br>
+\[goclogo\] : Inserts the Global Occult Coalition logo.<br>
+\[uiulogo\] : Inserts the Unusual Incidents Unit logo.<br>
+\[mcdlogo\] : Inserts the Marshall, Carter and Dark logo.<br>
+\[grlogo\] : Inserts the Goldbaker-Reinz logo.<br>
+\[arlogo\] : Inserts the Anderson Robotics logo.<br>
+\[cilogo\] : Inserts the Chaos Insurgency logo.<br>
+\[shlogo\] : Inserts the Serpent's Hand logo.<br>
+\[cotbglogo\] : Inserts the Church of the Broken God logo.<br><br>
+\[acs item_number= clearance_level= containment_class= disruption_class= risk_class=\] : Creates an ACS bar without a secondary class. Put data after the equal signs of their respective entries (e.g. containment_class=keter)
+\[acs item_number= clearance_level= containment_class= secondary_class= disruption_class= risk_class=\] : Creates an ACS bar with a secondary class.
+<b>Digital exclusive commands (NanoWord, emails, reports, text files, etc):</b><br>
+\[pre\] - \[/pre\] : Adds preformatted text, forcing the text to be fixed width.<br>
+\[fontred\] - \[/font\] : Makes the text red.<br>
+\[fontblue\] - \[/font\] : Makes the text blue.<br>
+\[fontgreen\] - \[/font\] : Makes the text green.<br>
+\[redacted\] : Adds R E D A C T E D in black font on a black background.<br><br>"}
+
+/datum/codex_entry/pen/New()
+	associated_paths += typesof(/obj/item/pen)
+	. = ..()
+
+/datum/codex_entry/slide_projector
+	associated_paths = list(/obj/item/storage/slide_projector)
+	entry_text = "Use in hand to open the interface."

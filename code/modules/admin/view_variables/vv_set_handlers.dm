@@ -1,0 +1,147 @@
+/decl/vv_set_handler
+	var/handled_type
+	var/predicates
+	var/list/handled_vars
+
+/decl/vv_set_handler/proc/can_handle_set_var(datum/O, variable, var_value, client)
+	if(!istype(O, handled_type))
+		return FALSE
+	if(!(variable in handled_vars))
+		return FALSE
+	if(istype(O) && !(variable in O.vars))
+		log_error("Did not find the variable '[variable]' for the instance [log_info_line(O)].")
+		return FALSE
+	if(predicates)
+		for(var/predicate in predicates)
+			if(!call(predicate)(var_value, client))
+				return FALSE
+	return TRUE
+
+/decl/vv_set_handler/proc/handle_set_var(datum/O, variable, var_value, client)
+	var/proc_to_call = handled_vars[variable]
+	if(proc_to_call)
+		call(O, proc_to_call)(var_value)
+	else
+		O.vars[variable] = var_value
+
+/decl/vv_set_handler/location_handler
+	handled_type = /atom/movable
+	handled_vars = list("loc","x","y","z")
+
+/decl/vv_set_handler/location_handler/handle_set_var(atom/movable/AM, variable, var_value, client)
+	if(variable == "loc")
+		if(istype(var_value, /atom) || isnull(var_value) || var_value == "")	// Proper null or empty string is fine, 0 is not
+			AM.forceMove(var_value)
+		else
+			to_chat(client, SPAN_WARNING("May only assign null or /atom types to loc."))
+	else if(variable == "x" || variable == "y" || variable == "z")
+		if(istext(var_value))
+			var_value = text2num(var_value)
+		if(!is_num_predicate(var_value, client))
+			return
+
+		// We set the default to 1,1,1 when at 0,0,0 (i.e. any non-turf location) to mimic the standard BYOND behaviour when adjusting x,y,z directly
+		var/x = AM.x || 1
+		var/y = AM.y || 1
+		var/z = AM.z || 1
+		switch(variable)
+			if("x")
+				x = var_value
+			if("y")
+				y = var_value
+			if("z")
+				z = var_value
+
+		var/turf/T = locate(x,y,z)
+		if(T)
+			AM.forceMove(T)
+		else
+			to_chat(client, SPAN_WARNING("Unable to locate a turf at [x]-[y]-[z]."))
+
+/decl/vv_set_handler/opacity_hander
+	handled_type = /atom
+	handled_vars = list("opacity" = TYPE_PROC_REF(/atom, set_opacity))
+	predicates = list(GLOBAL_PROC_REF(is_num_predicate))
+
+/decl/vv_set_handler/dir_hander
+	handled_type = /atom
+	handled_vars = list("dir" = TYPE_PROC_REF(/atom, setDir))
+	predicates = list(GLOBAL_PROC_REF(is_dir_predicate))
+
+/decl/vv_set_handler/ghost_appearance_handler
+	handled_type = /mob/observer/ghost
+	handled_vars = list("appearance" = TYPE_PROC_REF(/mob/observer/ghost, set_appearance))
+	predicates = list(GLOBAL_PROC_REF(is_atom_predicate))
+
+/decl/vv_set_handler/virtual_ability_handler
+	handled_type = /mob/observer/virtual
+	handled_vars = list("abilities")
+	predicates = list(GLOBAL_PROC_REF(is_num_predicate))
+
+/decl/vv_set_handler/virtual_ability_handler/handle_set_var(mob/observer/virtual/virtual, variable, var_value, client)
+	..()
+	virtual.update_icon()
+
+/decl/vv_set_handler/mob_see_invisible_handler
+	handled_type = /mob
+	handled_vars = list("see_invisible" = TYPE_PROC_REF(/mob, set_see_invisible))
+	predicates = list(GLOBAL_PROC_REF(is_num_predicate))
+
+/decl/vv_set_handler/mob_sight_handler
+	handled_type = /mob
+	handled_vars = list("sight" = TYPE_PROC_REF(/mob, set_sight))
+	predicates = list(GLOBAL_PROC_REF(is_num_predicate))
+
+/decl/vv_set_handler/mob_see_in_dark_handler
+	handled_type = /mob
+	handled_vars = list("see_in_dark" = TYPE_PROC_REF(/mob, set_see_in_dark))
+	predicates = list(GLOBAL_PROC_REF(is_num_predicate))
+
+/decl/vv_set_handler/mob_stat_handler
+	handled_type = /mob
+	handled_vars = list("set_stat" = TYPE_PROC_REF(/mob, set_stat))
+	predicates = list(GLOBAL_PROC_REF(is_num_predicate))
+
+/decl/vv_set_handler/icon_state_handler
+	handled_type = /atom
+	handled_vars = list("icon_state" = TYPE_PROC_REF(/atom, set_icon_state))
+
+/decl/vv_set_handler/invisibility_handler
+	handled_type = /atom
+	handled_vars = list("invisibility" = TYPE_PROC_REF(/atom, set_invisibility))
+	predicates = list(GLOBAL_PROC_REF(is_num_predicate))
+
+/decl/vv_set_handler/name_handler
+	handled_type = /atom
+	handled_vars = list("name" = TYPE_PROC_REF(/atom, SetName))
+	predicates = list(GLOBAL_PROC_REF(is_text_predicate))
+
+/decl/vv_set_handler/light_handler
+	handled_type = /atom
+	handled_vars = list("light_max_bright","light_inner_range","light_outer_range","light_falloff_curve")
+
+/decl/vv_set_handler/light_handler/handle_set_var(atom/A, variable, var_value, client)
+	var_value = text2num(var_value)
+	if(!is_num_predicate(var_value, client))
+		return
+	// More sanity checks
+
+	var/new_max = variable == "light_max_bright" ? var_value : A.light_max_bright
+	var/new_inner = variable == "light_inner_range" ? var_value : A.light_inner_range
+	var/new_outer = variable == "light_outer_range" ? var_value : A.light_outer_range
+	var/new_falloff = variable == "light_falloff_curve" ? var_value : A.light_falloff_curve
+
+	A.set_light(new_max, new_inner, new_outer, new_falloff)
+
+/decl/vv_set_handler/tgui_window_handler
+	handled_type = /datum/tgui_window
+	handled_vars = list("id")
+
+//You cant change this!
+/decl/vv_set_handler/light_handler/handle_set_var(atom/A, variable, var_value, client)
+	return
+
+/decl/vv_set_handler/holopad_id_handler
+	handled_type = /obj/machinery/hologram/holopad
+	handled_vars = list("holopad_id" = TYPE_PROC_REF(/obj/machinery/hologram/holopad, ChangeID))
+	predicates = list(GLOBAL_PROC_REF(is_text_predicate))
