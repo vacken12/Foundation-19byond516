@@ -55,20 +55,20 @@
 	duties = "Manage the Research department. Coordinate experiments and technological developments."
 
 
-/datum/job/ard
+/*/datum/job/ard
 	title = "Assistant Research Director"
 	department = "Science"
 	department_flag = COM|SCI
 	selection_color = "#ad6bad"
-	total_positions = 1
-	spawn_positions = 1
+	total_positions = 0
+	spawn_positions = 0
 	economic_power = 10
 	requirements = list(EXP_TYPE_SCIENCE = 620)
 	req_admin_notify = 1
 	supervisors = "the Site Director and Research Director"
 	minimal_player_age = 18
 	ideal_character_age = 40
-	spawn_positions = 6
+	spawn_positions = 0
 	outfit_type = /decl/hierarchy/outfit/job/command/aresearchdirector
 	class = CLASS_A
 	hud_icon = "hudassistantscienceofficer"
@@ -108,7 +108,7 @@
 	skill_points = 12
 	roleplay_difficulty = "Easy"
 	mechanical_difficulty = "Easy - Medium"
-
+*/
 /datum/job/seniormentalist
 	title = "Senior Psychotronics Researcher"
 	department = "Science"

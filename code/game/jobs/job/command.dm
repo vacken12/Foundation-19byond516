@@ -292,7 +292,7 @@
 	mechanical_difficulty = "Easy"
 	duties = "Communicate with your respective Group of Interest and maintain diplomatic relations with the Foundation while also pursuing your group's interests."
 
-/datum/job/commeng
+/*/datum/job/commeng
 	title = "Communications Technician"
 	department = "Engineering"
 	selection_color = "#5b4d20"
@@ -345,3 +345,4 @@
 	roleplay_difficulty = "Easy"
 	mechanical_difficulty = "Medium"
 	duties = "Keep communications systems online. Inform the site of on-going threats. Assist the Communications Officer."
+*/

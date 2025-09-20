@@ -58,7 +58,7 @@
 	duties = "Manage the Engineering department. Delegate construction and repair work. Facilitate larger projects."
 	codex_guides = list("<l>Hacking Wires</l>")
 
-/datum/job/achief_engineer
+/*/datum/job/achief_engineer
 	title = "Assistant Engineering Director"
 	department = "Engineering"
 	supervisors = "the Site Director and Engineering Director"
@@ -115,8 +115,8 @@
 	mechanical_difficulty = "Medium - Hard"
 	duties = "Perform constructions and repairs. Manage lower engineers."
 	codex_guides = list("<l>Hacking Wires</l>")
-
-/datum/job/conteng
+*/
+/*/datum/job/conteng
 	title = "Containment Engineer"
 	department = "Engineering"
 	total_positions = 2
@@ -204,7 +204,7 @@
 	mechanical_difficulty = "Medium - Hard"
 	duties = "Perform constructions and repairs on SCP containment chambers."
 	codex_guides = list("<l>Hacking Wires</l>")
-
+*/
 /datum/job/it_tech
 	title = "IT Technician"
 	department = "Engineering"

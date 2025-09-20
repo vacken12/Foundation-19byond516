@@ -756,7 +756,7 @@ GLOBAL_LIST_EMPTY(conversion_cards)
 	desc = "An orange ID. Looks important."
 	icon_state = "sciencelvl4"
 	item_state = "Science_ID4"
-	job_access_type = /datum/job/ard
+//	job_access_type = /datum/job/ard
 
 /obj/item/card/id/sciencelvlp
 	name = "science ID"
@@ -900,7 +900,7 @@ GLOBAL_LIST_EMPTY(conversion_cards)
 /obj/item/card/id/commslvl1
 	name = "administration ID"
 	desc = "A black ID. A black ID. Looks like the person wearing this won't give it up easy."
-	job_access_type = /datum/job/commeng
+//	job_access_type = /datum/job/commeng
 	icon_state = "adminlvl1"
 	item_state = "Admin_ID"
 
@@ -955,8 +955,9 @@ GLOBAL_LIST_EMPTY(conversion_cards)
 	desc = "A purple ID. Seems important."
 	icon_state = "securitylvl4"
 	item_state = "Sec_ID4"
-	job_access_type = /datum/job/acmo
+//  job_access_type = /datum/job/acmo
 	class = CLASS_A
+
 
 /obj/item/card/id/psychiatrist
 	name = "administration ID"
