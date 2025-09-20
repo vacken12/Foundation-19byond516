@@ -9,6 +9,6 @@
 serpyxov - Host
 fgfffffff - HeadAdmin
 sneeek - HeadAdmin
-oer - Host
+oer - Developer
 encrowmer - Developer
 blazeba - Developer
