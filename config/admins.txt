@@ -12,3 +12,5 @@ sneeek - HeadAdmin
 oer - Developer
 encrowmer - Developer
 blazeba - Developer
+nikolaTariZzZ - TrialAdmin
+John_Evans - TrialAdmin
