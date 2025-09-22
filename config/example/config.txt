@@ -4,14 +4,14 @@
 ## Server suffix: This will appear right after server name
 # SERVERSUFFIX Roleplay Server
 
-## Server hub description: This appears on the hub, right below the server name.
-# SERVERDESC Default description of your default server.
+Server hub description: This appears on the hub, right below the server name.
+SERVERDESC Default description of your default server.
 
 ## Game Version: The archetype of the server for topic status requests. Unless significantly deviated, avoid changing this. Default Baystation12
 # GAME_VERSION Baystation12
 
-## Hub visibility: If you want to be visible on the hub, uncomment the below line and be sure that Dream Daemon is set to "Visible." This can be changed in-round as well with toggle-hub-visibility if Dream Daemon is set correctly.
-# HUB_VISIBLE
+Hub visibility: If you want to be visible on the hub, uncomment the below line and be sure that Dream Daemon is set to "Visible." This can be changed in-round as well with toggle-hub-visibility if Dream Daemon is set correctly.
+HUB_VISIBLE
 
 ## Add a # infront of this if you want to use the SQL based admin system, the legacy system uses admins.txt. You need to set up your database to use the SQL based system.
 ADMIN_LEGACY_SYSTEM
