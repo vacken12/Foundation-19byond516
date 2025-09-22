@@ -55,7 +55,7 @@
 	duties = "Manage the Research department. Coordinate experiments and technological developments."
 
 
-/datum/job/ard
+/*/datum/job/ard
 	title = "Assistant Research Director"
 	department = "Science"
 	department_flag = COM|SCI
@@ -107,7 +107,7 @@
 
 	skill_points = 12
 	roleplay_difficulty = "Easy"
-	mechanical_difficulty = "Easy - Medium"
+	mechanical_difficulty = "Easy - Medium"*/
 
 /datum/job/seniormentalist
 	title = "Senior Psychotronics Researcher"

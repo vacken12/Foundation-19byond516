@@ -53,7 +53,7 @@
 	mechanical_difficulty = "Medium - Hard"
 	duties = "Manage the Medical department. Delegate treatment and surgeries. Facilitate responses to emergencies."
 
-/datum/job/acmo
+/*/datum/job/acmo
 	title = "Assistant Medical Director"
 	supervisors = "the Site Director and Medical Director"
 	economic_power = 10
@@ -101,7 +101,7 @@
 	    SKILL_ANATOMY     = SKILL_MASTER,
 	    SKILL_CHEMISTRY   = SKILL_MASTER
 	)
-	skill_points = 26
+	skill_points = 26*/
 
 /datum/job/surgeon
 	title = "Surgeon"
