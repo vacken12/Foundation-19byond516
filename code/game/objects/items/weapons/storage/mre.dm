@@ -13,6 +13,7 @@ MRE Stuff
 	open_sound = 'sounds/effects/rip1.ogg'
 	var/main_meal = /obj/item/storage/mrebag
 	var/meal_desc = "This one is menu 1, meat pizza."
+	var/opened_self = 0
 	startswith = list(
 		/obj/item/storage/mrebag/dessert,
 		/obj/item/storage/fancy/crackers,
@@ -41,7 +42,9 @@ MRE Stuff
 
 /obj/item/storage/mre/open(mob/user)
 	if(!opened)
-		to_chat(usr, SPAN_NOTICE("You tear open the bag, breaking the vacuum seal."))
+		if(opened_self == 0)
+			to_chat(usr, SPAN_NOTICE("You tear open the bag, breaking the vacuum seal."))
+			opened_self = 1
 	. = ..()
 
 /obj/item/storage/mre/menu2
