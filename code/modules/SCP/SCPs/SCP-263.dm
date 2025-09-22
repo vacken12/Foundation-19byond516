@@ -18,19 +18,19 @@
 
 	///Our Questions and answers list
 	var/list/questions_and_answers = list(
-		"What SCP has the consistency of peanut butter?" = list("999","Tickle Monster"),
-		"What SCP can only move when not being looked at?" = list("173","Statue","Peanut"),
-		"What SCP should you never look at?" = list("96","Shy Guy", "151", "painting"),
-		"What SCP is the cure?" = list("49", "Plague Doctor", "500"),
-		"What is the oldest SCP on site?" = list("173", "Statue", "Peanut"),
-		"Where can you find SCP-151?" = list("LCZ", "Light Containment"),
-		"Which SCP can phase through walls?" = list("343", "God", "106", "Old Man"),
-		"What SCP is a fan of the dark?" = list("106", "Old Man", "280", "Eyes"),
-		"What SCP can get really loud?" = list("66", "ball of yarn"),
-		"What SCP can become your friend?" = list("131", "eyepod"),
-		"Where can you find SCP-096?" = list("HCZ", "Heavy containment"),
-		"What SCP can you climb into?" = list("216", "Safe", "1102", "briefcase"),
-		"What SCP is a bat?" = list("2398")
+		"Какой SCP имеет консистенцию арахисового масла??" = list("999","Щекоточный  монстр"),
+		"Какой SCP может двигаться только тогда, когда на него не смотрят?" = list("173","Статуя"),
+		"На какого SCP вы никогда не должны смотреть?" = list("96", "096", "151", "Картина", "Скромник"),
+		"От какого SCP можно избавиться??" = list("49", "049", "Чумной доктор", "500"),
+		"Какой самый старый SCP на объекте?" = list("173", "Статуя"),
+		"Где вы можете найти SCP-151?" = list("ЛЗС", "Легкая Зона Содержания", "Легкая зона содержания", "В Легкой Зоне Содержания", "В легкой зоне содержания"),
+		"Какой SCP может проходить сквозь стены?" = list("343", "Бог", "106", "Старик", "Дед"),
+		"Какой SCP является поклонником тьмы?" = list("106", "Старик", "Дед", "280", "Глаза"),
+		"Какой SCP вечно голоден и ест всё?" = list("682", "Неумирающий", "Ящер", "Древний Ящер"),
+		"Какой SCP может стать вашим другом?" = list("131", "Каплеглазик", "Каплеглазики"),
+		"Где вы можете найти SCP-096?" = list("ТЗС", "Тяжелая Зона Содержания", "Тяжелая Зона", "Тяжелая зона содержания", "В Тяжелой Зоне Содержания", "В тяжелой зоне содержания"),
+		"В какой SCP вы можете забраться?" = list("216", "Сейф", "1102", "Чемодан", "Чемодан-убежище", "Чемодан убежище"),
+		"Какой SCP является битой?" = list("2398")
 	)
 	///Possible rewards (weighted list)
 	var/list/rewards = list(
@@ -111,11 +111,11 @@
 	update_icon()
 	has_cheated = TRUE
 
-	current_scp263_1.say(pick("My my, cheating are we?", "Trying to get outside help?", "Couldent answer fair and square could you?"))
+	current_scp263_1.say(pick("Так-так, жульничаем?", "Пытаемся помочь себе со стороны?", "А честно ответить не судьба?"))
 	contestant.fire_stacks++
 	contestant?.IgniteMob()
 	spawn(10 SECONDS)
-		current_scp263_1.say(pick("Truly the ethics of the modern generation have gone downhill", "Guess [contestant.client.p_their()] ethics werent as good as we thought", "A shame they were so morally bankrupt."))
+		current_scp263_1.say(pick("Что и говорить, мораль нынешнего поколения окончательно разложилась.", "Полагаю,  [contestant.client.p_their()] этика была не так хороша, как я думал.", "Печально, что они оказались совершенно моральными банкротами."))
 		contestant.dust()
 
 		reset_target()
@@ -161,7 +161,7 @@
 	question_count++
 
 	current_question = pick_n_take(questions_and_answers_copy)
-	current_scp263_1.say("[current_question] You have 45 seconds.")
+	current_scp263_1.say("[current_question] У вас есть 45 секунд на ответ.")
 
 	state = STATE_AWAITING_ANSWER
 	update_icon()
@@ -175,15 +175,15 @@
 		deltimer(question_callback_fail)
 
 	if(question_count < 3)
-		current_scp263_1.say(pick("Correct!", "Yes, thats right!", "Well done!", "Nicely done!", "I knew you could do it!", "These questions are no match for you!"))
+		current_scp263_1.say(pick("Верно!", "Правильно!", "Именно так!", "Точно!", "Да, именно так!", "Отличный ответ!", "Прекрасно сделано!", "Я знал, что ты сможешь!", "Тебе эти вопросы по зубам!"))
 		spawn(5 SECONDS)
-			current_scp263_1.say(pick("Now, onto the next one.", "Question number [question_count + 1] is...", "Next question is..."))
+			current_scp263_1.say(pick("Теперь перейдем к следующему вопросу.", "Вопрос номер [question_count + 1]", "Следующий вопрос..."))
 			spawn(5 SECONDS)
 				ask_question()
 	else
 		state = STATE_CASH
 		update_icon()
-		current_scp263_1.say("Congratulations! You have won the cash! Here is your prize!")
+		current_scp263_1.say("Поздравляю! Вы выиграли деньги! Вот ваш приз!")
 		var/reward_path = pickweight(rewards)
 		var/obj/reward = new reward_path(get_turf(contestant))
 		contestant.put_in_active_hand(reward) ? reward.visible_message(SPAN_NOTICE("[reward] materializes right into your hand!")) : reward.visible_message(SPAN_NOTICE("[reward] materializes under you!"))
@@ -196,14 +196,14 @@
 	state = STATE_ASH
 	update_icon()
 	deltimer(question_callback_fail)
-	var/list/message_list = is_timeout ? list("It appears you are out of time!", "Clocks run out!", "No more time remaining!", "Too little too late!") : list("Oooh so close!", "Incorrect!", "Thats wrong!", "Nope!", "Nice try!")
+	var/list/message_list = is_timeout ? list("Кажется, у тебя закончилось время!", "Время истекло!", "Времени не осталось!", "Слишком поздно!") : list("Ооо, почти получилось!", "Неверно!", "Это неправильно!", "Нет!", "Хорошая попытка!")
 	current_scp263_1.say(pick(message_list))
 	contestant.fire_stacks++
 	contestant?.IgniteMob()
 	spawn(10 SECONDS)
 		state = STATE_IDLE
 		update_icon()
-		current_scp263_1.say("[pick("Thats a true pity, I really liked that one.", "A shame, I thought they would fare better.", "Their failure is a real pity.")] Lets hope the next contestant can avoid the ash... and get away with the cash!")
+		current_scp263_1.say("[pick("Очень жаль, мне это очень понравилось.", "Жаль, я думал, что у [M] получится лучше.", "Их неудача - настоящая жалость.")] Посмотрим, удастся ли следующему участнику избежать провала... и сорвать куш!")
 		contestant.dust()
 
 		reset_target()
@@ -227,13 +227,13 @@
 	state = STATE_IDLE
 	update_icon()
 
-	current_scp263_1.say("Welcome to Cash...or...Ash!")
+	current_scp263_1.say("Добро пожаловать в Куш... или... Пуш!")
 	spawn(5 SECONDS)
-		current_scp263_1.say("Congratulations [M] for becoming our latest contestant on Cash or Ash!")
+		current_scp263_1.say("Поздравляем! [M] Тебе выпал шанс стать следующим участником «Куш или Пуш!»")
 	spawn(10 SECONDS)
-		current_scp263_1.say("You must answer three fiendish questions! I wish you luck in getting cash, and not ash!")
+		current_scp263_1.say("Тебе предстоит ответить на три коварных вопроса! Желаю тебе сорвать куш, а не отправиться в пуш!")
 	spawn(15 SECOND)
-		current_scp263_1.say("Question number one!")
+		current_scp263_1.say("Вопрос номер один!")
 	spawn(20 SECOND)
 		add_contestant(M)
 		ask_question()
