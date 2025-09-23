@@ -47,26 +47,32 @@
 	if(!istype(recipient))
 		return
 
-	var/list/output = list() + "<meta http-equiv='X-UA-Compatible' content='IE=edge' charset='UTF-8'/>"
+
+	var/list/output = list() + "<html><head><title>"
 	var/last_owner_name
 	// We pretend that memories are stored in some semblance of an order
 	for(var/mem in memories)
 		var/datum/memory/M = mem
 		var/owner_name = M.OwnerName()
 		if(owner_name != last_owner_name && current)
-			output += "<B>[current.real_name]'s Memories</B><HR>"
+			output += "[current.real_name]'s Memories</title></head><body>"
 			last_owner_name = owner_name
-		output += "[M.memory] <a href='byond://?src=\ref[src];remove_memory=\ref[M]'>\[Remove\]</a>"
-
+		output += "[M.memory]<br>"
+	
 	if(objectives.len > 0)
 		output += "<HR><B>Objectives:</B>"
 
 		var/obj_count = 1
 		for(var/datum/objective/objective in objectives)
-			output += "<B>Objective #[obj_count]</B>: [objective.explanation_text]"
+			output += "<B>Objective #[obj_count]</B>: [objective.explanation_text]<br>"
 			obj_count++
 
-	show_browser(recipient, replacetext(jointext(output, "<BR>"),"\n","<BR>"),"window=memory")
+	var/datum/browser/popup = new(recipient, "memory_window", "Memory", 500, 400)
+	popup.set_content(jointext(output, ""))
+	popup.open()
+
+
+	//show_browser(recipient, replacetext(jointext(output, "<BR>"),"\n","<BR>"),"window=memory")
 
 /***********
 * Memories *
