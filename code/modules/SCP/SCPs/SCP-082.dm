@@ -72,7 +72,7 @@
 	)
 
 	SCP.min_time = 10 MINUTES
-	SCP.min_playercount = 16
+	SCP.min_playercount = 10
 	SCP.regular_examine = TRUE
 
 	ADD_TRAIT(src, TRAIT_FATFINGERS, ROUNDSTART_TRAIT)
