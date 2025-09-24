@@ -89,7 +89,7 @@
 		SCP_PLAYABLE
 	)
 
-	SCP.min_playercount = 30
+	SCP.min_playercount = 15
 
 	defecation_cooldown = world.time + 10 MINUTES // Give everyone some time to prepare
 	spawn_area = get_area(src)
