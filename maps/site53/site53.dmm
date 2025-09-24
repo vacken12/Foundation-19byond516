@@ -12454,6 +12454,9 @@
 /obj/structure/sign/bluecross_1{
 	pixel_x = 32
 	},
+/obj/machinery/light{
+	dir = 4
+	},
 /turf/simulated/floor/tiled/white/monotile,
 /area/site53/llcz/dclass/medicalpost)
 "cDJ" = (
@@ -24615,7 +24618,7 @@
 /obj/item/device/flash,
 /obj/item/reagent_containers/spray/pepper,
 /obj/item/reagent_containers/spray/pepper,
-/obj/random/closet,
+/obj/structure/closet,
 /turf/simulated/floor/tiled/white/monotile,
 /area/site53/llcz/dclass/primaryhallway)
 "fcI" = (
@@ -33563,7 +33566,7 @@
 /obj/effect/floor_decal/corner/yellow{
 	dir = 6
 	},
-/obj/random/closet,
+/obj/structure/closet,
 /turf/simulated/floor/tiled/white/monotile,
 /area/site53/llcz/dclass/primaryhallway)
 "gTr" = (
@@ -116691,6 +116694,7 @@
 /obj/effect/floor_decal/corner/blue/border{
 	dir = 10
 	},
+/obj/machinery/light,
 /turf/simulated/floor/tiled/white/monotile,
 /area/site53/llcz/dclass/medicalpost)
 "yan" = (
@@ -127847,7 +127851,7 @@ iuK
 wlM
 wlM
 wlM
-wlM
+iuK
 tRh
 wlM
 wlM
