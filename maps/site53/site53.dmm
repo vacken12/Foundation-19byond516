@@ -3174,6 +3174,19 @@
 /obj/item/storage/box/botanydisk,
 /turf/simulated/floor/tiled/techmaint,
 /area/site53/lowertrams/restaurantkitchenarea)
+"aII" = (
+/obj/effect/floor_decal/corner/yellow{
+	dir = 6
+	},
+/obj/machinery/power/apc{
+	dir = 4
+	},
+/obj/structure/cable/green{
+	d2 = 8;
+	icon_state = "0-8"
+	},
+/turf/simulated/floor/tiled/white/monotile,
+/area/site53/llcz/dclass/primaryhallway)
 "aIP" = (
 /obj/effect/floor_decal/corner/orange/border{
 	dir = 6
@@ -3657,12 +3670,14 @@
 /turf/simulated/floor/carpet/blue3,
 /area/site53/uez/commandpanicbunker)
 "aOa" = (
+/obj/machinery/door/airlock,
 /obj/structure/cable/green{
-	d2 = 8;
-	icon_state = "0-8"
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/tiled/white/monotile,
-/area/site53/llcz/dclass/primaryhallway)
+/area/site53/llcz/dclass/shower)
 "aOb" = (
 /obj/effect/floor_decal/corner/yellow/border{
 	dir = 8
@@ -9191,6 +9206,20 @@
 	},
 /turf/simulated/floor/tiled/techfloor/grid,
 /area/site53/ulcz/maintenance)
+"bUG" = (
+/obj/machinery/power/apc{
+	dir = 1;
+	pixel_y = 18
+	},
+/obj/effect/floor_decal/corner/blue/border{
+	dir = 1
+	},
+/obj/structure/cable/green{
+	d2 = 2;
+	icon_state = "0-2"
+	},
+/turf/simulated/floor/tiled/white/monotile,
+/area/site53/llcz/dclass/medicalpost)
 "bUI" = (
 /obj/structure/table/reinforced,
 /obj/item/modular_computer/laptop/preset/custom_loadout/advanced,
@@ -11462,6 +11491,15 @@
 	},
 /turf/simulated/floor/wood/walnut,
 /area/site53/surface/surface/east)
+"ctr" = (
+/obj/effect/floor_decal/corner/grey/diagonal,
+/obj/structure/cable/green{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/tiled/white/monotile,
+/area/site53/llcz/dclass/shower)
 "ctt" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -19343,6 +19381,20 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/tiled/techfloor/grid,
 /area/site53/maintenance/surfacewest)
+"dWX" = (
+/obj/effect/floor_decal/corner/grey/diagonal,
+/obj/structure/cable/green{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/structure/cable/green{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
+/turf/simulated/floor/tiled/white/monotile,
+/area/site53/llcz/dclass/shower)
 "dWZ" = (
 /obj/structure/window/phoronreinforced{
 	dir = 8
@@ -25904,6 +25956,9 @@
 /obj/effect/floor_decal/spline/fancy/black{
 	dir = 8
 	},
+/obj/machinery/power/apc{
+	dir = 1
+	},
 /turf/simulated/floor/tiled/white/small,
 /area/site53/llcz/dclass/medicalpost/morgue)
 "frw" = (
@@ -30161,6 +30216,9 @@
 	name = "north bump";
 	pixel_y = 24
 	},
+/obj/machinery/power/apc{
+	dir = 1
+	},
 /turf/simulated/floor/tiled/white/monotile,
 /area/site53/llcz/dclass/medicalpost/storage)
 "giI" = (
@@ -34303,6 +34361,15 @@
 	},
 /turf/simulated/floor/tiled/monotile,
 /area/site53/uez/bridge)
+"gZU" = (
+/obj/machinery/door/airlock,
+/obj/structure/cable/green{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/tiled/white/monotile,
+/area/site53/llcz/dclass/primaryhallway)
 "gZV" = (
 /obj/effect/landmark{
 	name = "scp999"
@@ -34651,7 +34718,6 @@
 /turf/simulated/floor/tiled/dark/small,
 /area/site53/uhcz/scp106maintup)
 "hdc" = (
-/obj/structure/ladder/up,
 /obj/effect/floor_decal/industrial/hatch/red,
 /turf/simulated/floor/tiled/dark/monotile,
 /area/site53/llcz/dclass/primaryhallway)
@@ -41499,6 +41565,20 @@
 	},
 /turf/simulated/floor/tiled/dark/horizontal,
 /area/site53/uez/equipmentroom)
+"iBP" = (
+/obj/effect/floor_decal/corner/grey/diagonal,
+/obj/structure/cable/green{
+	d2 = 8;
+	icon_state = "0-8"
+	},
+/obj/machinery/power/apc{
+	dir = 4;
+	name = "east bump";
+	pixel_x = 24;
+	req_access = list("ACCESS_SECURITY_LEVEL1")
+	},
+/turf/simulated/floor/tiled/white/monotile,
+/area/site53/llcz/dclass/shower)
 "iBR" = (
 /turf/simulated/floor/carpet/green,
 /area/site53/uez/repoffice/ethics)
@@ -51037,6 +51117,12 @@
 	name = "east bump";
 	pixel_x = 24
 	},
+/obj/machinery/power/apc{
+	dir = 4;
+	name = "east bump";
+	pixel_x = 24;
+	req_access = list("ACCESS_SECURITY_LEVEL1")
+	},
 /turf/simulated/floor/tiled/white/monotile,
 /area/site53/llcz/dclass/medicalpost/surgery)
 "kxg" = (
@@ -55638,6 +55724,19 @@
 	},
 /turf/simulated/floor/wood/walnut,
 /area/site53/lowertrams/restaurantkitchenarea)
+"ltx" = (
+/obj/structure/cable/green{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/structure/cable/green{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
+/turf/simulated/floor/tiled/white/monotile,
+/area/site53/llcz/dclass/primaryhallway)
 "ltF" = (
 /obj/effect/floor_decal/corner/blue/mono,
 /turf/simulated/floor/tiled/dark/monotile,
@@ -74613,6 +74712,19 @@
 	},
 /turf/simulated/floor/tiled/monotile,
 /area/site53/llcz/mining/miningops)
+"pwr" = (
+/obj/effect/floor_decal/corner/grey/diagonal,
+/obj/structure/cable/green{
+	d2 = 4;
+	icon_state = "0-4"
+	},
+/obj/machinery/power/apc{
+	dir = 8;
+	name = "west bump";
+	pixel_x = -24
+	},
+/turf/simulated/floor/tiled/white/monotile,
+/area/site53/llcz/dclass/shower)
 "pwv" = (
 /obj/structure/cable/green{
 	d1 = 1;
@@ -76986,6 +77098,17 @@
 /obj/structure/table/steel_reinforced,
 /turf/simulated/floor/carpet/blue2,
 /area/site53/uhcz/commanderoffice)
+"pVp" = (
+/obj/effect/floor_decal/corner/paleblue/border{
+	dir = 6
+	},
+/obj/structure/cable/green,
+/obj/machinery/power/apc{
+	name = "south bump";
+	pixel_y = -24
+	},
+/turf/simulated/floor/tiled/white/monotile,
+/area/site53/llcz/dclass/primaryhallway)
 "pVw" = (
 /obj/structure/cable/green{
 	d1 = 2;
@@ -85085,13 +85208,6 @@
 "rzN" = (
 /turf/unsimulated/mask,
 /area/site53/upper_surface/entrancehallway2)
-"rzO" = (
-/obj/effect/paint_stripe/orange,
-/obj/machinery/power/apc/hyper{
-	dir = 1
-	},
-/turf/simulated/wall/r_titanium,
-/area/site53/llcz/dclass/primaryhallway)
 "rzV" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -89285,6 +89401,15 @@
 	},
 /turf/simulated/floor/tiled/white/monotile,
 /area/site53/ulcz/office)
+"sri" = (
+/obj/effect/floor_decal/corner/grey/diagonal,
+/obj/structure/cable/green{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/tiled/white/monotile,
+/area/site53/llcz/dclass/shower)
 "srn" = (
 /obj/effect/floor_decal/corner/yellow{
 	dir = 5
@@ -101822,6 +101947,15 @@
 	},
 /turf/simulated/floor/plating,
 /area/site53/uez/hallway)
+"uTS" = (
+/obj/effect/floor_decal/corner/grey/diagonal,
+/obj/structure/cable/green{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
+/turf/simulated/floor/tiled/white/monotile,
+/area/site53/llcz/dclass/shower)
 "uTT" = (
 /obj/machinery/light{
 	dir = 4
@@ -104373,6 +104507,13 @@
 /obj/effect/floor_decal/corner/euclid/border,
 /turf/simulated/floor/tiled/white/horizontal,
 /area/site53/lhcz/scp049containment)
+"vwq" = (
+/obj/effect/paint_stripe/orange,
+/obj/machinery/power/apc/hyper{
+	dir = 1
+	},
+/turf/simulated/wall/r_titanium,
+/area/site53/llcz/dclass/primaryhallway)
 "vwI" = (
 /turf/simulated/floor/exoplanet/barren,
 /area/site53/uhcz/scp247containment)
@@ -109228,6 +109369,15 @@
 	},
 /turf/simulated/floor/tiled/dark/monotile,
 /area/vacant/prototype/engine)
+"wAz" = (
+/obj/effect/floor_decal/corner/blue/bordercorner,
+/obj/structure/cable/green{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/tiled/white/monotile,
+/area/site53/llcz/dclass/primaryhallway)
 "wAB" = (
 /obj/structure/bed/chair/armchair/brown{
 	dir = 8
@@ -109284,6 +109434,19 @@
 	},
 /turf/simulated/floor/plating,
 /area/vacant/prototype/engine)
+"wBe" = (
+/obj/structure/cable/green{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/structure/cable/green{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
+/turf/simulated/floor/tiled/white/monotile,
+/area/site53/llcz/dclass/medicalpost)
 "wBm" = (
 /obj/structure/curtain/open/bed,
 /turf/simulated/floor/lino,
@@ -109894,6 +110057,17 @@
 	},
 /turf/simulated/floor/tiled/white/monotile,
 /area/site53/llcz/entrance_checkpoint)
+"wGP" = (
+/obj/effect/floor_decal/corner/paleblue/border{
+	dir = 1
+	},
+/obj/structure/cable/green{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/tiled/white/monotile,
+/area/site53/llcz/dclass/primaryhallway)
 "wHa" = (
 /obj/effect/floor_decal/corner/red/border{
 	dir = 1
@@ -128455,10 +128629,10 @@ wna
 sut
 dvf
 jdJ
-rzO
-xsE
-ahV
-imc
+vwq
+bUG
+xmJ
+wBe
 ahV
 axB
 eDu
@@ -192422,7 +192596,7 @@ elm
 qHs
 kQQ
 mNh
-jVL
+hzi
 fOB
 kas
 iwK
@@ -192679,7 +192853,7 @@ elm
 elm
 rkA
 fNz
-elm
+bWJ
 eHt
 xhm
 lWy
@@ -192934,9 +193108,9 @@ elm
 elm
 elm
 elm
-elm
-elm
-elm
+rYN
+jVL
+nKH
 eHt
 tAI
 moE
@@ -193191,7 +193365,7 @@ ueL
 bEq
 jrd
 gTl
-rQZ
+aII
 rQZ
 oCc
 tjr
@@ -193702,7 +193876,7 @@ mpg
 rTt
 sWX
 ubj
-dlS
+pwr
 hSN
 rTt
 pCS
@@ -193959,7 +194133,7 @@ mpg
 kmg
 ihq
 dlS
-dlS
+ctr
 dlS
 xRt
 dlS
@@ -194216,21 +194390,21 @@ mpg
 rTt
 tQl
 dlS
-dlS
-dlS
-xRt
-dlS
-dlS
-dlS
-dlS
-rWt
-gqp
-elm
-elm
-elm
-elm
-elm
-bWJ
+uTS
+sri
+aOa
+sri
+sri
+sri
+dWX
+gZU
+wGP
+jVL
+jVL
+jVL
+jVL
+jVL
+ltx
 elm
 dvq
 sNV
@@ -194479,7 +194653,7 @@ rTt
 lTX
 lTX
 lTX
-dlS
+iBP
 rWt
 gqp
 elm
@@ -194744,7 +194918,7 @@ elm
 fez
 xfx
 elm
-aOa
+bWJ
 elm
 hUJ
 sNV
@@ -195001,7 +195175,7 @@ elm
 jYP
 tXT
 elm
-elm
+bWJ
 elm
 hUJ
 sNV
@@ -195258,7 +195432,7 @@ elm
 elm
 elm
 elm
-elm
+bWJ
 elm
 hUJ
 sNV
@@ -195515,9 +195689,9 @@ elm
 elm
 elm
 elm
-elm
-usC
-mab
+nid
+wAz
+pVp
 sNV
 sNV
 sNV
