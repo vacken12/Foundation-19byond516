@@ -224,6 +224,9 @@
 /obj/scp263/attack_hand(mob/living/carbon/human/M)
 	if(!istype(M) || M.a_intent != I_HELP || !is_alive())
 		return ..()
+	if(state == STATE_IDLE)
+		to_chat(M, SPAN_WARNING("Have you already turned on old telivision."))
+		return
 	state = STATE_IDLE
 	update_icon()
 
