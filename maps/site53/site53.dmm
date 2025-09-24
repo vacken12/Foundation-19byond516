@@ -34601,6 +34601,17 @@
 /obj/effect/floor_decal/industrial/outline/yellow,
 /turf/simulated/floor/tiled/techfloor,
 /area/site53/science/aicobservation)
+"hcj" = (
+/obj/effect/floor_decal/corner/red/border{
+	dir = 1
+	},
+/obj/structure/cable/green{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/tiled/white/monotile,
+/area/site53/llcz/dclass/primaryhallway)
 "hcA" = (
 /obj/machinery/atmospherics/pipe/simple/visible/green{
 	dir = 4
@@ -54471,6 +54482,19 @@
 /obj/effect/floor_decal/corner/black/mono,
 /turf/simulated/floor/tiled/white/monotile,
 /area/site53/llcz/dclass/medicalpost/morgue)
+"lfU" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/effect/floor_decal/corner/orange/border{
+	dir = 4
+	},
+/obj/structure/cable/green{
+	d2 = 8;
+	icon_state = "0-8"
+	},
+/turf/simulated/floor/tiled/white/monotile,
+/area/site53/llcz/dclass/primaryhallway)
 "lfW" = (
 /obj/item/ammo_magazine/box/a45,
 /obj/item/ammo_magazine/box/a45,
@@ -64011,6 +64035,15 @@
 	},
 /turf/simulated/floor/tiled/dark/small,
 /area/site53/entrancezone/hallway)
+"nfQ" = (
+/obj/machinery/power/apc{
+	dir = 1;
+	name = "north bump";
+	pixel_y = 24;
+	req_access = list("ACCESS_SCIENCE_LEVEL1")
+	},
+/turf/simulated/floor/tiled/dark/monotile,
+/area/site53/llcz/dclass/primaryhallway)
 "ngv" = (
 /obj/effect/floor_decal/corner/red/border{
 	dir = 8
@@ -66417,6 +66450,19 @@
 /obj/effect/paint_stripe/red,
 /turf/simulated/wall/r_titanium,
 /area/site53/lhcz/scp1102room)
+"nHn" = (
+/obj/structure/cable/green{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/structure/cable/green{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
+/turf/simulated/floor/tiled/white/monotile,
+/area/site53/llcz/dclass/primaryhallway)
 "nHo" = (
 /obj/structure/bed/chair/office/comfy/red{
 	dir = 4
@@ -101766,7 +101812,15 @@
 /turf/simulated/floor/plating,
 /area/site53/uez/hallway)
 "uTT" = (
-/turf/simulated/wall/r_titanium,
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/structure/cable/green{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/tiled/white/monotile,
 /area/site53/llcz/dclass/primaryhallway)
 "uUe" = (
 /obj/machinery/door/airlock/glass/civilian{
@@ -102679,6 +102733,11 @@
 	},
 /turf/simulated/floor/tiled/monotile,
 /area/site53/engineering/janitorial)
+"vdL" = (
+/obj/machinery/light,
+/obj/structure/cable/green,
+/turf/simulated/floor/tiled/white/monotile,
+/area/site53/llcz/dclass/primaryhallway)
 "vdN" = (
 /turf/simulated/floor/tiled/dark/corner{
 	dir = 4
@@ -104602,6 +104661,20 @@
 /obj/effect/paint_stripe/paleblue,
 /turf/simulated/wall/r_titanium,
 /area/site53/medical/equipstorage)
+"vAW" = (
+/obj/structure/cable/green{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/effect/floor_decal/industrial/fire,
+/obj/structure/cable/green{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
+/turf/simulated/floor/tiled/dark/monotile,
+/area/site53/llcz/dclass/primaryhallway)
 "vBd" = (
 /obj/structure/table/standard,
 /obj/item/storage/box/beakers,
@@ -120627,15 +120700,15 @@ uZw
 rXH
 eHI
 elm
-elm
-elm
-pMk
-pMk
-elm
-elm
-elm
-elm
-elm
+rYN
+jVL
+uTT
+uTT
+jVL
+jVL
+jVL
+jVL
+mwP
 elm
 lSN
 iyf
@@ -120881,18 +120954,18 @@ jBZ
 leK
 kLf
 uZw
-rXH
-eHI
-elm
-elm
-bfa
+vAW
+hcj
+jVL
+nHn
+vdL
 sNV
 sNV
 atp
 elm
 elm
 elm
-elm
+bWJ
 elm
 teK
 ljd
@@ -121144,12 +121217,12 @@ elm
 elm
 bfa
 sNV
-uTT
+sNV
 atp
 elm
 elm
 elm
-elm
+bWJ
 elm
 teK
 ljd
@@ -121406,7 +121479,7 @@ elm
 elm
 elm
 lSN
-sMf
+lfU
 sMf
 bBV
 gMQ
@@ -121651,7 +121724,7 @@ leK
 elm
 fnk
 sNV
-leK
+nfQ
 rXH
 dTW
 elm
