@@ -13,7 +13,7 @@
 	..()
 	if(prob(15))
 		var/path = pick( /obj/item/wrench, /obj/item/screwdriver)
-		H.equip_to_slot_or_store_or_drop(new path (H), slot_l_store)
+		H.equip_to_slot_or_store_or_drop(new path (H), slot_r_store)
 
 /decl/hierarchy/outfit/job/civ/classd/high
 	name = OUTFIT_JOB_NAME("High-Security Class D")

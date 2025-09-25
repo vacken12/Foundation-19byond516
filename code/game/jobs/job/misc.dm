@@ -24,7 +24,7 @@
 
 /datum/job/classd/equip(mob/living/carbon/human/H)
 	H.fully_replace_character_name(random_name(H.gender, H.species.name))
-	spawn(1)
+	spawn(0.1)
 		if(H.back)
 			del(H.back)
 	. = ..()
