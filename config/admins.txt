@@ -14,3 +14,4 @@ encrowmer - Developer
 blazeba - Developer
 nikolatarizzz - TrialAdmin
 john_evans - TrialAdmin
+rinoglaz - Developer
