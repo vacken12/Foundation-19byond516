@@ -49,6 +49,7 @@
 		"You hear an ominous click.")
 		w_class = ITEM_SIZE_NORMAL
 		force = 15//quite robust
+		var/agonyforce = 35
 		attack_verb = list("smacked", "struck", "slapped")
 	else
 		user.visible_message(SPAN_NOTICE("\The [user] collapses their telescopic baton."),\
