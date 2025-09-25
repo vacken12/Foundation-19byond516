@@ -172,6 +172,7 @@
 		/obj/item/clothing/head/helmet/scp/security,
 		/obj/item/clothing/head/beret/sec/guard,
 		/obj/item/ammo_magazine/scp/mk9 = 3,
+		/obj/item/melee/telebaton,
 	)
 
 // LCZ - Sergeant
@@ -198,6 +199,7 @@
 		/obj/item/clothing/head/helmet/scp/security,
 		/obj/item/clothing/head/beret/sec/sergeant,
 		/obj/item/ammo_magazine/scp/mk9 = 3,
+		/obj/item/melee/telebaton
 	)
 
 // HCZ - Cadet
