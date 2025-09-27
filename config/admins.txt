@@ -13,5 +13,5 @@ oer - Developer
 encrowmer - Developer
 blazeba - Developer
 nikolatarizzz - TrialAdmin
-john_evans - TrialAdmin
+johnevans - TrialAdmin
 rinoglaz - Developer
