@@ -102,7 +102,7 @@
 						CHECK_TICK
 
 				if("select")
-					var/text = ""
+					var/text = "<meta charset='utf-8'>"
 					for(var/datum/t in objs)
 						text += "[ADMIN_VV(t)]"
 						if(istype(t, /atom))

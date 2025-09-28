@@ -120,7 +120,7 @@ var/jobban_keylist[0]		//to store the keys & ranks
 		return
 
 	var/dat = ""
-	var/header = "<head><title>Job-Ban Panel: [M.name]</title></head>"
+	var/header = "<head><meta charset='utf-8'><title>Job-Ban Panel: [M.name]</title></head>"
 	var/body
 	var/jobs = ""
 
