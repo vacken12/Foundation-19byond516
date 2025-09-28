@@ -48,7 +48,7 @@
 		return
 
 
-	var/list/output = list() + "<html><head><title>"
+	var/list/output = list() + "<html><head><meta charset='utf-8'><title>"
 	var/last_owner_name
 	// We pretend that memories are stored in some semblance of an order
 	for(var/mem in memories)
@@ -58,7 +58,7 @@
 			output += "[current.real_name]'s Memories</title></head><body>"
 			last_owner_name = owner_name
 		output += "[M.memory]<br>"
-	
+
 	if(objectives.len > 0)
 		output += "<HR><B>Objectives:</B>"
 
