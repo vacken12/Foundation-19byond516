@@ -368,7 +368,7 @@
 	set category = "IC"
 
 	var/list/HTML = list()
-	HTML += "<body>"
+	HTML += "<meta charset='utf-8'><body>"
 	HTML += "<tt><center>"
 	HTML += "<b>Update Flavour Text</b> <hr />"
 	HTML += "<br></center>"
