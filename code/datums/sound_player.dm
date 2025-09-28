@@ -118,12 +118,55 @@ GLOBAL_DATUM_INIT(sound_player, /decl/sound_player, new)
 	RegisterSignal(source, COMSIG_PARENT_QDELETING, TYPE_PROC_REF(/datum, qdel_self))
 
 	if(ismovable(source))
+		if(istype(source, /obj/item))
+			RegisterSignal(source, COMSIG_ITEM_EQUIPPED, TYPE_PROC_REF(/datum/sound_token, on_item_picked_up))
+			RegisterSignal(source, COMSIG_DROPPED_ITEM, TYPE_PROC_REF(/datum/sound_token, on_item_dropped))
+			check_initial_holding_status(source)
 		proxy_listener = new(source, TYPE_PROC_REF(/datum/sound_token, PrivAddListener), TYPE_PROC_REF(/datum/sound_token, PrivLocateListeners), range, proc_owner = src)
 		proxy_listener.register_turfs()
+
+//Если предмет экипирован, то пересоздаём proxy_listener с объектом будет моб держащий объект
+/datum/sound_token/proc/check_initial_holding_status(atom/source)
+	if(ismob(source.loc))
+		QDEL_NULL(proxy_listener)
+
+		proxy_listener = new /datum/proximity_trigger/square(
+			source.loc,
+			TYPE_PROC_REF(/datum/sound_token, PrivAddListener),
+			TYPE_PROC_REF(/datum/sound_token, PrivLocateListeners), 
+			range, 
+			proc_owner = src
+		)
+		proxy_listener.register_turfs()
+
+//Предмет экипирован, объект для proxy_listener теперь моб держащий объект
+/datum/sound_token/proc/on_item_picked_up(mob/user)
+	QDEL_NULL(proxy_listener)
+	proxy_listener = new /datum/proximity_trigger/square(
+		source.loc,
+		TYPE_PROC_REF(/datum/sound_token, PrivAddListener),
+		TYPE_PROC_REF(/datum/sound_token, PrivLocateListeners), 
+		range, 
+		proc_owner = src
+	)
+	proxy_listener.register_turfs()
+
+//Предмет выкинут, объект для proxy_listener теперь сам объект
+/datum/sound_token/proc/on_item_dropped(mob/user)
+	QDEL_NULL(proxy_listener)
+	proxy_listener = new /datum/proximity_trigger/square(
+		source, 
+		TYPE_PROC_REF(/datum/sound_token, PrivAddListener),
+		TYPE_PROC_REF(/datum/sound_token, PrivLocateListeners), 
+		range, 
+		proc_owner = src
+	)
+	proxy_listener.register_turfs()
 
 /datum/sound_token/Destroy()
 	Stop()
 	. = ..()
+	UnregisterSignal(source, list(COMSIG_ITEM_EQUIPPED, COMSIG_DROPPED_ITEM))
 
 /datum/sound_token/proc/SetVolume(new_volume)
 	new_volume = Clamp(new_volume, 0, 100)
