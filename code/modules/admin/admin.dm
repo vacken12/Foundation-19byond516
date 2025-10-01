@@ -1120,7 +1120,7 @@ var/global/floorIsLava = 0
 		return "<b>(*not a mob*)</b>"
 	switch(detail)
 		if(0)
-			return key_name_admin(M)
+			return key_name_admin(M, name)
 
 		if(1)	//Private Messages
 			return "[ADMIN_LOOKUP(M)]"
@@ -1129,7 +1129,7 @@ var/global/floorIsLava = 0
 			return ADMIN_FULLMONTY(M)
 
 		if(3)	//Devs
-			return "[key_name_admin(M)][ADMIN_VV(M)][ADMIN_JMP(M)]"
+			return "[key_name_admin(M, name)][ADMIN_VV(M)][ADMIN_JMP(M)]"
 
 /proc/ishost(client/C)
 	return check_rights(R_HOST, 0, C)
