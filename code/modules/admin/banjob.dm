@@ -427,7 +427,13 @@ WARNING!*/
 	jobs += "</tr></table>"
 
 	// Finalize and display.
+	var/datum/browser/popup = new(M, "jobban2", 800, 400)
+
+
+
 	body = "<body>[jobs]</body>"
 	dat = "<tt>[header][body]</tt>"
-	show_browser(usr, dat, "window=jobban2;size=800x490")
+	popup.set_content(dat)
+	popup.open()	
+	//show_browser(usr, dat, "window=jobban2;size=800x490")
 	return
