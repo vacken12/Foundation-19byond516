@@ -450,7 +450,7 @@
 		if(P.isfancy)
 			isfancy = TRUE
 		sanitize()
-		var/t = tgui_input_text(usr, "Enter what you want to write:", "Write", null, free_space, TRUE, trim = FALSE)
+		var/t = stripped_multiline_input(usr, "Enter what you want to write", "Write", null, 5000)//tgui_input_text(usr, "Enter what you want to write:", "Write", null, free_space, TRUE, trim = FALSE)
 		if(!t)
 			return
 
