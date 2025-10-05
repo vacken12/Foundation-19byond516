@@ -8,8 +8,6 @@
 /datum/computer_file/program/proc/event_powerfailure(background)
 
 // Called when the network connectivity fails. Computer does necessary checks and only calls this when requires_ntnet_feature and similar variables are not met.
-
-/* Временно убрал проверку из-за спама в чате
 /datum/computer_file/program/proc/event_networkfailure(background)
 	if(!computer)
 		return
@@ -19,4 +17,3 @@
 	else
 		computer.visible_message(SPAN_WARNING("\The [computer]'s screen briefly freezes and then shows: \"FATAL NETWORK ERROR - internet connection lost. Please try again later. If problem persists, please contact your system administrator.\""), range = 1)
 		computer.update_icon()
-*/
