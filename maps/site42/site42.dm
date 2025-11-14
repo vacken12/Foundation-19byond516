@@ -1,11 +1,12 @@
 #if !defined(using_map_DATUM)
 
-	#include "site53areas.dm"
-	#include "site53elevators.dm"
-	#include "site53_presets.dm"
-	#include "site53shuttles.dm"
-	#include "site53_announcements.dm"
-/*
+	#include "site42_announcements.dm"
+	#include "site42areas.dm"
+	//#include "site42elevators.dm"
+	#include "site42_presets.dm"
+	//#include "site42shuttles.dm"
+
+
 	#include "items/encryption_keys.dm"
 	#include "items/headsets.dm"
 	#include "items/items.dm"
@@ -32,17 +33,18 @@
 	#include "structures/closets/security.dm"
 	#include "structures/closets/services.dm"
 	#include "structures/closets/supply.dm"
-	#include "site53.dmm"
-	#include "z1_admin.dmm"
-	#include "z2_transit.dmm"
-	#include "away_mission-1.dmm"
+
+
+	#include "site42.dmm"
+
+	//#include "z42_admin.dmm"
+	//#include "z42_transit.dmm"
+	//#include "away_mission-1.dmm"
 
 	#define using_map_DATUM /datum/map/site53
-*/
-
 
 #elif !defined(MAP_OVERRIDE)
 
-	#warn A map has already been included, ignoring Site 53
+	#warn A map has already been included, ignoring Site 42
 
 #endif
