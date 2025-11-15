@@ -221,3 +221,55 @@
 	icon_state = "medbay4"
 	ambience = list('sounds/ambience/signal.ogg')
 	area_flags = AREA_FLAG_RAD_SHIELDED
+
+
+// SITE 42 HCZ
+
+/area/site42/hcz/hallways
+	name = "\improper HCZ Hallways"
+	icon_state = "fpmaint"
+	area_flags = AREA_FLAG_RAD_SHIELDED
+
+// Sci
+
+/area/site42/hcz/scp106containment
+	name = "\improper SCP-106 Containment Chamber"
+	icon_state = "research"
+	area_flags = AREA_FLAG_RAD_SHIELDED
+
+/area/site42/hcz/scp049containment
+	name = "\improper SCP-049 Containment Chamber"
+	icon_state = "research"
+	area_flags = AREA_FLAG_RAD_SHIELDED
+	ambience = list('sounds/ambience/hcz/049/Room049.ogg')
+
+/area/site42/hcz/scp280containment
+	name = "\improper SCP-280 Containment Chamber"
+	icon_state = "research"
+	area_flags = AREA_FLAG_RAD_SHIELDED
+
+/area/site42/hcz/scp096containment
+	name = "\improper SCP-096 Containment Chamber"
+	icon_state = "research"
+	area_flags = AREA_FLAG_RAD_SHIELDED
+
+/area/site42/hcz/scp8containment
+	name = "\improper SCP-008 Containment Chamber"
+	icon_state = "research"
+	area_flags = AREA_FLAG_RAD_SHIELDED
+
+/area/site42/hcz/scp457containment
+	name = "\improper SCP-457 Containment Chamber"
+	icon_state = "research"
+	area_flags = AREA_FLAG_RAD_SHIELDED
+
+/area/site42/hcz/scp2427containment
+	name = "\improper SCP-2427-3 Containment Chamber"
+	icon_state = "research"
+	area_flags = AREA_FLAG_RAD_SHIELDED
+
+/area/site42/hcz/scp343containment
+	name = "\improper SCP-343 Containment Chamber"
+	icon_state = "research"
+	area_flags = AREA_FLAG_RAD_SHIELDED
+
