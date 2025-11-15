@@ -11,7 +11,7 @@ Server hub description: This appears on the hub, right below the server name.
 # GAME_VERSION Baystation12
 
 Hub visibility: If you want to be visible on the hub, uncomment the below line and be sure that Dream Daemon is set to "Visible." This can be changed in-round as well with toggle-hub-visibility if Dream Daemon is set correctly.
-#HUB_VISIBLE
+HUB_VISIBLE
 
 ## Add a # infront of this if you want to use the SQL based admin system, the legacy system uses admins.txt. You need to set up your database to use the SQL based system.
 ADMIN_LEGACY_SYSTEM
@@ -89,7 +89,7 @@ LOG_ATTACK
 # LOG_HREFS
 
 ## log world.log and runtime errors to a file
-LOG_RUNTIME
+#LOG_RUNTIME
 
 ## log sql queries
 # LOG_SQL
@@ -124,7 +124,7 @@ PROBABILITY CULT 1
 #SECRET_HIDE_POSSIBILITIES
 
 ## Hash out to disable random events during the round.
-# ALLOW_RANDOM_EVENTS
+ALLOW_RANDOM_EVENTS
 
 ## if amount of traitors scales or not
 TRAITOR_SCALING
