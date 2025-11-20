@@ -87,6 +87,12 @@
 	area_flags = AREA_FLAG_RAD_SHIELDED
 	sound_env = SMALL_ENCLOSED
 
+/area/site42/lcz/office_block
+	name = "\improper Light Containment Office Block"
+	icon_state = "conference"
+	area_flags = AREA_FLAG_RAD_SHIELDED
+	sound_env = SMALL_ENCLOSED
+
 /area/site42/lcz/canteen
 	name = "\improper Light Containment Canteen"
 	area_flags = AREA_FLAG_RAD_SHIELDED

@@ -72,7 +72,7 @@
 
 	away_site_budget = 3
 
-	id_hud_icons = 'maps/site42/icons/assignment_hud.dmi'
+	id_hud_icons = 'maps/site53/icons/assignment_hud.dmi'
 
 	lobby_tracks = list(
 		/decl/audio/track/dieinthedark,

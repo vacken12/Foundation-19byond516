@@ -6,11 +6,16 @@
 	acid_resistance = -1
 	simulated = FALSE
 	invisibility = 101
+	var/map_type = "site53"
 	var/delete_me = 0
 
 /obj/effect/landmark/New()
 	..()
 	tag = "landmark*[name]"
+
+	if(map_type != GLOB.using_map.path)
+		delete_me = 1
+		return
 
 	//TODO clean up this mess
 	switch(name)			//some of these are probably obsolete
