@@ -3,8 +3,8 @@
 	department = "Civilian"
 	selection_color = "#E55700"
 	economic_power = 1
-	total_positions = 999
-	spawn_positions = 999
+	total_positions = 25
+	spawn_positions = 25
 	supervisors = "all Foundation Personnel"
 	access = list()
 	minimal_access = list()
