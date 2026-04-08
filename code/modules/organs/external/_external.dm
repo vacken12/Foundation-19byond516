@@ -480,13 +480,12 @@ This function completely restores a damaged organ to perfect condition.
 		if(internal_damage)
 			owner.custom_pain("You feel something rip in your [name]!", 50, affecting = src)
 
-	//Burn damage can cause fluid loss due to blistering and cook-off
 	if((type in list(BURN, LASER)) && (damage > 5 || damage + burn_dam >= 15) && !BP_IS_ROBOTIC(src))
 		var/fluid_loss_severity
 		switch(type)
 			if(BURN)  fluid_loss_severity = FLUIDLOSS_WIDE_BURN
 			if(LASER) fluid_loss_severity = FLUIDLOSS_CONC_BURN
-		var/fluid_loss = (damage/(owner.maxHealth - config.health_threshold_dead)) * SPECIES_BLOOD_DEFAULT * fluid_loss_severity
+		var/fluid_loss = round((damage / 50) * fluid_loss_severity * 10, 0.1)
 		owner.remove_blood(fluid_loss)
 
 	// first check whether we can widen an existing wound

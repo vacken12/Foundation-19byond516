@@ -1,3 +1,6 @@
+#define MAX_BLEEDING 10
+#define BASE_BLOODLOOS_TIME 5 SECONDS
+
 /obj/item/organ/internal/heart
 	name = "heart"
 	icon_state = "heart-on"
@@ -7,6 +10,8 @@
 	var/pulse = PULSE_NORM
 	var/heartbeat = 0
 	var/beat_sound = 'sounds/effects/singlebeat.ogg'
+	/// Cooldown for blood processing - tied to heart rate (BPM)
+	var/tmp/next_blood_process = 0
 	var/tmp/next_blood_squirt = 0
 	damage_reduction = 0.7
 	relative_size = 5
@@ -35,7 +40,11 @@
 				take_internal_damage(0.5)
 			if(pulse == PULSE_THREADY && prob(5))
 				take_internal_damage(0.5)
-		handle_blood()
+		// Process blood only when heart actually beats (not every tick)
+		// Heart rate determines bleeding speed - faster pulse = more frequent blood loss
+		if(pulse != PULSE_NONE || BP_IS_ROBOTIC(src))
+			if(world.time >= next_blood_process)
+				handle_blood()
 	..()
 
 /obj/item/organ/internal/heart/proc/handle_pulse()
@@ -134,39 +143,9 @@
 		//Bleeding out
 		var/blood_max = 0
 		var/list/do_spray = list()
+
 		for(var/obj/item/organ/external/temp in owner.organs)
-
-			if(BP_IS_ROBOTIC(temp))
-				continue
-
-			var/open_wound
-			if(temp.status & ORGAN_BLEEDING)
-
-				for(var/datum/wound/W in temp.wounds)
-
-					if(!open_wound && (W.damage_type == CUT || W.damage_type == PIERCE) && W.damage && !W.is_treated())
-						open_wound = TRUE
-
-					if(W.bleeding())
-						if(temp.applied_pressure)
-							if(ishuman(temp.applied_pressure))
-								var/mob/living/carbon/human/H = temp.applied_pressure
-								H.bloody_hands(src, 0)
-							//somehow you can apply pressure to every wound on the organ at the same time
-							//you're basically forced to do nothing at all, so let's make it pretty effective
-							var/min_eff_damage = max(0, W.damage - 10) / 6 //still want a little bit to drip out, for effect
-							blood_max += max(min_eff_damage, W.damage - 30) / 40
-						else
-							blood_max += W.damage / 40
-
-			if(temp.status & ORGAN_ARTERY_CUT)
-				var/bleed_amount = Floor((owner.vessel.total_volume / (temp.applied_pressure || !open_wound ? 400 : 250))*temp.arterial_bleed_severity)
-				if(bleed_amount)
-					if(open_wound)
-						blood_max += bleed_amount
-						do_spray += "[temp.name]"
-					else
-						owner.vessel.remove_reagent(/datum/reagent/blood, bleed_amount)
+			blood_max += handle_bleeding_organs(temp, do_spray)
 
 		switch(pulse)
 			if(PULSE_SLOW)
@@ -174,30 +153,74 @@
 			if(PULSE_FAST)
 				blood_max *= 1.25
 			if(PULSE_2FAST, PULSE_THREADY)
-				blood_max *= 1.5
+				blood_max *= 1.4
 
 		if(CE_STABLE in owner.chem_effects) // inaprovaline
-			blood_max *= 0.8
+			blood_max *= 0.6
+		blood_max = min(MAX_BLEEDING, blood_max)
 
-		if(world.time >= next_blood_squirt && istype(owner.loc, /turf) && do_spray.len)
-			var/spray_organ = pick(do_spray)
-			owner.visible_message(
-				SPAN_DANGER("Blood sprays out from \the [owner]'s [spray_organ]!"),
-				FONT_HUGE(SPAN_DANGER("Blood sprays out from your [spray_organ]!"))
-			)
+		handle_bloodloss(blood_max, do_spray)
+	if(BP_IS_ROBOTIC(src))
+		next_blood_process = world.time + 10
+	else
+		next_blood_process = world.time + max(4, 12 - (pulse * 2)) // Deciseconds (0.4s - 1.0s)
+
+/obj/item/organ/internal/heart/proc/handle_bleeding_organs(obj/item/organ/external/ex_organ, list/arteries_spray)
+	var/organ_bleeding = 0
+	if(BP_IS_ROBOTIC(ex_organ))
+		return
+
+	var/open_wound
+	if(ex_organ.status & ORGAN_BLEEDING)
+
+		for(var/datum/wound/W in ex_organ.wounds)
+
+			if(!open_wound && (W.damage_type == CUT || W.damage_type == PIERCE) && W.damage && !W.is_treated())
+				open_wound = TRUE
+
+			if(W.bleeding())
+				if(ex_organ.applied_pressure)
+					if(ishuman(ex_organ.applied_pressure))
+						var/mob/living/carbon/human/H = ex_organ.applied_pressure
+						H.bloody_hands(src, 0)
+					var/min_eff_damage = max(0, W.damage - 10) / 6
+					organ_bleeding += max(min_eff_damage, W.damage - 30) / 60
+				else
+					organ_bleeding += W.damage / 60
+
+	if(ex_organ.status & ORGAN_ARTERY_CUT)
+		var/base_bleed = 3.0 * ex_organ.arterial_bleed_severity
+		if(ex_organ.applied_pressure)
+			base_bleed *= 0.3
+		else if(!open_wound)
+			base_bleed *= 0.6
+		var/bleed_amount = round(base_bleed, 0.1)
+		if(bleed_amount >= 0.5)
+			if(open_wound)
+				arteries_spray += "[ex_organ.name]"
+		organ_bleeding += bleed_amount
+	return organ_bleeding
+
+/obj/item/organ/internal/heart/proc/handle_bloodloss(blood_loss, list/arteries_spray)
+	if(!blood_loss)
+		return
+	var/turf/sprayloc = get_turf(owner)
+	if(arteries_spray.len && next_blood_squirt < world.time)
+		var/spray_organ = pick(arteries_spray)
+		owner.visible_message(
+			SPAN_DANGER("Blood sprays out from \the [owner]'s [spray_organ]!"),
+			FONT_HUGE(SPAN_DANGER("Blood sprays out from your [spray_organ]!"))
+		)
+		if(prob(60))
 			owner.Stun(1)
 			owner.set_eye_blur_if_lower(3 SECONDS)
+		if(blood_loss > 0)
+			blood_loss -= owner.blood_squirt(blood_loss*2, sprayloc)
+		next_blood_squirt = world.time + BASE_BLOODLOOS_TIME
 
-			//AB occurs every heartbeat, this only throttles the visible effect
-			next_blood_squirt = world.time + 80
-			var/turf/sprayloc = get_turf(owner)
-			blood_max -= owner.drip(ceil(blood_max/3), sprayloc)
-			if(blood_max > 0)
-				blood_max -= owner.blood_squirt(blood_max, sprayloc)
-				if(blood_max > 0)
-					owner.drip(blood_max, get_turf(owner))
-		else
-			owner.drip(blood_max)
+	if(blood_loss > 0)
+		blood_loss -= owner.drip(ceil(blood_loss/3), sprayloc)
+	owner.drip(blood_loss, get_turf(owner))
 
 /obj/item/organ/internal/heart/proc/is_working()
 	if(!is_usable())

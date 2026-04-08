@@ -163,11 +163,20 @@
 			if(blood_volume > (BLOOD_VOLUME_SAFE + 1))
 				healing += 1.05 * log(12, (blood_volume - BLOOD_VOLUME_SAFE))
 
-			var/incoming_damage = ((100 - (1.1 * blood_volume)) / 50) + (((blood_volume - 100) / 120) ** 2)
+			var/incoming_damage = 0
+			if(blood_volume < BLOOD_VOLUME_SURVIVE)
+				// Critical hypoxia: rapid brain cell death
+				incoming_damage = 1 - (0.35 * blood_volume / BLOOD_VOLUME_SURVIVE)
+			else if(blood_volume < BLOOD_VOLUME_BAD)
+				// Moderate hypoxia: slower damage
+				incoming_damage = 0.7 - (0.11 * (blood_volume - BLOOD_VOLUME_SURVIVE) / (BLOOD_VOLUME_BAD - BLOOD_VOLUME_SURVIVE))
+			else if(blood_volume < BLOOD_VOLUME_OKAY)
+				// Mild hypoxia: minimal damage
+				incoming_damage = 0.5 * (1 - (blood_volume - BLOOD_VOLUME_BAD) / (BLOOD_VOLUME_OKAY - BLOOD_VOLUME_BAD))
+
 			if(owner.chem_effects[CE_STABLE])
 				incoming_damage *= 0.5
 
-			var/current_max_health = (max_damage + 75) - (3 * blood_volume)
 
 			// Can't heal and take damage at the same time, so the smaller one is taken away from the larger
 			if(healing && incoming_damage)
@@ -178,7 +187,7 @@
 					incoming_damage -= healing
 					healing = 0
 
-			take_internal_damage(min(damage + incoming_damage, current_max_health - damage))
+			take_internal_damage(incoming_damage, silent = TRUE)
 
 			// we can't heal if we're above max damage
 			if(healing && damage && damage < max_damage)
