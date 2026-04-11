@@ -122,17 +122,23 @@
 		return
 
 	var/input
+	var/emote_text
 	if(!message)
 		input = sanitize(input(src,"Choose an emote to display.") as text|null)
 	else
 		input = message
 
 	if(input)
+		emote_text = message // Copy for floating chat
 		message = format_emote(src, message)
 	else
 		return
 	message = process_chat_markup(message)
-	if (message)
+
+	// Floating chat
+	INVOKE_ASYNC(src, TYPE_PROC_REF(/atom/movable, animate_emote), emote_text, 1)
+
+	if(message)
 		log_emote("[name]/[key] : [message]")
 	//do not show NPC animal emotes to ghosts, it turns into hellscape
 	var/check_ghosts = client ? /datum/client_preference/ghost_sight : null

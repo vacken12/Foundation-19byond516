@@ -90,6 +90,10 @@
 
 	if(ismob(user))
 		var/mob/M = user
+
+		// Floating chat
+		INVOKE_ASYNC(M, TYPE_PROC_REF(/atom/movable, animate_emote), use_3p, 0)
+
 		if(message_type == AUDIBLE_MESSAGE)
 			if(isliving(user))
 				var/mob/living/L = user
