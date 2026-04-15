@@ -1,3 +1,11 @@
+/mob/living
+	var/obj/screen/fov/fov = null//The screen object because I can't figure out how the hell TG does their screen objects so I'm just using legacy code.
+	var/obj/screen/fov/fov_mask
+	//var/atom/movable/screen/fov/fov = null //The screen object because I can't figure out how the hell TG does their screen objects so I'm just using legacy code.
+	//var/atom/movable/screen/fov/fov_mask/fov_mask
+	var/usefov = 0 //By default, mobs should not use FOV
+	var/lastsound
+
 /mob/living/Initialize()
 	. = ..()
 	if(stat == DEAD)

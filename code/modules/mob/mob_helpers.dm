@@ -23,7 +23,7 @@
 			if(BP_IS_ROBOTIC(E))
 				robolimb_count++
 		full_prosthetic = (robolimb_count == organs.len)
-		update_emotes()
+		load_default_emotes()
 	return full_prosthetic
 
 /mob/living/carbon/human/proc/isFBP()
@@ -726,3 +726,9 @@ var/list/intents = list(I_HELP,I_DISARM,I_GRAB,I_HURT)
 	result[2] = ainvis
 
 	return result
+
+/proc/isMonkey(A)
+	if (istype(A,/mob/living/carbon/human))
+		var/mob/living/carbon/human/H = A
+		return istype(H.species, /datum/species/monkey)
+	return 0

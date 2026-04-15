@@ -22,6 +22,8 @@ var/const/CLICK_HANDLER_ALL                  = (~0)
 /datum/click_handler
 	var/mob/user
 	var/flags = 0
+	var/handler_name
+	var/list/parameters
 
 /datum/click_handler/New(mob/user)
 	..()
@@ -90,7 +92,7 @@ var/const/CLICK_HANDLER_ALL                  = (~0)
 		click_handler.Enter()
 
 // Returns TRUE if the given click handler type was NOT previously the top click handler but now is
-/mob/proc/PushClickHandler(datum/click_handler/new_click_handler_type)
+/mob/proc/PushClickHandler(datum/click_handler/new_click_handler_type, list/parameters = null)
 	// No manipulation of the default click handler
 	if(new_click_handler_type == /datum/click_handler/default)
 		return FALSE
@@ -112,9 +114,17 @@ var/const/CLICK_HANDLER_ALL                  = (~0)
 		click_handlers.Remove(click_handler)
 	else
 		click_handler = new new_click_handler_type(src)
+		click_handler.parameters = parameters
 
 	click_handlers.Insert(1, click_handler) // Insert new handlers first
 	click_handler.Enter()
 	return TRUE
 
-#undef SETUP_CLICK_HANDLERS
+
+/mob/proc/PopClickHandler()
+	if(!click_handlers)
+		return
+	RemoveClickHandler(click_handlers[1])
+
+
+//#undef SETUP_CLICK_HANDLERS

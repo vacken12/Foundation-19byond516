@@ -154,7 +154,7 @@ var/list/gamemode_cache = list()
 	var/ban_comms_password = null
 	var/list/forbidden_versions = list() // Clients with these byond versions will be autobanned. Format: string "byond_version.byond_build"; separate with ; in config, e.g. 512.1234;512.1235
 	var/minimum_byond_version = 512
-	var/minimum_byond_build = 1488
+	var/minimum_byond_build = 1488 // Venom
 
 	var/panic_bunker = 0
 	var/panic_bunker_message = ""

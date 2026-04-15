@@ -445,3 +445,24 @@
 	author = "Astowo"
 	license = /decl/license/cc_by_sa_3_0
 	url = "https://www.youtube.com/watch?v=NXZ4hbOl7eY"
+
+/decl/audio/track/let_me_be_alive
+	source = 'sounds/music/Let_me_be_alive.ogg'
+	title = "Let Me Be Alive"
+	author = "Ivory Rasmus"
+	license = /decl/license/cc_by_sa_3_0
+	url = "https://www.youtube.com/watch?v=Tj4oxxZWRmk"
+
+/decl/audio/track/in_the_pines
+	source = 'sounds/music/Danny_Farrant_Paul_Rawson_-_In_The_Pines.ogg'
+	title = "In The Pines"
+	author = "Danny Farrant Paul Rawson"
+	license = /decl/license/cc_by_sa_3_0
+	url = "https://www.youtube.com/watch?v=uSZ1KqHwm08"
+
+/decl/audio/track/author_of_my_obituary
+	source = 'sounds/music/author-of-my-obituary.ogg'
+	title = "author of my obituary"
+	author = "Monochrome Media"
+	license = /decl/license/cc_by_sa_3_0
+	url = "https://www.youtube.com/watch?v=LtkJmAAknLE"

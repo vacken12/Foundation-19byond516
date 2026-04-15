@@ -10,36 +10,36 @@ macro "default"
 
 
 menu "menu"
-	elem 
+	elem
 		name = "&File"
 		command = ""
 		saved-params = "is-checked"
-	elem 
+	elem
 		name = "&Save screenshot as...\tShift+F2"
 		command = ".screenshot"
 		category = "&File"
 		saved-params = "is-checked"
-	elem 
+	elem
 		name = ""
 		command = ""
 		category = "&File"
 		saved-params = "is-checked"
-	elem 
+	elem
 		name = "&Reconnect"
 		command = ".reconnect"
 		category = "&File"
 		saved-params = "is-checked"
-	elem 
+	elem
 		name = "&Check ping"
 		command = ".ping"
 		category = "&File"
 		saved-params = "is-checked"
-	elem 
+	elem
 		name = "&Quit"
 		command = ".quit"
 		category = "&File"
 		saved-params = "is-checked"
-	elem 
+	elem
 		name = "&Size"
 		command = ""
 		saved-params = "is-checked"
@@ -86,7 +86,7 @@ menu "menu"
 		can-check = true
 		group = "size"
 		saved-params = "is-checked"
-	elem 
+	elem
 		name = "&Scaling"
 		command = ""
 		saved-params = "is-checked"
@@ -111,14 +111,28 @@ menu "menu"
 		can-check = true
 		group = "scale"
 		saved-params = "is-checked"
-	elem 
+	elem
 		name = "&Help"
 		command = ""
 		saved-params = "is-checked"
-	elem 
+	elem
 		name = "&Admin help\tF1"
 		command = "adminhelp"
 		category = "&Help"
+		saved-params = "is-checked"
+	elem
+		name = "&Preferences"
+		command = ""
+		saved-params = "is-checked"
+	elem
+		name = "&Character Setup"
+		command = "user.client?.prefs.setupcharacter.tgui_interact(user)"
+		category = "&Preferences"
+		saved-params = "is-checked"
+	elem
+		name = "&Edit Hotkeys"
+		command = "user.client?.prefs.macros.tgui_interact(user)"
+		category = "&Preferences"
 		saved-params = "is-checked"
 
 

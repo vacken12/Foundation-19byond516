@@ -528,6 +528,6 @@
 	icon_state = "ci_rucksack"
 
 /obj/item/storage/backpack/messenger/classd
-	name = "class d messenger bag"
+	name = "class D messenger bag"
 	desc = "A small backpack, worn over one shoulder."
 	icon_state = "satchel-chem"

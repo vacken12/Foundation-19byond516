@@ -36,6 +36,8 @@
 
 // sdisabilities
 #define DEAFENED    (1<<1)
+#define BLIND 0x1
+#define MUTE  0x2
 
 // What each index means:
 #define DNA_OFF_LOWERBOUND 0

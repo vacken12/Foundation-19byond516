@@ -16,7 +16,7 @@
 	name = "LOOC"
 	full_name = "Local Out Of Character Say (LOOC)"
 
-/datum/keybinding/client/communication/me
-	hotkey_keys = list("F4", "M")
+/datum/keybinding/client/communication/emote
+	hotkey_keys = list("F4", "5")
 	name = "Me"
-	full_name = "Custom Emote (/Me)"
+	full_name = "Emote"

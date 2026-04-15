@@ -246,3 +246,14 @@ var/const/NEGATIVE_INFINITY = -1#INF // win: -1.#INF, lin: -inf
 #define istimer(O) istype(O, /obj/item/device/assembly/timer)
 
 #define isscp2343(A) istype(A, /mob/living/carbon/human/scp343/scp2343)
+
+// for alists
+#define A_LAZYINITLIST(AL) if (!AL) { AL = alist(); }
+#define A_LAZYACCESS(L, I) (L ? L[I] : null)
+#define A_UNSETEMPTY(AL) if(!length(AL)) { AL = null; }
+#define A_LAZYREMOVE(AL, I) if(AL) { AL -= I; A_UNSETEMPTY(AL) }
+#define A_LAZYSET(AL, A, I) if(!AL) { AL = alist(); } AL[A] = I;
+#define A_LAZYCLEARLIST(AL) if(AL) { AL.Cut(); AL = null; }
+#define A_LAZYLEN(AL) length(AL)
+#define A_LAZYADDASSOC(L, K, V) if(!L) { L = alist(); } L[K] += list(V);
+#define A_LAZYREMOVEASSOC(L, K, V) if(L) { if(L[K]) { L[K] -= V; if(!length(L[K])) L -= K; } if(!length(L)) L = null; }

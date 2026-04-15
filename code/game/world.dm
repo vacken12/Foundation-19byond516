@@ -1,4 +1,4 @@
-/var/server_name = "Russian Foundation 19"
+/var/server_name = "Russian Foundation 13"
 /var/game_id = null
 
 GLOBAL_VAR(href_logfile)
@@ -599,14 +599,14 @@ GLOBAL_VAR_INIT(world_topic_last, world.timeofday)
 		s += "Discord"
 		s += "</a>"
 
-	// Discord link
+	// rule link
 	if(config && config.rulesurl)
 		s += "<br>"
 		s += "<a href=\"[config.rulesurl]\">"
 		s += "Rules"
 		s += "</a>"
 
-	// Discord link
+	// lore link
 	if(config && config.loreurl)
 		s += "<br>"
 		s += "<a href=\"[config.loreurl]\">"

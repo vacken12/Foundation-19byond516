@@ -15,6 +15,11 @@ var/global/list/floating_chat_colors = list()
 /atom/movable
 	var/list/stored_chat_text
 
+/mob/proc/create_chat_message(atom/movable/speaker, raw_message, italics=FALSE, size)
+	if(!client)
+		return
+
+
 /atom/movable/proc/animate_chat(message, datum/language/language, small, list/show_to, whisper = FALSE, unique_messages = null, duration = CHAT_MESSAGE_LIFESPAN)
 	set waitfor = FALSE
 
@@ -65,6 +70,60 @@ var/global/list/floating_chat_colors = list()
 				C.images += understood
 			else
 				C.images += gibberish
+
+// Some cursed things for emotes
+/atom/movable/proc/animate_emote(message, tack_period = 0, duration = CHAT_MESSAGE_LIFESPAN)
+	set waitfor = FALSE
+
+	var/mob/M = src
+	var/emote_view = world.view
+	var/turf/T = get_turf(M)
+	var/list/listening = list()
+	var/list/listening_obj = list()
+
+	if(T)
+		get_mobs_and_objs_in_view_fast(T, emote_view, listening, listening_obj, /datum/client_preference/ghost_ears)
+	else
+		return
+
+	var/list/emote_recipients = list()
+	for(var/mob/E in listening)
+		if(E && E.client)
+			emote_recipients += E.client
+
+	if (tack_period) // To format the emote, if it's custom, add a period.
+		message = "#[message]."
+	else
+		message = "#[message]"
+
+	/// Get rid of any URL schemes that might cause BYOND to automatically wrap something in an anchor tag
+	var/static/regex/url_scheme = new(@"[A-Za-z][A-Za-z0-9+-\.]*:\/\/", "g")
+	message = replacetext(message, url_scheme, "")
+
+	var/static/regex/html_metachars = new(@"&[A-Za-z]{1,7};", "g")
+	message = replacetext(message, html_metachars, "")
+
+	//additional style params for the message
+	var/style
+	var/fontsize = 6
+	var/limit = 120
+
+	if(length(message) > limit)
+		message = "[copytext(message, 1, limit)]..."
+
+	if(!global.floating_chat_colors[name])
+		global.floating_chat_colors[name] = get_random_colour(0, 160, 230)
+	style += "color: [global.floating_chat_colors[name]];"
+
+	var/image/emote_text = generate_floating_text(src, capitalize(message), style, fontsize, duration, emote_recipients)
+	var/image/move_trim = generate_floating_text(src, capitalize(message), style, fontsize, duration, emote_recipients)
+	if(move_trim) // It is necessary in order to move the message up
+		move_trim = 0
+
+	for(var/client/C in emote_recipients)
+		if(C.get_preference_value(/datum/client_preference/floating_messages) == GLOB.PREF_SHOW)
+			C.images += emote_text
+
 
 /proc/generate_floating_text(atom/movable/holder, message, style, size, duration, show_to)
 	var/image/I = image(null, get_atom_on_turf(holder))

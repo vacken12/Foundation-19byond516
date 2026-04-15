@@ -30,6 +30,18 @@
 	using.hud_ref = weakref(src)
 	adding += using
 
+	using = new /atom/movable/screen/new_player/selection/lore(src)
+	using.hud_ref = weakref(src)
+	adding += using
+
+	using = new /atom/movable/screen/new_player/selection/changelog(src)
+	using.hud_ref = weakref(src)
+	adding += using
+
+	using = new /atom/movable/screen/new_player/selection/polls(src)
+	using.hud_ref = weakref(src)
+	adding += using
+
 	mymob.client.screen = list()
 	mymob.client.screen += adding
 
@@ -77,17 +89,17 @@
 	return ..()
 
 /atom/movable/screen/new_player/selection/MouseEntered(location, control, params)
-	animate(src, color = color_rotation(30), time = 3)
+	animate(src, easing=QUAD_EASING|EASE_IN, color = color_rotation(rand(-11,12)*15), time = 3, transform = matrix()*1.08, pixel_x=10)
 	return ..()
 
 /atom/movable/screen/new_player/selection/MouseExited(location, control, params)
-	animate(src, color = null, time = 3)
+	animate(src, easing=QUAD_EASING|EASE_OUT, color = null, time = 3, transform = null, pixel_x=-10)
 	return ..()
 
 /atom/movable/screen/new_player/selection/join_game
 	name = "Join Game"
 	icon_state = "unready"
-	screen_loc = "NORTH, CENTER-7"
+	screen_loc = "SOUTH+6, CENTER-7"
 
 /atom/movable/screen/new_player/selection/join_game/Initialize()
 	. = ..()
@@ -135,7 +147,7 @@
 /atom/movable/screen/new_player/selection/settings
 	name = "Setup"
 	icon_state = "setup"
-	screen_loc = "NORTH-1,CENTER-7"
+	screen_loc = "SOUTH+5,CENTER-7"
 
 /atom/movable/screen/new_player/selection/settings/Click()
 	var/datum/hud/hud = hud_ref.resolve()
@@ -152,7 +164,7 @@
 /atom/movable/screen/new_player/selection/manifest
 	name = "Crew Manifest"
 	icon_state = "manifest"
-	screen_loc = "NORTH-2,CENTER-7"
+	screen_loc = "SOUTH+4,CENTER-7"
 
 /atom/movable/screen/new_player/selection/manifest/Click()
 	var/datum/hud/hud = hud_ref.resolve()
@@ -168,7 +180,7 @@
 /atom/movable/screen/new_player/selection/observe
 	name = "Observe"
 	icon_state = "observe"
-	screen_loc = "NORTH-3,CENTER-7"
+	screen_loc = "SOUTH+3,CENTER-7"
 
 /atom/movable/screen/new_player/selection/observe/Click()
 	var/datum/hud/hud = hud_ref.resolve()
@@ -231,3 +243,52 @@
 		qdel(src)
 
 		return TRUE
+
+
+/atom/movable/screen/new_player/selection/lore
+	name = "Lore"
+	icon_state = "lore_summary"
+	screen_loc = "SOUTH+2,CENTER-7"
+
+/atom/movable/screen/new_player/selection/lore/Click()
+	var/datum/hud/hud = hud_ref.resolve()
+	if(!istype(hud))
+		return
+	var/mob/new_player/player = hud.mymob
+	sound_to(player, 'sounds/effects/menu_click.ogg')
+
+	if(config.loreurl)
+		if(tgui_alert(usr, "This will open the forum in your browser. Are you sure?", null, list("Yes", "No")) == "Yes")
+			send_link(usr, config.loreurl)
+	else
+		to_chat(usr, SPAN_WARNING("The forum URL is not set in the server configuration."))
+
+
+/atom/movable/screen/new_player/selection/changelog
+	name = "Changelog"
+	icon_state = "changelog"
+	screen_loc = "SOUTH+1,CENTER-7"
+
+/atom/movable/screen/new_player/selection/changelog/Click()
+	var/datum/hud/hud = hud_ref.resolve()
+	if(!istype(hud))
+		return
+	var/mob/new_player/player = hud.mymob
+	sound_to(player, 'sounds/effects/menu_click.ogg')
+
+	GLOB.changelog_tgui.tgui_interact(player)
+
+/atom/movable/screen/new_player/selection/polls
+	name = "Polls"
+	icon_state = "polls_new"
+	screen_loc = "SOUTH,CENTER-7"
+
+/atom/movable/screen/new_player/selection/polls/Click()
+	var/datum/hud/hud = hud_ref.resolve()
+	if(!istype(hud))
+		return
+	var/mob/new_player/player = hud.mymob
+	sound_to(player, 'sounds/effects/menu_click.ogg')
+
+	SSvote.tgui_interact(usr) //see vote.dm
+

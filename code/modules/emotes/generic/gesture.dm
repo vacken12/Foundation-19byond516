@@ -79,7 +79,7 @@
 		animate(user, pixel_y = 2, time = 0.2)
 		sleep(1)
 		animate(user, pixel_y = oldpixely, time = 0.2)
-		if(user.resting || user.buckled || user.is_ic_dead())
+		if(user.resting || user.buckled || user.is_dead())
 			dancing.Remove(weakref(user))
 			break
 
@@ -248,6 +248,8 @@
 
 	statpanel_proc = /mob/living/carbon/human/proc/push_up_emote
 
+	var/list/mob/push_ups = list()
+
 /datum/emote/push_up/can_emote(mob/living/carbon/human/user, intentional)
 	if(user.push_ups)
 		return FALSE
@@ -262,93 +264,30 @@
 	INVOKE_ASYNC(src, nameof(.proc/push_up), user)
 
 /datum/emote/push_up/proc/push_up(mob/living/carbon/human/user)
-	var/datum/push_up/P = new(user)
-
 	user.dir = 4
-	user.set_resting(TRUE)
-	user.push_ups = TRUE
-	user.update_transform()
+	user.resting = 1
 
-	sleep(20)
-	animate(user, time = 10, pixel_y = 5)
-	sleep(10)
+	if(weakref(user) in push_ups)
+		push_ups.Remove(weakref(user))
+		return
 
-	var/body_build_mult = P.get_body_build_mult()
+	push_ups.Add(weakref(user))
+	user.pixel_y = initial(user.pixel_y)
 	var/oldpixely = user.pixel_y
-	while(!P.interrupted && user.resting && !user.buckled && !user.stat)
-		var/mult = P.get_mult() * body_build_mult + rand(-1, 1) / 100
-		if(!P.down)
-			animate(user, time = 10 * mult, pixel_y = oldpixely - 10)
-		else
-			P.times += 1
-
-			if(mult >= 2 && prob(mult * 10))
-				user.pixel_y = 0
-				user.push_ups = FALSE
-				user.visible_message(FONT_LARGE("<i><b>[user] clumsily falls in an attempt to do \his [P.times] push-up.</b></i>"),
-									FONT_LARGE("<i><b>You clumsily fall in an attempt to do your [P.times] push-up.</b></i>"))
-				playsound(user.loc, 'sound/effects/bangtaper.ogg', 50, 1, -1)
-				return
-
-			animate(user, time = 10 * mult, pixel_y = oldpixely)
-
-			if(P.times % 10 == 0)
-				user.visible_message("<i><b>[user]</b> has done \his <b>[P.times]</b> push-up!</i>",
-									 "<i>You've done your <b>[P.times]</b> push-up!</i>", checkghosts = FALSE)
-			user.remove_nutrition(1)
-			user.remove_hydration(5.0)
-
-		P.down = !P.down
-		sleep(12 * mult)
-
-	if(P.times)
-		user.visible_message("<i><b>[user]</b> stops \his exercise at <b>[P.times]</b> push-ups.</i>",
-							 "<i>You stop your exercise at <b>[P.times]</b> push-ups.</i>")
-
-	user.pixel_y = 0
-	user.push_ups = FALSE
+	while(weakref(user) in push_ups)
+		var/pixely = rand(5, 6)
+		animate(user, pixel_y = pixely, time = 0.5)
+		sleep(1)
+		animate(user, pixel_y = oldpixely, time = 0.7)
+		sleep(2)
+		animate(user, pixel_y = 2, time = 0.2)
+		sleep(1)
+		animate(user, pixel_y = oldpixely, time = 0.2)
+		if(!user.resting || user.buckled || user.is_dead())
+			push_ups.Remove(weakref(user))
+			break
 
 /datum/push_up
 	var/mob/living/carbon/human/user = null
 	var/times = 0
 	var/down = FALSE
-	var/interrupted = FALSE
-
-/datum/push_up/New(mob/living/carbon/human/user)
-	src.user = user
-
-	register_signal(user, SIGNAL_MOVED, nameof(.proc/interrupt))
-	register_signal(user, SIGNAL_DIR_SET, nameof(.proc/interrupt))
-
-/datum/push_up/proc/interrupt()
-	interrupted = TRUE
-
-	unregister_signal(user, SIGNAL_MOVED)
-	unregister_signal(user, SIGNAL_DIR_SET)
-
-/datum/push_up/proc/get_mult()
-	. = 1
-
-	if(user.full_pain && !user.no_pain)
-		. *= 1 + user.full_pain / 100
-
-	if(user.nutrition > STOMACH_FULLNESS_SUPER_HIGH)
-		. *= 1 + (user.nutrition - STOMACH_FULLNESS_SUPER_HIGH) / 400
-
-	else if(user.nutrition <= STOMACH_FULLNESS_SUPER_LOW)
-		. *= 1 + (STOMACH_FULLNESS_SUPER_LOW - user.nutrition) / 100
-
-	if(user.reagents.has_reagent(/datum/reagent/hyperzine))
-		. *= 0.2
-
-	else if(user.reagents.has_reagent(/datum/reagent/adrenaline))
-		. *= 0.8
-
-/datum/push_up/proc/get_body_build_mult()
-	if(istype(user.body_build, /datum/body_build/slim))
-		return 2
-
-	else if(istype(user.body_build, /datum/body_build/fat) || istype(user.body_build, /datum/body_build/tajaran/fat))
-		return 3
-
-	return 1

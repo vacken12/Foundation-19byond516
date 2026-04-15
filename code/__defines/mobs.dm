@@ -454,3 +454,13 @@
 #define IS_DEAD_OR_INCAP(mob) (mob.incapacitated() || mob.stat)
 
 #define SLEEP_CHECK_DEATH(X) sleep(X); if(QDELETED(src) || stat == DEAD) return;
+
+#define MOB_ANIM_ATTACK "attack"
+#define MOB_ANIM_FLOATING "floating"
+#define MOB_ANIM_HEIGHT_OFFSET "height_offset"
+#define MOB_ANIM_GRAB "grab"
+#define MOB_ANIM_TWITCH "twitch"
+#define MOB_ANIM_TWITCH_V "twitch_violently"
+#define MOB_ANIM_TREMBLE "tremble"
+#define MOB_ANIM_SHIVER "shiver"
+#define MOB_ANIM_SWAY "sway"

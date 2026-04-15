@@ -119,3 +119,6 @@
 
 	///Stage Handler (so we dont have a billion vars for scps)
 	var/datum/stageHandler/humanStageHandler = new /datum/stageHandler()
+
+	var/push_ups = FALSE
+

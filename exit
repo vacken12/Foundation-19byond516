@@ -1,0 +1,1185 @@
+[33mcommit ac9470cd98a040d1075dc14d5f5c2fea5b5e47a0[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m
+Author: Ilmir037 <Ilmir037@mail.ru>
+Date:   Wed Apr 8 01:49:28 2026 +0500
+
+    Update README 2
+
+[33mcommit 0044255d59fb3e5ef5112c88b504d494c4619e29[m
+Author: Ilmir037 <97801944+Ilmir037@users.noreply.github.com>
+Date:   Wed Apr 8 01:46:04 2026 +0500
+
+    Update README.md
+
+[33mcommit 1bb474633843af502e1fb4be39f8599fe63daef2[m
+Author: Ilmir037 <Ilmir037@mail.ru>
+Date:   Wed Apr 8 01:31:28 2026 +0500
+
+    Update class D backpacks. Fix orbit sprite.
+
+[33mcommit 8a4532b6aa7dc4b5ec4fd31f5f3131a88cafc524[m
+Author: Ilmir037 <Ilmir037@mail.ru>
+Date:   Tue Apr 7 18:56:44 2026 +0500
+
+    CDCZ Update. Add backpacks to D-class. Add Emotes
+
+[33mcommit 554f4f4e24300dfe67e42f7b9ced7f9ae1edd67a[m
+Merge: 1f2e6b9 69d7056
+Author: Ilmir037 <97801944+Ilmir037@users.noreply.github.com>
+Date:   Mon Apr 6 15:16:33 2026 +0500
+
+    Merge pull request #56 from oguzzzok123/main
+    
+    Убрал задержку при движении дабы не рвало
+
+[33mcommit 1f2e6b9c8978a1e484ce8f99b81613ab382dec1a[m
+Author: Ilmir037 <Ilmir037@mail.ru>
+Date:   Sun Apr 5 21:49:43 2026 +0500
+
+    New lobby buttons
+
+[33mcommit f2acf1b2d18b08abf809dbb1c66113c0094da15d[m
+Author: Ilmir037 <Ilmir037@mail.ru>
+Date:   Sun Apr 5 21:10:17 2026 +0500
+
+    Some fixes
+
+[33mcommit 30a6c68215c650a6db15053659b52a572a3a41d6[m
+Author: Ilmir037 <Ilmir037@mail.ru>
+Date:   Sun Apr 5 20:44:08 2026 +0500
+
+    Orbit fix
+
+[33mcommit ae885de25e3bb11e4c09693c58579e21639e7b20[m
+Merge: d88c27a 0bc5b46
+Author: Ilmir037 <97801944+Ilmir037@users.noreply.github.com>
+Date:   Sun Apr 5 20:27:28 2026 +0500
+
+    Merge pull request #57 from Kopit32/main
+    
+    Оптимизация
+
+[33mcommit d88c27acd2b8b8e762a6fbd10127d1488b1a19bf[m
+Merge: f504765 88b1e2e
+Author: Ilmir037 <Ilmir037@mail.ru>
+Date:   Sun Apr 5 20:19:01 2026 +0500
+
+    Merge branch 'main' of https://github.com/vacken12/Foundation-19byond516
+
+[33mcommit f50476536f5791b8b0317cbe8815b9fe2d46f371[m
+Author: Ilmir037 <Ilmir037@mail.ru>
+Date:   Sun Apr 5 20:18:00 2026 +0500
+
+    Update CDCZ. Update sprites.
+
+[33mcommit 69d7056df2e79bb7155896f78368bca3228ea562[m
+Author: oguzzzok123 <jonklerjopa@gmail.com>
+Date:   Sun Apr 5 18:03:13 2026 +0300
+
+    Update game_options.txt
+
+[33mcommit 0bc5b46dd7bc42f8caf4fa38debcd693da26a01a[m
+Author: Rotipik <vaskil.vin@gmail.com>
+Date:   Sun Apr 5 17:38:31 2026 +0300
+
+    Оптимизация
+    Убрано копирование gas_mixture при изменении состава, заменено на прямое изменение состава
+    Оптимизировано получение списка турфов для оповещения игроков в радиусе о каком-то действии
+    Оптимизация самих проков оповещения игроков
+    Добавлена проверка на наличие слепоты для ее последующего удаления у моба
+    СДЕЛАНО С ИСПОЛЬЗОВАНИЕМ ИИ
+    
+    Изменения по оптимизации:
+    Максимальная нагрузка в моменты на процессор снизилась с 25% до 17%
+    Задержка выполнения сабсистемы атмоса снизилась с 100 мс до 74
+    Количество постоянно находящихся в очереди на удаление объектов у сборщика мусора снизилось с 740 до 400
+    Предполагаю что оптимизация сообщений должна значительно снизить лаги от огнестрела, проверить не вышло
+
+[33mcommit 1615f5d17bc5d37f4b9ee350b01b7fefa901a05f[m
+Merge: 3509e4a 88b1e2e
+Author: oguzzzok123 <jonklerjopa@gmail.com>
+Date:   Sun Apr 5 16:10:53 2026 +0300
+
+    Merge branch 'vacken12:main' into main
+
+[33mcommit 3509e4a235c8c204228ce6f13c1105326659ef40[m
+Author: oguzzzok123 <jonklerjopa@gmail.com>
+Date:   Sun Apr 5 16:09:48 2026 +0300
+
+    Update game_options.txt
+
+[33mcommit 88b1e2ef5028c1380db2099d3de0cb8ead170f80[m
+Merge: 7ff1c6c 6135968
+Author: vacken12 <112196285+vacken12@users.noreply.github.com>
+Date:   Sun Apr 5 15:16:29 2026 +0300
+
+    Merge pull request #55 from oguzzzok123/main
+    
+    Beg
+
+[33mcommit 61359688d21544c5917c895006ed10c4b1a5f614[m
+Author: oguzzzok123 <jonklerjopa@gmail.com>
+Date:   Sun Apr 5 12:03:05 2026 +0300
+
+    Update game_options.txt
+
+[33mcommit ee1ebb5ffdeb08573d086151973701598b462699[m
+Author: oguzzzok123 <jonklerjopa@gmail.com>
+Date:   Sun Apr 5 11:54:55 2026 +0300
+
+    Диагонально
+
+[33mcommit 5c66e0bd92bbe128ced3712f8fcd92e38c62b843[m
+Author: oguzzzok123 <jonklerjopa@gmail.com>
+Date:   Sun Apr 5 11:52:30 2026 +0300
+
+    Beg
+
+[33mcommit 7ff1c6cbccaef700677654721f91750d9b4b343d[m
+Merge: eb0dc5d 4e85074
+Author: Ilmir037 <97801944+Ilmir037@users.noreply.github.com>
+Date:   Sun Apr 5 12:46:15 2026 +0500
+
+    Merge pull request #54 from Nokia2Student/casing_stack
+    
+    casing stacking
+
+[33mcommit 4e85074aa068bd2ce43699f621352321fce57a8c[m
+Author: Nokia2Student <120266205+Nokia2Student@users.noreply.github.com>
+Date:   Sun Apr 5 10:00:32 2026 +0300
+
+    casing stacking
+
+[33mcommit eb0dc5df299c380138dfd99b69735eb934f4dd61[m
+Merge: b07b877 708b3ba
+Author: Ilmir037 <97801944+Ilmir037@users.noreply.github.com>
+Date:   Sun Apr 5 10:31:01 2026 +0500
+
+    Merge pull request #53 from Nokia2Student/fix
+    
+    invalid list access fix
+
+[33mcommit 708b3ba33a429c4d75b207b88ec957e55322f2ee[m
+Author: Nokia2Student <120266205+Nokia2Student@users.noreply.github.com>
+Date:   Sun Apr 5 05:29:13 2026 +0300
+
+    1
+
+[33mcommit 33f33fcf86eb6f6d78715c4cfdcc802b4764b77e[m
+Author: Nokia2Student <120266205+Nokia2Student@users.noreply.github.com>
+Date:   Sun Apr 5 04:17:24 2026 +0300
+
+    invalid list access fix
+
+[33mcommit b07b877ffa6415c0ee472d3abaf2fba71679b6ce[m
+Author: Ilmir037 <Ilmir037@mail.ru>
+Date:   Sun Apr 5 05:19:04 2026 +0500
+
+    Diagonal walking. Ghost update. Runtimes fix(maybe). Remove sanity system. Fix verbs
+
+[33mcommit 605123b4a68205c8308fc6af887b0c0ce6c9d1d9[m
+Author: vacken12 <112196285+vacken12@users.noreply.github.com>
+Date:   Sun Nov 2 02:46:58 2025 +0300
+
+    Add files via upload
+
+[33mcommit 6abeb68ba90b5f01c08d98de984da01f44c58f5d[m
+Author: vacken12 <112196285+vacken12@users.noreply.github.com>
+Date:   Sun Nov 2 02:41:23 2025 +0300
+
+    Update ban_system.dm
+
+[33mcommit 90db746fe9077ec301c491eb54fbc61f45358a20[m
+Author: vacken12 <112196285+vacken12@users.noreply.github.com>
+Date:   Sun Nov 2 02:34:59 2025 +0300
+
+    Add files via upload
+
+[33mcommit 2f054b5f40444a9a23286d17f3028a2a77eeea89[m
+Author: vacken12 <112196285+vacken12@users.noreply.github.com>
+Date:   Sun Nov 2 02:19:12 2025 +0300
+
+    Add files via upload
+
+[33mcommit 38469f6c04779c78c144f8c7d0a0c9de9390ce85[m
+Author: vacken12 <112196285+vacken12@users.noreply.github.com>
+Date:   Sun Nov 2 02:18:44 2025 +0300
+
+    Update ban_system.dm
+
+[33mcommit 022137d3446fec08ddffefa16231ee6786e19b0b[m
+Author: vacken12 <112196285+vacken12@users.noreply.github.com>
+Date:   Sun Nov 2 02:18:19 2025 +0300
+
+    Update webhook_ban_log.dm
+
+[33mcommit 4b79412a3a44fb32a851644c674d04cae9642655[m
+Author: vacken12 <112196285+vacken12@users.noreply.github.com>
+Date:   Sun Nov 2 00:30:02 2025 +0300
+
+    Add files via upload
+
+[33mcommit d3a6b6afecc447253da0193da3fc4b96d5f93b1a[m
+Author: vacken12 <112196285+vacken12@users.noreply.github.com>
+Date:   Sun Nov 2 00:26:05 2025 +0300
+
+    Add files via upload
+
+[33mcommit 09d8a09b850fa6b7f947e4bb2ae67d133857af88[m
+Author: vacken12 <112196285+vacken12@users.noreply.github.com>
+Date:   Sun Nov 2 00:21:57 2025 +0300
+
+    Add files via upload
+
+[33mcommit 4d8e9dd969dbc2b44398ea2220af266ce9c19539[m
+Author: vacken12 <112196285+vacken12@users.noreply.github.com>
+Date:   Sun Nov 2 00:15:31 2025 +0300
+
+    Add files via upload
+
+[33mcommit cfd8cde36abd81ef37dd4b411db2027ee430751c[m
+Author: vacken12 <112196285+vacken12@users.noreply.github.com>
+Date:   Sun Nov 2 00:11:00 2025 +0300
+
+    Add files via upload
+
+[33mcommit 00bab2d3da09a9c1d41a7edd0757c2a4599e089a[m
+Author: vacken12 <112196285+vacken12@users.noreply.github.com>
+Date:   Sat Nov 1 23:46:47 2025 +0300
+
+    Add files via upload
+
+[33mcommit 45bf53407a88407d7ca8382c586cd94c68e0053a[m
+Author: vacken12 <112196285+vacken12@users.noreply.github.com>
+Date:   Sat Nov 1 23:35:37 2025 +0300
+
+    Add files via upload
+
+[33mcommit ed0ba60e614d931ddb89c29a38a976d898f0d997[m
+Author: vacken12 <112196285+vacken12@users.noreply.github.com>
+Date:   Sat Nov 1 23:33:49 2025 +0300
+
+    Add files via upload
+
+[33mcommit 5a397b78169aa363862df0157236350b2d69900e[m
+Author: vacken12 <112196285+vacken12@users.noreply.github.com>
+Date:   Sat Nov 1 23:31:35 2025 +0300
+
+    Add files via upload
+
+[33mcommit 7fab38ac150799738e5ab1d157dfd4a156081f16[m
+Merge: 31aec29 fefc3c6
+Author: vacken12 <112196285+vacken12@users.noreply.github.com>
+Date:   Sun Oct 26 07:45:23 2025 +0300
+
+    Merge pull request #42 from Nokia2Student/173sound
+    
+    Звук перемещения 173
+
+[33mcommit 31aec295723c5ee9ba4cc0421bb595fec5b4f264[m
+Merge: 7a51bd2 0401dfa
+Author: vacken12 <112196285+vacken12@users.noreply.github.com>
+Date:   Sun Oct 26 07:44:59 2025 +0300
+
+    Merge pull request #43 from Avitzh/SCP_fix
+    
+    SCP_fix
+
+[33mcommit 7a51bd2af86c44969eba59e82b5f5c67e9593092[m
+Merge: 8a92009 43d000c
+Author: vacken12 <112196285+vacken12@users.noreply.github.com>
+Date:   Sun Oct 26 07:44:21 2025 +0300
+
+    Merge pull request #47 from P4elique/beret-fix
+    
+    fix(hats): engi beret and EMB hardhat fix
+
+[33mcommit 8a9200933b2311b0c0c0aa6277dfe3e79191bda9[m
+Merge: ee78def d386d8b
+Author: vacken12 <112196285+vacken12@users.noreply.github.com>
+Date:   Sun Oct 26 07:44:02 2025 +0300
+
+    Merge pull request #50 from Avitzh/SCPsay_fix
+    
+    SCP say fix
+
+[33mcommit ee78def61a46d3681fda0801f883ba44a04f92f0[m
+Merge: a59b678 ea6d82b
+Author: vacken12 <112196285+vacken12@users.noreply.github.com>
+Date:   Sun Oct 26 07:43:35 2025 +0300
+
+    Merge pull request #48 from P4elique/announcement-sound
+    
+    tweak(sound): add priority announcement sound
+
+[33mcommit a59b678af8f5e1e531780b899f5d74ef77922d72[m
+Merge: a9b0802 49d336d
+Author: vacken12 <112196285+vacken12@users.noreply.github.com>
+Date:   Sun Oct 26 07:43:01 2025 +0300
+
+    Merge pull request #49 from P4elique/update-ui
+    
+    tweak(ui): fix twitching computer ui
+
+[33mcommit a9b0802ab3139eb7fb0cdbc27d631f432c98a146[m
+Author: vacken12 <112196285+vacken12@users.noreply.github.com>
+Date:   Sat Oct 25 19:30:13 2025 +0300
+
+    Add files via upload
+
+[33mcommit 8f2e67bef50593925030a664800656b61dc51ca3[m
+Author: vacken12 <112196285+vacken12@users.noreply.github.com>
+Date:   Sat Oct 25 19:23:16 2025 +0300
+
+    Add files via upload
+
+[33mcommit 49d336dda078ca27b6619846f85d36a4c83e6e2d[m
+Author: P4elique <akuzmenko03@mail.ru>
+Date:   Sat Oct 25 15:28:20 2025 +0500
+
+    comment
+
+[33mcommit a261d69200098fd6758ff5ff54c3650c27ec3868[m
+Author: P4elique <akuzmenko03@mail.ru>
+Date:   Sat Oct 25 15:15:31 2025 +0500
+
+    comment instead deletion
+    
+    буэ)
+
+[33mcommit d386d8bb3968ecdda5138fa7a4491915a5d0b3a8[m
+Author: Avitch <alexliman101@gmail.com>
+Date:   Fri Oct 17 19:31:08 2025 +0300
+
+    SCPsay fix
+    
+    Add verbs for mob SCP
+
+[33mcommit 0401dfab3bb572ceca1e4ed75101b6f3cfa6d762[m
+Merge: c1fed9e 29f9d5e
+Author: Avitch <alexliman101@gmail.com>
+Date:   Fri Oct 17 17:56:06 2025 +0300
+
+    Merge remote-tracking branch 'upstream/main' into SCP_fix
+
+[33mcommit 3c479d8ed93d9aa2ad570dca14d6c96bb141a196[m
+Author: P4elique <akuzmenko03@mail.ru>
+Date:   Thu Oct 16 18:55:45 2025 +0500
+
+    fix twitching computer ui
+
+[33mcommit ea6d82bbaef8397d286e6b2f79673fc1644a5c80[m
+Author: P4elique <akuzmenko03@mail.ru>
+Date:   Thu Oct 16 17:52:16 2025 +0500
+
+    add priority announcement sound
+
+[33mcommit 43d000cae3eda02c5c3adb487e38fec6fd277888[m
+Author: P4elique <akuzmenko03@mail.ru>
+Date:   Thu Oct 16 16:34:23 2025 +0500
+
+    engi beret and EMB hardhat fix
+    
+    Fixed lack of corporate engineering beret's icon
+    Fixed EMB hardhat's light
+
+[33mcommit 29f9d5e8dcc574a56dcc4bdf394b528fa38424f3[m
+Merge: 6da8db5 df40d0c
+Author: vacken12 <112196285+vacken12@users.noreply.github.com>
+Date:   Mon Oct 13 23:40:12 2025 +0300
+
+    Merge pull request #45 from Lentye/ru_radio
+    
+    radio cyrillic experiment
+
+[33mcommit df40d0c762a7145a4877294b05ed08c7e4708bcc[m
+Author: lentye <Stukovilyav2@gmail.com>
+Date:   Mon Oct 13 16:39:05 2025 +0400
+
+    radio_experiment
+
+[33mcommit c1fed9eb4b6ca7ae8eacee6c0c530d121f92a874[m
+Author: Avitch <alexliman101@gmail.com>
+Date:   Sun Oct 12 16:38:23 2025 +0300
+
+    SCP_fix
+    
+    Fixed SCP-082 cams
+    Fixed SCP-280 doors, and added HCZ storage room
+    Add cooldown for healing for SCP-343 (10 min). Add new verbs: Summon Cookie and Return SCP back
+
+[33mcommit fefc3c65589765edb4cf5793718e43b07bd247e1[m
+Author: Nokia2Student <nokia2student@gmail.com>
+Date:   Sat Oct 11 01:23:56 2025 +0300
+
+    173 Sounds
+
+[33mcommit 6da8db5b4779dff5358a8da4a5ac5dd4faebdddc[m
+Merge: d1f1965 e1491a1
+Author: vacken12 <112196285+vacken12@users.noreply.github.com>
+Date:   Fri Oct 10 23:41:40 2025 +0300
+
+    Merge pull request #41 from Nokia2Student/173
+    
+    Изменения статуэтки 173
+
+[33mcommit e1491a14b65c2dbac1dfd9a773d576aad750692f[m
+Author: Nokia2Student <nokia2student@gmail.com>
+Date:   Fri Oct 10 23:22:09 2025 +0300
+
+    Oversight
+
+[33mcommit 56ee00a73f856cef0b5bd95a22309fb3e745c45f[m
+Author: Nokia2Student <nokia2student@gmail.com>
+Date:   Fri Oct 10 23:16:25 2025 +0300
+
+    173 Changes
+
+[33mcommit d1f1965a44e28d03fa3f44bfc11d2792d1fafa13[m
+Merge: ce053d0 eeef49a
+Author: vacken12 <112196285+vacken12@users.noreply.github.com>
+Date:   Fri Oct 10 13:52:56 2025 +0300
+
+    Merge pull request #40 from Avitzh/scp280-hotfix
+    
+    SCP280 hotfix
+
+[33mcommit eeef49a12740f53e50016cd900e5c09e1c461425[m
+Author: Avitch <alexliman101@gmail.com>
+Date:   Fri Oct 10 13:29:21 2025 +0300
+
+    SCP280 hotfix
+    
+    Added health hud, fixed range for respawn, updated logic for doors.
+
+[33mcommit ce053d0d8ee9a9ccc1e6b3211c638b2bb5231397[m
+Merge: 6dcb33f d5b1a1b
+Author: vacken12 <112196285+vacken12@users.noreply.github.com>
+Date:   Thu Oct 9 18:56:49 2025 +0300
+
+    Merge pull request #39 from Lentye/Runtime_fix
+    
+    [TEST BUT NOT MERGE]Tele-baton tweak's experiment
+
+[33mcommit 6dcb33fe6a792a4c4ea19152c6d9becf05de5f36[m
+Merge: ea56f99 09076d1
+Author: vacken12 <112196285+vacken12@users.noreply.github.com>
+Date:   Thu Oct 9 18:56:30 2025 +0300
+
+    Merge pull request #36 from Avitzh/scp280
+    
+    Scp280
+
+[33mcommit ea56f99859216bb795cf897bb44e124f6baa4aa5[m
+Merge: a9da782 9dec6c2
+Author: vacken12 <112196285+vacken12@users.noreply.github.com>
+Date:   Thu Oct 9 18:56:10 2025 +0300
+
+    Merge pull request #37 from TwitterTwiner/Bogatyr_fullRP
+    
+    Фиксики
+
+[33mcommit a9da782ccaf0bbc5b7a6d600276638aafe1f481c[m
+Merge: db80c07 2df14e9
+Author: vacken12 <112196285+vacken12@users.noreply.github.com>
+Date:   Thu Oct 9 18:55:59 2025 +0300
+
+    Merge pull request #38 from yeszvq/fix/folder
+    
+    meta charset=utf-8 4pt
+
+[33mcommit d5b1a1b49dd302b614829c46d0e3086ba052e6de[m
+Author: lentye <Stukovilyav2@gmail.com>
+Date:   Wed Oct 8 15:46:20 2025 +0400
+
+    micro_fix
+
+[33mcommit deeb9ed776d1cac6478a86958821315cda726a3a[m
+Author: lentye <Stukovilyav2@gmail.com>
+Date:   Wed Oct 8 15:16:52 2025 +0400
+
+    insane
+
+[33mcommit 2df14e97b41e4c3b0823fbc090c28cf16357a0e4[m
+Author: Administrator <mipalasy@gmail.com>
+Date:   Tue Oct 7 23:39:01 2025 +0300
+
+    meta charset=utf-8 4pt
+
+[33mcommit 9dec6c25e268d4fbc27d58ab64a52b3c117afb71[m
+Author: TwitterTwiner <T.WINER@yandex.ru>
+Date:   Tue Oct 7 21:11:48 2025 +0300
+
+    Update special_words.dm
+
+[33mcommit 09076d1ed353cc3faa8d0e0916f0d8d08353d1c7[m
+Author: Avitch <alexliman101@gmail.com>
+Date:   Tue Oct 7 20:04:39 2025 +0300
+
+    Finally update
+    
+    Fix some stats and bugs. Add second zone for correct respawn
+
+[33mcommit 164c571a018ea9a3e9458e5ef303a4da13bbfc69[m
+Author: TwitterTwiner <T.WINER@yandex.ru>
+Date:   Tue Oct 7 18:50:45 2025 +0300
+
+    Фикс распрыжки
+
+[33mcommit 0fd5bf60b0fc328f97cc4bcf82944fd827650fd8[m
+Merge: e94aa65 db80c07
+Author: Avitch <alexliman101@gmail.com>
+Date:   Tue Oct 7 14:53:53 2025 +0300
+
+    Merge remote-tracking branch 'upstream/main' into scp280
+
+[33mcommit e94aa65e9d280ff54be341aa427161f6f3a60e8d[m
+Author: Avitch <alexliman101@gmail.com>
+Date:   Tue Oct 7 14:53:32 2025 +0300
+
+    SCP280
+    
+    Changed SCP280
+    Added chamber for it
+
+[33mcommit db80c07667ac992b9f1b6b6f68d0769054d7d3ae[m
+Author: vacken12 <112196285+vacken12@users.noreply.github.com>
+Date:   Mon Oct 6 23:03:49 2025 +0300
+
+    Update special_words.dm
+
+[33mcommit 2271e0c3ebb5922290a3a896642dd384aeefd523[m
+Merge: cbddb3b f755873
+Author: vacken12 <112196285+vacken12@users.noreply.github.com>
+Date:   Mon Oct 6 22:47:25 2025 +0300
+
+    Merge pull request #35 from TwitterTwiner/Bogatyr_fullRP
+    
+    Bogatyr full rp
+
+[33mcommit f7558734edf1ae27a5f419917b8ab061c9b9ffac[m
+Author: TwitterTwiner <T.WINER@yandex.ru>
+Date:   Mon Oct 6 19:39:03 2025 +0000
+
+    Богатыри
+
+[33mcommit 29afa474f7066a7eab7898ce158e52d986bc5dff[m
+Author: TwitterTwiner <T.WINER@yandex.ru>
+Date:   Mon Oct 6 22:30:50 2025 +0300
+
+    Update say.dm
+
+[33mcommit cbddb3bf04f03b1004a7ab2d1bf61a45f22e4f6a[m
+Merge: 8c49331 f7836e5
+Author: vacken12 <112196285+vacken12@users.noreply.github.com>
+Date:   Mon Oct 6 22:08:13 2025 +0300
+
+    Merge pull request #34 from vacken12/revert-33-Bogatyr_fullRP
+    
+    Revert "Bogatyr full rp"
+
+[33mcommit f7836e5da67a20dc3647b93f061a7ecb29c111a6[m[33m ([m[1;31morigin/revert-33-Bogatyr_fullRP[m[33m)[m
+Author: vacken12 <112196285+vacken12@users.noreply.github.com>
+Date:   Mon Oct 6 22:08:02 2025 +0300
+
+    Revert "Bogatyr full rp"
+
+[33mcommit 8c49331811f785fa5a15bfecdba09af66a7d1e4b[m
+Merge: 2bb47cf 598e0bf
+Author: vacken12 <112196285+vacken12@users.noreply.github.com>
+Date:   Mon Oct 6 22:06:51 2025 +0300
+
+    Merge pull request #33 from TwitterTwiner/Bogatyr_fullRP
+    
+    Bogatyr full rp
+
+[33mcommit 2bb47cf1a865169feb371454ebaec04c499e41ce[m
+Author: vacken12 <112196285+vacken12@users.noreply.github.com>
+Date:   Mon Oct 6 20:36:30 2025 +0300
+
+    Add files via upload
+
+[33mcommit 8fa0c6ad17fa985b46e5be88d65271f10d60c63b[m
+Merge: 6220ed8 3bd1cba
+Author: vacken12 <112196285+vacken12@users.noreply.github.com>
+Date:   Mon Oct 6 19:59:36 2025 +0300
+
+    Merge pull request #32 from vacken12/revert-25-reactor_door_bolt
+    
+    Revert "[map update] Reactor door bolt"
+
+[33mcommit 3bd1cba66a2f71df6cacb282133236138f8e2007[m[33m ([m[1;31morigin/revert-25-reactor_door_bolt[m[33m)[m
+Author: vacken12 <112196285+vacken12@users.noreply.github.com>
+Date:   Mon Oct 6 19:56:25 2025 +0300
+
+    Revert "[map update] Reactor door bolt"
+
+[33mcommit 598e0bf5155ab9625d95ca71ac1b23ade97aa136[m
+Merge: 69d6702 6220ed8
+Author: TwitterTwiner <T.WINER@yandex.ru>
+Date:   Mon Oct 6 19:47:30 2025 +0300
+
+    Merge branch 'vacken12:main' into Bogatyr_fullRP
+
+[33mcommit 69d6702df098c40fd6eeaf7e11242df457f72daf[m
+Author: TwitterTwiner <T.WINER@yandex.ru>
+Date:   Mon Oct 6 16:40:02 2025 +0000
+
+    Богатырский
+
+[33mcommit 6220ed8896bd36d7ab7cbe1f869c31ec4e5647de[m
+Author: vacken12 <112196285+vacken12@users.noreply.github.com>
+Date:   Mon Oct 6 19:23:29 2025 +0300
+
+    Add files via upload
+
+[33mcommit 02644eeac9449c422ab4fb89365471112a8e0ae0[m
+Author: vacken12 <112196285+vacken12@users.noreply.github.com>
+Date:   Mon Oct 6 19:07:16 2025 +0300
+
+    Add files via upload
+
+[33mcommit d806d8a721f5ad50d33e9e089aa7e0356ea3a08f[m
+Author: vacken12 <112196285+vacken12@users.noreply.github.com>
+Date:   Mon Oct 6 19:02:24 2025 +0300
+
+    Add files via upload
+
+[33mcommit 0c3c1944b572960ad52a64f4dbdcf8b8bebd744b[m
+Author: vacken12 <112196285+vacken12@users.noreply.github.com>
+Date:   Mon Oct 6 18:54:51 2025 +0300
+
+    Add files via upload
+
+[33mcommit bf36aacff47f88f68ed5f754b6d783f576ceeee7[m
+Author: vacken12 <112196285+vacken12@users.noreply.github.com>
+Date:   Mon Oct 6 18:50:18 2025 +0300
+
+    Add files via upload
+
+[33mcommit 12f8fd9b912fcf9721b797b2a5dcbbc71a22dd87[m
+Merge: f7f4aba a77fed5
+Author: vacken12 <112196285+vacken12@users.noreply.github.com>
+Date:   Mon Oct 6 08:23:35 2025 +0300
+
+    Merge pull request #30 from Lentye/zcd_apc_shift
+    
+    [MAP Update TEST] ZCD APC SHIFT
+
+[33mcommit f7f4aba870019ea2d209b697e2aa7123ecca4d96[m
+Merge: 2c6ea94 461fc48
+Author: vacken12 <112196285+vacken12@users.noreply.github.com>
+Date:   Mon Oct 6 08:22:20 2025 +0300
+
+    Merge pull request #25 from Lentye/reactor_door_bolt
+    
+    [map update] Reactor door bolt
+
+[33mcommit a77fed552b3398268ab834d2f91ca800352659ed[m
+Author: lentye <Stukovilyav2@gmail.com>
+Date:   Sun Oct 5 23:12:24 2025 +0400
+
+    Update site53.dmm
+
+[33mcommit 2c6ea9454cf1fcaf7ca796644f878d763b68473d[m
+Merge: ddb207f 5caa7bf
+Author: vacken12 <112196285+vacken12@users.noreply.github.com>
+Date:   Sun Oct 5 19:11:25 2025 +0300
+
+    Merge pull request #29 from rinoglaz/fixspammessage1
+    
+    дополнение к прошлому ПРу
+
+[33mcommit 5caa7bfc5ec103bccead2f70924dca8f8cfcd64f[m
+Author: doofi <rinoglaz@yandex.ru>
+Date:   Mon Oct 6 02:09:38 2025 +1000
+
+    фикс фикса
+
+[33mcommit ddb207f9bfa377a3354e70bafa2482c904f5e662[m
+Merge: 0b67933 3cf91cb
+Author: vacken12 <112196285+vacken12@users.noreply.github.com>
+Date:   Sun Oct 5 18:44:04 2025 +0300
+
+    Merge pull request #27 from rinoglaz/fixspammessage
+    
+    спам с ошибками в чате
+
+[33mcommit 3cf91cbca707cc2b46e1ae5c06871c5f7f54a1f0[m
+Author: doofi <rinoglaz@yandex.ru>
+Date:   Mon Oct 6 01:19:14 2025 +1000
+
+    fix
+
+[33mcommit 0b67933f67ae302386990013df7a9961b4b73cac[m
+Merge: 77fa4ec 97eb48e
+Author: vacken12 <112196285+vacken12@users.noreply.github.com>
+Date:   Sun Oct 5 15:36:54 2025 +0300
+
+    Merge pull request #24 from yeszvq/fix/some-spc
+    
+    SCP-457 больше не получает урона от снарядов
+
+[33mcommit 77fa4ecd8c4b4727d0745f99d11b3532804d5a08[m
+Merge: 57a2109 1d2093a
+Author: vacken12 <112196285+vacken12@users.noreply.github.com>
+Date:   Sun Oct 5 15:35:40 2025 +0300
+
+    Merge pull request #26 from rinoglaz/RD_access
+    
+    Повышенный доступ Научному Руководителю
+
+[33mcommit 1d2093ab5001bc492ffc489e645ee8a41fbfc2fa[m
+Author: doofi <rinoglaz@yandex.ru>
+Date:   Sun Oct 5 22:30:32 2025 +1000
+
+    исправление
+
+[33mcommit 0a3bed44cccfcd0a4a003939053fddbc22fed108[m
+Author: doofi <rinoglaz@yandex.ru>
+Date:   Sun Oct 5 22:30:05 2025 +1000
+
+    доступ
+
+[33mcommit 461fc486c15584296fb94955856159d44678db77[m
+Author: lentye <Stukovilyav2@gmail.com>
+Date:   Sun Oct 5 16:09:19 2025 +0400
+
+    Update site53.dmm
+
+[33mcommit 97eb48e10eca1d2e706fa0aeb87df48bb224e3dd[m
+Author: Administrator <mipalasy@gmail.com>
+Date:   Sun Oct 5 13:34:40 2025 +0300
+
+    Добавлена своя обработка для снарядов у scp457
+
+[33mcommit 57a21096f6a898d8e98d7a0fc708a280bca38af6[m
+Merge: 95033a5 fae1699
+Author: vacken12 <112196285+vacken12@users.noreply.github.com>
+Date:   Thu Oct 2 15:32:23 2025 +0300
+
+    Merge pull request #22 from yeszvq/fix/paper_big_text
+    
+    Фикс окна ввода
+
+[33mcommit fae1699a9c2bce9ae017139d5c407283809503a1[m
+Author: Administrator <mipalasy@gmail.com>
+Date:   Thu Oct 2 10:34:25 2025 +0300
+
+    Замена окна ввода
+
+[33mcommit 95033a5ca7fe8b4ac9b7d48c854438d7f546c0fe[m
+Merge: 95be9ca e0aec1e
+Author: vacken12 <112196285+vacken12@users.noreply.github.com>
+Date:   Wed Oct 1 18:58:38 2025 +0300
+
+    Merge pull request #21 from yeszvq/fix/pm-admin
+    
+    Фикс с отображением имени куклы админы в ПМе и отображение панели джоббанов
+
+[33mcommit e0aec1e3bb45991961b465b7aca5d07e0c520580[m
+Author: Administrator <mipalasy@gmail.com>
+Date:   Wed Oct 1 17:01:03 2025 +0300
+
+    Фикс отображения панели с джоббанами
+
+[33mcommit d809ad825679000a08713fb984ee368a7c572702[m
+Author: Administrator <mipalasy@gmail.com>
+Date:   Wed Oct 1 16:03:45 2025 +0300
+
+    Добавил доп переменную в вызов функции для корректного отображения имени персонажа админа в разных ситуациях.
+
+[33mcommit 95be9ca089e8eb615b0c595a5bb732f34f37d6f5[m
+Author: vacken12 <112196285+vacken12@users.noreply.github.com>
+Date:   Tue Sep 30 22:31:43 2025 +0300
+
+    Add files via upload
+
+[33mcommit ef4193d8bc215e6681e60263abfdc6b6bdd688f3[m
+Author: vacken12 <112196285+vacken12@users.noreply.github.com>
+Date:   Mon Sep 29 15:44:44 2025 +0300
+
+    Add files via upload
+
+[33mcommit 3c04d64cae2b7437aa03b46a439e5235f78f5e7f[m
+Merge: 84631c4 63be489
+Author: vacken12 <112196285+vacken12@users.noreply.github.com>
+Date:   Sun Sep 28 23:44:16 2025 +0300
+
+    Merge pull request #20 from yeszvq/fix/boombox
+    
+    Фикс музыки в бумбоксе при передвижении
+
+[33mcommit 63be48965494e5ab6a12e942649cb5ad6844624d[m
+Author: Administrator <mipalasy@gmail.com>
+Date:   Sun Sep 28 23:37:40 2025 +0300
+
+    Добавил в sound_player обновление proxy_listener при экипировке и выбрасывании предмета
+
+[33mcommit 84631c4449bd9325bb0e2ce910fd9b6f26d8661c[m
+Author: vacken12 <112196285+vacken12@users.noreply.github.com>
+Date:   Sun Sep 28 23:30:17 2025 +0300
+
+    Add files via upload
+
+[33mcommit 53a3824a9e7b554b88c03f19a31b5464c536a02b[m
+Merge: 3f0074b c699deb
+Author: vacken12 <112196285+vacken12@users.noreply.github.com>
+Date:   Sun Sep 28 16:49:39 2025 +0300
+
+    Merge pull request #19 from SanecMan/main
+    
+    meta charset utf-8
+
+[33mcommit c699debf8adc6042cebf1f1b0816afc041ae89fa[m
+Author: Sanec <xxxxxxxxxxxxxxxxxxxx.2002@gmail.com>
+Date:   Sun Sep 28 20:48:59 2025 +0700
+
+    meta charset=utf-8 3pt
+
+[33mcommit ec087ef80fd8663890b2687a0587329d8b84cd2e[m
+Author: Sanec <xxxxxxxxxxxxxxxxxxxx.2002@gmail.com>
+Date:   Sun Sep 28 20:48:12 2025 +0700
+
+    meta charset=utf-8 2pt
+
+[33mcommit b54a939e98370293f73a2e44fa1a3fc16d479243[m
+Author: Sanec <xxxxxxxxxxxxxxxxxxxx.2002@gmail.com>
+Date:   Sun Sep 28 20:31:01 2025 +0700
+
+    meta charset utf-8
+
+[33mcommit 3f0074bfa7ed6254ffb8a1b4c008d317a9ca0d2e[m
+Author: vacken12 <112196285+vacken12@users.noreply.github.com>
+Date:   Sun Sep 28 16:14:15 2025 +0300
+
+    Update config.txt
+
+[33mcommit e224fa6a48f555883968d6cfbdd0c44d22bd030f[m
+Merge: 2a95c9f fbcf7cb
+Author: vacken12 <112196285+vacken12@users.noreply.github.com>
+Date:   Sat Sep 27 20:30:34 2025 +0300
+
+    Merge pull request #18 from NikolaTariZzZ/main
+    
+    Add files via upload
+
+[33mcommit fbcf7cba029a98fb7123151205947d1c04a65862[m
+Author: NikolaTariZzZ <141991963+NikolaTariZzZ@users.noreply.github.com>
+Date:   Sat Sep 27 19:48:38 2025 +0300
+
+    Add files via upload
+
+[33mcommit 555502fad19ebd14db169007690005048a586663[m
+Author: NikolaTariZzZ <141991963+NikolaTariZzZ@users.noreply.github.com>
+Date:   Sat Sep 27 19:11:54 2025 +0300
+
+    Add files via upload
+
+[33mcommit 2a95c9f23b5c7e12d56c625e118f67d964f7e710[m
+Author: vacken12 <112196285+vacken12@users.noreply.github.com>
+Date:   Sat Sep 27 16:34:41 2025 +0300
+
+    Add files via upload
+
+[33mcommit 77ae41ecfc494e70fa503fca8e37d41519bbea4c[m
+Author: vacken12 <112196285+vacken12@users.noreply.github.com>
+Date:   Sat Sep 27 12:34:01 2025 +0300
+
+    Update admins.txt
+
+[33mcommit 93684d87cb40dae40616ee99c00675541e2fb113[m
+Author: vacken12 <112196285+vacken12@users.noreply.github.com>
+Date:   Fri Sep 26 21:50:58 2025 +0300
+
+    Add files via upload
+
+[33mcommit 8585ef52ea704a21d8d5e9f45a15e442596afcec[m
+Author: vacken12 <112196285+vacken12@users.noreply.github.com>
+Date:   Fri Sep 26 02:00:05 2025 +0300
+
+    Update admin_ranks.txt
+
+[33mcommit 31cf40bb2bd1b6d861a7a35a24c4d5e4b14a7b81[m
+Author: vacken12 <112196285+vacken12@users.noreply.github.com>
+Date:   Thu Sep 25 15:54:04 2025 +0300
+
+    Add files via upload
+
+[33mcommit d8935bfcf39acc8d8272167d47b5abe68209da2a[m
+Author: vacken12 <112196285+vacken12@users.noreply.github.com>
+Date:   Thu Sep 25 15:43:29 2025 +0300
+
+    Add files via upload
+
+[33mcommit 8bc2d0c561589467aad492c5672af2f904adba3a[m
+Author: vacken12 <112196285+vacken12@users.noreply.github.com>
+Date:   Thu Sep 25 15:36:21 2025 +0300
+
+    Add files via upload
+
+[33mcommit 446337ff87f3a1e48528a3b83d84762816ddcdc3[m
+Author: vacken12 <112196285+vacken12@users.noreply.github.com>
+Date:   Thu Sep 25 14:36:27 2025 +0300
+
+    Add files via upload
+
+[33mcommit 9607a3eb27a26b6e8d649407b699e60037fe5d87[m
+Author: vacken12 <112196285+vacken12@users.noreply.github.com>
+Date:   Thu Sep 25 12:33:50 2025 +0300
+
+    Add files via upload
+
+[33mcommit 095713ae3411dc58937949697de9c5a8b9cd7ef4[m
+Author: vacken12 <112196285+vacken12@users.noreply.github.com>
+Date:   Wed Sep 24 23:11:36 2025 +0300
+
+    Add files via upload
+
+[33mcommit 37bb4fc4ffc5438d496f7f64a74edb2ba8d3f282[m
+Author: vacken12 <112196285+vacken12@users.noreply.github.com>
+Date:   Wed Sep 24 22:59:59 2025 +0300
+
+    Add files via upload
+
+[33mcommit ef78f4ad21a0264a3ee2f07d91658131bf9708dd[m
+Author: vacken12 <112196285+vacken12@users.noreply.github.com>
+Date:   Wed Sep 24 21:43:00 2025 +0300
+
+    Add files via upload
+
+[33mcommit 110027ae102a658339d989461642527c242cb757[m
+Merge: b56fd91 3653dd1
+Author: vacken12 <112196285+vacken12@users.noreply.github.com>
+Date:   Wed Sep 24 21:38:05 2025 +0300
+
+    Merge pull request #15 from rinoglaz/d-class
+    
+    удаление раундстартовых рюкзаков д классу + перевод листочка с напоминалкой
+
+[33mcommit 3653dd1dc0edb55ec86c3f06573ae8e2a2a7e396[m
+Author: doofi <rinoglaz@yandex.ru>
+Date:   Thu Sep 25 03:40:07 2025 +1000
+
+    небольшие правки
+
+[33mcommit 32bddfa5e0b63acd3729683d75f87f530d5646a1[m
+Author: doofi <rinoglaz@yandex.ru>
+Date:   Thu Sep 25 02:58:36 2025 +1000
+
+    удаление раундстартовых рюкзаков д классу + перевод листочка с напоминалкой
+
+[33mcommit b56fd9110733384e8aeee1e79908e66732ed0626[m
+Author: vacken12 <112196285+vacken12@users.noreply.github.com>
+Date:   Wed Sep 24 19:13:54 2025 +0300
+
+    Add files via upload
+
+[33mcommit 227be48e6b2ad92bf90c21a243fe3291c0b0f23c[m
+Author: vacken12 <112196285+vacken12@users.noreply.github.com>
+Date:   Wed Sep 24 18:57:55 2025 +0300
+
+    Add files via upload
+
+[33mcommit 8839983be9cd07d4dc4010e77c371b8d89f6f3bd[m
+Author: vacken12 <112196285+vacken12@users.noreply.github.com>
+Date:   Wed Sep 24 16:40:07 2025 +0300
+
+    Update admins.txt
+
+[33mcommit 5495ec24658b18b69ef36b80327219639ad4a171[m
+Merge: 6fce040 86ca248
+Author: vacken12 <112196285+vacken12@users.noreply.github.com>
+Date:   Wed Sep 24 16:08:07 2025 +0300
+
+    Merge pull request #14 from rinoglaz/scp263
+    
+    фикс дублирования сообщений scp-263
+
+[33mcommit 86ca248fdb3ea1090db29776a3a2a2018c774d14[m
+Author: doofi <rinoglaz@yandex.ru>
+Date:   Wed Sep 24 22:55:46 2025 +1000
+
+    fix
+
+[33mcommit 6fce0407912e598377083625e443a0983f75c336[m
+Author: vacken12 <112196285+vacken12@users.noreply.github.com>
+Date:   Wed Sep 24 14:13:47 2025 +0300
+
+    Add files via upload
+
+[33mcommit 04a6dbd8c521ba252c164738b0ea21bcd97fdfdf[m
+Merge: f14ec04 e30cbf5
+Author: vacken12 <112196285+vacken12@users.noreply.github.com>
+Date:   Wed Sep 24 14:05:26 2025 +0300
+
+    Merge pull request #13 from rinoglaz/scp-106
+    
+    увеличение количества  игроков для открытия scp-106
+
+[33mcommit f14ec0485aabf83504a9dec3a60eb0a78dde4926[m
+Author: vacken12 <112196285+vacken12@users.noreply.github.com>
+Date:   Wed Sep 24 14:04:51 2025 +0300
+
+    Add files via upload
+
+[33mcommit e30cbf58b099de43b3145a87cd5b4e0715a1218d[m
+Author: doofi <rinoglaz@yandex.ru>
+Date:   Wed Sep 24 18:12:28 2025 +1000
+
+    increased time
+
+[33mcommit 524edf0acafb26490a9629565e11ecabe4f83c0b[m
+Author: vacken12 <112196285+vacken12@users.noreply.github.com>
+Date:   Wed Sep 24 11:11:13 2025 +0300
+
+    Update SCP-082.dm
+
+[33mcommit 01b767fc501156aa005d6408aecb0be614239a9e[m
+Author: vacken12 <112196285+vacken12@users.noreply.github.com>
+Date:   Wed Sep 24 11:10:29 2025 +0300
+
+    Update SCP-173.dm
+
+[33mcommit 1bac38e625398dd9020cd9cc893f6f6c09df46c7[m
+Author: vacken12 <112196285+vacken12@users.noreply.github.com>
+Date:   Wed Sep 24 11:09:44 2025 +0300
+
+    Update SCP-049.dm
+
+[33mcommit 808cea76cc78a98c7a8d51c87705dfdd27e38d5c[m
+Author: vacken12 <112196285+vacken12@users.noreply.github.com>
+Date:   Tue Sep 23 18:30:18 2025 +0300
+
+    Update config.txt
+
+[33mcommit 8f9564ea4fec0ff56ba6ad3967d0c74bcee2f711[m
+Author: vacken12 <112196285+vacken12@users.noreply.github.com>
+Date:   Tue Sep 23 17:59:19 2025 +0300
+
+    Update game_options.txt
+
+[33mcommit 636d340b9370ef0d5ead4a63ab7aa97008599111[m
+Author: vacken12 <112196285+vacken12@users.noreply.github.com>
+Date:   Tue Sep 23 16:22:57 2025 +0300
+
+    Update admins.txt
+
+[33mcommit 2dca6fdb37104d4e1f414d3e2e95998adb5c8a7b[m
+Merge: ca433d2 10c147a
+Author: vacken12 <112196285+vacken12@users.noreply.github.com>
+Date:   Tue Sep 23 16:16:11 2025 +0300
+
+    Merge pull request #8 from rinoglaz/scp-263_translate
+    
+    Перевод scp-263(старый телевизор)
+
+[33mcommit ca433d257ecdbc1630d86becfe662829f3ce58f2[m
+Merge: cc265dd bb8d01a
+Author: vacken12 <112196285+vacken12@users.noreply.github.com>
+Date:   Tue Sep 23 16:12:27 2025 +0300
+
+    Merge pull request #11 from yeszvq/fix/photocopier
+    
+    Фикс интерфейса copier
+
+[33mcommit cc265dd6c9cb7e4ada68d4757e1f7d6089dc9fd0[m
+Merge: 56072ca f1b3439
+Author: vacken12 <112196285+vacken12@users.noreply.github.com>
+Date:   Tue Sep 23 16:12:05 2025 +0300
+
+    Merge pull request #10 from yeszvq/fix/notes
+    
+    Последние изменения: отключение ролей, отключение повтора текста, фикс окна NOTES
+
+[33mcommit 56072ca1fcc0b86934a08feb83d4664d75a6f2b6[m
+Merge: f054d5c c15c50d
+Author: vacken12 <112196285+vacken12@users.noreply.github.com>
+Date:   Tue Sep 23 16:11:01 2025 +0300
+
+    Merge pull request #12 from yeszvq/fix/paper
+    
+    Фикс отображения русского языка при использовании стопки бумаги
+
+[33mcommit c15c50d358f8c732f52cb6d3c75976f91b503a53[m
+Author: Administrator <mipalasy@gmail.com>
+Date:   Tue Sep 23 13:15:39 2025 +0300
+
+    Фикс отображения русского языка при использовании стопки бумаги
+
+[33mcommit bb8d01a303c064e6f04f61ca12f2ab16a18d2291[m
+Author: Administrator <mipalasy@gmail.com>
+Date:   Tue Sep 23 09:26:34 2025 +0300
+
+    Фикс интерфейса copier
+
+[33mcommit f1b34392f281bc2c82d5f1e8a8c73db72a973d06[m
+Author: Administrator <mipalasy@gmail.com>
+Date:   Mon Sep 22 19:56:13 2025 +0300
+
+    Фикс окна с воспоминаниями
+
+[33mcommit f054d5c7468d8843f97a58c98bbb359c6ea2a1a9[m
+Author: vacken12 <112196285+vacken12@users.noreply.github.com>
+Date:   Mon Sep 22 19:25:30 2025 +0300
+
+    Update config.txt
+
+[33mcommit 9c10a5a393d146060db8f56ca73a90603a06b1e1[m
+Author: vacken12 <112196285+vacken12@users.noreply.github.com>
+Date:   Mon Sep 22 19:20:22 2025 +0300
+
+    Update config.txt
+
+[33mcommit 9245e8642af76f59af4d74251440cb2b21c12acd[m
+Author: vacken12 <112196285+vacken12@users.noreply.github.com>
+Date:   Mon Sep 22 19:19:23 2025 +0300
+
+    Add files via upload
+
+[33mcommit f6da287b507d8d0be431e34bb8576864093af594[m
+Author: Administrator <mipalasy@gmail.com>
+Date:   Mon Sep 22 12:21:01 2025 +0300
+
+    отключение повторного появления текста у МРЕ
+
+[33mcommit d836d7a27bf4837fdc25ae5c3b74445d3739e4b5[m
+Author: Administrator <mipalasy@gmail.com>
+Date:   Mon Sep 22 12:17:42 2025 +0300
+
+    Отключение ненужных ролей
+
+[33mcommit 10c147ae74c82b332808174c13f0c304b4bc2ba1[m
+Author: doofi <rinoglaz@yandex.ru>
+Date:   Mon Sep 22 14:46:15 2025 +1000
+
+    123
+
+[33mcommit ece530793d26e03cf1fb04e1f0f85c0501312cb1[m
+Author: doofi <rinoglaz@yandex.ru>
+Date:   Mon Sep 22 14:39:03 2025 +1000
+
+    scp_translate
+
+[33mcommit e0cb365799daf75b347e8de5466bb21aaaba0a0c[m
+Author: vacken12 <112196285+vacken12@users.noreply.github.com>
+Date:   Sun Sep 21 22:36:28 2025 +0300
+
+    Update admins.txt
+
+[33mcommit 988802185f7f722499854e29fc611a3500ee9b76[m
+Author: vacken12 <112196285+vacken12@users.noreply.github.com>
+Date:   Sat Sep 20 12:30:01 2025 +0300
+
+    Add files via upload
+
+[33mcommit 6ca4f82a32eeb0117c4e87a18b8c6e1ed51d25ca[m
+Author: vacken12 <112196285+vacken12@users.noreply.github.com>
+Date:   Sat Sep 20 11:31:39 2025 +0300
+
+    Add files via upload
+
+[33mcommit e0c8dace1d6d43bf1dfe7e69f62cbe9db475a4a9[m
+Author: vacken12 <vackenpopov@gmail.com>
+Date:   Sat Sep 20 00:02:06 2025 +0300
+
+    Initial commit

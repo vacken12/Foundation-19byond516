@@ -40,15 +40,6 @@
 	exertion_charge_scale = 1
 	exertion_reagent_scale = 5
 	exertion_reagent_path = /datum/reagent/lactic_acid
-	exertion_emotes_biological = list(
-		/decl/emote/exertion/biological,
-		/decl/emote/exertion/biological/breath,
-		/decl/emote/exertion/biological/pant
-	)
-	exertion_emotes_synthetic = list(
-		/decl/emote/exertion/synthetic,
-		/decl/emote/exertion/synthetic/creak
-	)
 
 /datum/species/human/get_bodytype(mob/living/carbon/human/H)
 	return SPECIES_HUMAN
@@ -197,16 +188,6 @@
 	exertion_charge_scale = 1
 	exertion_reagent_scale = 5
 	exertion_reagent_path = /datum/reagent/lactic_acid
-	exertion_emotes_biological = list(
-		/decl/emote/exertion/biological,
-		/decl/emote/exertion/biological/breath,
-		/decl/emote/exertion/biological/pant
-	)
-	exertion_emotes_synthetic = list(
-		/decl/emote/exertion/synthetic,
-		/decl/emote/exertion/synthetic/creak
-	)
-
 
 /datum/species/skrell/proc/handle_protein(mob/living/carbon/human/M, datum/reagent/protein)
 	var/effective_dose = M.chem_doses[protein.type] * protein.protein_amount

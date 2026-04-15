@@ -331,8 +331,8 @@
 
 	if(ishuman(mymob))
 		var/mob/living/carbon/human/H = mymob
-		H.fov = new /atom/movable/screen/fov(null, H.client.view)
-		H.fov_mask = new /atom/movable/screen/fov/fov_mask(null, H.client.view)
+		H.fov = new /obj/screen/fov(null, H.client.view)
+		H.fov_mask = new /obj/screen/fov/fov_mask(null, H.client.view)
 		hud_elements |= H.fov
 		hud_elements |= H.fov_mask
 
@@ -504,7 +504,7 @@
 /atom/movable/screen/facedir/Click(location, control, params)
 	usr?.face_direction()
 
-/mob/living/carbon/human/InitializePlanes()
+/mob/living/InitializePlanes()
 	..()
 	var/atom/movable/screen/plane_master/vision_cone_target/VC = new
 	var/atom/movable/screen/plane_master/vision_cone/primary/mob = new

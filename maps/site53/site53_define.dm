@@ -80,7 +80,7 @@
 		/decl/audio/track/days,
 		/decl/audio/track/hie,
 		/decl/audio/track/chaos,
-		/decl/audio/track/bookburners,
+		///decl/audio/track/bookburners, // no scp vibe
 		/decl/audio/track/dread,
 		/decl/audio/track/animosity,
 		/decl/audio/track/animosity_v2,
@@ -91,10 +91,12 @@
 		/decl/audio/track/battle_for_ganzir,
 		/decl/audio/track/purge_protocol,
 		/decl/audio/track/uiu_spawn_theme,
-		/decl/audio/track/surface_area,
-		/decl/audio/track/goc_spawn_theme2,
-		/decl/audio/track/fall_of_ganzir,
-		/decl/audio/track/the_bookburners_v2
+		/decl/audio/track/let_me_be_alive,
+		/decl/audio/track/in_the_pines,
+		/decl/audio/track/author_of_my_obituary,
+		///decl/audio/track/goc_spawn_theme2, // no scp vibe
+		/decl/audio/track/fall_of_ganzir
+		///decl/audio/track/the_bookburners_v2 // no scp vibe
 	)
 
 	available_cultural_info = list(

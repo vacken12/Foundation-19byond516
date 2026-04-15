@@ -457,3 +457,13 @@
 			modifiers["catcher"] = TRUE
 			click_turf.Click(click_turf, control, list2params(modifiers))
 	. = 1
+
+/datum/click_handler/emotes/target_emote
+	handler_name = "Target emote"
+
+/datum/click_handler/emotes/target_emote/OnClick(atom/target)
+	user.prepare_target_emote(target, parameters)
+	user.PopClickHandler()
+	return
+
+

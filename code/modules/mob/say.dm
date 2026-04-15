@@ -12,17 +12,19 @@
 	remove_typing_indicator()
 	usr.say(message)
 
-/mob/verb/me_verb(message as text)
+/mob/verb/me_verb(message as text|null)
 	set name = "Me"
-	set category = "IC"
+	set hidden = TRUE
+
+	if(!message)
+		return
 
 	message = sanitize(message)
 
-	remove_typing_indicator()
 	if(use_me)
-		usr.emote("me",usr.emote_type,message)
+		usr.custom_emote(message_type = emote_type, message = message, intentional = TRUE)
 	else
-		usr.emote(message)
+		usr.custom_emote(message = message, intentional = TRUE)
 
 /mob/proc/say_dead(message)
 	communicate(/decl/communication_channel/dsay, client, message)

@@ -686,8 +686,6 @@
 
 	message_type = AUDIBLE_MESSAGE
 
-	sound = 'sound/misc/nymphchirp.ogg'
-
 	state_checks = EMOTE_CHECK_CONSCIOUS
 
 	statpanel_proc = /mob/proc/chirp_emote
@@ -718,5 +716,3 @@
 	set name = "Whistle"
 	set category = "Emotes"
 	emote("whistle")
-
-

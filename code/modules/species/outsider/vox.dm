@@ -101,15 +101,6 @@
 	exertion_charge_scale = 1
 	exertion_reagent_scale = 5
 	exertion_reagent_path = /datum/reagent/lactic_acid
-	exertion_emotes_biological = list(
-		/decl/emote/exertion/biological,
-		/decl/emote/exertion/biological/breath,
-		/decl/emote/exertion/biological/pant
-	)
-	exertion_emotes_synthetic = list(
-		/decl/emote/exertion/synthetic,
-		/decl/emote/exertion/synthetic/creak
-	)
 
 /datum/species/vox/equip_survival_gear(mob/living/carbon/human/H)
 	H.equip_to_slot_or_store_or_drop(new /obj/item/clothing/mask/gas/vox(H), slot_wear_mask)

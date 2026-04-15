@@ -686,6 +686,9 @@
 				if("Me")
 					winset(src, "default-\ref[key]", "parent=default;name=[key];command=.me")
 					communication_hotkeys += key
+				if("Look Up")
+					winset(src, "default-\ref[key]", "parent=default;name=[key];command=.lookup")
+					communication_hotkeys += key
 		calculate_move_dir()
 	// winget() does not work for F1 and F2
 	for(var/key in communication_hotkeys)

@@ -251,11 +251,7 @@
 	var/max_players
 
 	// Order matters, higher pain level should be higher up
-	var/list/pain_emotes_with_pain_level = list(
-		list(/decl/emote/audible/scream, /decl/emote/audible/whimper, /decl/emote/audible/moan, /decl/emote/audible/cry) = 70,
-		list(/decl/emote/audible/grunt, /decl/emote/audible/groan, /decl/emote/audible/moan) = 40,
-		list(/decl/emote/audible/grunt, /decl/emote/audible/groan) = 10,
-	)
+
 
 
 	var/exertion_effect_chance = 0
@@ -805,15 +801,7 @@ The slots that you can use are found in items_clothing.dm and are the inventory 
 		return TRUE
 	return (species_flags & SPECIES_FLAG_NO_SLIP)
 
-/datum/species/proc/get_pain_emote(mob/living/carbon/human/H, pain_power)
-	if(!(species_flags & SPECIES_FLAG_NO_PAIN))
-		return
-	for(var/pain_emotes in pain_emotes_with_pain_level)
-		var/pain_level = pain_emotes_with_pain_level[pain_emotes]
-		if(pain_level >= pain_power)
-			// This assumes that if a pain-level has been defined it also has a list of emotes to go with it
-			var/decl/emote/E = decls_repository.get_decl(pick(pain_emotes))
-			return E.key
+//deleted
 
 /datum/species/proc/handle_exertion(mob/living/carbon/human/H)
 	if (!exertion_effect_chance)
@@ -833,8 +821,3 @@ The slots that you can use are found in items_clothing.dm and are the inventory 
 				H.adjust_nutrition(-DEFAULT_HUNGER_FACTOR * exertion_nutrition_scale)
 			if (exertion_reagent_scale && !isnull(exertion_reagent_path))
 				H.make_reagent(REM * exertion_reagent_scale, exertion_reagent_path)
-		if (prob(10))
-			var/list/active_emotes = synthetic ? exertion_emotes_synthetic : exertion_emotes_biological
-			var/decl/emote/exertion_emote = decls_repository.get_decl(pick(active_emotes))
-			if (exertion_emote)
-				exertion_emote.do_emote(H)

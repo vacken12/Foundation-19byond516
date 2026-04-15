@@ -39,6 +39,19 @@
 	var/area/spawn_area
 	var/turf/start_turf = null
 
+/mob/living/simple_animal/hostile/scp457/Life()
+    . = ..()
+    if(.)
+        for(var/mob/living/carbon/human/H in orange(2, src))
+            if(prob(10))
+                H.adjust_fire_stacks(1)
+                H.IgniteMob()
+                visible_message(SPAN_DANGER("[src] radiates intense heat, scorching [H]!"))
+    if(. && loc && istype(loc, /turf/simulated/floor))
+        var/turf/simulated/floor/F = loc
+        if(F.hotspot)
+            heal_over_time() // Custom function to heal SCP-457
+
 /mob/living/simple_animal/hostile/scp457/Initialize()
 	SCP = new /datum/scp(
 		src, // Ref to actual SCP atom
@@ -186,6 +199,31 @@
 	if(..())
 		UnarmedAttack(A)
 
+
+/mob/living/simple_animal/hostile/scp457/proc/spread_fire()
+    for(var/turf/simulated/floor/T in orange(1, src))
+        if(prob(30)) // 30% chance to spread fire to adjacent tiles
+            new /obj/hotspot(T)
+
+    aflame_cooldown_track = world.time + aflame_cooldown_time
+    playsound(src, 'sounds/items/welder.ogg', 75, 1)
+    visible_message(SPAN_WARNING("[src] spreads the fire around it!"))
+
+
+/mob/living/simple_animal/hostile/scp457/water_act()
+    aflame_cooldown_time += 10 SECONDS
+    visible_message(SPAN_WARNING("[src]'s flames dim as it's doused with water!"))
+    addtimer(CALLBACK(src, .proc/reset_flame_cooldown), 10 SECONDS)
+
+/mob/living/simple_animal/hostile/scp457/proc/reset_flame_cooldown()
+    aflame_cooldown_time = initial(aflame_cooldown_time)
+    visible_message(SPAN_NOTICE("[src]'s flames roar back to life!"))
+
+/mob/living/simple_animal/hostile/scp457/proc/heal_over_time()
+    if(health < maxHealth)
+        health += 5
+        visible_message(SPAN_NOTICE("[src]'s flames grow stronger as it basks in the fire!"))
+
 /mob/living/simple_animal/hostile/scp457/bullet_act(obj/item/projectile/Proj)
 	if(status_flags & GODMODE)
 		return PROJECTILE_FORCE_MISS
@@ -195,7 +233,7 @@
 /mob/living/simple_animal/hostile/scp457/verb/scp_say(message as text)
 	set category = "SCP-457"
 	set name = "SCP say"
-
+	set hidden = 0
 	for(var/mob/A in GLOB.SCP_list)
 		if(A.client)
 			to_chat(A, SPAN_DANGER("[icon2html(src, usr)] <B><strong>SCP-[SCP.designation] [src]:</strong></B> <span class='message linkify'>[message]</span>"))
