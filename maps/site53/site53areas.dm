@@ -464,6 +464,11 @@
 	area_flags = AREA_FLAG_RAD_SHIELDED
 	sound_env = SMALL_ENCLOSED
 
+/area/site53/llcz/scp017
+	name = "\improper SCP-939 Containment Chamber"
+	icon_state = "research"
+	area_flags = AREA_FLAG_RAD_SHIELDED
+
 /area/site53/llcz/scp012
 	name = "\improper SCP-012"
 	icon_state = "research"
@@ -1287,6 +1292,26 @@
 
 /area/site53/lhcz/scp035room
 	name = "\improper SCP-035 Containment Chamber"
+	icon_state = "research"
+	area_flags = AREA_FLAG_RAD_SHIELDED
+
+/area/site53/lhcz/scp1366entrance
+	name = "\improper SCP-1366-RU Containment Chamber Entrance"
+	icon_state = "research"
+	area_flags = AREA_FLAG_RAD_SHIELDED
+
+/area/site53/lhcz/scp1366room
+	name = "\improper SCP-1366-RU Containment Chamber"
+	icon_state = "research"
+	area_flags = AREA_FLAG_RAD_SHIELDED
+
+/area/site53/lhcz/scp939observation
+	name = "\improper SCP-939 Observation room"
+	icon_state = "research"
+	area_flags = AREA_FLAG_RAD_SHIELDED
+
+/area/site53/lhcz/scp939chamber
+	name = "\improper SCP-939 Containment Chamber"
 	icon_state = "research"
 	area_flags = AREA_FLAG_RAD_SHIELDED
 
