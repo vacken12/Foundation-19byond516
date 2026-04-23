@@ -11,7 +11,7 @@
 	)
 
 // Cultural IDs.
-#define FACTION_SCP_FOUNDATION   "SCP Foundation"
+#define FACTION_SCP_FOUNDATION   "Фонд SCP"
 #define FACTION_GOC			     "Global Occult Coalition"
 #define FACTION_SERPENT_HAND     "Serpent's Hand"
 #define FACTION_CHAOS_INSURGENCY "Chaos Insurgency"
