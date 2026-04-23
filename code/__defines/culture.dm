@@ -13,7 +13,7 @@
 // Cultural IDs.
 #define FACTION_SCP_FOUNDATION   "Фонд SCP"
 #define FACTION_GOC			     "Global Occult Coalition"
-#define FACTION_SERPENT_HAND     "Serpent's Hand"
+#define FACTION_SERPENT_HAND     "Длань Змея"
 #define FACTION_CHAOS_INSURGENCY "Chaos Insurgency"
 #define FACTION_UIU              "Unusual Incidents Unit"
 #define FACTION_OTHER            "Other faction"
