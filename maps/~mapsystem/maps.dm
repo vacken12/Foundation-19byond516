@@ -178,7 +178,7 @@ var/const/MAP_HAS_RANK = 2		//Rank system, also togglable
 				allowed_jobs += jtype
 	if(!LAZYLEN(planet_size))
 		planet_size = list(world.maxx, world.maxy)
-	game_year = text2num(time2text(world.timeofday, "YYYY")) + DEFAULT_GAME_YEAR_OFFSET
+	game_year = 2010
 
 
 /datum/map/proc/get_lobby_track(banned)
