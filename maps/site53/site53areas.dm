@@ -1326,6 +1326,11 @@
 	icon_state = "research"
 	area_flags = AREA_FLAG_RAD_SHIELDED
 
+/area/site53/lhcz/scp966chamber
+	name = "\improper SCP-966 Containment Chamber"
+	icon_state = "research"
+	area_flags = AREA_FLAG_RAD_SHIELDED
+
 /area/site53/uhcz/scp939enclosure
 	name = "\improper SCP-939 Enclosure"
 	icon_state = "research"
