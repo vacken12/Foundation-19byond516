@@ -199,21 +199,21 @@
 /decl/hierarchy/outfit/mtf/isd
 	name = OUTFIT_JOB_NAME("Internal Security Department Field Uniform")
 	uniform = /obj/item/clothing/under/rank/security/isd
-	suit = null
+	suit = /obj/item/clothing/under/rank/security/isd
 	mask = null
 	head = /obj/item/clothing/head/beret/isd
 	gloves = /obj/item/clothing/gloves/tactical/scp
 	glasses = /obj/item/clothing/glasses/sunglasses
-	shoes = /obj/item/clothing/shoes/dutyboots
-	suit_store = null
+	shoes = /obj/item/clothing/shoes/combat/lcz
+	suit_store = /obj/item/gun/projectile/automatic/machine_pistol
 	r_hand = null
-	l_hand = /obj/random/clipboard
+	l_hand = null
 	l_pocket = /obj/item/handcuffs
-	r_pocket = /obj/item/ammo_magazine/machine_pistol
+	r_pocket = /obj/item/device/flash
 	id_type = /obj/item/card/id/mtf/isd
-	belt = /obj/item/gun/projectile/automatic/machine_pistol
+	belt = /obj/item/storage/belt/holster/security/fullusp45
 	back = /obj/item/storage/backpack/satchel/leather/black
-	backpack_contents = list(/obj/item/storage/box/ifak = 1,/obj/item/crowbar/emergency_forcing_tool = 1,/obj/item/stamp/scp/o5rep = 1,/obj/item/melee/baton/loaded = 1,/obj/item/clothing/mask/gas/isd = 1)
+	backpack_contents = list(/obj/item/storage/firstaid/adv = 1,/obj/item/crowbar/prybar = 1,/obj/item/stamp/scp/o5rep = 1,/obj/item/melee/baton/loaded = 1,/obj/item/clothing/mask/gas/isd = 1,/obj/item/reagent_containers/spray/pepper = 1, /obj/item/ammo_magazine/machine_pistol = 2, /obj/item/ammo_magazine/scp/usp45 = 1)
 
 /decl/hierarchy/outfit/mtf/isd/formal
 	name = OUTFIT_JOB_NAME("Internal Security Department Formal Uniform")
