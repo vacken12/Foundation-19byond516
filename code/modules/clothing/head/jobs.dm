@@ -189,14 +189,14 @@
 	name = "Internal Security field cap"
 	desc = "A dull black cap. It has ISD in white printed on it on the front. Used by the Internal Security Department. It's padded with some extreme armor."
 	icon_state = "isd_cap"
-	armor = list(melee = 20, bullet = 30, laser = 20,energy = 20, bomb = 15, bio = 0, rad = 0)
+	armor = list(melee = 35, bullet = 45, laser = 30,energy = 30, bomb = 25, bio = 15, rad = 15)
 	body_parts_covered = HEAD
 
 /obj/item/clothing/head/beret/isd/fedora
 	name = "Internal Security fedora"
 	desc = "A fancy black fedora with a red strap along it. Used by the Internal Security Department. It's padded with some extreme armor."
 	icon_state = "isd_fedora"
-	armor = list(melee = 20, bullet = 30, laser = 20,energy = 20, bomb = 15, bio = 0, rad = 0)
+	armor = list(melee = 35, bullet = 45, laser = 30,energy = 30, bomb = 25, bio = 15, rad = 15)
 /obj/item/clothing/head/beret/mtf
 	name = "'Nine Tailed Fox' tactical beret"
 	desc = "A heavy padded beret used by MTF Epsilon-11, it's quite armored, more than traditional helmets."
