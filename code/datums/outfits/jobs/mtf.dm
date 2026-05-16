@@ -199,7 +199,7 @@
 /decl/hierarchy/outfit/mtf/isd
 	name = OUTFIT_JOB_NAME("Internal Security Department Field Uniform")
 	uniform = /obj/item/clothing/under/rank/security/isd
-	suit = /obj/item/clothing/under/rank/security/isd
+	suit = /obj/item/clothing/suit/storage/vest/nt/isd
 	mask = null
 	head = /obj/item/clothing/head/beret/isd
 	gloves = /obj/item/clothing/gloves/tactical/scp
