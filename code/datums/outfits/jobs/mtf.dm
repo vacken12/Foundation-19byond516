@@ -206,8 +206,8 @@
 	glasses = /obj/item/clothing/glasses/sunglasses
 	shoes = /obj/item/clothing/shoes/combat/lcz
 	suit_store = /obj/item/gun/projectile/automatic/machine_pistol
-	r_hand = null
-	l_hand = null
+	r_hand = /obj/item/clothing/accessory/storage/holster/thigh
+	l_hand = /obj/item/gun/energy/taser
 	l_pocket = /obj/item/handcuffs
 	r_pocket = /obj/item/ammo_magazine/machine_pistol
 	id_type = /obj/item/card/id/mtf/isd
