@@ -226,6 +226,7 @@
 /obj/item/clothing/suit/storage/vest/nt/isd
 	name = "Internal Security armored vest"
 	desc = "A synthetic armor vest with \"INTERNAL SECURITY DEPARTMENT\" printed in red lettering on the chest. This one has added webbing and ballistic plates."
+	armor = list(melee = 50, bullet = 65, laser = 40,energy = 40, bomb = 35, bio = 35, rad = 35)
 	icon_state = "ntwebvest"
 
 /obj/item/clothing/suit/storage/vest/nt/warden
