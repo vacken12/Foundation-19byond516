@@ -441,8 +441,15 @@
 	if(get_preference_value(/datum/client_preference/play_lobby_music) == GLOB.PREF_NO)
 		return
 
+	var/list/available_tracks = subtypesof(/decl/audio/track)
 	var/list/track_names = list()
 	var/list/track_types = list()
+
+	for(var/track_type in available_tracks)
+		var/decl/audio/track/track = track_type
+		if(track.title)
+			track_names.Add("[track.title] - [track.author]")
+			track_types.Add(track_type)
 
 	var/selection = input(src, "Select a lobby track to play:", "Lobby Music", null) as null|anything in track_names
 	if(!selection)
