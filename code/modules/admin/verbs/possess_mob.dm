@@ -23,7 +23,7 @@ GLOBAL_LIST_EMPTY(available_mobs_for_possess)
 	log_and_message_admins("switched [M] possess mode for ghosts to [M.ghosted ? "ON" : "OFF"]!", M)
 
 	if(M.ghosted)
-		notify_ghosts("[capitalize(M.name)] is now available to possess!", source = M, action = NOTIFY_POSSES, posses_mob = TRUE)
+		notify_ghosts("[capitalize(M.name)] is now available to possess!", source = M, action = NOTIFY_POSSESS, posses_mob = TRUE)
 		GLOB.available_mobs_for_possess["\ref[M]"] = TRUE
 	else
 		GLOB.available_mobs_for_possess -= "\ref[M]"

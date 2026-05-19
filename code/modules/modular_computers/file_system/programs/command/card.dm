@@ -180,24 +180,30 @@
 			if(!authorized(user_id_card))
 				to_chat(usr, SPAN_WARNING("Access denied."))
 				return
-			if(computer && program_has_access(user, 1))
-				if(href_list["name"])
-					var/temp_name = sanitizeName(input("Enter name.", "Name", id_card.registered_name),allow_numbers=TRUE)
-					if(temp_name)
-						id_card.registered_name = temp_name
-						id_card.formal_name_suffix = initial(id_card.formal_name_suffix)
-						id_card.formal_name_prefix = initial(id_card.formal_name_prefix)
-					else
-						to_chat(usr, SPAN_WARNING("Invalid name entered!"))
-				else if(href_list["account"])
-					var/account_num = text2num(input("Enter account number.", "Account", id_card.associated_account_number))
+
+			if(!computer || !program_has_access(user, 1) || !id_card)
+				return
+
+			if(href_list["name"])
+				var/temp_name = sanitizeName(input("Enter name.", "Name", id_card.registered_name),allow_numbers=TRUE)
+				if(temp_name)
+					id_card.registered_name = temp_name
+					id_card.formal_name_suffix = initial(id_card.formal_name_suffix)
+					id_card.formal_name_prefix = initial(id_card.formal_name_prefix)
+				else
+					to_chat(usr, SPAN_WARNING("Invalid name entered!"))
+			else if(href_list["account"])
+				var/account_num = text2num(input("Enter account number.", "Account", id_card.associated_account_number))
+				if(account_num)
 					id_card.associated_account_number = account_num
-				else if(href_list["elogin"])
-					var/email_login = input("Enter email login.", "Email login", id_card.associated_email_login["login"])
-					id_card.associated_email_login["login"] = email_login
-				else if(href_list["epswd"])
-					var/email_password = input("Enter email password.", "Email password")
-					id_card.associated_email_login["password"] = email_password
+				else
+					to_chat(usr, SPAN_WARNING("Invalid account number entered!"))
+			else if(href_list["elogin"])
+				var/email_login = input("Enter email login.", "Email login", id_card.associated_email_login["login"])
+				id_card.associated_email_login["login"] = email_login
+			else if(href_list["epswd"])
+				var/email_password = input("Enter email password.", "Email password")
+				id_card.associated_email_login["password"] = email_password
 		if("assign")
 			if(!authorized(user_id_card))
 				to_chat(usr, SPAN_WARNING("Access denied."))

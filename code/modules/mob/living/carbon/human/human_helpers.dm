@@ -414,9 +414,63 @@
 				return FALSE
 	return TRUE
 
-///Checks if a human can make direct contact with another humans bare skin, factoring in HCZ hazmat protection. Uses the select ui to determine where to check.
+///Checks if a human can make direct contact with another human's bare skin, factoring in HCZ hazmat protection.
+///Uses the attacker's selected zone (zone_sel.selecting) to determine which body part is being targeted.
+///Returns FALSE if the targeted body part is protected by hazmat gear, meaning the attacker cannot make contact with bare skin there.
 /mob/living/carbon/human/proc/can_touch_hazmat_bare_skin(mob/living/carbon/human/target)
-	// If the target is wearing both the HCZ hazmat suit AND helmet, they are fully protected.
-	if(istype(target.wear_suit, /obj/item/clothing/suit/hcz_hazmat) && istype(target.head, /obj/item/clothing/head/hcz_hazmat))
-		return FALSE
+	// Accumulate body coverage flags from the target's hazmat equipment
+	var/hazmat_covered = 0
+
+	if(istype(target.wear_suit, /obj/item/clothing/suit/hcz_hazmat))
+		var/obj/item/clothing/suit/hcz_hazmat/suit = target.wear_suit
+		hazmat_covered |= suit.body_parts_covered
+
+	if(istype(target.head, /obj/item/clothing/head/hcz_hazmat))
+		var/obj/item/clothing/head/hcz_hazmat/helmet = target.head
+		hazmat_covered |= helmet.body_parts_covered
+
+	// No hazmat gear at all — fall through to the standard bare-skin check below
+	if(!hazmat_covered)
+		return can_touch_bare_skin(target)
+
+	// Check the specific body part the attacker is targeting
+	switch(zone_sel.selecting)
+		if(BP_R_FOOT)
+			if(hazmat_covered & FOOT_RIGHT)
+				return FALSE
+		if(BP_L_FOOT)
+			if(hazmat_covered & FOOT_LEFT)
+				return FALSE
+		if(BP_R_LEG)
+			if(hazmat_covered & LEG_RIGHT)
+				return FALSE
+		if(BP_L_LEG)
+			if(hazmat_covered & LEG_LEFT)
+				return FALSE
+		if(BP_GROIN)
+			if(hazmat_covered & LOWER_TORSO)
+				return FALSE
+		if(BP_CHEST)
+			if(hazmat_covered & UPPER_TORSO)
+				return FALSE
+		if(BP_R_HAND)
+			if(hazmat_covered & HAND_RIGHT)
+				return FALSE
+		if(BP_L_HAND)
+			if(hazmat_covered & HAND_LEFT)
+				return FALSE
+		if(BP_R_ARM)
+			if(hazmat_covered & ARM_RIGHT)
+				return FALSE
+		if(BP_L_ARM)
+			if(hazmat_covered & ARM_LEFT)
+				return FALSE
+		if(BP_EYES)
+			if(hazmat_covered & EYES)
+				return FALSE
+		if(BP_HEAD, BP_MOUTH)
+			if((hazmat_covered & HEAD) && (hazmat_covered & FACE))
+				return FALSE
+
+	// Targeted zone is not covered by hazmat — fall through to standard bare-skin check
 	return can_touch_bare_skin(target)

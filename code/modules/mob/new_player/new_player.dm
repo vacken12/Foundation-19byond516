@@ -440,6 +440,20 @@
 
 	if(get_preference_value(/datum/client_preference/play_lobby_music) == GLOB.PREF_NO)
 		return
-	var/decl/audio/track/track = GLOB.using_map.get_lobby_track(GLOB.using_map.lobby_track.type)
-	sound_to(src, track.get_sound())
-	to_chat(src, track.get_info())
+
+	var/list/track_names = list()
+	var/list/track_types = list()
+
+	var/selection = input(src, "Select a lobby track to play:", "Lobby Music", null) as null|anything in track_names
+	if(!selection)
+		return
+
+	var/index = track_names.Find(selection)
+
+	if(!index)
+		return
+
+	var/decl/audio/track/selected_track = initial(track_types[index])
+
+	sound_to(src, sound(selected_track.source, repeat = 1, volume = 100, channel = GLOB.lobby_sound_channel))
+	to_chat(src, selected_track.get_info())

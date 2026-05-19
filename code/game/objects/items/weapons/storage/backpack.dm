@@ -539,3 +539,4 @@
 	name = "class D messenger bag"
 	desc = "A small backpack, worn over one shoulder."
 	icon_state = "satchel-chem"
+	open_icon = "satchel-chem-open"

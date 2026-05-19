@@ -265,5 +265,5 @@
 #define NOTIFY_JUMP "jump"
 #define NOTIFY_ATTACK "attack"
 #define NOTIFY_FOLLOW "follow"
-#define NOTIFY_POSSES "posses"
+#define NOTIFY_POSSESS "possess"
 #define NOTIFY_VOTE "vote"

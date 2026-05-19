@@ -53,6 +53,10 @@
             heal_over_time() // Custom function to heal SCP-457
 
 /mob/living/simple_animal/hostile/scp457/Initialize()
+	. = ..()
+	if(!.)
+		return
+
 	SCP = new /datum/scp(
 		src, // Ref to actual SCP atom
 		"humanoid flame", //Name (Should not be the scp desg, more like what it can be described as to viewers)
@@ -64,7 +68,7 @@
 
 	var/datum/spell/S = new /datum/spell/aimed/flamethrower
 	S.invocation = null
-	S.invocation_type = null
+	S.invocation_type = INVOKE_NONE
 	S.cooldown_reduc = 2 MINUTES
 	src.add_spell(S)
 
@@ -76,8 +80,6 @@
 	add_language(LANGUAGE_SIGN, FALSE)
 	add_language(LANGUAGE_ENGLISH, TRUE)
 	set_light(0.8, 0.3, 5, l_color = COLOR_ORANGE) //makes 457 emit light
-
-	return ..()
 
 //Ai Stuff
 

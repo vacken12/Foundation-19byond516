@@ -160,8 +160,10 @@
 		var/datum/job/j = SSjobs.get_by_path(job_access_type)
 		if(j)
 			rank = j.title
-			assignment = rank
-			class = j.class
+			if(!assignment)
+				assignment = rank
+			if(!class)
+				class = j.class
 			access |= j.get_access()
 			if(!detail_color)
 				detail_color = j.selection_color

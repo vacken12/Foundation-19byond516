@@ -190,6 +190,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 			if(response == "A-Ghost")
 				if(!src.client)
 					return
+				sound_to(src, 'sounds/scp/Spectator.ogg')
 				src.client.admin_ghost()
 		else if(config.respawn_delay)
 			response = tgui_alert(src, "Are you -sure- you want to ghost?\n(You are alive. If you ghost, you won't be able to play this round for another [config.respawn_delay] minute\s! You can't change your mind so choose wisely!)", "Are you sure you want to ghost?", list("Ghost", "Stay in body"))
