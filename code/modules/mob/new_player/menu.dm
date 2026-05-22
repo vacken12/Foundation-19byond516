@@ -47,15 +47,16 @@
 
 /atom/movable/screen/new_player
 	icon = 'icons/misc/hudmenu.dmi'
-	layer = HUD_ABOVE_ITEM_LAYER
+	layer = ABOVE_HUD_PLANE
 
 //I am way too lazy to port map specific lobby screens since I heavily doubt we'll ever use them.
 
 /atom/movable/screen/new_player/title
-	name = "Lobby art"
+	name = "Russian Foundation 13"
 	icon = 'maps/site53/icons/lobby.dmi'
 	icon_state = "title_new"
-	screen_loc = "WEST,SOUTH"
+	screen_loc = "SOUTH,CENTER-7"
+	layer = HUD_ABOVE_ITEM_LAYER
 	var/lobby_index = 1
 	var/lobby_transition_delay = 100
 
@@ -77,29 +78,46 @@
 		lobby_index = 1
 	animate(src, alpha = 0, time = 10)
 	animate(alpha = 255, icon_state = lobby_screens[lobby_index], time = 10)
-	if(Master.initializing)
-		spawn(lobby_transition_delay)
-			cycle_lobby_screen(lobby_screens)
-	else
-		addtimer(CALLBACK(src, PROC_REF(cycle_lobby_screen), lobby_screens), lobby_transition_delay, TIMER_UNIQUE | TIMER_CLIENT_TIME | TIMER_OVERRIDE)
+	addtimer(CALLBACK(src, PROC_REF(cycle_lobby_screen), lobby_screens), lobby_transition_delay, TIMER_UNIQUE | TIMER_CLIENT_TIME | TIMER_OVERRIDE)
 
 /atom/movable/screen/new_player/selection/New(datum/hud/H)
-	color = null
 	hud_ref = weakref(H)
 	return ..()
 
+/atom/movable/screen/new_player/selection/proc/resolve_hud()
+	var/datum/hud/hud = hud_ref.resolve()
+	if(!istype(hud))
+		return null
+	return hud
+
+/atom/movable/screen/new_player/selection/proc/get_player()
+	var/datum/hud/hud = resolve_hud()
+	if(!hud)
+		return null
+	return hud.mymob
+
+/atom/movable/screen/new_player/selection/proc/play_click_sound(mob/M)
+	sound_to(M, 'sounds/effects/menu_click.ogg')
+
+/atom/movable/screen/new_player/selection/proc/resolve_player()
+	var/mob/new_player/player = get_player()
+	if(!player)
+		return null
+	play_click_sound(player)
+	return player
+
 /atom/movable/screen/new_player/selection/MouseEntered(location, control, params)
-	animate(src, easing=QUAD_EASING|EASE_IN, color = color_rotation(rand(-11,12)*15), time = 3, transform = matrix()*1.08, pixel_x=10)
+	animate(src, easing=QUAD_EASING|EASE_IN, color = color_rotation(rand(-11,12)*15), time = 3, transform = matrix()*1.08, pixel_x+=10)
 	return ..()
 
 /atom/movable/screen/new_player/selection/MouseExited(location, control, params)
-	animate(src, easing=QUAD_EASING|EASE_OUT, color = null, time = 3, transform = null, pixel_x=-10)
+	animate(src, easing=QUAD_EASING|EASE_OUT, color = null, time = 3, transform = null, pixel_x-=10)
 	return ..()
 
 /atom/movable/screen/new_player/selection/join_game
 	name = "Join Game"
 	icon_state = "unready"
-	screen_loc = "SOUTH+6, CENTER-7"
+	screen_loc = "WEST,SOUTH+6"
 
 /atom/movable/screen/new_player/selection/join_game/Initialize()
 	. = ..()
@@ -107,11 +125,9 @@
 	update_lobby_icon()
 
 /atom/movable/screen/new_player/selection/join_game/Click()
-	var/datum/hud/hud = hud_ref.resolve()
-	if(!istype(hud))
+	var/mob/new_player/player = resolve_player()
+	if(!player)
 		return
-	var/mob/new_player/player = hud.mymob
-	sound_to(player, 'sounds/effects/menu_click.ogg')
 
 	if(!check_rights(R_ADMIN|R_MOD, FALSE, player) && GAME_STATE > RUNLEVEL_LOBBY)
 		var/dsdiff = config.respawn_menu_delay MINUTES - (world.time - player.respawned_time)
@@ -147,14 +163,12 @@
 /atom/movable/screen/new_player/selection/settings
 	name = "Setup"
 	icon_state = "setup"
-	screen_loc = "SOUTH+5,CENTER-7"
+	screen_loc = "WEST,SOUTH+5"
 
 /atom/movable/screen/new_player/selection/settings/Click()
-	var/datum/hud/hud = hud_ref.resolve()
-	if(!istype(hud))
+	var/mob/new_player/player = resolve_player()
+	if(!player)
 		return
-	var/mob/new_player/player = hud.mymob
-	sound_to(player, 'sounds/effects/menu_click.ogg')
 	player.setupcharacter()
 
 /mob/new_player/proc/setupcharacter()
@@ -164,14 +178,12 @@
 /atom/movable/screen/new_player/selection/manifest
 	name = "Crew Manifest"
 	icon_state = "manifest"
-	screen_loc = "SOUTH+4,CENTER-7"
+	screen_loc = "WEST,SOUTH+4"
 
 /atom/movable/screen/new_player/selection/manifest/Click()
-	var/datum/hud/hud = hud_ref.resolve()
-	if(!istype(hud))
+	var/mob/new_player/player = resolve_player()
+	if(!player)
 		return
-	var/mob/new_player/player = hud.mymob
-	sound_to(player, 'sounds/effects/menu_click.ogg')
 	if(GAME_STATE != (RUNLEVEL_GAME || RUNLEVEL_POSTGAME))
 		to_chat(player, SPAN_WARNING("The game hasn't started yet!"))
 		return
@@ -180,14 +192,12 @@
 /atom/movable/screen/new_player/selection/observe
 	name = "Observe"
 	icon_state = "observe"
-	screen_loc = "SOUTH+3,CENTER-7"
+	screen_loc = "WEST,SOUTH+3"
 
 /atom/movable/screen/new_player/selection/observe/Click()
-	var/datum/hud/hud = hud_ref.resolve()
-	if(!istype(hud))
+	var/mob/new_player/player = resolve_player()
+	if(!player)
 		return
-	var/mob/new_player/player = hud.mymob
-	sound_to(player, 'sounds/effects/menu_click.ogg')
 	player.new_player_observe()
 
 /mob/new_player/proc/new_player_observe()
@@ -248,14 +258,12 @@
 /atom/movable/screen/new_player/selection/lore
 	name = "Lore"
 	icon_state = "lore_summary"
-	screen_loc = "SOUTH+2,CENTER-7"
+	screen_loc = "WEST,SOUTH+2"
 
 /atom/movable/screen/new_player/selection/lore/Click()
-	var/datum/hud/hud = hud_ref.resolve()
-	if(!istype(hud))
+	var/mob/new_player/player = resolve_player()
+	if(!player)
 		return
-	var/mob/new_player/player = hud.mymob
-	sound_to(player, 'sounds/effects/menu_click.ogg')
 
 	if(config.loreurl)
 		if(tgui_alert(usr, "This will open the forum in your browser. Are you sure?", null, list("Yes", "No")) == "Yes")
@@ -267,28 +275,26 @@
 /atom/movable/screen/new_player/selection/changelog
 	name = "Changelog"
 	icon_state = "changelog"
-	screen_loc = "SOUTH+1,CENTER-7"
+	screen_loc = "WEST,SOUTH+1"
 
 /atom/movable/screen/new_player/selection/changelog/Click()
-	var/datum/hud/hud = hud_ref.resolve()
-	if(!istype(hud))
+	var/mob/new_player/player = resolve_player()
+	if(!player)
 		return
-	var/mob/new_player/player = hud.mymob
-	sound_to(player, 'sounds/effects/menu_click.ogg')
 
 	GLOB.changelog_tgui.tgui_interact(player)
 
 /atom/movable/screen/new_player/selection/polls
 	name = "Polls"
 	icon_state = "polls_new"
-	screen_loc = "SOUTH,CENTER-7"
+	screen_loc = "WEST,SOUTH"
 
 /atom/movable/screen/new_player/selection/polls/Click()
-	var/datum/hud/hud = hud_ref.resolve()
-	if(!istype(hud))
+	var/mob/new_player/player = resolve_player()
+	if(!player)
 		return
-	var/mob/new_player/player = hud.mymob
-	sound_to(player, 'sounds/effects/menu_click.ogg')
+
+	layer = HUD_ABOVE_ITEM_LAYER
 
 	SSvote.tgui_interact(usr) //see vote.dm
 

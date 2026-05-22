@@ -21,11 +21,11 @@
 		"}
 
 /obj/item/book/manual/scp/secsop
-	name = "Standard Operating Procedure - Security Department"
+	name = "Регуляции"
 	desc = "THE book that tells you not to be shit at your job."
-	icon_state = "book2"
+	icon_state = "bookSpaceLaw"
 	author = "The Internal Security Department"
-	title = "Security SoP"
+	title = "СОП Отдела Безопасности"
 
 /obj/item/book/manual/scp/secsop/Initialize()
 	. = ..()
@@ -35,7 +35,7 @@
 		</head>
 
 		<body>
-		<iframe width='100%' height='97%' src="http://wiki.scp13.site/index.php?title=Security_SOP&printable=yes&remove_links=1" frameborder="0" id="main_frame"></iframe>
+		<iframe width='100%' height='97%' src="https://scp13.aperture13.online/wiki/%D0%A0%D0%B5%D0%B3%D1%83%D0%BB%D1%8F%D1%86%D0%B8%D0%B8&printable=yes&remove_links=1" frameborder="0" id="main_frame"></iframe>
 		</body>
 
 		</html>
@@ -43,11 +43,11 @@
 		"}
 
 /obj/item/book/manual/scp/scisop
-	name = "Standard Operating Procedure - Science Department"
+	name = "Рекомендации по исследованию"
 	desc = "THE book that tells you not to be shit at your job."
-	icon_state = "book6"
+	icon_state = "analysis"
 	author = "The Administrative Department"
-	title = "Science SoP"
+	title = "СОП Научного отдела"
 
 /obj/item/book/manual/scp/scisop/Initialize()
 	. = ..()
@@ -57,7 +57,7 @@
 		</head>
 
 		<body>
-		<iframe width='100%' height='97%' src="http://wiki.scp13.site/index.php?title=Research_SOP&printable=yes&remove_links=1" frameborder="0" id="main_frame"></iframe>
+		<iframe width='100%' height='97%' src="https://scp13.aperture13.online/wiki/%D0%A0%D0%B5%D0%BA%D0%BE%D0%BC%D0%B5%D0%BD%D0%B4%D0%B0%D1%86%D0%B8%D0%B8_%D0%BF%D0%BE_%D0%B8%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8E&printable=yes&remove_links=1" frameborder="0" id="main_frame"></iframe>
 		</body>
 
 		</html>
@@ -65,11 +65,11 @@
 		"}
 
 /obj/item/book/manual/scp/medsop
-	name = "Standard Operating Procedure - Medical Department"
+	name = "Руководство по медицине"
 	desc = "THE book that tells you not to be shit at your job."
-	icon_state = "book4"
+	icon_state = "bookMedical"
 	author = "The Administrative Department"
-	title = "Medical SoP"
+	title = "СОП Медицинского отдела"
 
 /obj/item/book/manual/scp/medsop/Initialize()
 	. = ..()
@@ -79,7 +79,7 @@
 		</head>
 
 		<body>
-		<iframe width='100%' height='97%' src="http://wiki.scp13.site/index.php?title=Medical_SOP&printable=yes&remove_links=1" frameborder="0" id="main_frame"></iframe>
+		<iframe width='100%' height='97%' src="https://scp13.aperture13.online/wiki/%D0%A0%D1%83%D0%BA%D0%BE%D0%B2%D0%BE%D0%B4%D1%81%D1%82%D0%B2%D0%BE_%D0%BF%D0%BE_%D0%BC%D0%B5%D0%B4%D0%B8%D1%86%D0%B8%D0%BD%D0%B5&printable=yes&remove_links=1" frameborder="0" id="main_frame"></iframe>
 		</body>
 
 		</html>
@@ -89,7 +89,7 @@
 /obj/item/book/manual/scp/engsop
 	name = "Standard Operating Procedure - Engineering Department"
 	desc = "THE book that tells you not to be shit at your job."
-	icon_state = "book3"
+	icon_state = "bookParticleAccelerator"
 	author = "The Administrative Department"
 	title = "Engineering SoP"
 
@@ -148,33 +148,29 @@
 	"}
 
 /obj/item/paper/sec_ctp
-	name = "Checkpoint Testing Procedures"
-	info = {"<center><h1>Checkpoint Testing Procedures</h1></center><br>
-	<center><b><font size="4">Foundation Site 53</font></b></center><br>
+	name = "Процедуры работы КПП"
+	info = {"<center><h1>Процедуры работы КПП</h1></center><br>
+	<center><b><font size="4">Фонд - Зона 53</font></b></center><br>
 	<center><img src = sec.png></center><br>
 	<center><b>Secure. Contain. Protect.</b></center><br>
 	<hr>
-	<center><b>CHAIN OF PERMISSION</b><br></center>
-	<li>If the Research Director is not available, consult to the Assistant Research Director.<br>
-	<li>If the Assistant Research Director is not available, consult to the Site Director.<br>
-	<li>If the Site Director is not available, consult to the Guard Commander.<br>
-	<li>If the Guard Commander is not available, all testing is to be halted until further notice, or awakening of one of these three heads of staff.<br>
-	<li>Keter testing is to be halted until both the Site Director, and Research Director are available.<br>
-	<li>O5 Command is a available option in the case of requiring dire permission to test if none of these three heads of staff are available.<br>
+	<center><b>ЦЕПЬ КОМАНДОВАНИЯ</b><br></center>
+	<li>Если Научный Директор недоступен, обратитесь к заместителю Директора по исследованиям.<br>
+	<li>Если заместитель Директора по исследованиям недоступен, обратитесь к Директору Зоны.<br>
+	<li>Если Директор Зоны недоступен, обратитесь к Командиру Охраны.<br>
+	<li>Если Командир Охраны недоступе, то все испытания должны быть приостановлены до дальнейшего уведомления или пробуждения одного из этих трех руководителей персонала.<br>
+	<li>Тестирование с объектами класса "Кетер" должно быть приостановлено до тех пор, пока не будут доступны как Директор Зоны, так и Научный Директор.<br>
+	<li>Североамериканское командование Фонда доступна в том случае, если для тестирования требуется разрешение и если ни один из трех руководителей персонала недоступен.<br>
 	<hr>
-	<b>STEP ONE: Check what the current site-wise security level is:</b><br>
-	<ul><li>CODE GREEN: Testing is to be conducted as normal.<br>
-	<li>CODE YELLOW: Testing can be refused by the checkpoint officer if there is an imminent threat to staff within the respective zone of the checkpoint. <br>
-	<li>CODE ORANGE and RED: No tests are to be conducted. Currently active tests may be ended at the discretion of the Zone Sergeants and above.<br>
-	<li>CODE BLACK and PITCHBLACK: No tests are to be conducted. All currently active tests are to be ended as soon as possible.</ul>
-	<b>STEP TWO:</b> Check the legitimacy of given paperwork. If the documentation is inconclusive or forged, detain all involved personnel and report to your Zone Sergeants.<br>
-	Paperwork must clearly state the SCP's and materials involved in the test. If it does not, directly contact the Research Director and do not allow entry.<br>
-	You do not have the right to either authorize or deny a test. Senior Researcher staff may test on Safe level SCPs at their discretion and do not need explicit approval, however, do still need paperwork. Euclid-Class SCPs require a signature, and stamp from the Research Director. Keter-Class SCPs require both Research Director and Site Director signatures, and stamps. Cross tests require both Research Director and Site Director signatures, and stamps along with O5 Command Approval. You may, however, deny a test depending on the site's security level, if the test is unethical, and or against regulations, or if the individuals are suspicious. <br>
-	If a test conflicts with the SCP's containment procedures, you are to notify the Research Director and Site Director. If both are unavailable, deny the test. If the Research Director and Site Director still approve the test, you may allow entry. Otherwise, the research team shall be denied entry until sufficient changes are made. After all checks are made, you may stamp their document with a stamp to confirm their pass through the checkpoint.<br>
-	<b>STEP THREE:</b> Notify the Site Director and the Research Director through email of any attempts to pass through checkpoints for research. State the test and target SCP and whether or not they have been cleared to enter by checkpoint personnel. If you denied their entry, state the reason as to why in your email.<br>
-	If all paperwork is acceptable and no objections have been raised by either the Research Director or Site Director, you may allow the personnel to pass the checkpoint.<br>
-	<b>STEP FOUR:</b> If the test is on a Euclid level SCP or higher, or the Researcher has a Class-D present with them, they are to be acompanied by Zone Security, one officer is for every two D-Class. Said Zone Officer is to guard the chamber as the test is conducted. However, if the manpower does not meet standards, the test shall be denied until further notice.<br>
-	When returning, all personnel must be frisked again before transferring through the checkpoint, this counts for backpacks, labcoats, and as well as webbing, boots, and pockets.
+	<b>ШАГ ПЕРВЫЙ:</b> Проверьте текущий уровень безопасности на объекте:</b><br>
+	<ul><li>ЗЕЛЕНЫЙ КОД: Тестирование должно проводиться в обычном режиме.<br>
+	<li>ЖЕЛТЫЙ КОД: Сотрудник контрольно-пропускного пункта может отказаться в проведении тестирования, если существует непосредственная угроза персоналу в соответствующей зоне контрольно-пропускного пункта.<br>
+	<li>КРАСНЫЙ КОД: Проведение тестов <b>запрещено</b>. Текущие тесты могут быть прекращены по усмотрению Сержантов Зоны и выше.<br>
+	<li>КОД МРАК: Проведение тестов <b>запрещено</b>. Все текущие тесты должны быть завершены как можно скорее.</ul>
+	<b>ШАГ ВТОРОЙ: </b>Проверьте подленность предоставленных документов. Если документация неубедительна или поддельна, задержите весь задействованный персонал и сообщите об этом сержантам вашей зоны. В документах должны быть четко указаны SCP и материалы, задействованные в тестировании. Если таковых данных нет, то свяжитесь напрямую с Научным Директором. Вы не имеете права разрешать или не разрешать проведение теста. Старшие научные сотрудники могут проводить тестирование на SCP безопасного уровня по своему усмотрению и не нуждаются в явном одобрении, однако им все равно потребуется оформление документов. SCP класса "Эвклид" требуют подписи и печати Научного Директора. Для SCP класса "Кетер" требуются подписи и штампы Научного Директора и Директора Зоны. Для перекрёстных тестов требуются подписи и штампы Научного Директора и Директора Зоны, а также одобрение Североамериканского Командования Фонда. Однако вы можете отказать в проведении теста в зависимости от уровня тревоги Зоны а также, если тест является неэтичным и/или противоречит правилам, либо если отдельные лица вызывают подозрения. Если эксперимент противоречит процедурам сдерживания SCP, вы должны уведомить об этом Научного Директора и Директора Зоны. Если они недоступны - отклоните тест. Если Научный Директор и Директор Зоны по-прежнему одобряют тест, вы можете разрешить участие. В противном случае исследовательской группе будет запрещено проходить через КПП до тех пор, пока не будут внесены необходимые изменения. После проведения всех проверок вы можете поставить на их документы штамп, подтверждающий их прохождение через контрольно-пропускной пункт.<br>
+	<b>ШАГ ТРЕТИЙ: </b>Уведомите Директора Зоны и Научного Директора по электронной почте о любых попытках пройти через контрольно-пропускные пункты для проведения исследований. Укажите тестируемого и SCP а также то, получили ли они разрешение пройти через КПП от персонала контрольно-пропускного пункта. Если вы отказали им вход через КПП, укажите причину в своем электронном письме. Если все документы оформлены приемлемо и ни со стороны Научного Директора, ни со стороны Директора Зоны не возникло возражений, вы можете разрешить персоналу пройти контрольно-пропускной пункт.
+	<b>ШАГ ЧЕТВЕРТЫЙ: </b> Если тест проводится на SCP класса "Эвклид" или выше, или с Исследователем присутствует сотрудник класса "Д", его должен сопровождать сотрудник службы безопасности зоны, по одному сотруднику на каждые два сотрудника класса D. Указанный сотрудник зоны должен охранять камеру во время проведения теста. Однако, если персонал не соответствует стандартам, в проведении теста будет отказано до дальнейшего уведомления.<br><br>
+	При возвращении весь персонал должен быть еще раз обыскан перед прохождением через контрольно-пропускной пункт, это касается рюкзаков, лабораторных халатов, поясов, а также ботинок и карманов.
 	<hr>"}
 
 /obj/item/paper/d_class_guide

@@ -25,6 +25,7 @@
 	ammo_type = /obj/item/ammo_casing/shotgun/pellet
 	handle_casings = EJECT_CASINGS
 	load_sound = 'sounds/weapons/guns/interaction/shotgun_instert.ogg'
+	fire_sound = 'sounds/weapons/gunshot/shotgun3.ogg'
 	has_safety = FALSE // No brakes on this train baby
 	acid_resistance = -1
 

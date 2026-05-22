@@ -428,11 +428,13 @@
 	var/index = track_names.Find(selection)
 	if(!index)
 		return
-	var/decl/audio/track/selected_track = initial(track_types[index])
+
+	var/selected_track_type = track_types[index]
+	var/decl/audio/track/selected_track = new selected_track_type()
+
 	for(var/mob/new_player/N in GLOB.player_list)
-		sound_to(N, sound(null, repeat = 0, wait = 0, volume = 100, channel = GLOB.lobby_sound_channel))
 		sound_to(N, sound(selected_track.source, repeat = 1, wait = 5, volume = 100, channel = GLOB.lobby_sound_channel))
-	to_chat(world, SPAN_GLOW("Now playing: [selected_track.title] by [selected_track.author]")) // green blink
+		to_chat(world, selected_track.get_info())
 
 /mob/new_player/verb/player_next_lobby_track() // for players in lobby
 	set name = "Change Lobby Track"
@@ -460,7 +462,8 @@
 	if(!index)
 		return
 
-	var/decl/audio/track/selected_track = initial(track_types[index])
+	var/selected_track_type = track_types[index]
+	var/decl/audio/track/selected_track = new selected_track_type()
 
 	sound_to(src, sound(selected_track.source, repeat = 1, volume = 100, channel = GLOB.lobby_sound_channel))
 	to_chat(src, selected_track.get_info())

@@ -56,7 +56,7 @@ var/global/photo_count = 0
 	var/scale = 8/(photo_size*32)
 	var/image/small_img = image(img)
 	small_img.transform *= scale
-	small_img.pixel_x = -32*(photo_size-1)/2 - 3
+	small_img.pixel_x = -32*(photo_size-1)/2
 	small_img.pixel_y = -32*(photo_size-1)/2
 	add_overlay(small_img)
 
@@ -86,11 +86,11 @@ var/global/photo_count = 0
 /obj/item/photo/proc/show(mob/user as mob)
 	send_rsc(user, img, "tmp_photo_[id].png")
 	var/output = "<html><head><title>[name]</title></head>"
-	output += "<body style='overflow:hidden;margin:0;text-align:center'>"
-	output += "<img src='tmp_photo_[id].png' width='[64*photo_size]' style='-ms-interpolation-mode:nearest-neighbor' />"
+	output += "<body style='overflow:hidden;margin:0;text-align:left'>"
+	output += "<img src='tmp_photo_[id].png' width='[90*photo_size]' style='-ms-interpolation-mode:nearest-neighbor' />"
 	output += "[scribble ? "<br>Written on the back:<br><i>[scribble]</i>" : ""]"
 	output += "</body></html>"
-	show_browser(user, output, "window=book;size=[64*photo_size]x[scribble ? 400 : 64*photo_size]")
+	show_browser(user, output, "window=book;size=[130*photo_size]x[scribble ? 400 : 130*photo_size]")
 	for(var/atom/pAtom in resolveWeakrefList(meta_data))
 		SEND_SIGNAL(pAtom, COMSIG_PHOTO_SHOWN_OF, src, user)
 	onclose(user, "[name]")

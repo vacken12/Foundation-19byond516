@@ -214,7 +214,7 @@
 	icon_state = "svd"
 	item_state = "svd"
 	w_class = ITEM_SIZE_HUGE
-	force = 10
+	force = 13
 	slot_flags = SLOT_BACK
 	caliber = "7.62x54mmR"
 	origin_tech = list(TECH_COMBAT = 6, TECH_MATERIAL = 1, TECH_ESOTERIC = 5)

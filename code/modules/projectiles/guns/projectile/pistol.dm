@@ -4,6 +4,7 @@
 	desc = "A somewhat outdated 9mm pistol of the SCP Foundation, based on the Makarov."
 	icon_state = "pistol"
 	caliber = "9mm"
+	fire_sound = 'sounds/weapons/gunshot/gunshot_9mm.ogg'
 	silenced = FALSE
 	magazine_type = /obj/item/ammo_magazine/scp
 	allowed_magazines = /obj/item/ammo_magazine/scp

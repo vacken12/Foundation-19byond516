@@ -500,7 +500,10 @@
 	return launched
 
 /obj/item/gun/proc/play_fire_sound(mob/user, obj/item/projectile/P)
-	var/shot_sound = fire_sound // Use the gun's own fire_sound; don't let the projectile override it
+	var/shot_sound = fire_sound
+	// If the gun doesn't have a custom fire_sound, fall back to the projectile's specific sound
+	if(shot_sound == initial(fire_sound) && P?.fire_sound)
+		shot_sound = P.fire_sound
 	if(silenced)
 		playsound(user, SFX_SILENT_FIRE, 50, 1)
 		show_sound_effect(get_turf(src), user, SFX_ICON_SMALL)

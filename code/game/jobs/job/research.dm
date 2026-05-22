@@ -117,7 +117,7 @@
 	title = "Старший Исследователь Психотроники"
 	department = "Научный отдел"
 	department_flag = SCI
-	selection_color = "#633d63"
+	selection_color = "#573757"
 	total_positions = 1
 	spawn_positions = 1
 	supervisors = "Директор Исследовательского Отдела и Помощник Директора Исследовательского Отдела"
@@ -168,7 +168,7 @@
 	title = "Исследователь Психотроники"
 	department = "Научный отдел"
 	department_flag = SCI
-	selection_color = "#633d63"
+	selection_color = "#573757"
 	total_positions = 2
 	spawn_positions = 2
 	supervisors = "Старший Исследователь Психотроники, Директор Исследовательского Отдела и Помощник Директора Исследовательского Отдела"

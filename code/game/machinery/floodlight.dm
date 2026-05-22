@@ -22,6 +22,15 @@
 	/// Outer range of the light when on. Can be negative.
 	var/lamp_outer_range = 4.5
 
+	var/turned = 0
+
+/obj/machinery/floodlight/Initialize()
+	. = ..()
+	if(turned==1)
+		turn_on()
+	else
+		return
+
 /obj/machinery/floodlight/on_update_icon()
 	cut_overlays()
 	// We build the floodlight's appearance using overlays based on its status
@@ -44,6 +53,7 @@
 /obj/machinery/floodlight/proc/turn_on(loud = TRUE)
 	if (!operable())
 		return
+	turned = 1
 	set_light(lamp_brightness, lamp_inner_range, lamp_outer_range)
 	update_use_power(POWER_USE_ACTIVE)
 	use_power_oneoff(active_power_usage) //so we drain cell if they keep trying to use it
@@ -51,17 +61,19 @@
 	if (loud)
 		visible_message(SPAN_NOTICE("\The [src] turns on."))
 		playsound(src, 'sounds/effects/flashlight.ogg', 50)
+		playsound(src, sound('sounds/effects/electric/light_flick.ogg', wait = 0, volume = 100))
 	return TRUE
 
 /// Turns off the floodlight. Doesn't return anything. If loud is defined, it will show a message and play a sound.
 /obj/machinery/floodlight/proc/turn_off(loud = TRUE)
+	turned = 0
 	set_light(0, 0)
 	update_use_power(POWER_USE_OFF)
 	update_icon()
 	if (loud)
 		visible_message(SPAN_NOTICE("\The [src] shuts down."))
 		playsound(src, 'sounds/effects/flashlight.ogg', 50)
-
+	soundmob()
 /obj/machinery/floodlight/interface_interact(mob/user)
 	if (!CanInteract(user, DefaultTopicState()))
 		return FALSE

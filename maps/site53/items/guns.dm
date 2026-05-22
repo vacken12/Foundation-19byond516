@@ -32,6 +32,7 @@
 	origin_tech = list(TECH_COMBAT = 2, TECH_MATERIAL = 2, TECH_ESOTERIC = 2)
 	load_method = MAGAZINE
 	magazine_type = /obj/item/ammo_magazine/scp/mk9
+	fire_sound = 'sounds/weapons/gunshot/gunshot_9mm.ogg'
 	allowed_magazines = list(/obj/item/ammo_magazine/scp/mk9, /obj/item/ammo_magazine/scp/mk9/rubber)
 
 /obj/item/gun/projectile/pistol/mk9/on_update_icon()

@@ -319,7 +319,7 @@
 
 /obj/item/projectile/bullet/pistol/strong/revolver //revolvers
 	damage = DAM_BULLET_127X50 //Revolvers get snowflake bullets, to keep them relevant
-	fire_sound = 'sounds/weapons/gunshot/p90.ogg'
+	fire_sound = 'sounds/weapons/gunshot/gunshot_strong.ogg'
 	armor_penetration = 0
 
 // P90 SMG
