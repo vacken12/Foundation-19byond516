@@ -187,25 +187,54 @@
 
 /mob/new_player/proc/LateChoices()
 	var/name = client.prefs.be_random_name ? "friend" : client.prefs.real_name
-	var/list/header = list("<html><body><center>")
 
-	header += "<b>Welcome, [name].<br></b>"
-	header += "Round Duration: [DisplayTimeText(world.time - SSticker.round_start_time)]<br>"
+	// Build CSS separately to avoid brace conflicts with DM string parsing
+	var/css = "<style>"
+	css += "body{background:linear-gradient(135deg,#0a0e1a,#141a2b);font-family:'Segoe UI','Roboto',Arial,sans-serif;color:#c8d0e0;margin:0;padding:20px;min-height:100vh;}"
+	css += ".welcome-header{text-align:center;padding:18px 20px;background:linear-gradient(135deg,#1a2340,#1e2a4a);border:1px solid #2a3a5a;border-radius:10px;margin-bottom:15px;box-shadow:0 4px 15px rgba(0,0,0,0.3);}"
+	css += ".welcome-header .greeting{font-size:20px;font-weight:bold;color:#e8edf5;text-shadow:0 1px 3px rgba(0,0,0,0.5);}"
+	css += ".welcome-header .subtitle{font-size:13px;color:#8899bb;margin-top:4px;}"
+	css += ".evacuation-banner{text-align:center;padding:10px 15px;background:linear-gradient(135deg,#3a0a0a,#5a1515);border:1px solid #8a2020;border-radius:8px;margin-bottom:15px;color:#ff6b6b;font-weight:bold;font-size:14px;box-shadow:0 2px 10px rgba(255,0,0,0.15);}"
+	css += ".controls-bar{text-align:center;padding:10px;margin-bottom:15px;}"
+	css += ".controls-bar a{display:inline-block;padding:8px 20px;background:linear-gradient(135deg,#2a3a5a,#354a6e);color:#b0c4de;border:1px solid #3a4a6a;border-radius:6px;text-decoration:none;font-size:13px;font-weight:500;transition:all 0.2s ease;}"
+	css += ".controls-bar a:hover{background:linear-gradient(135deg,#354a6e,#405a80);color:#fff;border-color:#5a7aaa;box-shadow:0 2px 8px rgba(0,100,255,0.2);}"
+	css += ".station-header{text-align:center;padding:14px 20px;background:linear-gradient(135deg,#1e2a4a,#24335a);border:1px solid #2a3a5a;border-radius:8px;margin-bottom:12px;font-size:16px;font-weight:bold;color:#80b0ff;text-transform:uppercase;letter-spacing:2px;text-shadow:0 1px 4px rgba(0,50,150,0.3);box-shadow:0 2px 8px rgba(0,0,0,0.2);}"
+	css += ".jobs-table{width:100%;border-collapse:separate;border-spacing:0 4px;}"
+	css += ".department-header{padding:10px 15px;background:linear-gradient(135deg,#1a2340,#222e4a);border:1px solid #2a3a5a;border-radius:6px;text-align:center;font-weight:bold;font-size:14px;color:#b0c4de;text-transform:uppercase;letter-spacing:1px;box-shadow:0 1px 4px rgba(0,0,0,0.2);}"
+	css += ".job-row{padding:6px 10px;background:rgba(20,26,43,0.6);border-radius:4px;transition:all 0.15s ease;}"
+	css += ".job-row:hover{background:rgba(30,40,65,0.8);}"
+	css += ".job-row a{color:#88b0e0;text-decoration:none;font-size:13px;padding:4px 8px;display:block;border-radius:4px;transition:all 0.15s ease;}"
+	css += ".job-row a:hover{color:#aad0ff;background:rgba(40,60,100,0.4);padding-left:12px;}"
+	css += ".submap-header{padding:10px 15px;background:linear-gradient(135deg,#1a2a1a,#223a22);border:1px solid #2a4a2a;border-radius:6px;text-align:center;font-weight:bold;font-size:13px;color:#8bbc8b;text-transform:uppercase;letter-spacing:1px;margin-top:10px;box-shadow:0 1px 4px rgba(0,0,0,0.2);}"
+	css += ".hidden-reasons{padding:12px 15px;background:rgba(30,25,15,0.5);border:1px solid #3a3a1a;border-radius:6px;margin-bottom:12px;font-size:12px;color:#aa9955;}"
+	css += ".hidden-reasons b{color:#ccaa55;}"
+	css += ".no-positions{text-align:center;padding:20px;color:#556688;font-style:italic;}"
+	css += "a{color:#88b0e0;}a:visited{color:#88b0e0;}"
+	css += "</style>"
+
+	var/list/header = list("<html><head>", css, "</head><body>")
+
+	header += "<div class='welcome-header'>"
+	header += "<div class='greeting'>Welcome, [name]</div>"
+	header += "<div class='subtitle'>Round Duration: [DisplayTimeText(world.time - SSticker.round_start_time)]</div>"
+	header += "</div>"
 
 	if(evacuation_controller.has_evacuated())
-		header += "<font color='red'><b>\The [station_name()] has been evacuated.</b></font><br>"
+		header += "<div class='evacuation-banner'>⚠ \The [station_name()] has been evacuated.</div>"
 	else if(evacuation_controller.is_evacuating())
-		if(evacuation_controller.emergency_evacuation) // Emergency shuttle is past the point of no recall
-			header += "<font color='red'>\The [station_name()] is currently undergoing evacuation procedures.</font><br>"
-		else                                           // Crew transfer initiated
-			header += "<font color='red'>\The [station_name()] is currently undergoing crew transfer procedures.</font><br>"
+		if(evacuation_controller.emergency_evacuation)
+			header += "<div class='evacuation-banner'>⚠ \The [station_name()] is currently undergoing evacuation procedures.</div>"
+		else
+			header += "<div class='evacuation-banner'>⚠ \The [station_name()] is currently undergoing crew transfer procedures.</div>"
 
 	var/list/dat = list()
-	dat += "Choose from the following open/valid positions:<br>"
-	dat += "<a href='byond://?src=\ref[src];invalid_jobs=1'>[show_invalid_jobs ? "Hide":"Show"] unavailable jobs</a><br>"
-	dat += "<table>"
-	dat += "<tr><td colspan = 3><b>[GLOB.using_map.station_name]:</b></td></tr>"
+	dat += "<div class='controls-bar'>"
+	dat += "<a href='byond://?src=\ref[src];invalid_jobs=1'>[show_invalid_jobs ? "✕ Hide" : "☰ Show"] unavailable jobs</a>"
+	dat += "</div>"
 
+	dat += "<div class='station-header'>❖ [GLOB.using_map.station_name] ❖</div>"
+
+	dat += "<table class='jobs-table'>"
 	// TORCH JOBS
 	var/list/job_summaries = list()
 	var/list/hidden_reasons = list()
@@ -229,20 +258,19 @@
 	if(length(job_summaries))
 		for(var/job_category in job_summaries)
 			if(length(job_summaries[job_category]))
-				// TODO: use bgcolor='[job_dept.display_color]' when less pastel/bright colours are chosen.
-				dat += "<tr><td bgcolor='#333333' colspan = 3><b><font color = '#ffffff'><center>[job_category]</center></font></b></td></tr>"
-				dat += job_summaries[job_category]
+				dat += "<tr><td class='department-header' colspan = 3>— [job_category] —</td></tr>"
+				for(var/job_entry in job_summaries[job_category])
+					dat += "<tr><td class='job-row' colspan = 3>[job_entry]</td></tr>"
 				added_job = TRUE
 
 	if(!added_job)
-		dat += "<tr><td>No available positions.</td></tr>"
-	// END TORCH JOBS
+		dat += "<tr><td class='no-positions' colspan = 3>No available positions.</td></tr>"
 
 	// SUBMAP JOBS
 	for(var/thing in SSmapping.submaps)
 		var/datum/submap/submap = thing
 		if(submap && submap.available())
-			dat += "<tr><td colspan = 3><b>[submap.name] ([submap.archetype.descriptor]):</b></td></tr>"
+			dat += "<tr><td class='submap-header' colspan = 3>◈ [submap.name] ([submap.archetype.descriptor]) ◈</td></tr>"
 			job_summaries = list()
 			for(var/otherthing in submap.jobs)
 				var/datum/job/job = submap.jobs[otherthing]
@@ -254,20 +282,23 @@
 						hidden_reasons[raisin] = TRUE
 
 			if(LAZYLEN(job_summaries))
-				dat += job_summaries
+				for(var/job_entry in job_summaries)
+					dat += "<tr><td class='job-row' colspan = 3>[job_entry]</td></tr>"
 			else
-				dat += "No available positions."
-	// END SUBMAP JOBS
+				dat += "<tr><td class='no-positions' colspan = 3>No available positions.</td></tr>"
 
-	dat += "</table></center>"
+	dat += "</table></div>"
+
 	if(LAZYLEN(hidden_reasons))
-		var/list/additional_dat = list("<br><b>Some roles have been hidden from this list for the following reasons:</b><br>")
+		var/list/additional_dat = list("<div class='hidden-reasons'><b>Some roles have been hidden from this list for the following reasons:</b><br>")
 		for(var/raisin in hidden_reasons)
 			additional_dat += "[raisin]<br>"
-		additional_dat += "<br>"
+		additional_dat += "</div>"
 		dat = additional_dat + dat
+
 	dat = header + dat
-	var/datum/browser/popup = new(src, "latechoices", "Choose Profession", 450, 640)
+
+	var/datum/browser/popup = new(src, "latechoices", "Choose Profession", 700, 800)
 	popup.set_content(jointext(dat, null))
 	popup.open(0)
 
