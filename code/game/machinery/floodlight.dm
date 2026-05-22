@@ -73,7 +73,6 @@
 	if (loud)
 		visible_message(SPAN_NOTICE("\The [src] shuts down."))
 		playsound(src, 'sounds/effects/flashlight.ogg', 50)
-	soundmob()
 /obj/machinery/floodlight/interface_interact(mob/user)
 	if (!CanInteract(user, DefaultTopicState()))
 		return FALSE
