@@ -167,12 +167,12 @@
 // Baton
 // ==================================================================
 
-/obj/item/melee/baton/scp1678
+/obj/item/melee/scp1678
 	name = "ornate baton"
 	desc = "A heavy, silver-colored baton."
 	icon = 'icons/obj/weapons/melee_physical.dmi'
 	icon_state = "metalbat0"
-	item_state = "metalbat"
+	item_state = "metalbat0"
 	force = 20
 	throwforce = 7
 	w_class = ITEM_SIZE_NORMAL

@@ -6,7 +6,7 @@
 	station_levels = list(1,2,3,4)
 	contact_levels = list(1,2,3,4)
 	player_levels = list(1,2,3,4)
-	sealed_levels = list(1,2,3,4)
+	sealed_levels = list(1,2,3,4,8)
 	base_turf_by_z = list(
 		"1" = /turf/simulated/floor/exoplanet/desert,
 		"2" = /turf/simulated/floor/exoplanet/desert,

@@ -532,6 +532,12 @@
 	area_flags = AREA_FLAG_RAD_SHIELDED
 	sound_env = SMALL_ENCLOSED
 
+/area/site53/llcz/abnitems
+	name = "\improper Abnormal Items Storage"
+	icon_state = "research"
+	area_flags = AREA_FLAG_RAD_SHIELDED
+	sound_env = SMALL_ENCLOSED
+
 /area/site53/llcz/scp263research
 	name = "\improper SCP-263 Research Chamber"
 	icon_state = "research"
@@ -1465,3 +1471,8 @@
 /area/scp/dimension004/scp860
 	name = "SCP-860 Dimension - Dark Forest"
 	has_gravity = 1
+
+/area/scp/dimension004/scp1678
+	name = "SCP-1678 Dimension - New London"
+	has_gravity = 1
+	requires_power = 0

@@ -1,9 +1,5 @@
 // ============================================================================
-// SCP-610 - Necromorph mobs (Slasher, Leaper, Lurker, Puker) as simple_animal
-// ============================================================================
-
-// ============================================================================
-// SOUND HELPER
+// SCP-610 - Infected mobs (Slasher, Leaper, Strider, Puker) with HUD
 // ============================================================================
 
 /proc/play_random_flesh_sound(atom/source, vol = 30)
@@ -16,31 +12,31 @@
 	)
 	playsound(source, pick(sounds), vol, 0, -2)
 
-// ============================================================================
-// HELPER - Check if mob is allied
-// ============================================================================
-
 /proc/is_scp610_mob(mob/M)
-	return (istype(M, /mob/living/simple_animal/hostile/scp610_slasher) || istype(M, /mob/living/simple_animal/hostile/scp610_leaper) || istype(M, /mob/living/simple_animal/hostile/scp610_lurker) || istype(M, /mob/living/simple_animal/hostile/scp610_puker))
+	return (istype(M, /mob/living/simple_animal/hostile/scp610_slasher) || istype(M, /mob/living/simple_animal/hostile/scp610_leaper) || istype(M, /mob/living/simple_animal/hostile/scp610_strider) || istype(M, /mob/living/simple_animal/hostile/scp610_puker))
 
 // ============================================================================
-// BASE CLASS - shared logic for all SCP-610 mobs
+// BASE CLASS
 // ============================================================================
-
 /mob/living/simple_animal/hostile/scp610_base
-	var/scp610_nest_cooldown = 90 SECONDS
+	var/scp610_nest_cooldown = 60 SECONDS
 	var/scp610_nest_cooldown_track = 0
-	var/scp610_maw_cooldown = 90 SECONDS
+	var/scp610_maw_cooldown = 60 SECONDS
 	var/scp610_maw_cooldown_track = 0
+	var/scp610_pillar_cooldown = 60 SECONDS
+	var/scp610_pillar_cooldown_track = 0
+	var/scp610_mend_cooldown = 60 SECONDS
+	var/scp610_mend_cooldown_track = 0
 	var/scp610_move_cooldown = 0
 	var/scp610_ambient_cooldown = 0
+	var/door_break_cooldown = 0
 
 	default_pixel_x = 0
 	default_pixel_y = 0
 	attack_sound = 'sounds/scp/610/610_flesh_3.ogg'
-
 	see_invisible = SEE_INVISIBLE_NOLIGHTING
 	see_in_dark = 7
+	hud_type = /datum/hud/scp610
 
 /mob/living/simple_animal/hostile/scp610_base/Initialize(mapload)
 	. = ..()
@@ -62,51 +58,35 @@
 		play_random_flesh_sound(src, 15)
 		scp610_move_cooldown = world.time
 
-/mob/living/simple_animal/hostile/scp610_base/proc/scp610_do_attack(atom/target, attack_sound, infect_chance)
-	if(ishuman(target))
-		var/mob/living/carbon/human/H = target
-		if(!is_scp610_mob(H) && H.species?.name != "Scarred Creature")
-			playsound(src, attack_sound, 30, 0)
-			if(prob(infect_chance))
-				H.infect_scp610()
-			return TRUE
-	return FALSE
-
 /mob/living/simple_animal/hostile/scp610_base/proc/scp610_do_death(death_infect_range, death_floor_range, death_floor_prob, death_gib_type)
 	var/turf/T = get_turf(src)
 	playsound(T, 'sounds/scp/610/610_flesh_2.ogg', 60, TRUE)
 	for(var/mob/living/carbon/human/H in range(death_infect_range, T))
 		if(!is_scp610_mob(H) && !H.SCP)
 			H.infect_scp610()
-
 	var/obj/structure/corruption/nest/N = new(T)
-
-	for(var/turf/simulated/floor/F in range(death_floor_range, T))
-		if(istype(F, /turf/space))
-			continue
-		if(locate(/obj/structure/corruption/weeds) in F)
-			continue
+	for(var/turf/simulated/floor/F in range(1, T))
+		if(istype(F, /turf/space)) continue
+		if(locate(/obj/structure/corruption/weeds) in F) continue
 		if(prob(death_floor_prob))
-			var/obj/structure/corruption/weeds/W = new(F)
-			W.parent_nest = N
-
+			new /obj/structure/corruption/weeds(F, N)
 	new death_gib_type(T)
 
-/mob/living/simple_animal/hostile/scp610_base/proc/scp610_do_place_nest()
+/mob/living/simple_animal/hostile/scp610_base/proc/do_place_nest()
 	if((world.time - scp610_nest_cooldown_track) < scp610_nest_cooldown)
-		to_chat(src, SPAN_WARNING("Nest is not ready yet!"))
+		to_chat(src, SPAN_WARNING("Flesh hive is not ready yet!"))
 		return
 	var/turf/T = get_step(src, src.dir)
 	if(!T || T.density)
 		to_chat(src, SPAN_WARNING("Not enough space in front of you!"))
 		return
-	visible_message(SPAN_DANGER("\The [src] tears a chunk of flesh and plants a nest!"))
-	adjustBruteLoss(40)
+	visible_message(SPAN_DANGER("\The [src] tears a chunk of its own flesh and plants a writhing hive!"))
+	adjustBruteLoss(10)
 	new /obj/structure/corruption/nest(T)
 	play_random_flesh_sound(src, 40)
 	scp610_nest_cooldown_track = world.time
 
-/mob/living/simple_animal/hostile/scp610_base/proc/scp610_do_place_maw()
+/mob/living/simple_animal/hostile/scp610_base/proc/do_place_maw()
 	if((world.time - scp610_maw_cooldown_track) < scp610_maw_cooldown)
 		to_chat(src, SPAN_WARNING("Maw is not ready yet!"))
 		return
@@ -115,26 +95,95 @@
 		to_chat(src, SPAN_WARNING("Not enough space in front of you!"))
 		return
 	if(!(locate(/obj/structure/corruption/weeds) in T))
-		to_chat(src, SPAN_WARNING("You can only place a maw on corruption!"))
+		to_chat(src, SPAN_WARNING("You can only place a maw on the flesh carpet!"))
 		return
-	visible_message(SPAN_DANGER("\The [src] tears open a gaping maw in the floor!"))
-	adjustBruteLoss(50)
+	visible_message(SPAN_DANGER("\The [src] vomits forth a gaping maw onto the flesh!"))
+	adjustBruteLoss(15)
 	new /obj/structure/corruption/maw(T)
 	play_random_flesh_sound(src, 35)
 	scp610_maw_cooldown_track = world.time
+
+/mob/living/simple_animal/hostile/scp610_base/proc/do_place_pillar()
+	if((world.time - scp610_pillar_cooldown_track) < scp610_pillar_cooldown)
+		to_chat(src, SPAN_WARNING("Flesh pillar is not ready yet!"))
+		return
+	var/turf/T = get_step(src, src.dir)
+	if(!T || T.density)
+		to_chat(src, SPAN_WARNING("Not enough space in front of you!"))
+		return
+	if(!(locate(/obj/structure/corruption/weeds) in T) && !(locate(/obj/structure/corruption/nest) in T))
+		to_chat(src, SPAN_WARNING("You can only place a pillar on the flesh carpet!"))
+		return
+	visible_message(SPAN_DANGER("\The [src] violently expels a pulsating pillar of flesh from its body!"))
+	adjustBruteLoss(15)
+	new /obj/structure/corruption/pillar(T)
+	play_random_flesh_sound(src, 40)
+	scp610_pillar_cooldown_track = world.time
+
+/mob/living/simple_animal/hostile/scp610_base/proc/do_absorb()
+	if(stat != CONSCIOUS) return
+	var/atom/target = null
+	if(ismob(pulling) && pulling in range(1, src))
+		target = pulling
+	else if(istype(pulling, /obj/item/scp610_fruit) && pulling in range(1, src))
+		target = pulling
+	else
+		var/list/corpses = list()
+		for(var/mob/living/carbon/human/H in range(1, src))
+			if(H.stat == DEAD) corpses += H
+		for(var/mob/living/simple_animal/hostile/scp610_base/M in range(1, src))
+			if(M.stat == DEAD && M != src) corpses += M
+		for(var/obj/item/scp610_fruit/F in range(1, src))
+			corpses += F
+		if(!length(corpses))
+			to_chat(src, SPAN_WARNING("No corpses or fruit nearby. Try pulling something closer to absorb it."))
+			return
+		target = input(src, "Select something to absorb:", "Absorb") as null|anything in corpses
+	if(!target || !Adjacent(target)) return
+	visible_message(SPAN_DANGER("\The [src] begins absorbing [target] into its mass!"))
+	if(!do_after(src, 5 SECONDS, target, bonus_percentage = 50)) return
+	visible_message(SPAN_DANGER("\The [src] fully absorbs [target]!"))
+	if(istype(target, /obj/item/scp610_fruit))
+		adjustBruteLoss(-100)
+		qdel(target)
+	else if(isliving(target))
+		var/mob/living/M = target
+		M.ghostize()
+		qdel(M)
+		health = maxHealth
+		heal_overall_damage(maxHealth, maxHealth)
+
+/mob/living/simple_animal/hostile/scp610_base/proc/do_mend()
+	var/turf/T = get_turf(src)
+	if(!(locate(/obj/structure/corruption/weeds) in T) && !(locate(/obj/structure/corruption/nest) in T))
+		to_chat(src, SPAN_WARNING("You must stand on the flesh carpet to mend yourself."))
+		return
+	if((world.time - scp610_mend_cooldown_track) < scp610_mend_cooldown)
+		to_chat(src, SPAN_WARNING("You cannot mend yourself yet."))
+		return
+	visible_message(SPAN_NOTICE("\The [src] absorbs nutrients from the flesh carpet, knitting its wounds..."))
+	if(!do_after(src, 3 SECONDS, T, bonus_percentage = 75)) return
+	var/heal_amount = 20
+	adjustBruteLoss(-heal_amount)
+	to_chat(src, SPAN_NOTICE("You feel your wounds knitting together."))
+	scp610_mend_cooldown_track = world.time
 
 /mob/living/simple_animal/hostile/scp610_base/fire_act(exposed_temperature, exposed_volume)
 	..()
 	if(exposed_temperature > 400)
 		adjustBruteLoss(Clamp((exposed_temperature - 400) / 5, 10, 60))
 
-// ============================================================================
-// SLASHER
-// ============================================================================
+/mob/living/simple_animal/hostile/scp610_base/proc/do_hivemind()
+	var/msg = input("Message to the hivemind:", "Hivemind") as text|null
+	if(!msg) return
+	say(msg, all_languages["Scarred Hivemind"])
 
+// ============================================================================
+// SLASHER - The Ripper
+// ============================================================================
 /mob/living/simple_animal/hostile/scp610_slasher
 	parent_type = /mob/living/simple_animal/hostile/scp610_base
-	name = "slasher"
+	name = "ripper"
 	desc = "A reanimated corpse reshaped into a horrific form. Its blade arms are deadly."
 	icon = 'icons/SCP/scp610/slasher.dmi'
 	icon_state = "slasher"
@@ -144,47 +193,40 @@
 	pixel_y = 0
 	maxHealth = 150
 	health = 150
-	movement_cooldown = 3
+	movement_cooldown = 4
 	natural_weapon = /obj/item/natural_weapon/scp610_slasher_blades
 	natural_armor = list(melee = ARMOR_MELEE_RESISTANT, bullet = ARMOR_BALLISTIC_PISTOL)
 
 /mob/living/simple_animal/hostile/scp610_slasher/Initialize(mapload)
 	. = ..()
-	SCP = new /datum/scp(
-		src,
-		"slasher",
-		SCP_EUCLID,
-		"610-Slasher"
-	)
+	SCP = new /datum/scp(src, "ripper", SCP_KETER, "610-Slasher")
 
 /mob/living/simple_animal/hostile/scp610_slasher/Life()
 	. = ..()
-	scp610_do_life(30, 8 SECONDS, 20)
+	if(stat != DEAD)
+		scp610_do_life(30, 8 SECONDS, 20)
 
 /mob/living/simple_animal/hostile/scp610_slasher/Move()
 	. = ..()
-	if(.)
-		scp610_do_move_sound(40, 4 SECONDS)
+	if(.) scp610_do_move_sound(40, 4 SECONDS)
 
 /mob/living/simple_animal/hostile/scp610_slasher/UnarmedAttack(atom/target)
-	if(scp610_do_attack(target, 'sounds/scp/610/610_flesh_3.ogg', 8))
+	if(ishuman(target))
+		var/mob/living/carbon/human/H = target
+		if(!is_scp610_mob(H) && H.species?.name != "Scarred Creature")
+			. = ..()
+			if(prob(8))
+				H.infect_scp610()
 		return
 	return ..()
 
 /mob/living/simple_animal/hostile/scp610_slasher/death(gibbed)
 	scp610_do_death(3, 3, 80, /obj/effect/gibspawner/generic)
-	. = ..()
-	qdel(src)
-
-/mob/living/simple_animal/hostile/scp610_slasher/verb/PlaceNest()
-	set name = "Place Nest"
-	set category = "Necromorph"
-	scp610_do_place_nest()
-
-/mob/living/simple_animal/hostile/scp610_slasher/verb/PlaceMaw()
-	set name = "Place Maw"
-	set category = "Necromorph"
-	scp610_do_place_maw()
+	icon_state = "slasher_lying"
+	icon_living = "slasher_lying"
+	icon_dead = "slasher_lying"
+	density = FALSE
+	set_stat(DEAD)
 
 /obj/item/natural_weapon/scp610_slasher_blades
 	name = "blade arms"
@@ -197,12 +239,11 @@
 	armor_penetration = 10
 
 // ============================================================================
-// LEAPER
+// LEAPER - The Stalker
 // ============================================================================
-
 /mob/living/simple_animal/hostile/scp610_leaper
 	parent_type = /mob/living/simple_animal/hostile/scp610_base
-	name = "leaper"
+	name = "stalker"
 	desc = "A twisted creature with a bladed tail. It moves with unsettling, erratic motions."
 	icon = 'icons/SCP/scp610/leaper.dmi'
 	icon_state = "body"
@@ -213,100 +254,68 @@
 	pixel_y = -24
 	maxHealth = 250
 	health = 250
-	movement_cooldown = 2
+	movement_cooldown = 3
 	natural_weapon = /obj/item/natural_weapon/scp610_leaper_tail
 	natural_armor = list(melee = ARMOR_MELEE_RESISTANT, bullet = ARMOR_BALLISTIC_PISTOL)
 	var/leap_cooldown = 8 SECONDS
-	var/gallop_cooldown = 12 SECONDS
 	var/leap_cooldown_track = 0
-	var/gallop_cooldown_track = 0
-	var/aiming_mode = FALSE
+	var/leap_ready = FALSE
 
 /mob/living/simple_animal/hostile/scp610_leaper/Initialize(mapload)
 	. = ..()
-	SCP = new /datum/scp(
-		src,
-		"leaper",
-		SCP_EUCLID,
-		"610-Leaper"
-	)
+	SCP = new /datum/scp(src, "stalker", SCP_KETER, "610-Leaper")
 
 /mob/living/simple_animal/hostile/scp610_leaper/Life()
 	. = ..()
-	scp610_do_life(35, 6 SECONDS, 25)
+	if(stat != DEAD)
+		scp610_do_life(35, 6 SECONDS, 25)
 
 /mob/living/simple_animal/hostile/scp610_leaper/Move()
 	. = ..()
-	if(.)
-		scp610_do_move_sound(50, 3 SECONDS)
+	if(.) scp610_do_move_sound(50, 3 SECONDS)
 
 /mob/living/simple_animal/hostile/scp610_leaper/UnarmedAttack(atom/target)
-	if(scp610_do_attack(target, 'sounds/scp/610/610_flesh_3.ogg', 8))
+	if(ishuman(target))
+		var/mob/living/carbon/human/H = target
+		if(!is_scp610_mob(H) && H.species?.name != "Scarred Creature")
+			. = ..()
+			if(prob(8))
+				H.infect_scp610()
 		return
 	return ..()
 
-/mob/living/simple_animal/hostile/scp610_leaper/death(gibbed)
-	scp610_do_death(4, 4, 90, /obj/effect/gibspawner/human)
-	. = ..()
-	qdel(src)
-
-/mob/living/simple_animal/hostile/scp610_leaper/verb/Leap()
-	set name = "Leap"
-	set category = "Necromorph"
-	if((world.time - leap_cooldown_track) < leap_cooldown)
-		to_chat(src, SPAN_WARNING("Leap is not ready yet!"))
-		return
-	aiming_mode = TRUE
-	to_chat(src, SPAN_DANGER("Leap ready! Click a target to pounce."))
-
 /mob/living/simple_animal/hostile/scp610_leaper/ClickOn(atom/A)
-	if(aiming_mode)
-		aiming_mode = FALSE
-		perform_leap(A)
+	if(leap_ready)
+		leap_ready = FALSE
+		if((world.time - leap_cooldown_track) < leap_cooldown)
+			to_chat(src, SPAN_WARNING("Not ready!"))
+			return
+		if(get_dist(src, A) > 6)
+			to_chat(src, SPAN_WARNING("Too far!"))
+			return
+		var/turf/T = get_turf(A)
+		if(!T || T.density || T.contains_dense_objects())
+			to_chat(src, SPAN_WARNING("Can't leap there!"))
+			return
+		leap_cooldown_track = world.time
+		visible_message(SPAN_DANGER("\The [src] leaps at [A]!"))
+		playsound(get_turf(src), 'sounds/scp/610/610_flesh_5.ogg', 50, TRUE)
+		forceMove(T)
+		for(var/mob/living/carbon/human/H in range(1, T))
+			if(H.stat == DEAD || is_scp610_mob(H) || H.species?.name == "Scarred Creature") continue
+			H.Weaken(4)
+			H.apply_damage(25, BRUTE)
+			H.infect_scp610()
 		return
 	..()
 
-/mob/living/simple_animal/hostile/scp610_leaper/proc/perform_leap(atom/target)
-	var/turf/T = get_turf(target)
-	if(!T || T.density)
-		to_chat(src, SPAN_WARNING("Can't leap there!"))
-		return
-	visible_message(SPAN_DANGER("\The [src] launches through the air at [target]!"))
-	playsound(get_turf(src), 'sounds/scp/610/610_flesh_5.ogg', 50, TRUE)
-	src.forceMove(T)
-	for(var/mob/living/carbon/human/H in range(1, T))
-		if(H.stat == DEAD) continue
-		if(is_scp610_mob(H) || H.species?.name == "Scarred Creature") continue
-		H.Weaken(4)
-		H.apply_damage(15, BRUTE)
-		H.infect_scp610()
-		H.visible_message(SPAN_DANGER("[H] is knocked down by the impact!"), SPAN_DANGER("\The [src] crashes into you!"))
-	leap_cooldown_track = world.time
-
-/mob/living/simple_animal/hostile/scp610_leaper/verb/Gallop()
-	set name = "Gallop"
-	set category = "Necromorph"
-	if((world.time - gallop_cooldown_track) < gallop_cooldown)
-		to_chat(src, SPAN_WARNING("Gallop is not ready yet!"))
-		return
-	visible_message(SPAN_DANGER("\The [src] breaks into a terrifying gallop!"))
-	playsound(get_turf(src), 'sounds/scp/610/610_flesh_5.ogg', 50, TRUE)
-	movement_cooldown = 1
-	addtimer(CALLBACK(src, PROC_REF(end_gallop)), 3 SECONDS)
-	gallop_cooldown_track = world.time
-
-/mob/living/simple_animal/hostile/scp610_leaper/proc/end_gallop()
-	movement_cooldown = 2
-
-/mob/living/simple_animal/hostile/scp610_leaper/verb/PlaceNest()
-	set name = "Place Nest"
-	set category = "Necromorph"
-	scp610_do_place_nest()
-
-/mob/living/simple_animal/hostile/scp610_leaper/verb/PlaceMaw()
-	set name = "Place Maw"
-	set category = "Necromorph"
-	scp610_do_place_maw()
+/mob/living/simple_animal/hostile/scp610_leaper/death(gibbed)
+	scp610_do_death(4, 4, 90, /obj/effect/gibspawner/human)
+	icon_state = "body_lying"
+	icon_living = "body_lying"
+	icon_dead = "body_lying"
+	density = FALSE
+	set_stat(DEAD)
 
 /obj/item/natural_weapon/scp610_leaper_tail
 	name = "bladed tail"
@@ -319,162 +328,174 @@
 	armor_penetration = 15
 
 // ============================================================================
-// SPINE PROJECTILE
+// STRIDER - The Crusher
 // ============================================================================
+/mob/living/simple_animal/hostile/scp610_strider
+	parent_type = /mob/living/simple_animal/hostile/scp610_base
+	name = "crusher"
+	desc = "A towering, long-limbed brute. It moves with a lurching gait, smashing through anything in its path."
+	icon = 'icons/SCP/scp610/strider.dmi'
+	icon_state = "strider"
+	icon_living = "strider"
+	default_pixel_x = 0
+	default_pixel_y = 0
+	pixel_x = 0
+	pixel_y = 0
+	maxHealth = 300
+	health = 300
+	movement_cooldown = 5
+	natural_weapon = /obj/item/natural_weapon/scp610_strider_fist
+	natural_armor = list(melee = ARMOR_MELEE_RESISTANT, bullet = ARMOR_BALLISTIC_PISTOL)
 
-/obj/item/projectile/spine
-	name = "bone spine"
-	icon = 'icons/SCP/scp610/lurker.dmi'
-	icon_state = "spine_projectile"
-	damage = 13
-	damage_type = BRUTE
-	speed = 0.5
-	nodamage = FALSE
+/mob/living/simple_animal/hostile/scp610_strider/Initialize(mapload)
+	. = ..()
+	SCP = new /datum/scp(src, "crusher", SCP_KETER, "610-Strider")
 
-/obj/item/projectile/spine/on_hit(atom/target)
+/mob/living/simple_animal/hostile/scp610_strider/Life()
+	. = ..()
+	if(stat != DEAD)
+		scp610_do_life(30, 9 SECONDS, 25)
+
+/mob/living/simple_animal/hostile/scp610_strider/Move()
+	. = ..()
+	if(.) scp610_do_move_sound(40, 5 SECONDS)
+
+/mob/living/simple_animal/hostile/scp610_strider/UnarmedAttack(atom/target)
+	if(istype(target, /obj/machinery/door))
+		var/obj/machinery/door/D = target
+		if(D.density && (world.time >= door_break_cooldown))
+			var/open_time = 5 SECONDS
+			if(istype(D, /obj/machinery/door/blast))
+				open_time = 8 SECONDS
+			if(istype(D, /obj/machinery/door/airlock))
+				var/obj/machinery/door/airlock/AR = D
+				if(AR.locked)
+					open_time += 2 SECONDS
+				if(AR.welded)
+					open_time += 2 SECONDS
+			door_break_cooldown = world.time + open_time + 2 SECONDS
+			visible_message(SPAN_WARNING("\The [src] begins prying open \the [D]..."))
+			playsound(get_turf(src), 'sounds/machines/airlock_creaking.ogg', 50, TRUE)
+			if(!do_after(src, open_time, D, bonus_percentage = 25))
+				return
+			if(istype(D, /obj/machinery/door/blast))
+				var/obj/machinery/door/blast/DB = D
+				DB.open(TRUE)
+			else if(istype(D, /obj/machinery/door/airlock))
+				var/obj/machinery/door/airlock/AR = D
+				AR.unlock(TRUE)
+				AR.welded = FALSE
+				D.set_broken(TRUE)
+				D.open(TRUE)
+			else
+				D.set_broken(TRUE)
+				D.open(1)
+			visible_message(SPAN_DANGER("\The [src] smashes through [D]!"))
+		return
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
-		H.apply_damage(damage, damage_type)
-		H.infect_scp610()
-		visible_message(SPAN_DANGER("[H] is impaled by a spine!"))
-
-// ============================================================================
-// LURKER
-// ============================================================================
-
-/obj/item/natural_weapon/lurker_tentacles
-	name = "tentacles"
-	attack_verb = list("whipped", "lashed", "slapped")
-	hitsound = 'sounds/scp/610/610_flesh_3.ogg'
-	damtype = BRUTE
-	force = 8
-	edge = FALSE
-	armor_penetration = 0
-
-/mob/living/simple_animal/hostile/scp610_lurker
-	parent_type = /mob/living/simple_animal/hostile/scp610_base
-	name = "lurker"
-	desc = "A small creature with retractable armor."
-	icon = 'icons/SCP/scp610/lurker.dmi'
-	icon_state = "torso"
-	icon_living = "torso"
-	default_pixel_x = -16
-	pixel_x = -16
-	pixel_y = 0
-	maxHealth = 150
-	health = 150
-	movement_cooldown = 2
-	natural_weapon = /obj/item/natural_weapon/lurker_tentacles
-	natural_armor = list(melee = ARMOR_MELEE_RESISTANT, bullet = ARMOR_BALLISTIC_RIFLE)
-	var/shell_open = FALSE
-	var/spine_cooldown = 3 SECONDS
-	var/spine_cooldown_track = 0
-	var/toggle_cooldown = 2 SECONDS
-	var/toggle_cooldown_track = 0
-	var/aiming_mode = FALSE
-
-/mob/living/simple_animal/hostile/scp610_lurker/Initialize(mapload)
-	. = ..()
-	SCP = new /datum/scp(
-		src,
-		"lurker",
-		SCP_EUCLID,
-		"610-Lurker"
-	)
-
-/mob/living/simple_animal/hostile/scp610_lurker/Life()
-	. = ..()
-	scp610_do_life(25, 10 SECONDS, 15)
-
-/mob/living/simple_animal/hostile/scp610_lurker/Move()
-	. = ..()
-	if(.)
-		scp610_do_move_sound(30, 5 SECONDS)
-
-/mob/living/simple_animal/hostile/scp610_lurker/UnarmedAttack(atom/target)
-	if(scp610_do_attack(target, 'sounds/scp/610/610_flesh_3.ogg', 8))
+		if(!is_scp610_mob(H) && H.species?.name != "Scarred Creature")
+			. = ..()
+			if(prob(8))
+				H.infect_scp610()
 		return
 	return ..()
 
-/mob/living/simple_animal/hostile/scp610_lurker/death(gibbed)
-	scp610_do_death(3, 3, 70, /obj/effect/gibspawner/generic)
+/mob/living/simple_animal/hostile/scp610_strider/death(gibbed)
+	scp610_do_death(4, 4, 90, /obj/effect/gibspawner/human)
+	icon_state = "strider_lying"
+	icon_living = "strider_lying"
+	icon_dead = "strider_lying"
+	density = FALSE
+	set_stat(DEAD)
+
+/obj/item/natural_weapon/scp610_strider_fist
+	name = "bony fist"
+	attack_verb = list("bashed", "crushed", "smashed")
+	hitsound = 'sounds/scp/610/610_flesh_3.ogg'
+	damtype = BRUTE
+	force = 12
+	armor_penetration = 5
+
+// ============================================================================
+// PUKER - The Bile-Spitter (explodes on death)
+// ============================================================================
+/obj/item/natural_weapon/puker_claws
+	name = "corroded claws"
+	attack_verb = list("slashed", "burned", "melted")
+	hitsound = 'sounds/scp/610/610_flesh_4.ogg'
+	damtype = BURN
+	force = 14
+	edge = TRUE
+	armor_penetration = 5
+
+/mob/living/simple_animal/hostile/scp610_puker
+	parent_type = /mob/living/simple_animal/hostile/scp610_base
+	name = "bile-spitter"
+	desc = "A bloated creature leaking corrosive fluids. It gurgles with barely contained bile."
+	icon = 'icons/SCP/scp610/puker.dmi'
+	icon_state = "puker"
+	icon_living = "puker"
+	default_pixel_x = -8
+	pixel_x = -8
+	pixel_y = 0
+	maxHealth = 180
+	health = 180
+	movement_cooldown = 4
+	natural_weapon = /obj/item/natural_weapon/puker_claws
+	natural_armor = list(melee = ARMOR_MELEE_RESISTANT, bullet = ARMOR_BALLISTIC_PISTOL)
+	var/snapshot_cooldown = 3 SECONDS
+	var/snapshot_cooldown_track = 0
+	var/puke_ready = FALSE
+
+/mob/living/simple_animal/hostile/scp610_puker/Initialize(mapload)
 	. = ..()
-	qdel(src)
+	SCP = new /datum/scp(src, "bile-spitter", SCP_KETER, "610-Puker")
 
-/mob/living/simple_animal/hostile/scp610_lurker/update_icon()
-	if(shell_open)
-		icon_state = "torso-tentacles"
-		icon_living = "torso-tentacles"
-	else
-		icon_state = "torso"
-		icon_living = "torso"
+/mob/living/simple_animal/hostile/scp610_puker/Life()
+	. = ..()
+	if(stat != DEAD)
+		scp610_do_life(35, 7 SECONDS, 25)
 
-/mob/living/simple_animal/hostile/scp610_lurker/verb/ToggleShell()
-	set name = "Toggle Shell"
-	set category = "Necromorph"
-	if((world.time - toggle_cooldown_track) < toggle_cooldown)
-		to_chat(src, SPAN_WARNING("Shell not ready to toggle yet!"))
+/mob/living/simple_animal/hostile/scp610_puker/Move()
+	. = ..()
+	if(.) scp610_do_move_sound(45, 3 SECONDS)
+
+/mob/living/simple_animal/hostile/scp610_puker/UnarmedAttack(atom/target)
+	if(ishuman(target))
+		var/mob/living/carbon/human/H = target
+		if(!is_scp610_mob(H) && H.species?.name != "Scarred Creature")
+			. = ..()
+			if(prob(8))
+				H.infect_scp610()
 		return
-	shell_open = !shell_open
-	aiming_mode = FALSE
-	if(shell_open)
-		movement_cooldown = 4
-		natural_armor = list(melee = ARMOR_MELEE_MINOR, bullet = ARMOR_BALLISTIC_MINOR)
-		visible_message(SPAN_DANGER("\The [src]'s shell retracts, exposing its tentacles!"))
-		playsound(src, 'sounds/scp/610/610_flesh_4.ogg', 25, 0)
-	else
-		movement_cooldown = 2
-		natural_armor = list(melee = ARMOR_MELEE_RESISTANT, bullet = ARMOR_BALLISTIC_RIFLE)
-		visible_message(SPAN_DANGER("\The [src]'s shell closes, armoring it completely!"))
-		playsound(src, 'sounds/scp/610/610_flesh_4.ogg', 25, 0)
-	toggle_cooldown_track = world.time
-	update_icon()
+	return ..()
 
-/mob/living/simple_animal/hostile/scp610_lurker/verb/SpineLaunch()
-	set name = "Spine Launch"
-	set category = "Necromorph"
-	if(!shell_open)
-		to_chat(src, SPAN_WARNING("You must open your shell first!"))
-		return
-	if((world.time - spine_cooldown_track) < spine_cooldown)
-		to_chat(src, SPAN_WARNING("Spines not ready yet!"))
-		return
-	aiming_mode = TRUE
-	to_chat(src, SPAN_DANGER("Spines ready! Click a target to fire."))
-
-/mob/living/simple_animal/hostile/scp610_lurker/ClickOn(atom/A)
-	if(aiming_mode)
-		aiming_mode = FALSE
-		fire_spines(A)
+/mob/living/simple_animal/hostile/scp610_puker/ClickOn(atom/A)
+	if(puke_ready)
+		puke_ready = FALSE
+		if((world.time - snapshot_cooldown_track) < snapshot_cooldown)
+			to_chat(src, SPAN_WARNING("Not ready!"))
+			return
+		snapshot_cooldown_track = world.time
+		visible_message(SPAN_DANGER("\The [src] spits acid at [A]!"))
+		playsound(get_turf(src), 'sounds/scp/610/610_flesh_4.ogg', 40, TRUE)
+		var/obj/item/projectile/puker_snap/P = new(get_turf(src))
+		P.firer = src
+		P.original = A
+		P.launch(A, src)
 		return
 	..()
 
-/mob/living/simple_animal/hostile/scp610_lurker/proc/fire_spines(atom/target)
-	if(!shell_open)
-		return
-	visible_message(SPAN_DANGER("\The [src] launches a fan of bony spines!"))
-	playsound(get_turf(src), 'sounds/scp/610/610_flesh_4.ogg', 40, TRUE)
-	var/turf/start_turf = get_turf(src)
-	for(var/i in 1 to 3)
-		var/obj/item/projectile/spine/P = new /obj/item/projectile/spine(start_turf)
-		P.firer = src
-		P.original = target
-		P.launch(target, src, 0, (i-1)*5 - 5)
-	spine_cooldown_track = world.time
-
-/mob/living/simple_animal/hostile/scp610_lurker/verb/PlaceNest()
-	set name = "Place Nest"
-	set category = "Necromorph"
-	scp610_do_place_nest()
-
-/mob/living/simple_animal/hostile/scp610_lurker/verb/PlaceMaw()
-	set name = "Place Maw"
-	set category = "Necromorph"
-	scp610_do_place_maw()
-
-// ============================================================================
-// PUKER PROJECTILE
-// ============================================================================
+/mob/living/simple_animal/hostile/scp610_puker/death(gibbed)
+	visible_message(SPAN_DANGER("\The [src] bursts in a shower of gore and viscera!"))
+	playsound(get_turf(src), 'sounds/scp/610/610_flesh_2.ogg', 60, TRUE)
+	var/obj/effect/decal/cleanable/blood/gibs/G = new /obj/effect/decal/cleanable/blood/gibs(get_turf(src))
+	G.basecolor = "#2d1a0a"
+	G.update_icon()
+	QDEL_IN(G, 5 MINUTES)
+	new /obj/structure/corruption/nest(get_turf(src))
+	qdel(src)
 
 /obj/item/projectile/puker_snap
 	name = "acid spit"
@@ -493,96 +514,86 @@
 		visible_message(SPAN_DANGER("[H] is splashed with acid!"))
 
 // ============================================================================
-// PUKER
+// HUD WITH ABILITY BUTTONS
 // ============================================================================
-
-/obj/item/natural_weapon/puker_claws
-	name = "corroded claws"
-	attack_verb = list("slashed", "burned", "melted")
-	hitsound = 'sounds/scp/610/610_flesh_4.ogg'
-	damtype = BURN
-	force = 14
-	edge = TRUE
-	armor_penetration = 5
-
-/mob/living/simple_animal/hostile/scp610_puker
-	parent_type = /mob/living/simple_animal/hostile/scp610_base
-	name = "puker"
-	desc = "A bloated creature leaking corrosive fluids. It gurgles with barely contained bile."
-	icon = 'icons/SCP/scp610/puker.dmi'
-	icon_state = "puker"
-	icon_living = "puker"
-	default_pixel_x = -8
-	pixel_x = -8
-	pixel_y = 0
-	maxHealth = 180
-	health = 180
-	movement_cooldown = 3
-	natural_weapon = /obj/item/natural_weapon/puker_claws
-	natural_armor = list(melee = ARMOR_MELEE_RESISTANT, bullet = ARMOR_BALLISTIC_PISTOL)
-	var/snapshot_cooldown = 3 SECONDS
-	var/snapshot_cooldown_track = 0
-	var/aiming_mode = FALSE
-
-/mob/living/simple_animal/hostile/scp610_puker/Initialize(mapload)
-	. = ..()
-	SCP = new /datum/scp(
-		src,
-		"puker",
-		SCP_EUCLID,
-		"610-Puker"
-	)
-
-/mob/living/simple_animal/hostile/scp610_puker/Life()
-	. = ..()
-	scp610_do_life(35, 7 SECONDS, 25)
-
-/mob/living/simple_animal/hostile/scp610_puker/Move()
-	. = ..()
-	if(.)
-		scp610_do_move_sound(45, 3 SECONDS)
-
-/mob/living/simple_animal/hostile/scp610_puker/UnarmedAttack(atom/target)
-	if(scp610_do_attack(target, 'sounds/scp/610/610_flesh_4.ogg', 8))
-		return
-	return ..()
-
-/mob/living/simple_animal/hostile/scp610_puker/death(gibbed)
-	scp610_do_death(4, 4, 90, /obj/effect/gibspawner/human)
-	. = ..()
-	qdel(src)
-
-/mob/living/simple_animal/hostile/scp610_puker/verb/Snapshot()
-	set name = "Snapshot"
-	set category = "Necromorph"
-	if((world.time - snapshot_cooldown_track) < snapshot_cooldown)
-		to_chat(src, SPAN_WARNING("Snapshot is not ready yet!"))
-		return
-	aiming_mode = TRUE
-	to_chat(src, SPAN_DANGER("Snapshot ready! Click a target to fire."))
-
-/mob/living/simple_animal/hostile/scp610_puker/ClickOn(atom/A)
-	if(aiming_mode)
-		aiming_mode = FALSE
-		fire_snapshot(A)
-		return
+/datum/hud/scp610/New(mob/owner)
+	mymob = owner
 	..()
 
-/mob/living/simple_animal/hostile/scp610_puker/proc/fire_snapshot(atom/target)
-	visible_message(SPAN_DANGER("\The [src] spits a glob of acid at [target]!"))
-	playsound(get_turf(src), 'sounds/scp/610/610_flesh_4.ogg', 40, TRUE)
-	var/obj/item/projectile/puker_snap/P = new /obj/item/projectile/puker_snap(get_turf(src))
-	P.firer = src
-	P.original = target
-	P.launch(target, src)
-	snapshot_cooldown_track = world.time
+/datum/hud/scp610/instantiate()
+	var/list/buttons = list(
+		"Hivemind" = /atom/movable/screen/scp610/hivemind,
+		"Infest"   = /atom/movable/screen/scp610/infest,
+		"Absorb"   = /atom/movable/screen/scp610/absorb,
+		"Mend"     = /atom/movable/screen/scp610/mend
+	)
+	if(istype(mymob, /mob/living/simple_animal/hostile/scp610_slasher) || istype(mymob, /mob/living/simple_animal/hostile/scp610_leaper))
+		buttons["Maw"] = /atom/movable/screen/scp610/maw
+	if(istype(mymob, /mob/living/simple_animal/hostile/scp610_strider))
+		buttons["Construct"] = /atom/movable/screen/scp610/construct
+	if(istype(mymob, /mob/living/simple_animal/hostile/scp610_puker))
+		buttons["Puke"] = /atom/movable/screen/scp610/puke
+	if(istype(mymob, /mob/living/simple_animal/hostile/scp610_leaper))
+		buttons["Whip"] = /atom/movable/screen/scp610/whip
 
-/mob/living/simple_animal/hostile/scp610_puker/verb/PlaceNest()
-	set name = "Place Nest"
-	set category = "Necromorph"
-	scp610_do_place_nest()
+	var/pos = 1
+	for(var/name in buttons)
+		var/button_type = buttons[name]
+		var/atom/movable/screen/scp610/btn = new button_type
+		btn.screen_loc = "LEFT+[(pos-1)]:16,TOP-1"
+		btn.name = name
+		btn.hud = src
+		mymob.client.screen += btn
+		pos++
 
-/mob/living/simple_animal/hostile/scp610_puker/verb/PlaceMaw()
-	set name = "Place Maw"
-	set category = "Necromorph"
-	scp610_do_place_maw()
+/atom/movable/screen/scp610
+	icon = 'icons/SCP/scp610/Buttons.dmi'
+	icon_state = "buttons"
+	var/ability_name = ""
+	var/datum/hud/scp610/hud = null
+
+/atom/movable/screen/scp610/Initialize(mapload)
+	. = ..()
+	update_icon()
+
+/atom/movable/screen/scp610/update_icon()
+	cut_overlays()
+	add_overlay(ability_name)
+
+/atom/movable/screen/scp610/Click()
+	if(!usr || usr.stat != CONSCIOUS || !hud?.mymob) return
+	var/mob/living/simple_animal/hostile/scp610_base/M = hud.mymob
+	if(!istype(M)) return
+
+	switch(ability_name)
+		if("hivemind") M.do_hivemind()
+		if("infest") M.do_place_nest()
+		if("maw") M.do_place_maw()
+		if("construct") M.do_place_pillar()
+		if("absorb") M.do_absorb()
+		if("mend") M.do_mend()
+		if("whip")
+			var/mob/living/simple_animal/hostile/scp610_leaper/L = M
+			if(istype(L))
+				if((world.time - L.leap_cooldown_track) < L.leap_cooldown)
+					to_chat(L, SPAN_WARNING("Leap is not ready yet!"))
+					return
+				L.leap_ready = TRUE
+				to_chat(L, SPAN_DANGER("Click target within 6 tiles."))
+		if("puke")
+			var/mob/living/simple_animal/hostile/scp610_puker/P = M
+			if(istype(P))
+				if((world.time - P.snapshot_cooldown_track) < P.snapshot_cooldown)
+					to_chat(P, SPAN_WARNING("Puke is not ready yet!"))
+					return
+				P.puke_ready = TRUE
+				to_chat(P, SPAN_DANGER("Click target to fire."))
+
+/atom/movable/screen/scp610/hivemind  { icon_state = "buttons"; ability_name = "hivemind" }
+/atom/movable/screen/scp610/infest    { icon_state = "buttons"; ability_name = "infest" }
+/atom/movable/screen/scp610/maw       { icon_state = "buttons"; ability_name = "maw" }
+/atom/movable/screen/scp610/construct { icon_state = "buttons"; ability_name = "construct" }
+/atom/movable/screen/scp610/absorb    { icon_state = "buttons"; ability_name = "absorb" }
+/atom/movable/screen/scp610/mend      { icon_state = "buttons"; ability_name = "mend" }
+/atom/movable/screen/scp610/puke      { icon_state = "buttons"; ability_name = "puke" }
+/atom/movable/screen/scp610/whip      { icon_state = "buttons"; ability_name = "whip" }

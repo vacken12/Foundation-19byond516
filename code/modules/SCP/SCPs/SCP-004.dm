@@ -1,13 +1,6 @@
 #define SCP004_EFFECT_GIB    0
 #define SCP004_EFFECT_PORTAL 1
 
-// ==================== SCP-004 FLOOR ====================
-/turf/simulated/floor/scp004
-	name = "dimension floor"
-	desc = "A cold, dark stone floor that seems to absorb light. The surface feels unnaturally smooth."
-	icon = 'icons/SCP/scp-004.dmi'
-	icon_state = "floor"
-
 // ==================== SCP-004 DOOR ====================
 /obj/structure/scp004_door
 	name = "heavy wooden door"
@@ -238,8 +231,8 @@
 	key_id = 10
 	icon_state = "key_10"
 	key_effect = SCP004_EFFECT_PORTAL
-	portal_x = 63
-	portal_y = 134
+	portal_x = 66
+	portal_y = 129
 	portal_z = 8
 
 /obj/item/key/scp004/key_11
