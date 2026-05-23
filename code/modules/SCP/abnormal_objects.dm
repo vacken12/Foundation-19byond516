@@ -1,5 +1,3 @@
-// code\modules\SCP\abnormal_objects.dm
-
 // -----------------------------------------------------------------------------
 // Diamond Brick
 // -----------------------------------------------------------------------------
@@ -61,20 +59,47 @@
 // -----------------------------------------------------------------------------
 // Compulsive Cowboy Hat
 // -----------------------------------------------------------------------------
+/obj/item/clothing/head/cowboy_compulsive
+	name = "white cowboy hat"
+	desc = "A pristine white cowboy hat. It fills you with an inexplicable urge to dance."
+	icon = 'icons/SCP/abnormal_objects.dmi'
+	icon_state = "compulsive"
+	item_state = "compulsive"
+	body_parts_covered = 0
+	var/last_yeehaw = 0
+	var/going_up = TRUE
+
+/obj/item/clothing/head/cowboy_compulsive/equipped(mob/living/carbon/human/user, slot)
+	. = ..()
+	if(slot == slot_head)
+		user.visible_message(SPAN_NOTICE("[user] puts on [src] and starts bouncing!"))
+		START_PROCESSING(SSprocessing, src)
+
+/obj/item/clothing/head/cowboy_compulsive/dropped(mob/living/carbon/human/user)
+	STOP_PROCESSING(SSprocessing, src)
+	user.pixel_y = 0
+	. = ..()
+
 /obj/item/clothing/head/cowboy_compulsive/Process()
 	var/mob/living/carbon/human/M = loc
 	if(!istype(M) || M.head != src || M.stat == DEAD)
 		STOP_PROCESSING(SSprocessing, src)
 		return
 
-	M.pixel_y = 4
-	sleep(0.3)
-	M.pixel_y = 0
+	if(going_up)
+		M.pixel_y = 4
+		going_up = FALSE
+	else
+		M.pixel_y = 0
+		going_up = TRUE
 
 	if(world.time >= last_yeehaw + 15 SECONDS)
 		last_yeehaw = world.time
 		M.audible_message(SPAN_NOTICE("[M] bounces around, yeehawing!"))
 		playsound(get_turf(M), 'sounds/voice/yeehaw.ogg', 50, 0)
+
+	sleep(0.3)
+
 // -----------------------------------------------------------------------------
 // Marshmallow Blue Flame
 // -----------------------------------------------------------------------------
