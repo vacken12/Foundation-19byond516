@@ -34,14 +34,17 @@
 	return ..()
 
 /obj/item/gun/projectile/scp154_bow/update_icon()
-	icon_state = "154bow"
-	item_state = "154bow"
+	if(bow_drawn)
+		icon_state = "154bow_stratched"
+		item_state = "154bow"
+	else
+		icon_state = "154bow"
+		item_state = "154bow"
 	var/mob/M = loc
 	if(istype(M))
 		M.update_inv_l_hand()
 		M.update_inv_r_hand()
 
-// Z on bow — draw or fire
 /obj/item/gun/projectile/scp154_bow/attack_self(mob/user)
 	if(!ishuman(user) || !parent_bracelets)
 		return
@@ -64,7 +67,6 @@
 		SPAN_NOTICE("You raise the phantom bow and draw the invisible bowstring. The bones in your arm begin to vibrate from the tension."))
 	update_icon()
 
-// Click on target — fire only if drawn
 /obj/item/gun/projectile/scp154_bow/afterattack(atom/target, mob/living/user, flag, params)
 	if(!ishuman(user) || !parent_bracelets)
 		return
@@ -142,14 +144,12 @@
 
 	parent_bracelets.start_healing(user)
 
-// Dropped — vanishes
 /obj/item/gun/projectile/scp154_bow/dropped(mob/user)
 	if(parent_bracelets)
 		to_chat(user, SPAN_NOTICE("The phantom bow vanishes, retreating back into the bracelets."))
 	. = ..()
 	qdel(src)
 
-// Attempt to equip to another slot — vanishes
 /obj/item/gun/projectile/scp154_bow/equipped(mob/user, slot)
 	if(slot == slot_l_hand || slot == slot_r_hand)
 		return ..()
@@ -184,13 +184,16 @@
 	. = ..()
 	if(slot == slot_gloves)
 		current_wearer = user
+		add_verb(user, /obj/item/clothing/gloves/scp154/verb/summon_bow)
 		to_chat(user, SPAN_NOTICE("The bracelets tighten around your wrists. You feel power flowing through your arms."))
 	else
+		remove_verb(user, /obj/item/clothing/gloves/scp154/verb/summon_bow)
 		stop_healing()
 		current_wearer = null
 
 /obj/item/clothing/gloves/scp154/dropped(mob/user)
 	. = ..()
+	remove_verb(user, /obj/item/clothing/gloves/scp154/verb/summon_bow)
 	if(current_wearer)
 		stop_healing()
 		current_wearer = null
@@ -202,11 +205,10 @@
 	if(current_wearer)
 		to_chat(current_wearer, SPAN_WARNING("The connection to the bracelets is severed, and the healing energy dissipates."))
 
-// Verb — summon/dismiss bow
 /obj/item/clothing/gloves/scp154/verb/summon_bow()
 	set name = "Summon SCP-154 Bow"
 	set desc = "Summon or dismiss the phantom bow."
-	set category = "SCP"
+	set category = "Abilities"
 	set src in usr
 
 	if(!ishuman(usr))
@@ -215,6 +217,7 @@
 	var/mob/living/carbon/human/H = usr
 	if(H.gloves != src)
 		to_chat(H, SPAN_WARNING("You must wear the bracelets on your hands."))
+		remove_verb(H, /obj/item/clothing/gloves/scp154/verb/summon_bow)
 		return
 
 	if(active_bow)

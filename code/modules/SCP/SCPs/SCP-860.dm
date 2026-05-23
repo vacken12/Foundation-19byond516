@@ -338,10 +338,8 @@ GLOBAL_LIST_EMPTY(scp860_return_spawns)
 	icon_state = "monster"
 	icon_living = "monster"
 	icon_dead = null
-	pixel_x = -8          // Для иконки 48x64: (48-32)/2 = 8, смещаем влево на -8
-	pixel_y = -16         // Для иконки 48x64: (64-32)/2 = 16, смещаем вниз на -16
-	default_pixel_x = -8
-	default_pixel_y = -16
+	pixel_x = -16
+	default_pixel_x = -16
 
 	maxHealth = 2000
 	health = 2000

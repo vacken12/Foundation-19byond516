@@ -88,7 +88,7 @@
 	attack_verb = list("slashes", "bites", "claws", "mauls")
 	hitsound = 'sounds/scp/682/682_roar_2.ogg'
 	damtype = BRUTE
-	force = 30
+	force = 60
 
 /mob/living/simple_animal/hostile/scp682/Initialize()
 	. = ..()

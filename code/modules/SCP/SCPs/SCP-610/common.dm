@@ -2,6 +2,9 @@
 // SCP-610 - Common (language, corruption, bottle, disease, structures)
 // ============================================================================
 
+// Глобальный список z-уровней, где распространение запрещено
+GLOBAL_LIST_INIT(scp610_no_spread_z, list(8))
+
 // ============================================================================
 // LANGUAGE
 // ============================================================================
@@ -21,8 +24,8 @@
 // ============================================================================
 
 /obj/structure/corruption/weeds
-	name = "corruption"
-	desc = "A patch of writhing, pulsating corruption."
+	name = "flesh carpet"
+	desc = "A writhing, pulsating mat of infected tissue spreading across the floor."
 	icon = 'icons/SCP/scp610/structure.dmi'
 	icon_state = "corruption-1"
 	density = FALSE
@@ -30,17 +33,20 @@
 	layer = TURF_LAYER + 0.1
 	var/health = 15
 	var/max_health = 15
-	/// Reference to parent nest
 	var/obj/structure/corruption/nest/parent_nest
-	/// Is this weed currently dying
 	var/dying = FALSE
 
-/obj/structure/corruption/weeds/Initialize(mapload)
+/obj/structure/corruption/weeds/Initialize(mapload, obj/structure/corruption/nest/source_nest)
 	. = ..()
 	health = max_health
 	icon_state = pick("corruption-1", "corruption-2", "corruption-3")
-	if(parent_nest)
+	if(z in GLOB.scp610_no_spread_z)
+		return
+	if(source_nest)
+		parent_nest = source_nest
 		LAZYADD(parent_nest.weed_list, src)
+		if(parent_nest.phase == 1)
+			addtimer(CALLBACK(src, PROC_REF(try_spread)), rand(15 SECONDS, 30 SECONDS))
 
 /obj/structure/corruption/weeds/Destroy()
 	if(parent_nest)
@@ -48,14 +54,17 @@
 		parent_nest = null
 	return ..()
 
-/// Heal SCP-610 mobs standing on it
-/obj/structure/corruption/weeds/Crossed(atom/movable/AM)
-	. = ..()
-	if(is_scp610_mob(AM))
-		var/mob/living/L = AM
-		L.adjustBruteLoss(-3)
+/obj/structure/corruption/weeds/proc/try_spread()
+	if(QDELETED(src) || dying || !parent_nest)
+		return
+	if(parent_nest.phase != 1 || parent_nest.weed_list.len >= parent_nest.max_weeds)
+		return
+	var/dir = pick(GLOB.cardinal)
+	var/turf/simulated/floor/T = get_step(src, dir)
+	if(istype(T) && !locate(/obj/structure/corruption) in T)
+		new /obj/structure/corruption/weeds(T, parent_nest)
+	addtimer(CALLBACK(src, PROC_REF(try_spread)), rand(15 SECONDS, 30 SECONDS))
 
-/// Damage from melee weapons
 /obj/structure/corruption/weeds/attackby(obj/item/W, mob/user)
 	user.setClickCooldown(CLICK_CD_ATTACK)
 	visible_message(SPAN_DANGER("[user] strikes [src] with [W]!"))
@@ -69,13 +78,11 @@
 		visible_message(SPAN_DANGER("[src] is destroyed!"))
 		qdel(src)
 
-/// Fire destroys corruption
 /obj/structure/corruption/weeds/fire_act(exposed_temperature, exposed_volume)
 	if(exposed_temperature > 400)
-		visible_message(SPAN_DANGER("The corruption sizzles and burns away!"))
+		visible_message(SPAN_DANGER("The flesh sizzles and burns away!"))
 		qdel(src)
 
-/// Smooth dying animation when nest is destroyed
 /obj/structure/corruption/weeds/proc/start_dying()
 	if(dying)
 		return
@@ -91,8 +98,8 @@
 // ============================================================================
 
 /obj/structure/corruption/nest
-	name = "nest"
-	desc = "A thick column of hardened corruption. It pulses with a warm, organic glow."
+	name = "flesh hive"
+	desc = "A towering, pulsating pillar of infected flesh, nurturing the corruption around it."
 	icon = 'icons/SCP/scp610/structure.dmi'
 	icon_state = "nest"
 	density = TRUE
@@ -100,59 +107,54 @@
 	layer = OBJ_LAYER
 	var/health = 120
 	var/max_health = 120
-	/// List of all weeds spawned by this nest
 	var/list/weed_list = list()
-	/// Max weeds this nest can support
-	var/max_weeds = 40
+	var/max_weeds = 24
+	var/phase = 1
 
 /obj/structure/corruption/nest/Initialize(mapload)
 	. = ..()
 	health = max_health
-	START_PROCESSING(SSobj, src)
+	if(z in GLOB.scp610_no_spread_z)
+		return
+	addtimer(CALLBACK(src, PROC_REF(spawn_initial_field)), 0.5 SECONDS)
 
+/obj/structure/corruption/nest/proc/spawn_initial_field()
 	var/turf/T = get_turf(src)
-	for(var/turf/simulated/floor/F in range(2, T))
-		if(istype(F, /turf/space))
-			continue
-		if(locate(/obj/structure/corruption/weeds) in F)
-			continue
-		if(prob(60))
+	for(var/turf/simulated/floor/F in range(1, T))
+		if(F == T) continue
+		if(istype(F, /turf/space)) continue
+		if(!locate(/obj/structure/corruption/weeds) in F)
 			spawn_weed(F)
+	addtimer(CALLBACK(src, PROC_REF(start_expansion)), 2 SECONDS)
+
+/obj/structure/corruption/nest/proc/start_expansion()
+	if(QDELETED(src))
+		return
+	phase = 1
+	addtimer(CALLBACK(src, PROC_REF(try_expand)), 30 SECONDS)
+
+/obj/structure/corruption/nest/proc/try_expand()
+	if(QDELETED(src) || phase != 1 || weed_list.len >= max_weeds)
+		phase = 0
+		return
+	if(LAZYLEN(weed_list))
+		var/obj/structure/corruption/weeds/W = pick(weed_list)
+		if(!QDELETED(W))
+			W.try_spread()
+	addtimer(CALLBACK(src, PROC_REF(try_expand)), 30 SECONDS)
 
 /obj/structure/corruption/nest/Destroy()
-	STOP_PROCESSING(SSobj, src)
-	// Smooth dying for all weeds
 	for(var/obj/structure/corruption/weeds/W in weed_list)
 		if(W && !QDELETED(W) && !W.dying)
 			W.start_dying()
 	weed_list.Cut()
 	return ..()
 
-/obj/structure/corruption/nest/Process()
-	if(LAZYLEN(weed_list) >= max_weeds)
-		return
-
-	var/turf/T = get_turf(src)
-	if(!istype(T))
-		return
-
-	for(var/turf/simulated/floor/F in range(3, T))
-		if(istype(F, /turf/space))
-			continue
-		if(locate(/obj/structure/corruption/weeds) in F)
-			continue
-		if(prob(15))
-			spawn_weed(F)
-
-/// Spawn a weed at the specified turf
 /obj/structure/corruption/nest/proc/spawn_weed(turf/T)
 	if(LAZYLEN(weed_list) >= max_weeds)
 		return
-	var/obj/structure/corruption/weeds/W = new(T)
-	W.parent_nest = src
-	LAZYADD(weed_list, W)
+	new /obj/structure/corruption/weeds(T, src)
 
-/// Melee damage
 /obj/structure/corruption/nest/attackby(obj/item/W, mob/user)
 	user.setClickCooldown(CLICK_CD_ATTACK)
 	visible_message(SPAN_DANGER("[user] strikes [src] with [W]!"))
@@ -167,18 +169,9 @@
 		playsound(get_turf(src), 'sounds/scp/610/610_flesh_2.ogg', 60, TRUE)
 		qdel(src)
 
-/// Allow passage
 /obj/structure/corruption/nest/CanPass(atom/movable/mover, turf/target)
 	return TRUE
 
-/// Heal SCP-610 mobs on nest
-/obj/structure/corruption/nest/Crossed(atom/movable/AM)
-	. = ..()
-	if(is_scp610_mob(AM))
-		var/mob/living/L = AM
-		L.adjustBruteLoss(-5)
-
-/// Fire destroys the nest and all related weeds
 /obj/structure/corruption/nest/fire_act(exposed_temperature, exposed_volume)
 	if(exposed_temperature > 400)
 		visible_message(SPAN_DANGER("[src] is rapidly consumed by flames!"))
@@ -190,12 +183,119 @@
 			qdel(src)
 
 // ============================================================================
+// CORRUPTION PILLAR
+// ============================================================================
+
+/obj/structure/corruption/pillar
+	name = "flesh pillar"
+	desc = "A pulsating pillar of corrupted flesh, rhythmically birthing grotesque fruit."
+	icon = 'icons/SCP/scp610/structure.dmi'
+	icon_state = "pillar"
+	density = TRUE
+	anchored = TRUE
+	layer = OBJ_LAYER
+	var/health = 150
+	var/max_health = 150
+	var/fruits_produced = 0
+	var/max_fruits = 3
+	var/fruit_cooldown = 80 SECONDS
+	var/producing = FALSE
+
+/obj/structure/corruption/pillar/Initialize(mapload)
+	. = ..()
+	health = max_health
+	if(z in GLOB.scp610_no_spread_z)
+		return
+	addtimer(CALLBACK(src, PROC_REF(start_production)), 2 SECONDS)
+
+/obj/structure/corruption/pillar/proc/start_production()
+	if(QDELETED(src))
+		return
+	if(fruits_produced >= max_fruits)
+		visible_message(SPAN_WARNING("[src] withers away after producing its last fruit."))
+		qdel(src)
+		return
+	if(producing)
+		return
+	producing = TRUE
+	flick("pillar_create", src)
+	addtimer(CALLBACK(src, PROC_REF(spawn_fruit)), 2 SECONDS)
+
+/obj/structure/corruption/pillar/proc/spawn_fruit()
+	if(QDELETED(src))
+		return
+	var/turf/T = get_step(src, pick(GLOB.cardinal))
+	if(!T || T.density)
+		T = get_turf(src)
+	new /obj/item/scp610_fruit(T)
+	fruits_produced++
+	producing = FALSE
+	addtimer(CALLBACK(src, PROC_REF(start_production)), fruit_cooldown)
+
+/obj/structure/corruption/pillar/attackby(obj/item/W, mob/user)
+	user.setClickCooldown(CLICK_CD_ATTACK)
+	visible_message(SPAN_DANGER("[user] strikes [src] with [W]!"))
+	var/damage = W.force
+	if(W.sharp)
+		damage *= 1.5
+	if(W.edge)
+		damage *= 1.2
+	health -= damage
+	if(health <= 0)
+		visible_message(SPAN_DANGER("[src] crumbles!"))
+		playsound(get_turf(src), 'sounds/scp/610/610_flesh_2.ogg', 40, TRUE)
+		qdel(src)
+
+/obj/structure/corruption/pillar/fire_act(exposed_temperature, exposed_volume)
+	if(exposed_temperature > 400)
+		visible_message(SPAN_DANGER("[src] is rapidly consumed by flames!"))
+		qdel(src)
+	else
+		health -= round(exposed_temperature / 30)
+		if(health <= 0)
+			visible_message(SPAN_DANGER("[src] collapses as it burns!"))
+			qdel(src)
+
+// ============================================================================
+// CORRUPT FRUIT
+// ============================================================================
+
+/obj/item/scp610_fruit
+	name = "pulsing fruit"
+	desc = "A fleshy, tumor-like growth that pulses with a sickly warmth. It looks disturbingly appetizing."
+	icon = 'icons/SCP/scp610/structure.dmi'
+	icon_state = "fruit"
+	w_class = ITEM_SIZE_SMALL
+
+/obj/item/scp610_fruit/attack_self(mob/user)
+	if(is_scp610_mob(user))
+		user.visible_message(
+			SPAN_NOTICE("[user] devours the fruit and rapidly regenerates!"),
+			SPAN_NOTICE("You eat the fruit and feel your wounds heal at an incredible rate.")
+		)
+		playsound(user, 'sounds/scp/610/610_flesh_4.ogg', 30, TRUE)
+		var/mob/living/simple_animal/hostile/scp610_base/M = user
+		M.adjustBruteLoss(-100)
+		qdel(src)
+	else if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		H.visible_message(
+			SPAN_DANGER("[H] eats the fruit. Their skin begins to shift unnaturally."),
+			SPAN_DANGER("You eat the fruit. It tastes foul, and your body starts to burn!")
+		)
+		playsound(H, 'sounds/scp/610/610_flesh_4.ogg', 30, TRUE)
+		H.infect_scp610()
+		qdel(src)
+	else
+		..()
+
+// ============================================================================
 // CORRUPTION MAW
 // ============================================================================
 
 /obj/structure/corruption/maw
-	name = "maw"
-	desc = "A gaping orifice in the floor, lined with teeth of bone and corruption."
+	name = "gaping maw"
+	desc = "A tooth-lined orifice in the floor, snapping at anything that wanders too close."
 	icon = 'icons/SCP/scp610/structure.dmi'
 	icon_state = "maw"
 	density = FALSE
@@ -207,30 +307,11 @@
 /obj/structure/corruption/maw/Initialize(mapload)
 	. = ..()
 	playsound(get_turf(src), 'sounds/scp/610/610_flesh_4.ogg', 40, TRUE)
-	START_PROCESSING(SSobj, src)
-
-/obj/structure/corruption/maw/Destroy()
-	STOP_PROCESSING(SSobj, src)
-	return ..()
-
-/obj/structure/corruption/maw/Process()
-	var/turf/T = get_turf(src)
-	if(!T)
-		return
-	if(!(locate(/obj/structure/corruption/weeds) in T) && !(locate(/obj/structure/corruption/nest) in T))
-		visible_message(SPAN_WARNING("[src] withers away without corruption to sustain it!"))
-		qdel(src)
 
 /obj/structure/corruption/maw/Crossed(atom/movable/AM)
 	if(ishuman(AM))
 		var/mob/living/carbon/human/H = AM
-		if(H in trapped_mobs || H.lying)
-			return
-		if(is_scp610_mob(H))
-			return
-		if(H.species?.name == "Scarred Creature")
-			return
-		if(H.SCP)
+		if(H in trapped_mobs || H.lying || is_scp610_mob(H) || H.species?.name == "Scarred Creature" || H.SCP)
 			return
 		H.visible_message(
 			SPAN_DANGER("[H] is caught by the maw!"),
@@ -330,8 +411,20 @@
 	var/mob/living/carbon/human/H = affected_mob
 	if(!istype(H))
 		return
-	// Don't affect SCPs
 	if(H.SCP)
+		return
+
+	if(H.on_fire)
+		H.adjustBruteLoss(3)
+		H.Weaken(2)
+		to_chat(H, SPAN_DANGER("<b>The fire accelerates the corruption! Your body is reshaping!</b>"))
+		H.visible_message(SPAN_DANGER("[H]'s flesh writhes and twists in the flames!"))
+		if(stage < 3)
+			stage = 3
+			to_chat(H, SPAN_DANGER("<b>The infection surges through your burning body!</b>"))
+		spawn(10 SECONDS)
+			if(H && H.on_fire && H.stat != DEAD)
+				complete_transformation(H)
 		return
 
 	switch(stage)
@@ -361,10 +454,10 @@
 
 /datum/disease/scp610/proc/complete_transformation(mob/living/carbon/human/H)
 	var/transform_type = pickweight(list(
-		"slasher" = 50,
-		"puker" = 30,
-		"leaper" = 10,
-		"lurker" = 10
+		"slasher" = 25,
+		"puker" = 25,
+		"leaper" = 25,
+		"strider" = 25
 	))
 	var/mob/living/simple_animal/hostile/new_mob
 	switch(transform_type)
@@ -374,9 +467,9 @@
 		if("leaper")
 			H.visible_message(SPAN_DANGER("<b>[H.name] mutates into a leaper!</b>"))
 			new_mob = new /mob/living/simple_animal/hostile/scp610_leaper(get_turf(H))
-		if("lurker")
-			H.visible_message(SPAN_DANGER("<b>[H.name] shrinks into a lurker!</b>"))
-			new_mob = new /mob/living/simple_animal/hostile/scp610_lurker(get_turf(H))
+		if("strider")
+			H.visible_message(SPAN_DANGER("<b>[H.name] elongates into a strider!</b>"))
+			new_mob = new /mob/living/simple_animal/hostile/scp610_strider(get_turf(H))
 		if("puker")
 			H.visible_message(SPAN_DANGER("<b>[H.name] bloats into a puker!</b>"))
 			new_mob = new /mob/living/simple_animal/hostile/scp610_puker(get_turf(H))
@@ -390,7 +483,6 @@
 	set hidden = TRUE
 	for(var/datum/disease/scp610/D in diseases)
 		return FALSE
-	// Don't infect SCPs
 	if(SCP)
 		return FALSE
 	var/datum/disease/scp610/D = new()
