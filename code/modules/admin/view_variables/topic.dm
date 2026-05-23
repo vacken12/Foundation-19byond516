@@ -153,6 +153,8 @@
 			return
 
 		H.ChangeToSkeleton()
+		playsound(H.loc, 'sounds/effects/bonerattle.ogg', 100, 1)
+		H.play_xylophone()
 		href_list["datumrefresh"] = href_list["make_skeleton"]
 
 	else if(href_list["delthis"])

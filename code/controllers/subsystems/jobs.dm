@@ -75,8 +75,10 @@ SUBSYSTEM_DEF(jobs)
 			types_to_datums[job.type] = job
 			titles_to_datums[job.title] = job
 			distinct_job_titles[job.title] = job
-			for(var/alt_title in job.alt_titles)
-				titles_to_datums[alt_title] = job
+			for(var/i = 1 to length(job.alt_titles))
+				var/alt_title = job.alt_titles[i]
+				if(istext(alt_title))
+					titles_to_datums[alt_title] = job
 			if(job.department_flag)
 				for (var/I in 1 to GLOB.bitflags.len)
 					if(job.department_flag & GLOB.bitflags[I])

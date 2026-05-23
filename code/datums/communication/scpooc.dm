@@ -1,4 +1,4 @@
-#define SPAN_SCPOOC(X) SPAN_DANGER("<span class='scpooc'>[create_text_tag("scpooc", "SCP-OOC:", target)] [X]</span>")
+#define SPAN_SCPOOC(target, X) SPAN_CLASS("ooc","<span class='scpooc'>[create_text_tag("scpooc", "SCP-OOC:", target)] [X]</span>")
 
 
 /decl/communication_channel/scpooc
@@ -20,25 +20,24 @@
 	if(isghost(C.mob))
 		to_chat(src, SPAN_WARNING("You cannot use [name] while ghosting/observing!"))
 		return FALSE
-	if(!C)
-		return FALSE
+
 
 /decl/communication_channel/scpooc/do_communicate(client/C, message)
 	var/datum/admins/holder = C.holder
 
 	for(var/client/target in GLOB.clients)
 		if(check_rights(R_ADMIN|R_MOD, FALSE, target))
-			receive_communication(C, target, SPAN_SCPOOC("<EM>[get_options_bar(C, 0, 1, 1)]:</EM> <span class='message linkify'>[message]</span>"))
-		else if(target in GLOB.SCP_list)
+			receive_communication(C, target, SPAN_SCPOOC(target, "<EM>[get_options_bar(C, 0, 1, 1)]:</EM> <span class='message linkify'>[message]</span>"))
+		else if(target.mob)
 			var/display_name = C.key
-			var/player_display = holder ? "[display_name]([C.holder.rank])" : display_name
-			receive_communication(C, target, SPAN_SCPOOC("<EM>[player_display]:</EM> <span class='message linkify'>[message]</span>"))
+			var/player_display = holder ? "[display_name]([usr.client.holder.rank])" : display_name
+			receive_communication(C, target, SPAN_SCPOOC(target, "<EM>[player_display]:</EM> <span class='message linkify'>[message]</span>"))
 
 
 /decl/communication_channel/scpooc/do_broadcast(message)
 	for (var/client/target in GLOB.clients)
-		if((check_rights(R_ADMIN|R_MOD, FALSE, target)) || (target in GLOB.SCP_list))
-			receive_broadcast(target, SPAN_SCPOOC("<strong>SYSTEM BROADCAST:</strong> <span class='message linkify'>[message]</span>"))
+		if (check_rights(R_ADMIN|R_MOD, FALSE, target))
+			receive_broadcast(target, SPAN_SCPOOC(target, "<strong>SYSTEM BROADCAST:</strong> <span class='message linkify'>[message]</span>"))
 
 /client/proc/scpooc(msg as text)
 	set category = "OOC"

@@ -33,7 +33,7 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha", "Beta", "Gamma", "Delta"
 	var/changelingID = "Changeling"
 	/// If we're mimicking someone else's voice, this value tracks that name and uses it when we speak.
 	var/mimicing = ""
-
+	var/true_dead = FALSE
 	/// The mind that owns this changeling datum.
 	var/datum/mind/owner_mind
 
@@ -42,6 +42,7 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha", "Beta", "Gamma", "Delta"
 		qdel(D)
 	absorbed_languages.Cut()
 	absorbed_dna.Cut()
+	true_dead = TRUE
 	. = ..()
 
 /datum/changeling/New()

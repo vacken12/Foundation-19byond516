@@ -86,7 +86,11 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	'sounds/ambience/spookyspace1.ogg',
 	'sounds/ambience/spookyspace2.ogg',
 	'sounds/ambience/SCP_CB_AI_ambient.ogg',
-	'sounds/ambience/SCP_CB_Satiate_Strings_ambient.ogg'
+	'sounds/ambience/SCP_CB_Satiate_Strings_ambient.ogg',
+	'sounds/ambience/unexplainedbehaviorsSCPSL.ogg',
+	'sounds/ambience/doctorslabSCPSL.ogg',
+	'sounds/ambience/lczambienceSCPSL.ogg',
+	'sounds/ambience/massivelabyrinthSCPSL.ogg'
 	)
 	var/list/forced_ambience = null
 	var/sound_env = STANDARD_STATION

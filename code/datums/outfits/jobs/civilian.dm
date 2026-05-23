@@ -123,7 +123,7 @@
 	suit = /obj/item/clothing/suit/armor/itd
 	shoes = /obj/item/clothing/shoes/laceup
 	l_pocket = /obj/item/device/radio
-	id_type = /obj/item/card/id/adminlvl5
+	id_type = /obj/item/card/id/tribunal
 	l_ear = /obj/item/device/radio/headset/heads/hop
 	backpack_contents = list(/obj/item/ammo_magazine/scp/m1911 = 1)
 	belt = /obj/item/gun/projectile/pistol/m1911/gold

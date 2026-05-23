@@ -1498,6 +1498,7 @@
 #include "code\modules\admin\verbs\panicbunker.dm"
 #include "code\modules\admin\verbs\playsound.dm"
 #include "code\modules\admin\verbs\possess.dm"
+#include "code\modules\admin\verbs\possess_mob.dm"
 #include "code\modules\admin\verbs\pray.dm"
 #include "code\modules\admin\verbs\randomverbs.dm"
 #include "code\modules\admin\verbs\SDQL.dm"

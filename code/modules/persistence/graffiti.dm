@@ -1,6 +1,5 @@
 /obj/effect/decal/writing
 	name = "graffiti"
-	icon_state = "writing1"
 	icon = 'icons/effects/writing.dmi'
 	desc = "It looks like someone has scratched something here."
 	gender = PLURAL
@@ -22,11 +21,12 @@
 		author = _author
 
 /obj/effect/decal/writing/Initialize()
-	var/list/random_icon_states = icon_states(icon)
-	for(var/obj/effect/decal/writing/W in loc)
-		random_icon_states.Remove(W.icon_state)
-	if(random_icon_states.len)
-		icon_state = pick(random_icon_states)
+	if(!icon_state || icon_state == initial(icon_state))
+		var/list/random_icon_states = icon_states(icon)
+		for(var/obj/effect/decal/writing/W in loc)
+			random_icon_states.Remove(W.icon_state)
+		if(random_icon_states.len)
+			icon_state = pick(random_icon_states)
 	SSpersistence.track_value(src, /datum/persistent/graffiti)
 	. = ..()
 

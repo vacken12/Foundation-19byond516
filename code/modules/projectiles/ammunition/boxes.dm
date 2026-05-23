@@ -188,7 +188,7 @@
 	ammo_type = /obj/item/ammo_casing/pistol/practice
 
 /obj/item/ammo_magazine/pistol/small
-	icon_state = "holdout"
+	icon_state = "4mm"
 	matter = list(MATERIAL_STEEL = 480)
 	caliber = CALIBER_PISTOL_SMALL
 	ammo_type = /obj/item/ammo_casing/pistol/small

@@ -6,9 +6,8 @@
 	id_type = /obj/item/card/id/rd
 	gloves = /obj/item/clothing/gloves/thick
 	l_ear = /obj/item/device/radio/headset/heads/rd
-	l_pocket = /obj/item/book/manual/scp/scisop
 	glasses = /obj/item/clothing/glasses/hud/science
-	backpack_contents = list(/obj/item/clothing/accessory/tunic = 1)
+	backpack_contents = list(/obj/item/clothing/accessory/tunic = 1, /obj/item/book/manual/scp/scisop = 1)
 
 /decl/hierarchy/outfit/job/command/aresearchdirector
 	name = OUTFIT_JOB_NAME("Assistant Research Director")

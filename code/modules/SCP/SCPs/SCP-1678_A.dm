@@ -47,6 +47,10 @@
 
 	queue_icon_update()
 
+	REMOVE_TRAIT(src, TRAIT_HANDS_BLOCKED, STAT_TRAIT)
+	REMOVE_TRAIT(src, TRAIT_CRITICAL_CONDITION, STAT_TRAIT)
+	REMOVE_TRAIT(src, TRAIT_UI_BLOCKED, STAT_TRAIT)
+
 // ==================================================================
 // Icon rendering
 // ==================================================================
@@ -82,10 +86,6 @@
 
 /mob/living/carbon/human/scp1678/Life()
 	. = ..()
-
-	REMOVE_TRAIT(src, TRAIT_HANDS_BLOCKED, STAT_TRAIT)
-	REMOVE_TRAIT(src, TRAIT_CRITICAL_CONDITION, STAT_TRAIT)
-	REMOVE_TRAIT(src, TRAIT_UI_BLOCKED, STAT_TRAIT)
 
 	if(lying)
 		lying = 0

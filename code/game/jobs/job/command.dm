@@ -3,7 +3,7 @@
 	department = "Командование"
 	head_position = TRUE
 	department_flag = COM
-	selection_color = "#1d1d4f"
+	selection_color = "#1b1b4f"
 	req_admin_notify = 1
 	minimal_player_age = 20
 	economic_power = 15
@@ -45,7 +45,7 @@
 	department = "Командование"
 	supervisors = "Директор Зоны"
 	department_flag = COM|CIV|BUR|SRV
-	selection_color = "#2f2f7f"
+	selection_color = "#2f2f97"
 	head_position = TRUE
 	total_positions = 1
 	spawn_positions = 1
@@ -164,7 +164,7 @@
 
 	title = "Офицер Внутреннего Трибунала"
 	department = "Гражданский"
-	selection_color = "#2f2f7f"
+	selection_color = "#652789"
 	department_flag = COM|BUR
 	total_positions = 1
 	spawn_positions = 1
@@ -207,7 +207,7 @@
 
 	title = "Представитель Комитета по Этике"
 	department = "Гражданский"
-	selection_color = "#2f2f7f"
+	selection_color = "#2d814a"
 	department_flag = COM|BUR
 	total_positions = 1
 	spawn_positions = 1
@@ -250,7 +250,7 @@
 	title = "Представитель Глобальной Оккультной Коалиции"
 	department = "Командование"
 	department_flag = REP|BUR
-	selection_color = "#2f2f7f"
+	selection_color = "#003cff"
 	supervisors = "Ваше руководство Группы Интересов"
 	total_positions = 1
 	spawn_positions = 1

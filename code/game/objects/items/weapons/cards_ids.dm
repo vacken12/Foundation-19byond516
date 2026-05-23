@@ -160,8 +160,10 @@
 		var/datum/job/j = SSjobs.get_by_path(job_access_type)
 		if(j)
 			rank = j.title
-			assignment = rank
-			class = j.class
+			if(!assignment)
+				assignment = rank
+			if(!class)
+				class = j.class
 			access |= j.get_access()
 			if(!detail_color)
 				detail_color = j.selection_color
@@ -928,10 +930,11 @@ GLOBAL_LIST_EMPTY(conversion_cards)
 	access |= get_all_site_access()
 
 /obj/item/card/id/physics
-	name = "military ID"
-	desc = "A dark purple ID. Looks like the person wearing this won't give it up easy."
-	icon_state = "securitylvl5"
-	item_state = "Sec_ID5"
+	name = "UNGOC military ID"
+	desc = "A blue UNGOC ID. Looks like the person wearing this won't give it up easy."
+	icon_state = "goc"
+	item_state = "goc"
+	assignment = "UNGOC Physics Operative"
 
 /obj/item/card/id/physics/Initialize()
 	. = ..()

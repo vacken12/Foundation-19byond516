@@ -602,9 +602,9 @@
 	if(!src.xylophone)
 		visible_message(SPAN_WARNING("\The [src] begins playing \his ribcage like a xylophone. It's quite spooky."),SPAN_NOTICE("You begin to play a spooky refrain on your ribcage."),SPAN_WARNING("You hear a spooky xylophone melody."))
 		var/song = pick('sounds/effects/xylophone1.ogg','sounds/effects/xylophone2.ogg','sounds/effects/xylophone3.ogg')
-		playsound(loc, song, 50, 1, -1)
+		playsound(loc, song, 100, 1)
 		xylophone = 1
-		spawn(1200)
+		spawn(10)
 			xylophone=0
 	return
 

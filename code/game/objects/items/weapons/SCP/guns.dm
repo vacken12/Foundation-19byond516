@@ -9,6 +9,7 @@
 	slot_flags = SLOT_BELT|SLOT_BACK
 	origin_tech = list(TECH_COMBAT = 6, TECH_MATERIAL = 1, TECH_ESOTERIC = 5)
 	load_method = MAGAZINE
+	fire_sound = 'sounds/weapons/gunshot/p90.ogg'
 	magazine_type = /obj/item/ammo_magazine/scp/p90_mag
 	allowed_magazines = /obj/item/ammo_magazine/scp/p90_mag
 

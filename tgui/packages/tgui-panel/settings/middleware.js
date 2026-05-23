@@ -6,9 +6,14 @@
 
 import { storage } from 'common/storage';
 import { setClientTheme } from '../themes';
-import { loadSettings, updateSettings, addHighlightSetting, removeHighlightSetting, updateHighlightSetting } from './actions';
+import {
+  loadSettings,
+  updateSettings,
+  addHighlightSetting,
+  removeHighlightSetting,
+  updateHighlightSetting,
+} from './actions';
 import { selectSettings } from './selectors';
-import { FONTS_DISABLED } from './constants';
 
 const setGlobalFontSize = (fontSize) => {
   document.documentElement.style.setProperty('font-size', fontSize + 'px');
@@ -16,7 +21,7 @@ const setGlobalFontSize = (fontSize) => {
 };
 
 const setGlobalFontFamily = (fontFamily) => {
-  if (fontFamily === FONTS_DISABLED) fontFamily = null;
+  if (fontFamily === 'Lucida Console') fontFamily = null;
 
   document.documentElement.style.setProperty('font-family', fontFamily);
   document.body.style.setProperty('font-family', fontFamily);

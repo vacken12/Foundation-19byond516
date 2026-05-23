@@ -214,7 +214,7 @@
 	icon_state = "svd"
 	item_state = "svd"
 	w_class = ITEM_SIZE_HUGE
-	force = 10
+	force = 13
 	slot_flags = SLOT_BACK
 	caliber = "7.62x54mmR"
 	origin_tech = list(TECH_COMBAT = 6, TECH_MATERIAL = 1, TECH_ESOTERIC = 5)
@@ -334,6 +334,7 @@
 	load_method = MAGAZINE
 	magazine_type = /obj/item/ammo_magazine/scp/smgm9mm
 	allowed_magazines = /obj/item/ammo_magazine/scp/smgm9mm
+	fire_sound = 'sounds/weapons/gunshot/silence/fire_silent3.ogg'
 	wielded_item_state = "mp5"
 
 	//Assault rifle, burst fire degrades quicker than SMG, worse one-handing penalty

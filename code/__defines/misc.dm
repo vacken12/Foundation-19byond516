@@ -260,3 +260,10 @@
 #define FACILITY_EVACUATED 1
 #define FACILITY_DESTROYED_NUKE 2
 #define FACILITY_DESTROYED_SELF_DESTRUCT 3
+
+// Notification action types
+#define NOTIFY_JUMP "jump"
+#define NOTIFY_ATTACK "attack"
+#define NOTIFY_FOLLOW "follow"
+#define NOTIFY_POSSESS "possess"
+#define NOTIFY_VOTE "vote"

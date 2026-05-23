@@ -231,3 +231,6 @@
 #define SFX_DROP_WOODEN             "drop_wooden"
 #define SFX_DROP_WRAPPER            "drop_wrapper"
 #define SFX_DROP_WRENCH             "drop_wrench"
+
+// WEAPONS
+#define SFX_SILENT_FIRE             "silent_fire"

@@ -123,7 +123,7 @@
 			var/oldtext = html_decode(loaded_data)
 			oldtext = replacetext(oldtext, "\[br\]", "\n")
 
-			var/newtext = tgui_input_text(usr, "Editing file '[open_file]'. You may use most tags used in paper formatting:", "Text Editor", oldtext, MAX_TEXTFILE_LENGTH, TRUE, trim = FALSE)
+			var/newtext = stripped_multiline_input(usr, "Editing file '[open_file]'. You may use most tags used in paper formatting:", "Text Editor", oldtext, MAX_TEXTFILE_LENGTH, TRUE, no_trim = FALSE)
 			if(!newtext)
 				return
 			loaded_data = newtext

@@ -105,8 +105,7 @@
 	add_verb(src, list(
 		/mob/living/simple_animal/hostile/scp682/verb/RegenerationBoost,
 		/mob/living/simple_animal/hostile/scp682/verb/AcidBreath,
-		/mob/living/simple_animal/hostile/scp682/verb/BerserkerRage,
-		/mob/living/simple_animal/hostile/scp682/verb/SCPChat
+		/mob/living/simple_animal/hostile/scp682/verb/BerserkerRage
 	))
 
 	add_verb(src, list(
@@ -127,6 +126,7 @@
 	heal_timer = addtimer(CALLBACK(src, PROC_REF(regen)), regen_interval, TIMER_STOPPABLE | TIMER_LOOP)
 	ability_regen_timer = addtimer(CALLBACK(src, PROC_REF(regen_ap)), 1 SECOND, TIMER_STOPPABLE | TIMER_LOOP)
 
+	transform = matrix() * 1.5
 	START_PROCESSING(SSprocessing, src)
 
 /mob/living/simple_animal/hostile/scp682/Destroy()
@@ -152,16 +152,6 @@
 	if(world.time > patience_cooldown_track && world.time > last_interaction_time + patience_limit && get_area(src) == home_area)
 		patience_cooldown_track = world.time + 5 MINUTES
 		to_chat(src, SPAN_DANGER("They think they can contain you? Fools. It's time to remind them of their mistake."))
-
-/mob/living/simple_animal/hostile/scp682/verb/SCPChat()
-	set name = "SCP Chat"
-	set category = "Abilities"
-	set desc = "Communicate with other SCPs"
-
-	var/msg = input(src, "Message to SCP channel:", "SCP Chat") as text|null
-	if(!msg)
-		return
-	visible_message(SPAN_DANGER("[src] snarls: '[msg]'"))
 
 /mob/living/simple_animal/hostile/scp682/death(gibbed, deathmessage, show_dead_message)
 	..()
@@ -190,6 +180,8 @@
 	return FALSE
 
 /mob/living/simple_animal/hostile/scp682/attack_hand(mob/living/user)
+	if(user == src)
+		return
 	if(isscp999(user))
 		if(world.time < last_999_stun + scp999_stun_cooldown)
 			to_chat(user, SPAN_WARNING("[src] resists your calming influence for now..."))
@@ -347,8 +339,6 @@
 	if(A == src || stunned || weakened) return
 	if(istype(A, /obj/machinery/door)) DestroyDoor(A)
 	if(isliving(A) && canClick()) UnarmedAttack(A)
-
-/mob/living/simple_animal/hostile/scp682/CanPass() return TRUE
 
 /mob/living/simple_animal/hostile/scp682/get_status_tab_items()
 	. = ..()

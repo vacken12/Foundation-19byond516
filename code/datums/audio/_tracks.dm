@@ -487,3 +487,17 @@
 	author = "Camelidea"
 	license = /decl/license/cc_by_sa_3_0
 	url = "https://www.youtube.com/watch?v=CV66tO2Soys"
+
+/decl/audio/track/track1
+	source = 'sounds/music/track1SCPSL.ogg'
+	title = "Track 1"
+	author = "SCP Secret Laboratory"
+	license = /decl/license/cc_by_sa_3_0
+	url = "https://www.youtube.com/watch?v=TilNCQUhug0"
+
+/decl/audio/track/stuckonthepuzzle
+	source = 'sounds/music/stuckonthepuzzle.ogg'
+	title = "Stuck on the Puzzle"
+	author = "Alex Turner"
+	license = /decl/license/cc_by_sa_3_0
+	url = "https://www.youtube.com/watch?v=K0YEVNacmtw"

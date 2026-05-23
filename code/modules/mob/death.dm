@@ -56,6 +56,8 @@
 	if(!gibbed && deathmessage != "no message") // This is gross, but reliable. Only brains use it.
 		src.visible_message("<b>\The [src.name]</b> [deathmessage]")
 
+	sound_to(src, 'sounds/scp/Spectator.ogg')
+
 	set_stat(DEAD)
 	adjust_stamina(-100)
 	reset_plane_and_layer()

@@ -13,29 +13,35 @@
 	scannable = TRUE
 	should_admin_log = TRUE
 
-/datum/reagent/soporific/affect_blood(mob/living/carbon/M, alien, removed)
+/datum/reagent/soporific/affect_blood(mob/living/M, alien, removed)
 	if (alien == IS_DIONA)
 		return
 
-	var/threshold = 1
-	if (alien == IS_SKRELL)
-		threshold = 1.2
+	if(iscarbon(M))
+		var/mob/living/carbon/C = M
+		var/threshold = 1
+		if (alien == IS_SKRELL)
+			threshold = 1.2
 
-	if (M.chem_doses[type] < 1 * threshold)
-		if (M.chem_doses[type] == metabolism * 2 || prob(5))
-			M.emote("yawn")
-	else if (M.chem_doses[type] < 1.5 * threshold)
-		M.set_eye_blur_if_lower(10 SECONDS)
-	else if (M.chem_doses[type] < 5 * threshold)
-		if (prob(50))
-			M.Weaken(2)
-			M.add_chemical_effect(CE_SEDATE, 1)
-		M.set_drowsiness_if_lower(20 SECONDS)
+		if (C.chem_doses[type] < 1 * threshold)
+			if (C.chem_doses[type] == metabolism * 2 || prob(5))
+				C.emote("yawn")
+		else if (C.chem_doses[type] < 1.5 * threshold)
+			C.set_eye_blur_if_lower(10 SECONDS)
+		else if (C.chem_doses[type] < 5 * threshold)
+			if (prob(50))
+				C.Weaken(2)
+				C.add_chemical_effect(CE_SEDATE, 1)
+			C.set_drowsiness_if_lower(20 SECONDS)
+		else
+			C.sleeping = max(C.sleeping, 20)
+			C.set_drowsiness_if_lower(60 SECONDS)
+			C.add_chemical_effect(CE_SEDATE, 1)
+		C.add_chemical_effect(CE_PULSE, -1)
 	else
+		// Simple animals and other non-carbon mobs
+		M.Weaken(2)
 		M.sleeping = max(M.sleeping, 20)
-		M.set_drowsiness_if_lower(60 SECONDS)
-		M.add_chemical_effect(CE_SEDATE, 1)
-	M.add_chemical_effect(CE_PULSE, -1)
 
 
 
@@ -50,27 +56,33 @@
 	value = 2.6
 	should_admin_log = TRUE
 
-/datum/reagent/vecuronium_bromide/affect_blood(mob/living/carbon/M, alien, removed)
+/datum/reagent/vecuronium_bromide/affect_blood(mob/living/M, alien, removed)
 	if (alien == IS_DIONA)
 		return
 
-	var/threshold = 2
-	if (alien == IS_SKRELL)
-		threshold = 2.4
+	if(iscarbon(M))
+		var/mob/living/carbon/C = M
+		var/threshold = 2
+		if (alien == IS_SKRELL)
+			threshold = 2.4
 
-	if (M.chem_doses[type] >= metabolism * threshold * 0.5)
-		M.set_confusion_if_lower(5 SECONDS)
-		M.add_chemical_effect(CE_VOICELOSS, 1)
-	if (M.chem_doses[type] > threshold * 0.5)
-		M.adjust_dizzy(3 SECONDS)
-		M.Weaken(2)
-	if (M.chem_doses[type] == round(threshold * 0.5, metabolism))
-		to_chat(M, SPAN_WARNING("Your muscles slacken and cease to obey you."))
-	if (M.chem_doses[type] >= threshold)
-		M.add_chemical_effect(CE_SEDATE, 1)
-		M.set_eye_blur_if_lower(10 SECONDS)
+		if (C.chem_doses[type] >= metabolism * threshold * 0.5)
+			C.set_confusion_if_lower(5 SECONDS)
+			C.add_chemical_effect(CE_VOICELOSS, 1)
+		if (C.chem_doses[type] > threshold * 0.5)
+			C.adjust_dizzy(3 SECONDS)
+			C.Weaken(2)
+		if (C.chem_doses[type] == round(threshold * 0.5, metabolism))
+			to_chat(C, SPAN_WARNING("Your muscles slacken and cease to obey you."))
+		if (C.chem_doses[type] >= threshold)
+			C.add_chemical_effect(CE_SEDATE, 1)
+			C.set_eye_blur_if_lower(10 SECONDS)
 
-	if (M.chem_doses[type] > 1 * threshold)
+		if (C.chem_doses[type] > 1 * threshold)
+			C.adjustToxLoss(removed)
+	else
+		// Simple animals and other non-carbon mobs: paralyze and deal toxin damage
+		M.Weaken(20)
 		M.adjustToxLoss(removed)
 
 
@@ -86,26 +98,34 @@
 	value = 2.6
 	should_admin_log = TRUE
 
-/datum/reagent/chloral_hydrate/affect_blood(mob/living/carbon/M, alien, removed)
+/datum/reagent/chloral_hydrate/affect_blood(mob/living/M, alien, removed)
 	if (alien == IS_DIONA)
 		return
 
 	var/threshold = 1
 	if (alien == IS_SKRELL)
 		threshold = 1.2
-	M.add_chemical_effect(CE_SEDATE, 1)
 
-	if (M.chem_doses[type] <= metabolism * threshold)
-		M.adjust_confusion(2 SECONDS)
-		M.adjust_drowsiness(2 SECONDS)
+	if(iscarbon(M))
+		var/mob/living/carbon/C = M
+		C.add_chemical_effect(CE_SEDATE, 1)
 
-	if (M.chem_doses[type] < 2 * threshold)
-		M.Weaken(30)
-		M.set_eye_blur_if_lower(10 SECONDS)
+		if (C.chem_doses[type] <= metabolism * threshold)
+			C.adjust_confusion(2 SECONDS)
+			C.adjust_drowsiness(2 SECONDS)
+
+		if (C.chem_doses[type] < 2 * threshold)
+			C.Weaken(30)
+			C.set_eye_blur_if_lower(10 SECONDS)
+		else
+			C.sleeping = max(C.sleeping, 30)
+
+		if (C.chem_doses[type] > 1 * threshold)
+			C.adjustToxLoss(removed)
 	else
+		// Simple animals and other non-carbon mobs: just weaken and put to sleep
+		M.Weaken(30)
 		M.sleeping = max(M.sleeping, 30)
-
-	if (M.chem_doses[type] > 1 * threshold)
 		M.adjustToxLoss(removed)
 
 

@@ -94,6 +94,8 @@
 
 	cut_overlays()
 	var/datum/extension/holster/H = get_extension(src, /datum/extension/holster)
+	if(!H)
+		return
 	if(overlay_flags)
 		for(var/obj/item/I in contents)
 			if(I == H.holstered)

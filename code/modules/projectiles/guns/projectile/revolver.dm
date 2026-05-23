@@ -13,6 +13,7 @@
 	var/chamber_offset = 0 //how many empty chambers in the cylinder until you hit a round
 	mag_insert_sound = 'sounds/weapons/guns/interaction/rev_magin.ogg'
 	mag_remove_sound = 'sounds/weapons/guns/interaction/rev_magout.ogg'
+	fire_sound = 'sounds/weapons/gunshot/revolver_heavy.ogg'
 	accuracy = 2
 	accuracy_power = 8
 	one_hand_penalty = 2
@@ -50,6 +51,7 @@
 	name = "military revolver"
 	desc = "A standard-issue revolver of many militaries in the world."
 	icon_state = "military"
+	fire_sound = 'sounds/weapons/gunshot/revolver_heavy.ogg'
 	fire_delay = 6
 	origin_tech = list(TECH_COMBAT = 3, TECH_MATERIAL = 2)
 
@@ -60,6 +62,7 @@
 	max_shells = 7
 	caliber = CALIBER_REVOLVER_HEAVY
 	ammo_type = /obj/item/ammo_casing/revolver/heavy
+	fire_sound = 'sounds/weapons/gunshot/revolver_heavy.ogg'
 	origin_tech = list(TECH_COMBAT = 4, TECH_MATERIAL = 3)
 
 /obj/item/gun/projectile/revolver/mateba
@@ -67,6 +70,8 @@
 	desc = "Standard issue Foundation revolver based off the Mateba Unica. Chambered in .44 Magnum."
 	icon = 'icons/obj/guns/revolvers.dmi'
 	icon_state = "mateba"
+	caliber = CALIBER_REVOLVER_HEAVY
+	fire_sound = 'sounds/weapons/gunshot/revolver_heavy.ogg'
 	fire_delay = 6
 	origin_tech = list(TECH_COMBAT = 2, TECH_MATERIAL = 2)
 
@@ -77,6 +82,7 @@
 	safety_icon = "medium_safety"
 	caliber = CALIBER_REVOLVER_MEDIUM
 	ammo_type = /obj/item/ammo_casing/revolver/medium
+	fire_sound = 'sounds/weapons/gunshot/revolver_heavy.ogg'
 	accuracy = 1
 	bulk = 0
 	fire_delay = 7

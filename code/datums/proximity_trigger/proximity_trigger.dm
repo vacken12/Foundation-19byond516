@@ -32,6 +32,8 @@ var/const/PROXIMITY_EXCLUDE_HOLDER_TURF = 1 // When acquiring turfs to monitor, 
 
 	var/decl/turf_selection/turf_selection
 
+	var/registering = FALSE
+
 /datum/proximity_trigger/line
 	turf_selection = /decl/turf_selection/line
 
@@ -74,21 +76,27 @@ var/const/PROXIMITY_EXCLUDE_HOLDER_TURF = 1 // When acquiring turfs to monitor, 
 		register_turfs()
 
 /datum/proximity_trigger/proc/register_turfs()
+	if(registering)
+		return
+	registering = TRUE
+
 	if(ismovable(holder))
 		RegisterSignal(holder, COMSIG_MOVED, TYPE_PROC_REF(/datum/proximity_trigger, on_holder_moved))
 	RegisterSignal(holder, COMSIG_ATOM_DIR_CHANGE, TYPE_PROC_REF(/datum/proximity_trigger, register_turfs)) // Changing direction might alter the relevant turfs
 
 	var/list/new_turfs = acquire_relevant_turfs()
 	if(listequal(turfs_in_range, new_turfs))
+		registering = FALSE
 		return
 
 	for(var/t in (turfs_in_range - new_turfs))
-		RegisterSignal(t, COMSIG_SET_OPACITY, TYPE_PROC_REF(/datum/proximity_trigger, on_turf_visibility_changed))
+		UnregisterSignal(t, COMSIG_SET_OPACITY)
 	for(var/t in (new_turfs - turfs_in_range))
 		RegisterSignal(t, COMSIG_SET_OPACITY, TYPE_PROC_REF(/datum/proximity_trigger, on_turf_visibility_changed))
 
 	turfs_in_range = new_turfs
 	on_turf_visibility_changed()
+	registering = FALSE
 
 /datum/proximity_trigger/proc/unregister_turfs()
 	if(ismovable(holder))
@@ -100,7 +108,8 @@ var/const/PROXIMITY_EXCLUDE_HOLDER_TURF = 1 // When acquiring turfs to monitor, 
 	for(var/t in seen_turfs_)
 		UnregisterSignal(t, COMSIG_ENTERED)
 
-	call(proc_owner, on_turfs_changed)(seen_turfs_.Copy(), list())
+	if(proc_owner && on_turfs_changed)
+		call(proc_owner, on_turfs_changed)(seen_turfs_.Copy(), list())
 
 	turfs_in_range.Cut()
 	seen_turfs_.Cut()
@@ -110,7 +119,8 @@ var/const/PROXIMITY_EXCLUDE_HOLDER_TURF = 1 // When acquiring turfs to monitor, 
 	if(listequal(seen_turfs_, new_seen_turfs_))
 		return
 
-	call(proc_owner, on_turfs_changed)(seen_turfs_.Copy(), new_seen_turfs_.Copy())
+	if(proc_owner && on_turfs_changed)
+		call(proc_owner, on_turfs_changed)(seen_turfs_.Copy(), new_seen_turfs_.Copy())
 
 	for(var/t in (seen_turfs_ - new_seen_turfs_))
 		UnregisterSignal(t, COMSIG_ENTERED)
@@ -124,7 +134,8 @@ var/const/PROXIMITY_EXCLUDE_HOLDER_TURF = 1 // When acquiring turfs to monitor, 
 	var/new_turf = get_turf(new_loc)
 	if(old_turf == new_turf)
 		return
-	call(proc_owner, on_turf_entered)(holder)
+	if(proc_owner && on_turf_entered)
+		call(proc_owner, on_turf_entered)(holder)
 	register_turfs()
 
 /datum/proximity_trigger/proc/on_turf_entered(turf/T, atom/enterer)
@@ -132,7 +143,8 @@ var/const/PROXIMITY_EXCLUDE_HOLDER_TURF = 1 // When acquiring turfs to monitor, 
 		return
 	if(enterer.opacity)
 		on_turf_visibility_changed()
-	call(proc_owner, on_turf_entered)(enterer)
+	if(proc_owner && on_turf_entered)
+		call(proc_owner, on_turf_entered)(enterer)
 
 /datum/proximity_trigger/proc/get_seen_turfs()
 	. = list()

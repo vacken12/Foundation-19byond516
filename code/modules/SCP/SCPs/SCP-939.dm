@@ -56,6 +56,7 @@
 
 /datum/ai_holder/simple_animal/melee/scp939
 	mauling = TRUE
+	vision_range = 10
 
 /datum/ai_holder/simple_animal/melee/scp939/can_attack(atom/movable/the_target, vision_required = TRUE)
 	if(!..())
@@ -66,7 +67,12 @@
 	if(ishuman(the_target) && (O.nutrition < O.hunting_threshold))
 		var/mob/living/carbon/human/H = the_target
 		if(H.stat != DEAD)
-			if((world.time - H.l_move_time) <= 10 SECONDS && !istype(H.move_intent, /decl/move_intent/creep)  || (world.time - H.lastsound) <= 20 SECONDS && H.lastsound != null) //If the mob has moved near 939 instances without creeping, OR has made audible sounds.
+			// If the mob has moved near 939 instances without creeping, OR has made audible sounds.
+			var/moved_recently = (H.l_move_time && (world.time - H.l_move_time) <= 10 SECONDS)
+			var/not_creeping = !istype(H.move_intent, /decl/move_intent/creep)
+			var/made_sound = (H.lastsound != null && (world.time - H.lastsound) <= 20 SECONDS)
+
+			if((moved_recently && not_creeping) || made_sound)
 				return TRUE //Valid target
 	return FALSE
 
@@ -134,8 +140,12 @@
 	icon_dead = "dead_dramatic"
 	icon_rest = "standing"
 	icon_living = "crawling" //backup incase admins fuck something up
+
 	alpha = 255
-	default_pixel_y = -8
+	pixel_x = -15
+	pixel_y = -15
+	default_pixel_x = -15
+	default_pixel_y = -15
 
 	maxHealth = 650 // Ditto for below
 	health = 650 //Beefy, but not as tanky as other SCPs.
@@ -198,6 +208,10 @@
 	SCP.memetic_proc = TYPE_PROC_REF(/mob/living/simple_animal/hostile/scp939, memetic_effect) //re-used SCP-012 code, works for our purposes
 	SCP.compInit() //if only I understood this code
 	spawn_area = get_area(src) //Used to track where SCP-939 is mapped in (or spawned)
+
+	transform = matrix() * 0.9
+
+	START_PROCESSING(SSprocessing, src)
 
 //Incorporates lots of 2427-3 code, just because its good
 
@@ -297,7 +311,10 @@
 	if(stat == DEAD)
 		icon_state = icon_dead
 	else
-		icon_state = icon_living
+		if(resting == 1)
+			icon_state = icon_rest
+		else
+			icon_state = icon_living
 
 /mob/living/simple_animal/hostile/scp939/proc/memetic_effect(mob/living/carbon/human/H)
 	var/obj/item/organ/internal/stomach/stomach_organ = H.internal_organs_by_name[BP_STOMACH]
@@ -446,3 +463,7 @@
 		return
 	playsound(get_turf(src), 'sounds/scp/939/939_OhGodWhatTheHellIsThat.ogg', rand(35, 65), TRUE)
 	sound_cooldown = world.time + sound_cooldown_time
+
+/mob/living/simple_animal/hostile/scp939/Destroy()
+	STOP_PROCESSING(SSprocessing, src)
+	return ..()

@@ -145,7 +145,7 @@
 /var/list/priv_station_access
 /proc/get_all_station_access()
 	if(!priv_station_access)
-		priv_station_access = get_access_ids(ACCESS_TYPE_STATION)
+		priv_station_access = get_access_ids(ACCESS_TYPE_STATION,ACCESS_TYPE_INNATE,ACCESS_TYPE_CONTAINMENT)
 
 	return priv_station_access.Copy()
 

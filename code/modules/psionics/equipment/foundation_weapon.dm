@@ -13,6 +13,7 @@
 	desc = "A handsome black leather briefcase embossed with a stylized radio telescope."
 	icon_state = "fbriefcase"
 	item_state = "fbriefcase"
+	open_icon = "fbriefcase-open"
 
 /obj/item/storage/briefcase/foundation/disrupts_psionics()
 	return FALSE

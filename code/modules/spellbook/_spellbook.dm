@@ -1,6 +1,3 @@
-// Assoc list of spell types and their categories
-GLOBAL_LIST_EMPTY(spells_by_categories)
-
 // Does exactly what it says: Unless dispelled, only wizards can use it.
 #define WIZARD_ONLY 1
 // Only apprentices can use it
@@ -28,15 +25,6 @@ GLOBAL_LIST_EMPTY(spells_by_categories)
 	var/dispell_resistance = 0
 	/// List of people that contributed to the list of spells in it.
 	var/list/authors = list()
-
-/obj/item/spellbook/Initialize()
-	. = ..()
-	// Create the global list if empty
-	if(!LAZYLEN(GLOB.spells_by_categories))
-		for(var/spell_type in subtypesof(/datum/spell))
-			var/datum/spell/S = new spell_type()
-			GLOB.spells_by_categories[S.type] = S.categories
-			qdel(S)
 
 /obj/item/spellbook/Destroy()
 	RemoveOwner()
@@ -81,7 +69,7 @@ GLOBAL_LIST_EMPTY(spells_by_categories)
 	dat += "<hr>"
 	for(var/spell_type in allowed_spells)
 		var/datum/spell/S = spell_type
-		var/list/combined_list = GLOB.spells_by_categories[spell_type] & spell_categories
+		var/list/combined_list = initial(S.categories) & spell_categories
 		if(LAZYLEN(spell_categories) && !LAZYLEN(combined_list))
 			continue
 
@@ -246,7 +234,7 @@ GLOBAL_LIST_EMPTY(spells_by_categories)
 	dat += "[initial(S.desc)]<br>"
 	dat += "<hr>"
 	dat += "Mana cost: [initial(S.mana_cost)].<br>"
-	dat += "Categories: [english_list(GLOB.spells_by_categories[S], "None")].<br>"
+	dat += "Categories: [english_list(initial(S.categories), "None")].<br>"
 	if(initial(S.spell_flags) & NEEDSCLOTHES)
 		dat += "Requires wizard robes to cast."
 	if(initial(S.spell_flags) & NO_SOMATIC)
@@ -314,7 +302,7 @@ GLOBAL_LIST_EMPTY(spells_by_categories)
 // All spells available via spell book
 /obj/item/spellbook/all_book_spells/Initialize()
 	. = ..()
-	for(var/spell_type in GLOB.spells_by_categories)
+	for(var/spell_type in subtypesof(/datum/spell))
 		var/datum/spell/S = spell_type
 		if(isnull(initial(S.name)))
 			continue
@@ -372,9 +360,12 @@ GLOBAL_LIST_EMPTY(random_categories_spells)
 		var/list/glob_list = GLOB.random_categories_spells[english_list(random_categories)]
 		valid_spells = glob_list.Copy()
 	else
-		for(var/spell_type in GLOB.spells_by_categories)
+		for(var/spell_type in subtypesof(/datum/spell))
+			var/datum/spell/S = spell_type
+			if(isnull(initial(S.name)))
+				continue
 			if(LAZYLEN(random_categories))
-				var/list/combined_list = GLOB.spells_by_categories[spell_type] & random_categories
+				var/list/combined_list = initial(S.categories) & random_categories
 				if(!LAZYLEN(combined_list))
 					continue
 			valid_spells += spell_type

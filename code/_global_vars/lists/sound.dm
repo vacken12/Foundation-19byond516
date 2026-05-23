@@ -721,5 +721,14 @@ GLOBAL_LIST_INIT(sfx_list, list(
 		),
 	SFX_DROP_WRENCH = list(
 		'sounds/effects/drop/wrench.ogg'
-	)
+		),
+	SFX_SILENT_FIRE = list(
+		'sounds/weapons/gunshot/silence/fire_silent1.ogg',
+		'sounds/weapons/gunshot/silence/fire_silent2.ogg',
+		'sounds/weapons/gunshot/silence/fire_silent3.ogg',
+		'sounds/weapons/gunshot/silence/fire_silent4.ogg',
+		'sounds/weapons/gunshot/silence/fire_silent5.ogg',
+		'sounds/weapons/gunshot/silence/fire_silent6.ogg',
+		'sounds/weapons/gunshot/silence/fire_silent7.ogg'
+		)
 ))

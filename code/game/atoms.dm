@@ -26,6 +26,12 @@
 	/// How this atom should react to having its pathfinding blocking checked
 	var/can_astar_pass = CANPATHINGPASS_DENSITY
 
+	var/tf_scale_x  // The atom's base transform scale for width.
+	var/tf_scale_y  // The atom's base transform scale for height.
+	var/tf_rotation // The atom's base transform scale for rotation.
+	var/tf_offset_x // The atom's base transform scale for horizontal offset.
+	var/tf_offset_y // The atom's base transform scale for vertical offset.
+
 /atom/New(loc, ...)
 	//atom creation method that preloads variables at creation
 	if(GLOB.use_preloader && (src.type == GLOB._preloader.target_path))//in case the instanciated atom is creating other atoms in New()
@@ -655,3 +661,31 @@
 /atom/proc/update_desc(updates=ALL)
 	SHOULD_CALL_PARENT(TRUE)
 	return SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_DESC, updates)
+
+// Sets the atom's tf_* variables and the current transform state, also applying others if supplied.
+/atom/proc/SetTransform(
+	scale,
+	scale_x = tf_scale_x,
+	scale_y = tf_scale_y,
+	rotation = tf_rotation,
+	offset_x = tf_offset_x,
+	offset_y = tf_offset_y,
+	list/others
+)
+	if(!isnull(scale))
+		tf_scale_x = scale
+		tf_scale_y = scale
+	else
+		tf_scale_x = scale_x
+		tf_scale_y = scale_y
+	tf_rotation = rotation
+	tf_offset_x = offset_x
+	tf_offset_y = offset_y
+	transform = matrix().Update(
+		scale_x = tf_scale_x,
+		scale_y = tf_scale_y,
+		rotation = tf_rotation,
+		offset_x = tf_offset_x,
+		offset_y = tf_offset_y,
+		others = others
+	)

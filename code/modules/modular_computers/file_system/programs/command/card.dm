@@ -8,7 +8,9 @@
 	extended_desc = "Program for programming crew ID cards."
 	requires_ntnet = FALSE
 	size = 8
-	var/operating_access_types = ACCESS_TYPE_NONE | ACCESS_TYPE_STATION | ACCESS_TYPE_CENTCOM
+	/// Bitfield of access types this terminal is allowed to modify.
+	var/operating_access_types = ACCESS_TYPE_NONE | ACCESS_TYPE_STATION | ACCESS_TYPE_CENTCOM | ACCESS_TYPE_INNATE | ACCESS_TYPE_CONTAINMENT | ACCESS_TYPE_UNGOC
+
 /datum/nano_module/program/card_mod
 	name = "ID card modification program"
 	var/mod_mode = 1
@@ -92,11 +94,13 @@
 /datum/nano_module/program/card_mod/proc/format_jobs(list/jobs)
 	var/obj/item/card/id/id_card = program.computer.card_slot?.stored_card
 	var/list/formatted = list()
-	for(var/job in jobs)
+	for(var/job_title in jobs)
+		if(!istext(job_title))
+			continue
 		formatted.Add(list(list(
-			"display_name" = replacetext(job, " ", "&nbsp"),
+			"display_name" = replacetext(job_title, " ", "&nbsp"),
 			"target_rank" = id_card?.assignment ? id_card.assignment : "Unassigned",
-			"job" = job)))
+			"job" = job_title)))
 
 	return formatted
 
@@ -123,10 +127,7 @@
 			else if (href_list["target"] == "manifest")
 				module.mod_mode = 0
 		if("togglea")
-			if(module.show_assignments)
-				module.show_assignments = 0
-			else
-				module.show_assignments = 1
+			module.show_assignments = !module.show_assignments
 		if("print")
 			if(!authorized(user_id_card))
 				to_chat(usr, SPAN_WARNING("Access denied."))
@@ -179,69 +180,99 @@
 			if(!authorized(user_id_card))
 				to_chat(usr, SPAN_WARNING("Access denied."))
 				return
-			if(computer && program_has_access(user, 1))
-				if(href_list["name"])
-					var/temp_name = sanitizeName(input("Enter name.", "Name", id_card.registered_name),allow_numbers=TRUE)
-					if(temp_name)
-						id_card.registered_name = temp_name
-						id_card.formal_name_suffix = initial(id_card.formal_name_suffix)
-						id_card.formal_name_prefix = initial(id_card.formal_name_prefix)
-					else
-						to_chat(usr, SPAN_WARNING("Invalid name entered!"))
-				else if(href_list["account"])
-					var/account_num = text2num(input("Enter account number.", "Account", id_card.associated_account_number))
+
+			if(!computer || !program_has_access(user, 1) || !id_card)
+				return
+
+			if(href_list["name"])
+				var/temp_name = sanitizeName(input("Enter name.", "Name", id_card.registered_name),allow_numbers=TRUE)
+				if(temp_name)
+					id_card.registered_name = temp_name
+					id_card.formal_name_suffix = initial(id_card.formal_name_suffix)
+					id_card.formal_name_prefix = initial(id_card.formal_name_prefix)
+				else
+					to_chat(usr, SPAN_WARNING("Invalid name entered!"))
+			else if(href_list["account"])
+				var/account_num = text2num(input("Enter account number.", "Account", id_card.associated_account_number))
+				if(account_num)
 					id_card.associated_account_number = account_num
-				else if(href_list["elogin"])
-					var/email_login = input("Enter email login.", "Email login", id_card.associated_email_login["login"])
-					id_card.associated_email_login["login"] = email_login
-				else if(href_list["epswd"])
-					var/email_password = input("Enter email password.", "Email password")
-					id_card.associated_email_login["password"] = email_password
+				else
+					to_chat(usr, SPAN_WARNING("Invalid account number entered!"))
+			else if(href_list["elogin"])
+				var/email_login = input("Enter email login.", "Email login", id_card.associated_email_login["login"])
+				id_card.associated_email_login["login"] = email_login
+			else if(href_list["epswd"])
+				var/email_password = input("Enter email password.", "Email password")
+				id_card.associated_email_login["password"] = email_password
 		if("assign")
 			if(!authorized(user_id_card))
 				to_chat(usr, SPAN_WARNING("Access denied."))
 				return
-			if(computer && program_has_access(user, 1) && id_card)
-				var/t1 = href_list["assign_target"]
-				if(t1 == "Custom")
-					var/temp_t = sanitize(input("Enter a custom job assignment.","Assignment", id_card.assignment), 45)
-					//let custom jobs function as an impromptu alt title, mainly for sechuds
-					if(temp_t)
-						id_card.assignment = temp_t
+
+			if(!computer || !program_has_access(user, 1) || !id_card)
+				return
+
+			var/target_assignment = href_list["assign_target"]
+			if(!target_assignment)
+				to_chat(usr, SPAN_WARNING("No assignment specified."))
+				return
+
+			if(target_assignment == "Custom")
+				var/custom_title = sanitize(
+					input("Enter a custom job assignment.", "Assignment", id_card.assignment),
+					45
+				)
+				// Custom jobs function as an impromptu alt title, mainly for sechuds
+				if(custom_title)
+					id_card.assignment = custom_title
+			else
+				var/list/new_access = list()
+
+				if(module.is_centcom)
+					new_access = get_centcom_access(target_assignment)
 				else
-					var/list/access = list()
-					if(module.is_centcom)
-						access = get_centcom_access(t1)
-					else
-						var/datum/job/jobdatum = SSjobs.get_by_title(t1)
-						if(!jobdatum)
-							to_chat(usr, SPAN_WARNING("No log exists for this job: [t1]"))
-							return
+					var/datum/job/job_datum = SSjobs.get_by_title(target_assignment)
+					if(!job_datum)
+						to_chat(usr, SPAN_WARNING("No log exists for this job: [target_assignment]"))
+						return
 
-						var/list/to_give = jobdatum.get_access()
-						var/list/operating_types = get_access_ids(operating_access_types)
-						for(var/acc in to_give)
-							if(acc in operating_types)
-								access.Add(acc)
+					var/list/job_access = job_datum.get_access()
+					var/list/valid_access_types = get_access_ids(operating_access_types)
+					// Use list intersection to keep only accesses this terminal can modify
+					new_access = job_access & valid_access_types
 
-					remove_nt_access(id_card)
-					apply_access(id_card, access)
-					id_card.assignment = t1
-					id_card.rank = t1
+				reset_and_apply_access(id_card, new_access)
+				id_card.assignment = target_assignment
+				id_card.rank = target_assignment
 
-				callHook("reassign_employee", list(id_card))
+			callHook("reassign_employee", list(id_card))
 		if("access")
+			if(!authorized(user_id_card))
+				to_chat(usr, SPAN_WARNING("Access denied."))
+				return
+
+			// Only proceed if the caller provided an "allowed" flag and we have the
+			// necessary hardware / permissions to modify the card.
 			if(href_list["allowed"] && computer && program_has_access(user, 1) && id_card)
-				var/access_type = href_list["access_target"]
+				var/access_type = text2num(href_list["access_target"])
 				var/access_allowed = text2num(href_list["allowed"])
-				if(access_type in get_access_ids(operating_access_types))
-					for(var/access in user_id_card.access)
-						var/region_type = get_access_region_by_id(access_type)
-						if(access in GLOB.using_map.access_modify_region[region_type])
+
+				// Guard: the access type must be one this terminal can modify
+				var/list/valid_access_types = get_access_ids(operating_access_types)
+				if(access_type in valid_access_types)
+					var/region_type = get_access_region_by_id(access_type)
+
+					// Check if the user has any access in the same region, allowing them to modify it
+					for(var/user_access in user_id_card.access)
+						if(user_access in GLOB.using_map.access_modify_region[region_type])
+							// Toggle logic:
+							//   access_allowed == 1 (currently has access) → remove it  (toggle OFF)
+							//   access_allowed == 0 (currently denied)   → add it    (toggle ON)
 							id_card.access -= access_type
 							if(!access_allowed)
 								id_card.access += access_type
 							break
+
 	if(id_card)
 		id_card.SetName(text("[id_card.registered_name]'s ID Card ([id_card.assignment])"))
 
@@ -253,6 +284,12 @@
 
 /datum/computer_file/program/card_mod/proc/apply_access(obj/item/card/id/id_card, list/accesses)
 	id_card.access |= accesses
+
+/// Combined helper: removes station/centcom access from the card, then
+/// applies the specified access list. Provides atomicity for assignment changes.
+/datum/computer_file/program/card_mod/proc/reset_and_apply_access(obj/item/card/id/id_card, list/new_access)
+	remove_nt_access(id_card)
+	apply_access(id_card, new_access)
 
 /datum/computer_file/program/card_mod/proc/authorized(obj/item/card/id/id_card)
 	return id_card && (ACCESS_CHANGE_IDS in id_card.access)

@@ -71,7 +71,15 @@ var/global/datum/antagonist/mtf/active_ert = null
 	active_ert = team
 
 	send_emergency_team = 1
+	for(var/mob/M in GLOB.player_list)
+		if(isghost(M) || isnewplayer(M))
+			M.throw_alert(ALERT_MTF, /atom/movable/screen/alert/mtf)
+
 	sleep(600 * 5)   // 5 минут на сбор
+
+	for(var/mob/M in GLOB.player_list)
+		if(isghost(M) || isnewplayer(M))
+			M.clear_alert(ALERT_MTF)
 	send_emergency_team = 0
 	active_ert = null
 

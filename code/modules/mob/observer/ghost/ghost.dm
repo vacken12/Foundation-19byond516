@@ -29,6 +29,12 @@ var/global/list/image/ghost_sightless_images = list() //this is a list of images
 	var/ghostvision = 1 //is the ghost able to see things humans can't?
 	var/seedarkness = 1
 
+	var/chem_scan = FALSE
+	var/gas_scan = FALSE
+
+	/// Wheather the ghost will examine everything it clicks on.
+	var/inquisitiveness = TRUE
+
 	var/obj/item/device/multitool/ghost_multitool
 	var/list/hud_images // A list of hud images
 
@@ -83,6 +89,18 @@ var/global/list/image/ghost_sightless_images = list() //this is a list of images
 			show_hud_icon(I.icon_state, FALSE)
 		hud_images = null
 	return ..()
+
+/atom/proc/attack_ghost(mob/observer/ghost/user)
+	if(!istype(user))
+		return
+	if(user.client)
+		if(user.gas_scan)
+			print_atmos_analysis(user, atmosanalyzer_scan(src))
+		if(user.chem_scan)
+			reagent_scan_results(user, src)
+		if(user.inquisitiveness)
+			user.examinate(src)
+	return
 
 /mob/observer/ghost/OnSelfTopic(href_list, topic_status)
 	if (topic_status == STATUS_INTERACTIVE)
@@ -164,6 +182,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	if(stat == DEAD)
 		announce_ghost_joinleave(ghostize(1))
+		sound_to(src, 'sounds/scp/Spectator.ogg')
 	else
 		var/response
 		if(src.client && check_rights(R_ADMIN|R_MOD, FALSE, src))
@@ -171,6 +190,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 			if(response == "A-Ghost")
 				if(!src.client)
 					return
+				sound_to(src, 'sounds/scp/Spectator.ogg')
 				src.client.admin_ghost()
 		else if(config.respawn_delay)
 			response = tgui_alert(src, "Are you -sure- you want to ghost?\n(You are alive. If you ghost, you won't be able to play this round for another [config.respawn_delay] minute\s! You can't change your mind so choose wisely!)", "Are you sure you want to ghost?", list("Ghost", "Stay in body"))
@@ -180,13 +200,29 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 			return
 		log_and_message_staff("has ghosted.")
 		ghosted = TRUE
+		sound_to(src, 'sounds/scp/Spectator.ogg')
 		var/mob/observer/ghost/ghost = ghostize(0)	//0 parameter is so we can never re-enter our body, "Charlie, you can never come baaaack~" :3
 		if (ghost)
 			ghost.timeofdeath = world.time // Because the living mob won't have a time of death and we want the respawn timer to work properly.
 			announce_ghost_joinleave(ghost)
 
-/mob/observer/ghost/can_use_hands()	return 0
-/mob/observer/ghost/is_active()		return 0
+/mob/observer/ghost/proc/try_to_occupy(mob/living/L)
+	if(jobban_isbanned(src, "Animal"))
+		to_chat(src, SPAN_WARNING("You're banned from occupying mobs!"))
+		return
+	if(!L.ghosted)
+		to_chat(src, SPAN_WARNING("[L] can't be occupied!"))
+		return
+	if(L.client || (L.ckey && copytext(L.ckey, 1, 2) == "@"))
+		to_chat(src, SPAN_WARNING("[L] is already occupied!"))
+		return
+	if(!MayRespawn(TRUE, isanimal(L) ? ANIMAL_SPAWN_DELAY : 0))
+		return
+
+/mob/observer/ghost/can_use_hands()
+	return 0
+/mob/observer/ghost/is_active()
+	return 0
 
 /mob/observer/ghost/verb/reenter_corpse()
 	set category = "Ghost"

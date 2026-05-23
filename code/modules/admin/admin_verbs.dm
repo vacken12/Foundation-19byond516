@@ -135,7 +135,8 @@ var/list/admin_verbs_fun = list(
 	/datum/admins/proc/call_drop_pod,
 	/client/proc/create_dungeon,
 	/datum/admins/proc/ai_hologram_set,
-	/client/proc/smite
+	/client/proc/smite,
+	/client/proc/toggle_possess_mode
 	)
 
 var/list/admin_verbs_spawn = list(
@@ -289,7 +290,8 @@ var/list/admin_verbs_hideable = list(
 	/client/proc/roll_dices,
 	/proc/possess,
 	/proc/release,
-	/client/proc/cmd_admin_notarget
+	/client/proc/cmd_admin_notarget,
+	/client/proc/toggle_possess_mode
 	)
 var/list/admin_verbs_mod = list(
 	/client/proc/cmd_admin_pm_context,	// right-click adminPM interface,
@@ -954,9 +956,8 @@ var/list/admin_verbs_mentors = list(
 
 	if(!check_rights(R_FUN)) return
 
-	var/datum/spell/S = input("Choose the spell to give to that guy", "ABRAKADABRA") as null|anything in GLOB.spells_by_categories
-	if(!S)
-		return
+	var/datum/spell/S = input("Choose the spell to give to that guy", "ABRAKADABRA") as null|anything in typesof(/datum/spell)
+	if(!S) return
 	T.add_spell(new S)
 	SSstatistics.add_field_details("admin_verb","GS") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	log_and_message_staff("gave [key_name(T)] the spell [S].")

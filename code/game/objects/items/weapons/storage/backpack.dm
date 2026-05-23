@@ -124,6 +124,7 @@
 	name = "security backpack"
 	desc = "It's a very robust backpack, for security-related needs."
 	icon_state = "securitypack"
+	open_icon = "securitypack-open"
 	item_state_slots = null
 
 /obj/item/storage/backpack/security/exo
@@ -172,6 +173,7 @@
 	name = "black rucksack"
 	desc = "A sturdy, military-grade backpack with low-profile straps. Designed to work well with armor."
 	icon_state = "rucksack"
+	open_icon = "rucksack-open"
 	item_state_slots = list(slot_l_hand_str = "rucksack", slot_r_hand_str = "rucksack")
 
 /obj/item/storage/backpack/rucksack/blue
@@ -202,6 +204,7 @@
 	name = "dufflebag"
 	desc = "A large dufflebag for holding extra things."
 	icon_state = "duffle"
+	open_icon = "duffle-open"
 	item_state_slots = null
 	w_class = ITEM_SIZE_HUGE
 	max_storage_space = DEFAULT_BACKPACK_STORAGE + 10
@@ -297,6 +300,7 @@
 	name = "brown leather satchel"
 	desc = "A very fancy satchel made of some kind of leather."
 	icon_state = "satchel"
+	open_icon = "satchel-open"
 	color = "#3d2711"
 
 /obj/item/storage/backpack/satchel/leather/khaki
@@ -364,6 +368,7 @@
 	name = "pharmacy satchel"
 	desc = "It's a sterile orange satchel, designed to hold beakers, pill bottles, and other reagent containers."
 	icon_state = "satchel-chem"
+	open_icon = "satchel-chem-open"
 
 /obj/item/storage/backpack/satchel/gen
 	name = "genetics satchel"
@@ -534,3 +539,4 @@
 	name = "class D messenger bag"
 	desc = "A small backpack, worn over one shoulder."
 	icon_state = "satchel-chem"
+	open_icon = "satchel-chem-open"

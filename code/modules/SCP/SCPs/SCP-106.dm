@@ -298,11 +298,7 @@
 			to_chat(src, SPAN_WARNING("You cannot phase through [O]."))
 			return
 
-		if(istype(O, /obj/machinery/shieldwall) || istype(O, /obj/machinery/shieldwallgen))
-			to_chat(src, SPAN_WARNING("You cannot phase through [O]."))
-			return
-
-		if(istype(O, /obj/structure/railing))
+		if(istype(O, /obj/machinery/shieldwall) || istype(O, /obj/machinery/shieldwallgen)  || istype(O, /obj/structure/railing))
 			to_chat(src, SPAN_WARNING("You cannot phase through [O]."))
 			return
 

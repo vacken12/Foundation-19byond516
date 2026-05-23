@@ -54,7 +54,7 @@
   @include meta.load-css('../layouts/Window.scss');
   @include meta.load-css(
     '../layouts/TitleBar.scss',
-    $with: ('background-color': #051520)
+    $with: ('background-color': #252525)
   );
 
   .Layout__content {

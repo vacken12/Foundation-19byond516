@@ -273,16 +273,17 @@
 	l_ear = /obj/item/device/radio/headset/headset_sec_ecz
 	l_pocket = /obj/item/book/manual/scp/secsop
 	suit = /obj/item/clothing/suit/armor/pcarrier/scp/medium
+	belt = /obj/item/storage/belt/holster/security/fullmk9
 	l_pocket = /obj/item/handcuffs
 	r_pocket = /obj/item/melee/telebaton
 	backpack_contents = list(
 		/obj/item/storage/pill_bottle/amnesticsa = 1,
 		/obj/item/storage/pill_bottle/amnesticsb = 1,
 		/obj/item/storage/pill_bottle/amnesticsh = 1,
-		/obj/item/storage/pill_bottle/amnesticsi = 1
+		/obj/item/storage/pill_bottle/amnesticsi = 1,
+		/obj/item/gun/energy/stunrevolver/taser
 	)
 	glasses = /obj/item/clothing/glasses/sunglasses/sechud
-	belt = /obj/item/gun/energy/stunrevolver/taser
 	gloves = /obj/item/clothing/gloves/tactical/scp
 
 /decl/hierarchy/outfit/job/security/lcz_cadet

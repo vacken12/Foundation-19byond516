@@ -11,8 +11,6 @@
 	id_type = /obj/item/card/id/physics
 	back = /obj/item/storage/backpack/rucksack
 	belt = /obj/item/storage/belt/holster/security/fullmilpistol
-
-	id_type = /obj/item/card/id/physics
 	hierarchy_type = /decl/hierarchy/outfit/goc
 	flags = OUTFIT_RESET_EQUIPMENT
 

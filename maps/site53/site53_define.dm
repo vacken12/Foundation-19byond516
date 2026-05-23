@@ -97,7 +97,9 @@
 		/decl/audio/track/fall_of_ganzir,
 		/decl/audio/track/dawn_of_the_moors_main_menu,
 		/decl/audio/track/scp_cb_main_menu,
-		/decl/audio/track/severedreality
+		/decl/audio/track/severedreality,
+		/decl/audio/track/stuckonthepuzzle,
+		/decl/audio/track/track1
 	// 	/decl/audio/track/bookburners, // no scp vibe
 	//	/decl/audio/track/the_bookburners_v2, // no scp vibe
 	//	/decl/audio/track/goc_spawn_theme2 // no scp vibe

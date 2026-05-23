@@ -18,7 +18,7 @@
 /obj/item/boombox/Initialize()
 	. = ..()
 	jukebox = new(src, "boombox.tmpl", "HEXABEATRON&trade;", 400, 150)
-
+	color = RANDOM_RGB
 
 /obj/item/boombox/Destroy()
 	QDEL_NULL(jukebox)

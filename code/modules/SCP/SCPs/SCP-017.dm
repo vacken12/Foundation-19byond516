@@ -52,7 +52,7 @@
 	returns_home = FALSE
 	can_flee = FALSE
 	respect_confusion = FALSE
-
+	vision_range = 10
 	///lumcount required for something to be considered a shadow. Should be identical to mob value.
 	var/shadow_threshold = 0.35
 
@@ -106,8 +106,18 @@
 
 //Attack
 
-/mob/living/simple_animal/hostile/scp017/UnarmedAttack(atom/A, bypass_checks)
+/mob/living/simple_animal/hostile/scp017/UnarmedAttack(mob/A, bypass_checks)
 	var/turf/Tturf = get_turf(A)
+
+	if(A == src) // cant attack himself
+		return
+
+	if(isstructure(A) || ismachinery(A))
+		return
+
+	if(A.density)
+		return
+
 	if(!bypass_checks)
 		if(!ismovable(A) || A.SCP)
 			return FALSE

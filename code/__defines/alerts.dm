@@ -1,6 +1,7 @@
 /** Mob related */
 #define ALERT_BUCKLED "buckled"
 #define ALERT_NUTRITION "nutrition"
+#define ALERT_MTF "mtf"
 
 /** Silicon related */
 #define ALERT_CHARGE "charge"
