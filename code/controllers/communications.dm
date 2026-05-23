@@ -123,6 +123,7 @@ var/const/SCI_FREQ = 1351
 var/const/SRV_FREQ = 1349
 var/const/SUP_FREQ = 1347
 var/const/EXP_FREQ = 1361
+var/const/SEC_FREQ = 1359
 
 // internal department channels
 var/const/MED_I_FREQ = 1485
@@ -160,6 +161,7 @@ var/list/radiochannels = list(
 	"Engineering"	= ENG_FREQ,
 	"Response Team" = ERT_FREQ,
 	"Special Ops" 	= DTH_FREQ,
+	"Security" 		= SEC_FREQ,
 	"GOC"			= GOC_FREQ,
 	"Mercenary" 	= SYND_FREQ,
 	"Raider"		= RAID_FREQ,
@@ -169,6 +171,7 @@ var/list/radiochannels = list(
 	"AI Private"	= AI_FREQ,
 	"Entertainment" = ENT_FREQ,
 	"Medical (I)"	= MED_I_FREQ,
+	"Security" 		= SEC_FREQ,
 	"HCZ-Security"	= SEC_HCZ_FREQ,
 	"LCZ-Security"	= SEC_LCZ_FREQ,
 	"ECZ-Security"	= SEC_ECZ_FREQ
@@ -189,7 +192,7 @@ var/list/channel_color_presets = list(
 	"Powerful Plum" = COMMS_COLOR_BEARCAT,
 	"Pretty Periwinkle" = COMMS_COLOR_CENTCOMM,
 	"Radical Ruby" = COMMS_COLOR_VOX,
-	"Raging Red" = "#930000",
+	"Raging Red" = COMMS_COLOR_SECURITY,
 	"Spectacular Silver" = COMMS_COLOR_ENTERTAIN,
 	"Tantalizing Turquoise" = COMMS_COLOR_MEDICAL,
 	"Viewable Violet" = COMMS_COLOR_SKRELL,
@@ -205,7 +208,7 @@ var/list/CENT_FREQS = list(ERT_FREQ, DTH_FREQ)
 var/list/ANTAG_FREQS = list(SYND_FREQ, RAID_FREQ)
 
 //Department channels, arranged lexically
-var/list/DEPT_FREQS = list(AI_FREQ, COMM_FREQ, ENG_FREQ, MED_FREQ, SEC_ECZ_FREQ, SEC_HCZ_FREQ, SEC_LCZ_FREQ, SCI_FREQ, SRV_FREQ, SUP_FREQ, EXP_FREQ, ENT_FREQ, GOC_FREQ)
+var/list/DEPT_FREQS = list(AI_FREQ, COMM_FREQ, ENG_FREQ, MED_FREQ, SEC_FREQ, SEC_ECZ_FREQ, SEC_HCZ_FREQ, SEC_LCZ_FREQ, SCI_FREQ, SRV_FREQ, SUP_FREQ, EXP_FREQ, ENT_FREQ, GOC_FREQ)
 
 #define TRANSMISSION_WIRE	0
 #define TRANSMISSION_RADIO	1
@@ -224,6 +227,8 @@ var/list/DEPT_FREQS = list(AI_FREQ, COMM_FREQ, ENG_FREQ, MED_FREQ, SEC_ECZ_FREQ,
 	if(frequency == AI_FREQ)
 		return "airadio"
 	// department radio formatting (poorly optimized, ugh)
+	if(frequency == SEC_FREQ)
+		return "secradio"
 	if (frequency == ENG_FREQ)
 		return "engradio"
 	if(frequency == SCI_FREQ)

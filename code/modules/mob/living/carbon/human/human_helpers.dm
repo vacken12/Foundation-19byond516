@@ -372,48 +372,6 @@
 /mob/living/carbon/human/get_codex_value()
 	return "[lowertext(species.name)] (species)"
 
-///Checks if a human can make direct contact with another humans bare skin. Uses the select ui to determine where to check.
-/mob/living/carbon/human/proc/can_touch_bare_skin(mob/living/carbon/human/target)
-	var/covered_parts = target.get_covered_body_parts()
-	switch(zone_sel.selecting)
-		if(BP_R_FOOT)
-			if(covered_parts & FOOT_RIGHT)
-				return FALSE
-		if(BP_L_FOOT)
-			if(covered_parts & FOOT_LEFT)
-				return FALSE
-		if(BP_R_LEG)
-			if(covered_parts & LEG_RIGHT)
-				return FALSE
-		if(BP_L_LEG)
-			if(covered_parts & LEG_LEFT)
-				return FALSE
-		if(BP_GROIN)
-			if(covered_parts & LOWER_TORSO)
-				return FALSE
-		if(BP_CHEST)
-			if(covered_parts & UPPER_TORSO)
-				return FALSE
-		if(BP_R_HAND)
-			if(covered_parts & HAND_RIGHT)
-				return FALSE
-		if(BP_L_HAND)
-			if(covered_parts & HAND_LEFT)
-				return FALSE
-		if(BP_R_ARM)
-			if(covered_parts & ARM_RIGHT)
-				return FALSE
-		if(BP_L_ARM)
-			if(covered_parts & ARM_LEFT)
-				return FALSE
-		if(BP_EYES)
-			if(covered_parts & EYES)
-				return FALSE
-		if(BP_HEAD, BP_MOUTH)
-			if((covered_parts & HEAD) && (covered_parts & FACE))
-				return FALSE
-	return TRUE
-
 ///Checks if a human can make direct contact with another human's bare skin, factoring in HCZ hazmat protection.
 ///Uses the attacker's selected zone (zone_sel.selecting) to determine which body part is being targeted.
 ///Returns FALSE if the targeted body part is protected by hazmat gear, meaning the attacker cannot make contact with bare skin there.
@@ -428,10 +386,6 @@
 	if(istype(target.head, /obj/item/clothing/head/hcz_hazmat))
 		var/obj/item/clothing/head/hcz_hazmat/helmet = target.head
 		hazmat_covered |= helmet.body_parts_covered
-
-	// No hazmat gear at all — fall through to the standard bare-skin check below
-	if(!hazmat_covered)
-		return can_touch_bare_skin(target)
 
 	// Check the specific body part the attacker is targeting
 	switch(zone_sel.selecting)
@@ -473,4 +427,4 @@
 				return FALSE
 
 	// Targeted zone is not covered by hazmat — fall through to standard bare-skin check
-	return can_touch_bare_skin(target)
+	return

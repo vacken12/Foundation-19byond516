@@ -69,3 +69,17 @@
 		if(chosen_stamp)
 			SetName(chosen_stamp.name)
 			icon_state = chosen_stamp.icon_state
+
+/obj/item/stamp/attack(mob/living/M, mob/living/user, target_zone)
+	if(user.a_intent == I_HURT && target_zone == BP_HEAD)
+		if(ishuman(M))
+			var/mob/living/carbon/human/H = M
+			var/obj/item/organ/external/head/head = H.get_organ(BP_HEAD)
+			if(istype(head))
+				head.apply_stamp(name, user)
+				return TRUE
+			else
+				to_chat(user, "<span class = 'notice'>You can't stamp on that!</span>")
+				return FALSE
+	return ..()
+

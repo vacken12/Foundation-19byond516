@@ -73,5 +73,5 @@
 	name = "space jukebox"
 	desc = "A battered and hard-loved jukebox in some forgotten style, carefully restored to some semblance of working condition."
 	icon = 'icons/obj/jukebox.dmi'
-	icon_state = "jukebox2"
+	icon_state = "jukebox"
 	pixel_x = 0

@@ -51,7 +51,7 @@ em						{font-style: normal;font-weight: bold;}
 .centradio				{color: #5c5c7c;}
 .airadio				{color: #ff00ff;}
 .entradio				{color: #666666;}
-
+.secradio				{color: #930000;}
 .engradio				{color: #a66300;}
 .medradio				{color: #009190;}
 .sciradio				{color: #993399;}

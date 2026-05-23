@@ -127,6 +127,11 @@
 		update_cone_size()
 		update_lighting_size()
 
+		// BYOND 516 resets client.view to default during deferred view initialization.
+		// Re-apply the user's widescreen preference so it persists across round restarts.
+		if(client)
+			client.change_view(client.get_default_view())
+
 /mob/living/carbon/Login()
 	. = ..()
 	if(internals && internal)

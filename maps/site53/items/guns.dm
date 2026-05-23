@@ -42,6 +42,28 @@
 	else
 		icon_state = "[initial(icon_state)]-e"
 
+/obj/item/gun/projectile/pistol/mk9_sponsored
+	name = "Sponsored MK9 Foundation pistol"
+	desc = "Sponsored issue 9mm pistol of the SCP Foundation. Based on the HK VP9."
+	icon = 'icons/obj/gun.dmi'
+	icon_state = "MK9_sponsored"
+	w_class = ITEM_SIZE_NORMAL
+	caliber = "9mm"
+	silenced = 0
+	fire_delay = 2
+	origin_tech = list(TECH_COMBAT = 2, TECH_MATERIAL = 2, TECH_ESOTERIC = 2)
+	load_method = MAGAZINE
+	magazine_type = /obj/item/ammo_magazine/scp/mk9
+	fire_sound = 'sounds/weapons/gunshot/gunshot_9mm.ogg'
+	allowed_magazines = list(/obj/item/ammo_magazine/scp/mk9, /obj/item/ammo_magazine/scp/mk9/rubber)
+
+/obj/item/gun/projectile/pistol/mk9_sponsored/on_update_icon()
+	..()
+	if(ammo_magazine)
+		icon_state = "[initial(icon_state)][length(ammo_magazine.stored_ammo) ? "" : "_0"]"
+	else
+		icon_state = "[initial(icon_state)]-e"
+
 /obj/item/gun/projectile/revolver/mateba
 	name = "mateba"
 	desc = "Standard issue Foundation revolver based on the Mateba Unica. Chambered in .44 Magnum"
@@ -64,6 +86,7 @@
 	icon_state = "rhino"
 	caliber = ".357"
 	fire_delay = 4
+	fire_sound = 'sounds/weapons/gunshot/revolver_heavy.ogg'
 	origin_tech = list(TECH_COMBAT = 2, TECH_MATERIAL = 2)
 	ammo_type = /obj/item/ammo_casing/pistol/a357
 	handle_casings = CYCLE_CASINGS

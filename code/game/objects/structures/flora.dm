@@ -235,7 +235,7 @@
 	icon = 'icons/obj/plants.dmi'
 	icon_state = "plant-01"
 	layer = ABOVE_HUMAN_LAYER
-	plane = 2
+	plane = 3
 
 /obj/structure/flora/pottedplant/fern
 	name = "potted fern"

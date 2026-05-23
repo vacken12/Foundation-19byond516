@@ -1347,8 +1347,8 @@ var/global/floorIsLava = 0
 
 		if(!P.ico)
 			P.ico = new
-		P.ico += "paper_stamp-boss"
-		stampoverlay.icon_state = "paper_stamp-boss"
+		P.ico += "paper_stamp-circle"
+		stampoverlay.icon_state = "paper_stamp-circle"
 
 		if(!P.stamped)
 			P.stamped = new

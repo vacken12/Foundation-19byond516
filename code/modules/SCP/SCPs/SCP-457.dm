@@ -54,6 +54,13 @@
 
 /mob/living/simple_animal/hostile/scp457/Initialize()
 	. = ..()
+
+	var/datum/spell/S = new /datum/spell/aimed/flamethrower
+	S.invocation = null
+	S.invocation_type = INVOKE_NONE
+	S.cooldown_min = 60
+	src.add_spell(S)
+
 	if(!.)
 		return
 
@@ -65,12 +72,6 @@
 		SCP_PLAYABLE
 	)
 	add_verb(src, /client/proc/scpooc)
-
-	var/datum/spell/S = new /datum/spell/aimed/flamethrower
-	S.invocation = null
-	S.invocation_type = INVOKE_NONE
-	S.cooldown_reduc = 2 MINUTES
-	src.add_spell(S)
 
 	spawn_area = get_area(src)
 	start_turf = get_turf(src)

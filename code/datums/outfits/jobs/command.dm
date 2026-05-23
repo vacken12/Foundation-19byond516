@@ -7,7 +7,7 @@
 	uniform = /obj/item/clothing/under/scp/suittie
 	shoes = /obj/item/clothing/shoes/dress
 	suit = /obj/item/clothing/suit/armor/director_coat
-	id_type = /obj/item/card/id/adminlvl5
+	id_type = /obj/item/card/id/facilitydir
 	l_ear = /obj/item/device/radio/headset/heads/captain
 	backpack_contents = list(/obj/item/ammo_magazine/scp/m1911 = 1)
 	belt = /obj/item/gun/projectile/pistol/m1911/gold
@@ -17,7 +17,7 @@
 	uniform = /obj/item/clothing/under/scp/suittie
 	shoes = /obj/item/clothing/shoes/dress
 	suit = /obj/item/clothing/suit/storage/toggle/suit/black
-	id_type = /obj/item/card/id/adminlvl4
+	id_type = /obj/item/card/id/hop
 	l_ear = /obj/item/device/radio/headset/heads/hop
 	backpack_contents = list(/obj/item/ammo_magazine/scp/m1911 = 1)
 	belt = /obj/item/gun/projectile/pistol/m1911/gold

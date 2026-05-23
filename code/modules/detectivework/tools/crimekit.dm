@@ -5,6 +5,7 @@
 	icon = 'icons/obj/forensics.dmi'
 	icon_state = "case"
 	item_state = "case"
+	open_icon = "case-open"
 	startswith = list(
 		/obj/item/storage/box/swabs,
 		/obj/item/storage/box/fingerprints,

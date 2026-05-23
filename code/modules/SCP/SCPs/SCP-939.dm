@@ -211,7 +211,8 @@
 
 	transform = matrix() * 0.9
 
-	START_PROCESSING(SSprocessing, src)
+	if(!(src in SSprocessing.processing))
+		START_PROCESSING(SSprocessing, src)
 
 //Incorporates lots of 2427-3 code, just because its good
 

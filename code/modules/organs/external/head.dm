@@ -24,6 +24,8 @@
 	var/forehead_graffiti
 	var/graffiti_style
 
+	var/list/forehead_stamps = list()
+
 /obj/item/organ/external/head/proc/get_eye_overlay()
 	if(glowing_eyes)
 		var/obj/item/organ/internal/eyes/eyes = owner.internal_organs_by_name[owner.species.vision_organ ? owner.species.vision_organ : BP_EYES]
@@ -40,6 +42,15 @@
 
 	if(forehead_graffiti && graffiti_style)
 		to_chat(user, SPAN_NOTICE("It has \"[forehead_graffiti]\" written on it in [graffiti_style]!"))
+
+/mob/living/carbon/human/examine(mob/user, infix)
+	. = ..()
+	var/obj/item/organ/external/head/head = get_organ(BP_HEAD)
+	if(istype(head) && head.forehead_stamps && head.forehead_stamps.len > 0)
+		var/gender_pronoun = src.gender == "male" ? "He" : "She"
+		var/posessive_pronoun = src.gender == "male" ? "his" : "her"
+		for(var/stamp in head.forehead_stamps)
+			. += SPAN_NOTICE("[gender_pronoun] has a [stamp] stamped on [posessive_pronoun] forehead!")
 
 /obj/item/organ/external/head/proc/write_on(mob/penman, style)
 	var/head_name = name
@@ -179,3 +190,21 @@
 
 /obj/item/organ/external/head/no_eyes
 	draw_eyes = FALSE
+
+/obj/item/organ/external/head/proc/apply_stamp(stamp_name, stamper)
+	if(!owner)
+		return
+
+	if(owner.wear_mask || owner.head)
+		to_chat(stamper, SPAN_NOTICE("[owner]'s forehead is covered up."))
+		return
+
+	if(!forehead_stamps)
+		forehead_stamps = list()
+
+	if(!(stamp_name in forehead_stamps))
+		forehead_stamps += stamp_name
+		if(owner == stamper)
+			owner.visible_message(SPAN_NOTICE("[stamper] stamps own forehead with \"[stamp_name]\"!"), SPAN_WARNING("You stamp your forehead with \"[stamp_name]\"!"))
+		else
+			owner.visible_message(SPAN_NOTICE("[stamper] stamps [owner]'s forehead with \"[stamp_name]\"!"), SPAN_WARNING("[stamper] stamped your forehead with \"[stamp_name]\"!"))
