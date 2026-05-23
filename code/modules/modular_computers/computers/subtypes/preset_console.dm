@@ -4,6 +4,7 @@
 	tesla_link = new /obj/item/stock_parts/computer/tesla_link(src)
 	hard_drive = new /obj/item/stock_parts/computer/storage/hard_drive/super(src)
 	network_card = new /obj/item/stock_parts/computer/network_card/wired(src)
+	nano_printer = new /obj/item/stock_parts/computer/nano_printer(src)
 	scanner = new /obj/item/stock_parts/computer/scanner/paper(src)
 
 /obj/item/modular_computer/console/preset/full/install_default_hardware()

@@ -7,6 +7,7 @@
 	density = FALSE
 	opacity = 0
 	layer = ABOVE_HUMAN_LAYER
+	plane = 3
 	simulated = FALSE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
