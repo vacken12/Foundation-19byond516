@@ -192,7 +192,12 @@ Please contact me on #coderbus IRC. ~Carn x
 
 	// Resolve the height multiplier from the height descriptor (1-5 integer index).
 	// Mapping: 1=TINY(0.93), 2=SMALL(0.96), 3=NORMAL(1.0), 4=LARGE(1.04), 5=HUGE(1.07)
-	var/height_index = LAZYACCESS(descriptors, /datum/mob_descriptor/height)
+	var/height_index
+	if(LAZYLEN(descriptors) && species.descriptors)
+		for(var/desctype in species.descriptors)
+			if(istype(species.descriptors[desctype], /datum/mob_descriptor/height))
+				height_index = descriptors[desctype]
+				break
 	switch(height_index)
 		if(1) body_height = HUMAN_HEIGHT_TINY
 		if(2) body_height = HUMAN_HEIGHT_SMALL

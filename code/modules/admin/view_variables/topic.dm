@@ -379,34 +379,32 @@
 			to_chat(usr, "Mob doesn't know that language.")
 
 	else if(href_list["addverb"])
-		if(!check_rights(R_DEBUG))      return
+		if(!check_rights(R_DEBUG))
+			return
 
 		var/mob/living/H = locate(href_list["addverb"])
 
 		if(!istype(H))
 			to_chat(usr, "This can only be done to instances of type /mob/living")
 			return
-		var/list/possibleverbs = list()
-		possibleverbs += "Cancel" 								// One for the top...
-		possibleverbs += typesof(/mob/proc,/mob/verb,/mob/living/proc,/mob/living/verb)
+
+		var/list/possibleverbs = typesof(/mob/proc, /mob/verb, /mob/living/proc, /mob/living/verb)
 		switch(H.type)
 			if(/mob/living/carbon/human)
-				possibleverbs += typesof(/mob/living/carbon/proc,/mob/living/carbon/verb,/mob/living/carbon/human/verb,/mob/living/carbon/human/proc)
+				possibleverbs += typesof(/mob/living/carbon/proc, /mob/living/carbon/verb, /mob/living/carbon/human/verb, /mob/living/carbon/human/proc)
 			if(/mob/living/silicon/robot)
-				possibleverbs += typesof(/mob/living/silicon/proc,/mob/living/silicon/robot/proc,/mob/living/silicon/robot/verb)
+				possibleverbs += typesof(/mob/living/silicon/proc, /mob/living/silicon/robot/proc, /mob/living/silicon/robot/verb)
 			if(/mob/living/silicon/ai)
-				possibleverbs += typesof(/mob/living/silicon/proc,/mob/living/silicon/ai/proc,/mob/living/silicon/ai/verb)
+				possibleverbs += typesof(/mob/living/silicon/proc, /mob/living/silicon/ai/proc, /mob/living/silicon/ai/verb)
 		possibleverbs -= H.verbs
-		possibleverbs += "Cancel" 								// ...And one for the bottom
 
-		var/verb = input("Select a verb!", "Verbs",null) as anything in possibleverbs
+		var/verb = tgui_input_list(usr, "Select a verb:", "Add Verb", possibleverbs)
 		if(!H)
 			to_chat(usr, "Mob doesn't exist anymore")
 			return
-		if(!verb || verb == "Cancel")
+		if(!verb)
 			return
-		else
-			add_verb(H, verb)
+		add_verb(H, verb)
 
 	else if(href_list["remverb"])
 		if(!check_rights(R_DEBUG))      return

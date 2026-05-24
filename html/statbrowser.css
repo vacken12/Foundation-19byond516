@@ -157,7 +157,7 @@ li a:hover:not(.active) {
 	width: 100%;
 	box-sizing: border-box;
 	overflow: visible;
-	padding: 3px 2px;
+	padding: 1px 1px;
 	text-decoration: none;
 }
 
