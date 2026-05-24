@@ -151,14 +151,14 @@
 	name = "Global Occult Coalition Headquarters"
 	icon_state = "Sleep"
 	requires_power = 0
-	dynamic_lighting = 1
+	dynamic_lighting = 0
 	area_flags = AREA_FLAG_RAD_SHIELDED
 
 /area/centcom/uiu
 	name = "Unusual Incidents Unit Headquarters"
 	icon_state = "Sleep"
 	requires_power = 0
-	dynamic_lighting = 1
+	dynamic_lighting = 0
 	area_flags = AREA_FLAG_RAD_SHIELDED
 
 /area/centcom/uiuroof
@@ -913,6 +913,36 @@
 	name = "\improper CDCZ Morgue"
 	area_flags = AREA_FLAG_RAD_SHIELDED
 	icon_state = "kitchen"
+
+/area/site53/llcz/dclass/eclass/hallways
+	name = "\improper CECZ Hallways"
+	area_flags = AREA_FLAG_RAD_SHIELDED
+	icon_state = "research"
+
+/area/site53/llcz/dclass/eclass/storage
+	name = "\improper CECZ Clothing Storage"
+	area_flags = AREA_FLAG_RAD_SHIELDED
+	icon_state = "research"
+
+/area/site53/llcz/dclass/eclass/science
+	name = "\improper CECZ science"
+	area_flags = AREA_FLAG_RAD_SHIELDED
+	icon_state = "research"
+
+/area/site53/llcz/dclass/eclass/containment
+	name = "\improper CECZ Containment Cells"
+	area_flags = AREA_FLAG_RAD_SHIELDED
+	icon_state = "research"
+
+/area/site53/llcz/dclass/eclass/meetroom
+	name = "\improper CECZ meeting room"
+	area_flags = AREA_FLAG_RAD_SHIELDED
+	icon_state = "research"
+
+/area/site53/llcz/dclass/eclass/surgery
+	name = "\improper CECZ Operating Theatre"
+	area_flags = AREA_FLAG_RAD_SHIELDED
+	icon_state = "research"
 
 /area/site53/llcz/mine/explored
 	name = "Mine"

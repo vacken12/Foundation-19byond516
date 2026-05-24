@@ -220,7 +220,7 @@
 			if (can_read)
 				can_read = get_dist(src, user) < PAPER_EYEBALL_DISTANCE
 
-	var/html = "<meta charset='utf-8'><head><style>[styles]</style></head>"
+	var/html = "<head><meta charset='utf-8'><style>[styles]</style></head>"
 	if (!can_read)
 		html += PAPER_META_BAD("The paper is too far away or you can't read.")
 

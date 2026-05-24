@@ -14,6 +14,8 @@
 	var/dream_timer
 	var/darkness_view = 2
 
+	var/body_height
+
 /mob/living/carbon/human/Initialize(mapload, new_species)
 	grasp_limbs = list()
 	stance_limbs = list()

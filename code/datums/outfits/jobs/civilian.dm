@@ -125,8 +125,8 @@
 	l_pocket = /obj/item/device/radio
 	id_type = /obj/item/card/id/tribunal
 	l_ear = /obj/item/device/radio/headset/heads/hop
-	backpack_contents = list(/obj/item/ammo_magazine/scp/m1911 = 1)
-	belt = /obj/item/gun/projectile/pistol/m1911/gold
+	backpack_contents = list(/obj/item/ammo_magazine/scp/mk9 = 1, /obj/item/ammo_magazine/scp/mk9/rubber = 1)
+	belt = /obj/item/gun/projectile/pistol/mk9_sponsored
 
 /decl/hierarchy/outfit/job/chaplain
 	name = OUTFIT_JOB_NAME("Chaplain")

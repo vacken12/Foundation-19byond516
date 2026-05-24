@@ -190,14 +190,30 @@ Please contact me on #coderbus IRC. ~Carn x
 
 	overlays = overlays_to_apply
 
+	// Resolve the height multiplier from the height descriptor (1-5 integer index).
+	// Mapping: 1=TINY(0.93), 2=SMALL(0.96), 3=NORMAL(1.0), 4=LARGE(1.04), 5=HUGE(1.07)
+	var/height_index = LAZYACCESS(descriptors, /datum/mob_descriptor/height)
+	switch(height_index)
+		if(1) body_height = HUMAN_HEIGHT_TINY
+		if(2) body_height = HUMAN_HEIGHT_SMALL
+		if(4) body_height = HUMAN_HEIGHT_LARGE
+		if(5) body_height = HUMAN_HEIGHT_HUGE
+		else  body_height = HUMAN_HEIGHT_NORMAL  // Covers null, 3, and out-of-range
+
+	// Combine size_multiplier, body_height, and base transform scales into one matrix.
+	// Previously this was split across two animate() calls, with the second one
+	// creating a fresh matrix that clobbered the lying rotation/translation.
+	var/effective_scale_x = size_multiplier * (isnull(tf_scale_x) ? 1 : tf_scale_x)
+	var/effective_scale_y = size_multiplier * (isnull(tf_scale_y) ? 1 : tf_scale_y) * body_height
+
 	var/matrix/M = matrix()
 	if(lying)
 		M.Turn(90)
-		M.Scale(size_multiplier)
-		M.Translate(1, -6-default_pixel_z)
+		M.Scale(effective_scale_x, effective_scale_y)
+		M.Translate(1, -6 - default_pixel_z)
 	else
-		M.Scale(size_multiplier)
-		M.Translate(0, 16*(size_multiplier-1))
+		M.Scale(effective_scale_x, effective_scale_y)
+		M.Translate(0, 16 * (size_multiplier - 1))
 	animate(src, transform = M, time = ANIM_LYING_TIME)
 
 var/global/list/damage_icon_parts = list()
