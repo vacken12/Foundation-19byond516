@@ -1,13 +1,13 @@
 /decl/hierarchy/outfit/scp527
 	name = "SCP-527"
-	uniform = /obj/item/clothing/under/scp/eclass
+	uniform = /obj/item/clothing/under/scp/hdclass
 	shoes = /obj/item/clothing/shoes/dress
 	l_pocket = /obj/item/card/id/dassignment/dluxury
 	flags = OUTFIT_HAS_BACKPACK | OUTFIT_RESET_EQUIPMENT
 
 /decl/hierarchy/outfit/scp347
 	name = "SCP-347"
-	uniform = /obj/item/clothing/under/scp/eclass
+	uniform = /obj/item/clothing/under/scp/hdclass
 	shoes = /obj/item/clothing/shoes/orange
 	gloves = /obj/item/clothing/gloves/color
 	l_pocket = /obj/item/card/id/dassignment/dluxury
@@ -15,7 +15,7 @@
 
 /decl/hierarchy/outfit/scp2020
 	name = "SCP-2020"
-	uniform = /obj/item/clothing/under/scp/eclass
+	uniform = /obj/item/clothing/under/scp/hdclass
 	shoes = /obj/item/clothing/shoes/orange
 	l_pocket = /obj/item/card/id/dassignment/dluxury
 	flags = OUTFIT_HAS_BACKPACK | OUTFIT_RESET_EQUIPMENT
