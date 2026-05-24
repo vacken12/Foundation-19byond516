@@ -908,6 +908,36 @@
 	area_flags = AREA_FLAG_RAD_SHIELDED
 	icon_state = "kitchen"
 
+/area/site53/llcz/dclass/eclass/hallways
+	name = "\improper CECZ Hallways"
+	area_flags = AREA_FLAG_RAD_SHIELDED
+	icon_state = "research"
+
+/area/site53/llcz/dclass/eclass/storage
+	name = "\improper CECZ Clothing Storage"
+	area_flags = AREA_FLAG_RAD_SHIELDED
+	icon_state = "research"
+
+/area/site53/llcz/dclass/eclass/science
+	name = "\improper CECZ science"
+	area_flags = AREA_FLAG_RAD_SHIELDED
+	icon_state = "research"
+
+/area/site53/llcz/dclass/eclass/containment
+	name = "\improper CECZ Containment Cells"
+	area_flags = AREA_FLAG_RAD_SHIELDED
+	icon_state = "research"
+
+/area/site53/llcz/dclass/eclass/meetroom
+	name = "\improper CECZ meeting room"
+	area_flags = AREA_FLAG_RAD_SHIELDED
+	icon_state = "research"
+
+/area/site53/llcz/dclass/eclass/surgery
+	name = "\improper CECZ Operating Theatre"
+	area_flags = AREA_FLAG_RAD_SHIELDED
+	icon_state = "research"
+
 /area/site53/llcz/mine/explored
 	name = "Mine"
 	icon_state = "explored"
