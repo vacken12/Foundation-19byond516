@@ -515,3 +515,10 @@
 	author = "John Murphy"
 	license = /decl/license/cc_by_sa_3_0
 	url = "https://www.youtube.com/watch?v=Duam7RMOjNU"
+
+/decl/audio/track/uiutheme
+	source = 'sounds/music/uiu_theme.ogg'
+	title = "The Bureau and the Black Forge - Theme of the UIU"
+	author = "ampersad"
+	license = /decl/license/cc_by_sa_3_0
+	url = "https://www.youtube.com/watch?v=iFUQiEmKdzg"

@@ -934,6 +934,8 @@
 	. = ..()
 
 /obj/item/device/radio/update_icon()
+	if(istype(src, /obj/item/device/radio/intercom)) return
+
 	if(on==1)
 		icon_state = "walkietalkie"
 		item_state = "walkietalkie"
