@@ -733,6 +733,7 @@ The slots that you can use are found in items_clothing.dm and are the inventory 
 	if(!header)
 		header = "<center><h2>[name]</h2></center><hr/>"
 	var/dat = list()
+	dat += "<head><meta charset='utf-8'/></head>"
 	dat += "[header]"
 	dat += "<table padding='8px'>"
 	dat += "<tr>"

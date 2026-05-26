@@ -490,9 +490,19 @@
 		var/mob/living/carbon/human/H = usr
 		if(H.blink_icon.icon_state == "blink_0")
 			// Currently closed, open eyes
+			// Cooldown on opening eyes so spam doesn't break blink HUD/state.
+			if(isnull(H.last_open_eyes) || !isnum(H.last_open_eyes))
+				H.last_open_eyes = 50
+
+			if(world.time <= H.last_open_eyes + 50)
+				to_chat(H, SPAN_NOTICE("You can't open your eyes that fast!"))
+				return
+
 			H.blink_icon.icon_state = "blink_4"
+			H.last_open_eyes = world.time
 			H.open_eyes()
 		else
+
 			// Currently open, close eyes
 			H.blink_icon.icon_state = "blink_0"
 			H.close_eyes()

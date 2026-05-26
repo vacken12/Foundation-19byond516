@@ -11,6 +11,7 @@
 	storage_types = CLOSET_STORAGE_ITEMS
 	var/points_per_crate = 5
 	var/rigged = 0
+	pull_sound = SFX_PULL_BOX
 
 /obj/structure/closet/crate/open()
 	if((atom_flags & ATOM_FLAG_OPEN_CONTAINER) && !opened && can_open())

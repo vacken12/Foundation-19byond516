@@ -739,7 +739,7 @@
 			return
 
 	// Add stamp text
-	stamps_images += (!stamps_images ? "<hr>" : "<br>") + "<img src=[P.icon_state].png'>"
+	stamps_images += (!stamps_images ? "<hr>" : "<br>") + "<div style='text-align:center; width:100%;'><img src='[P.icon_state].png' style='max-width:100%; height:auto; display:inline-block; transform: scale(2); transform-origin:center;'></div>"
 	stamps += (stamps == "" ? "<hr>" : "<br>") + "<i>This paper has been stamped with the [P.name].</i>"
 
 	// Create stamp overlay with random offset

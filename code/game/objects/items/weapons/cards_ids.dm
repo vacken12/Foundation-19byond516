@@ -339,7 +339,7 @@ GLOBAL_LIST_EMPTY(conversion_cards)
 	if(istype(src, /obj/item/card/id/tribunal))
 		class_color = "#84009e"
 	if(istype(src, /obj/item/card/id/ethics))
-		class_color = "#0f8b04"
+		class_color = "#075600"
 
 	var/list/dat = list("<style>")
 	dat += "body{margin:0;padding:0;background:#1a1a2e;font-family:'Segoe UI',Arial,sans-serif;display:flex;justify-content:center;align-items:center;min-height:100vh;}"

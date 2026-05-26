@@ -82,6 +82,7 @@ Class Procs:
 	w_class = ITEM_SIZE_NO_CONTAINER
 	layer = STRUCTURE_LAYER // Layer under items
 	init_flags = INIT_MACHINERY_PROCESS_SELF
+	pull_sound = SFX_PULL_MACHINE
 
 	var/stat = 0
 	var/reason_broken = 0

@@ -5,6 +5,7 @@
 	icon_state = "closed"
 	density = TRUE
 	w_class = ITEM_SIZE_NO_CONTAINER
+	pull_sound = SFX_PULL_CLOSET
 
 	var/icon_closed = "closed"
 	var/icon_opened = "open"

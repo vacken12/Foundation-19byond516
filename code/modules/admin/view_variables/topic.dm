@@ -319,7 +319,7 @@
 			to_chat(usr, "This can only be done to instances of type /mob/living/carbon/human")
 			return
 
-		var/new_species = input("Please choose a new species.","Species",null) as null|anything in all_species
+		var/new_species = tgui_input_list(usr, "Please choose a new species.", "Species", all_species)
 
 		if(!H)
 			to_chat(usr, "Mob doesn't exist anymore")
@@ -338,7 +338,7 @@
 			to_chat(usr, "This can only be done to instances of type /mob")
 			return
 
-		var/new_language = input("Please choose a language to add.","Language",null) as null|anything in all_languages
+		var/new_language = tgui_input_list(usr, "Please choose a language to add.", "Language", all_languages)
 
 		if(!new_language)
 			return
@@ -364,7 +364,7 @@
 			to_chat(usr, "This mob knows no languages.")
 			return
 
-		var/datum/language/rem_language = input("Please choose a language to remove.","Language",null) as null|anything in H.languages
+		var/datum/language/rem_language = tgui_input_list(usr, "Please choose a language to remove.", "Language", H.languages)
 
 		if(!rem_language)
 			return
@@ -414,7 +414,7 @@
 		if(!istype(H))
 			to_chat(usr, "This can only be done to instances of type /mob")
 			return
-		var/verb = input("Please choose a verb to remove.","Verbs",null) as null|anything in H.verbs
+		var/verb = tgui_input_list(usr, "Please choose a verb to remove.", "Verbs", H.verbs)
 		if(!H)
 			to_chat(usr, "Mob doesn't exist anymore")
 			return
@@ -537,7 +537,7 @@
 		var/mob/living/L = locate(href_list["addaura"])
 		if(!istype(L))
 			return
-		var/choice = input("Please choose an aura to add", "Auras", null) as null|anything in typesof(/obj/aura)
+		var/choice = tgui_input_list(usr, "Please choose an aura to add", "Auras", typesof(/obj/aura))
 		if(!choice || !L)
 			return
 		var/obj/o = new choice(L)
@@ -547,7 +547,7 @@
 		var/mob/living/L = locate(href_list["removeaura"])
 		if(!istype(L))
 			return
-		var/choice = input("Please choose an aura to remove", "Auras", null) as null|anything in L.auras
+		var/choice = tgui_input_list(usr, "Please choose an aura to remove", "Auras", L.auras)
 		if(!choice || !L)
 			return
 		log_and_message_staff("removed \the [choice] to \the [L]")

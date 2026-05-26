@@ -258,12 +258,27 @@
 	add_verb(user, /obj/item/clothing/mask/scp035/verb/SecreteGoo)
 	add_verb(user, /obj/item/clothing/mask/scp035/verb/SelfHeal)
 
+	init_skills(user)
+
 	is_recovering = FALSE
 	decay_level = 0
 
 	user.update_inv_wear_mask()
 
 	to_chat(user, SPAN_DANGER("<font size='5'>An alien presence coils around your thoughts. A silken voice promises eternity, but your body already begins to rebel. You are now the vessel of SCP-035. Spread its influence. Find new flesh before this one decays.</font>"))
+
+/obj/item/clothing/mask/scp035/proc/init_skills(mob/living/carbon/human/user)
+	var/datum/skillset/skillset = user?.skillset
+	if(!skillset)
+		return
+	skillset.skill_list = list()
+	for(var/decl/hierarchy/skill/skill_decl in GLOB.skills)
+		skillset.skill_list[skill_decl.type] = SKILL_UNTRAINED
+	skillset.skill_list[SKILL_COMBAT] = SKILL_MASTER
+	skillset.skill_list[SKILL_WEAPONS] = SKILL_MASTER
+	skillset.skill_list[SKILL_FORENSICS] = SKILL_TRAINED
+	skillset.skill_list[SKILL_HAULING] = SKILL_TRAINED
+	skillset.on_levels_change()
 
 /obj/item/clothing/mask/scp035/equipped(mob/user)
 	. = ..()

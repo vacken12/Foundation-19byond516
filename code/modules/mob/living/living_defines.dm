@@ -71,6 +71,10 @@
 
 	/// A list of all status effects the mob has
 	var/list/status_effects
+	/// Stores the plane override when forced by force_plane()
+	var/forced_plane = null
+	/// Stores the original plane before being overridden
+	var/saved_plane = null
 	/// How many pixels on the X axis to offset any speech bubbles from say()
 	var/speech_bubble_pixel_x_offset = 0
 	/// How many pixels on the Y axis to offset any speech bubbles from say()

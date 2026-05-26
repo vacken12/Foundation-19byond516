@@ -9,6 +9,8 @@
 	var/base_icon_state = ""
 	var/base_name = "Airlock"
 	var/obj/item/airlock_electronics/electronics = null
+	var/maxhealth = 200
+	var/health = 200
 	var/airlock_type = /obj/machinery/door/airlock //the type path of the airlock once completed
 	var/glass_type = /obj/machinery/door/airlock/glass
 	var/glass = 0 // 0 = glass can be installed. -1 = glass can't be installed. 1 = glass is already installed. Text = mineral plating is installed instead.
@@ -222,9 +224,44 @@
 
 			new path(src.loc, src)
 			qdel(src)
+	else if(check_force(W, user))
+		return
 	else
 		..()
 	update_state()
+
+/obj/structure/door_assembly/proc/check_force(obj/item/I, mob/user)
+	if(!istype(I))
+		return FALSE
+	if(user.a_intent != I_HURT)
+		return FALSE
+	if(I.force < 10)
+		return FALSE
+	user.setClickCooldown(CLICK_CD_ATTACK)
+	user.do_attack_animation(src)
+	visible_message(SPAN_DANGER("\The [user] strikes \the [src] with \the [I]!"))
+	playsound(src, 'sounds/weapons/smash.ogg', 100, 1)
+	show_sound_effect(get_turf(src), user)
+	health -= I.force
+	if(health <= 0)
+		visible_message(SPAN_DANGER("\The [src] collapses into a pile of scrap!"))
+		var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
+		s.set_up(5, 1, src)
+		s.start()
+		break_apart()
+	return TRUE
+
+/obj/structure/door_assembly/proc/break_apart()
+	playsound(src, 'sounds/scp/machinery/scp_door_destroyed.ogg', 100, 1)
+	// Drop steel sheets
+	new /obj/item/stack/material/steel(src.loc, 4)
+	// Drop some cable coil
+	new /obj/item/stack/cable_coil(src.loc, 1)
+	// If we had electronics, drop them
+	if(electronics)
+		electronics.dropInto(loc)
+		electronics = null
+	qdel(src)
 
 /obj/structure/door_assembly/proc/update_state()
 	cut_overlays()

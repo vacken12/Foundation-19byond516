@@ -12,6 +12,7 @@
 	obj_flags = OBJ_FLAG_ROTATABLE
 	health_max = 70
 	anchored = TRUE
+	plane = 3
 
 	var/broken =    FALSE
 	var/neighbor_status = 0

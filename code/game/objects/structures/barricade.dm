@@ -6,6 +6,7 @@
 	density = TRUE
 	atom_flags = ATOM_FLAG_NO_TEMP_CHANGE | ATOM_FLAG_CLIMBABLE
 	layer = ABOVE_WINDOW_LAYER
+	pull_sound = SFX_PULL_MACHINE
 	health_resistances = list(
 		BRUTE = 0.75
 	)

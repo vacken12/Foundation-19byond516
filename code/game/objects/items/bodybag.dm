@@ -6,6 +6,7 @@
 	icon = 'icons/obj/closets/bodybag.dmi'
 	icon_state = "bodybag_folded"
 	w_class = ITEM_SIZE_SMALL
+	pull_sound = SFX_PULL_BODY
 
 /obj/item/bodybag/attack_self(mob/user)
 	var/obj/structure/closet/body_bag/R = new /obj/structure/closet/body_bag(user.loc)
@@ -40,6 +41,7 @@
 	storage_capacity = (MOB_MEDIUM * 2) - 1
 	var/contains_body = 0
 	var/has_label = FALSE
+	pull_sound = SFX_PULL_BODY
 
 /obj/structure/closet/body_bag/attackby(obj/item/W, mob/user as mob)
 	if (istype(W, /obj/item/pen))

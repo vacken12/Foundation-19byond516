@@ -2,7 +2,7 @@
 	name = "mysterious SWAT armor"
 	desc = "A set of sentient SWAT armor, usually known to be local Special Weapons and Tactics standard-issue equipment, if a little outdated. They don't seem to respond when talked to, and only acknowledge those who are dressed as local police officers."
 
-	status_flags = NO_ANTAG
+	status_flags = NO_ANTAG | GODMODE
 
 /mob/living/carbon/human/scp912/Initialize(mapload, new_species = "SCP-912")
 	. = ..()

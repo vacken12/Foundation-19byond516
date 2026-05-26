@@ -23,7 +23,7 @@
 	return ..() + vars
 
 /decl/audio/proc/get_info(with_meta = TRUE)
-	. = SPAN_GOOD("[title][!author?"":" by [author]"][!collection?"":" ([collection])"]")
+	. = SPAN_GOOD("[title][!author?"":" by <u><i>[author]</u></i>"][!collection?"":" ([collection])"]")
 	if (with_meta)
 		. = "[.][!url?"":"\[<a href='[url]'>link</a>\]"]\[<a href='[license.url]'>license</a>\]"
 

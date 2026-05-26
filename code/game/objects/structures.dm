@@ -2,6 +2,7 @@
 	icon = 'icons/obj/structures.dmi'
 	w_class = ITEM_SIZE_NO_CONTAINER
 	layer = STRUCTURE_LAYER
+	pull_sound = SFX_PULL_WOOD
 
 	var/breakable
 	var/parts

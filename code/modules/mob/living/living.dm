@@ -571,6 +571,8 @@ default behaviour is:
 
 	var/turf/old_loc = get_turf(src)
 
+	pull_sound = lying ? SFX_PULL_BODY : null
+
 	. = ..()
 
 	if(. && pulling)
@@ -640,6 +642,10 @@ default behaviour is:
 				M.start_pulling(t)
 
 	handle_dir_after_pull()
+
+	if(pulling.pull_sound && (world.time - last_pull_sound) > 1 SECOND)
+		last_pull_sound = world.time
+		playsound(pulling, pulling.pull_sound, rand(50, 90), TRUE)
 
 /mob/living/proc/handle_dir_after_pull()
 	if(pulling)
@@ -1063,3 +1069,26 @@ default behaviour is:
 		play_sound = TRUE
 	if(play_sound)
 		playsound(get_turf(src), 'sounds/magic/blind.ogg', 50, TRUE)
+
+/// Forces the mob's plane to a specific value, saving the original.
+/// Use restore_plane() to revert.
+/mob/living/proc/force_plane(new_plane)
+	if(isnull(saved_plane))
+		saved_plane = plane
+	forced_plane = new_plane
+	plane = new_plane
+
+/// Restores the mob's plane to its original value before force_plane() was called.
+/mob/living/proc/restore_plane()
+	if(!isnull(saved_plane))
+		plane = saved_plane
+	forced_plane = null
+	saved_plane = null
+
+// Override reset_plane_and_layer to respect forced plane overrides
+/mob/living/reset_plane_and_layer()
+	if(!isnull(forced_plane))
+		plane = forced_plane
+		layer = initial(layer)
+	else
+		..()

@@ -501,3 +501,17 @@
 	author = "Alex Turner"
 	license = /decl/license/cc_by_sa_3_0
 	url = "https://www.youtube.com/watch?v=K0YEVNacmtw"
+
+/decl/audio/track/deaththeme
+	source = 'sounds/music/deaththeme_papers_please.ogg'
+	title = "Death Theme"
+	author = "Lucas Pope"
+	license = /decl/license/cc_by_sa_3_0
+	url = "https://www.youtube.com/v/J_3Zad-e9f4"
+
+/decl/audio/track/inthehouseinaheartbeat
+	source = 'sounds/music/in_the_house_in_a_heartbeat.ogg'
+	title = "In the House in a Heartbeat Arsiesys Remix"
+	author = "John Murphy"
+	license = /decl/license/cc_by_sa_3_0
+	url = "https://www.youtube.com/watch?v=Duam7RMOjNU"

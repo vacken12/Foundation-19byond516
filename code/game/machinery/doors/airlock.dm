@@ -340,6 +340,7 @@ var/list/airlock_overlays = list()
 	name = "Secure Airlock"
 	icon = 'icons/obj/doors/secure/door.dmi'
 	fill_file = 'icons/obj/doors/secure/fill_steel.dmi'
+	maxhealth = 600
 	explosion_resistance = 20
 	secured_wires = 1
 	assembly_type = /obj/structure/door_assembly/door_assembly_highsecurity
@@ -1159,6 +1160,24 @@ About the new airlock wires panel:
 				else
 					to_chat(user, SPAN_WARNING("You need to be wielding \the [C] to do that."))
 
+	else if((stat & BROKEN) && istype(C, /obj/item) && C.force >= 10 && user.a_intent == I_HURT)
+		// Already broken - further damage collapses the airlock into an assembly
+		health = health - C.force
+
+		user.visible_message(SPAN_DANGER("[user] strikes \the [src] with \the [C]!"), SPAN_DANGER("You strike \the [src] with \the [C]!"))
+		user.setClickCooldown(CLICK_CD_ATTACK)
+		user.do_attack_animation(src)
+		show_sound_effect(get_turf(src), user)
+		playsound(src, 'sounds/weapons/smash.ogg', 100, 1)
+
+		if(health <= -300) // Takes additional damage to fully destroy a broken airlock
+			user.visible_message(SPAN_DANGER("[user] smashes \the [src] apart!"), SPAN_DANGER("You smash \the [src] apart!"))
+			var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
+			s.set_up(5, 1, src)
+			s.start()
+			deconstruct(null, TRUE)
+		return
+
 	else if(istype(C, /obj/item/device/paint_sprayer))
 		return
 	else if((stat & (BROKEN|NOPOWER)) && istype(user, /mob/living/simple_animal))
@@ -1192,6 +1211,9 @@ About the new airlock wires panel:
 	da.door_color = door_color
 	da.stripe_color = stripe_color
 	da.symbol_color = symbol_color
+	da.color = door_color
+
+	playsound(src, 'sounds/scp/machinery/scp_door_destroyed.ogg', 100, 1)
 
 	if(moved)
 		var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread

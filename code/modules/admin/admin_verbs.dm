@@ -956,7 +956,7 @@ var/list/admin_verbs_mentors = list(
 
 	if(!check_rights(R_FUN)) return
 
-	var/datum/spell/S = input("Choose the spell to give to that guy", "ABRAKADABRA") as null|anything in typesof(/datum/spell)
+	var/datum/spell/S = tgui_input_list(usr, "Choose the spell to give to that guy", "Give Spell", typesof(/datum/spell))
 	if(!S) return
 	T.add_spell(new S)
 	SSstatistics.add_field_details("admin_verb","GS") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!

@@ -26,6 +26,8 @@
 	/// How many pixels on the Y axis to offset any generated floating messages when this is the holder
 	var/floating_message_pixel_y_offset = 0
 
+	var/pull_sound = null // sound when you pulling something
+
 /atom/movable/Destroy()
 	if(!(atom_flags & ATOM_FLAG_INITIALIZED))
 		crash_with("Was deleted before initalization")

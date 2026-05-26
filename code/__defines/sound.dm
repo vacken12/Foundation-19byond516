@@ -234,3 +234,12 @@
 
 // WEAPONS
 #define SFX_SILENT_FIRE             "silent_fire"
+
+// PULLING
+#define SFX_PULL_BODY               "pull_body"
+#define SFX_PULL_BOX                "pull_box"
+#define SFX_PULL_CLOSET             "pull_closet"
+#define SFX_PULL_GLASS              "pull_glass"
+#define SFX_PULL_MACHINE            "pull_machine"
+#define SFX_PULL_STONE              "pull_stone"
+#define SFX_PULL_WOOD               "pull_wood"

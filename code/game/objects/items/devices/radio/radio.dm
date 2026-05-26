@@ -2,8 +2,8 @@
 	icon = 'icons/obj/radio.dmi'
 	name = "shortwave radio"
 	suffix = "\[3\]"
-	icon_state = "walkietalkie"
-	item_state = "walkietalkie"
+	icon_state = "walkietalkie-off"
+	item_state = "walkietalkie-off"
 
 	var/on = 1 // 0 for off
 	var/last_transmission
@@ -132,6 +132,8 @@
 		ui = new(user, src, ui_key, "radio_basic.tmpl", "[name]", 400, 430, state = state)
 		ui.set_initial_data(data)
 		ui.open()
+
+	update_icon()
 
 /obj/item/device/radio/proc/list_channels(mob/user)
 	return list_internal_channels(user)
@@ -930,3 +932,11 @@
 
 /obj/item/device/radio/exosuit/ui_interact(mob/user, ui_key = "main", datum/nanoui/ui = null, force_open = 1, datum/nanoui/master_ui = null, datum/topic_state/state = GLOB.mech_state)
 	. = ..()
+
+/obj/item/device/radio/update_icon()
+	if(on==1)
+		icon_state = "walkietalkie"
+		item_state = "walkietalkie"
+	else
+		icon_state = "walkietalkie-off"
+		item_state = "walkietalkie-off"
