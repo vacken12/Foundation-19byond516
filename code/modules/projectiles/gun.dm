@@ -635,7 +635,7 @@
 	safety_state = !safety_state
 	update_icon()
 	if(user)
-		user.visible_message(SPAN_WARNING("[user] switches the safety of \the [src] [safety_state ? "on" : "off"]."), SPAN_NOTICE("You switch the safety of \the [src] [safety_state ? "on" : "off"]."), range = 3)
+		user.visible_message(SPAN_WARNING("[user] switches the safety of \the [src] [safety_state ? SPAN_GOOD("on") : SPAN_BAD("off")]."), SPAN_NOTICE("You switch the safety of \the [src] <u><i>[safety_state ? SPAN_GOOD("on") : SPAN_BAD("off")]</u></i>."), range = 3)
 		last_safety_check = world.time
 		playsound(src, 'sounds/weapons/flipblade.ogg', 50, 1)
 

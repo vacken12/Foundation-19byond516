@@ -12,7 +12,12 @@
   right: 0;
   height: 2em;
   line-height: 1.928em;
-  background-color: rgba(0, 0, 0, 0.5);
+  background: linear-gradient(
+    180deg,
+    rgba(20, 30, 50, 0.95) 0%,
+    rgba(10, 15, 25, 0.95) 100%
+  );
+  border-bottom: 1px solid rgba(64, 98, 138, 0.4);
   font-family: Consolas, monospace;
   font-size: base.em(14px);
   user-select: none;
@@ -21,6 +26,19 @@
 
 .NtosWindow__content .Layout__content {
   margin-top: 2em;
-  font-family: Consolas, monospace;
+  font-family: 'Segoe UI', Consolas, monospace;
   font-size: base.em(14px);
+  background: linear-gradient(
+    180deg,
+    rgba(15, 20, 35, 0.98) 0%,
+    rgba(8, 12, 24, 0.98) 100%
+  );
+}
+
+.theme-ntos .NtosWindow__content .Layout__content {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+}
+
+.theme-syndicate .NtosWindow__content .Layout__content {
+  background: linear-gradient(135deg, #1a0000 0%, #2e0a0a 50%, #3d1212 100%);
 }

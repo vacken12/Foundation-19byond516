@@ -86,7 +86,14 @@
 	update_icon()
 	return TRUE
 
-/obj/machinery/floodlight/RefreshParts() //if they're insane enough to modify a floodlight, let them
+/obj/machinery/floodlight/Process()
+	if(use_power == POWER_USE_ACTIVE && turned)
+		set_light(lamp_brightness, lamp_inner_range, lamp_outer_range, 2, null, l_direction = dir, l_cone = 180)
+	else
+		set_light(0, 0)
+	return ..()
+
+/obj/machinery/floodlight/RefreshParts()
 	..()
 	var/light_mod = Clamp(total_component_rating_of_type(/obj/item/stock_parts/capacitor), 0, 10)
 	lamp_brightness = light_mod ? light_mod * 0.01 + initial(lamp_brightness) : initial(lamp_brightness) / 2 //gives us between 0.8-0.9 with capacitor, or 0.4 without one
@@ -94,4 +101,5 @@
 	lamp_outer_range = light_mod * 1.5 + initial(lamp_outer_range)
 	change_power_consumption(initial(active_power_usage) * light_mod, POWER_USE_ACTIVE)
 	if (use_power)
-		set_light(lamp_brightness, lamp_inner_range, lamp_outer_range)
+		set_light(lamp_brightness, lamp_inner_range, lamp_outer_range, 2, null, l_direction = dir, l_cone = 180)
+

@@ -3,6 +3,7 @@
 
 /obj/item/device/flashlight
 	name = "flashlight"
+
 	desc = "A hand-held emergency light."
 	icon = 'icons/obj/lighting.dmi'
 	icon_state = "flashlight"
@@ -11,14 +12,18 @@
 	obj_flags = OBJ_FLAG_CONDUCTIBLE
 	slot_flags = SLOT_BELT
 
+	/// Cone angle in degrees for directional light. Set to 0 for omnidirectional.
+	var/flashlight_cone_angle = 50
+
 	matter = list(MATERIAL_PLASTIC = 50, MATERIAL_GLASS = 20)
 
 	action_button_name = "Toggle Flashlight"
 	var/on = FALSE
+
 	var/activation_sound = 'sounds/effects/flashlight.ogg'
-	var/flashlight_max_bright = 0.5 //brightness of light when on, must be no greater than 1.
+	var/flashlight_max_bright = 0.6 //brightness of light when on, must be no greater than 1.
 	var/flashlight_inner_range = 1 //inner range of light when on, can be negative
-	var/flashlight_outer_range = 3 //outer range of light when on, can be negative
+	var/flashlight_outer_range = 4 //outer range of light when on, can be negative
 	var/flashlight_flags = 0 // FLASHLIGHT_ bitflags
 
 /obj/item/device/flashlight/Initialize()
@@ -26,6 +31,19 @@
 
 	set_flashlight()
 	update_icon()
+
+/obj/item/device/flashlight/equipped(mob/user, slot)
+	. = ..()
+	RegisterSignal(user, COMSIG_ATOM_DIR_CHANGE, TYPE_PROC_REF(/obj/item/device/flashlight, handle_holder_dir_change))
+
+/obj/item/device/flashlight/dropped(mob/user)
+	UnregisterSignal(user, COMSIG_ATOM_DIR_CHANGE)
+	. = ..()
+
+/obj/item/device/flashlight/proc/handle_holder_dir_change(mob/user, old_dir, new_dir)
+	SIGNAL_HANDLER
+	if(on)
+		set_flashlight(new_dir)
 
 /obj/item/device/flashlight/on_update_icon()
 	if (flashlight_flags & FLASHLIGHT_ALWAYS_ON)
@@ -57,11 +75,37 @@
 	user.update_action_buttons()
 	return 1
 
-/obj/item/device/flashlight/proc/set_flashlight()
-	if (on)
-		set_light(flashlight_max_bright, flashlight_inner_range, flashlight_outer_range, 2, light_color)
+/obj/item/device/flashlight/proc/set_flashlight(l_dir)
+	// l_dir is the direction the light should point. If null, default to the holder's facing direction.
+	if(on)
+		if(flashlight_cone_angle)
+			if(!l_dir && ismob(loc))
+				var/mob/holder = loc
+				l_dir = holder.dir
+			light_direction = l_dir ? l_dir : 0
+		else
+			light_direction = 0
+		set_light(flashlight_max_bright, flashlight_inner_range, flashlight_outer_range, 2, light_color, l_direction = light_direction, l_cone = flashlight_cone_angle)
 	else
-		set_light(0)
+		set_light(0, 0, 0, l_direction = 0, l_cone = 0)
+		reset_pixel_offset()
+
+/// Resets pixel offsets back to defaults.
+/obj/item/device/flashlight/proc/reset_pixel_offset()
+	pixel_x = initial(pixel_x)
+	pixel_y = initial(pixel_y)
+
+/obj/item/device/flashlight/proc/updatedir(mob/user)
+	if(!user)
+		return
+	set_flashlight(user.dir)
+
+/obj/item/device/flashlight/proc/set_dir(new_dir)
+	// Only rotate the sprite when on the ground. When held in hands, the mob's overlay system handles orientation.
+	if(!ismob(loc))
+		dir = new_dir
+	if(on)
+		set_flashlight(new_dir)
 
 /obj/item/device/flashlight/attack(mob/living/M as mob, mob/living/user as mob)
 	add_fingerprint(user)
@@ -136,7 +180,7 @@
 	icon_state = "biglight"
 	item_state = "biglight"
 	flashlight_max_bright = 0.75
-	flashlight_outer_range = 4
+	flashlight_outer_range = 5
 
 /obj/item/device/flashlight/flashdark
 	name = "flashdark"
@@ -186,6 +230,7 @@
 	slot_flags = SLOT_BELT
 	matter = list(MATERIAL_STEEL = 200,MATERIAL_GLASS = 100)
 	flashlight_outer_range = 5
+	flashlight_cone_angle = 0
 
 /obj/item/device/flashlight/lantern/on_update_icon()
 	..()
@@ -219,6 +264,7 @@
 	flashlight_max_bright = 0.3
 	flashlight_inner_range = 2
 	flashlight_outer_range = 5
+	flashlight_cone_angle = 0
 
 	on = 1
 
@@ -249,14 +295,15 @@
 	action_button_name = null //just pull it manually, neckbeard.
 	var/fuel = 0
 	var/on_damage = 7
-	var/deactivation_sound = 'sounds/effects/flare_end.ogg'
+	var/deactivation_sound = 'sounds/effects/flare.ogg'
 	var/produce_heat = 1500
-	activation_sound = 'sounds/effects/flare_start.ogg'
+	activation_sound = 'sounds/effects/flare.ogg'
 	flashlight_flags = FLASHLIGHT_SINGLE_USE
 
 	flashlight_max_bright = 0.8
 	flashlight_inner_range = 0.1
 	flashlight_outer_range = 5
+	flashlight_cone_angle = 0
 
 /obj/item/device/flashlight/flare/Initialize()
 	. = ..()

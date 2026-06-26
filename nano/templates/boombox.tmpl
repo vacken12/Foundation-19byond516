@@ -1,5 +1,178 @@
-{{:helper.link('-VOL', null, {act: 'volume', dat: -1}, data.volume == 0 ? 'disabled' : null, null)}}
-{{:helper.link('LAST', null, {act: 'last'}, null, null)}}
-{{:helper.link(data.playing ? 'STOP' : 'PLAY', null, {act: data.playing ? 'stop' : 'play'}, null, null)}}
-{{:helper.link('NEXT', null, {act: 'next'}, null, null)}}
-{{:helper.link('VOL+', null, {act: 'volume', dat: -2}, data.volume == 50 ? 'disabled' : null, null)}}
+<style>
+.boombox-body {
+    background: linear-gradient(180deg, #2a2a3a 0%, #1a1a2e 100%);
+    border: 2px solid #555;
+    border-radius: 12px;
+    padding: 8px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.05);
+}
+.boombox-led {
+    background: #0a0a0a;
+    border: 1px solid #333;
+    border-radius: 6px;
+    padding: 6px 10px;
+    margin-bottom: 8px;
+    font-family: 'Consolas', 'Courier New', monospace;
+    box-shadow: inset 0 0 20px rgba(0,0,0,0.8);
+}
+.boombox-track {
+    color: #0f0;
+    font-size: 11px;
+    text-shadow: 0 0 6px rgba(0,255,0,0.5);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.boombox-vol-bar {
+    background: #111;
+    border: 1px solid #333;
+    border-radius: 4px;
+    height: 8px;
+    margin: 4px 0;
+    overflow: hidden;
+    box-shadow: inset 0 0 6px rgba(0,0,0,0.6);
+}
+.boombox-vol-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #0f0, #0f0);
+    transition: width 0.15s ease;
+    border-radius: 4px;
+    box-shadow: 0 0 8px rgba(0,255,0,0.3);
+}
+.boombox-vol-label {
+    color: #888;
+    font-size: 9px;
+    float: left;
+}
+.boombox-vol-num {
+    color: #0f0;
+    font-size: 9px;
+    float: right;
+    font-family: 'Consolas', monospace;
+    text-shadow: 0 0 4px rgba(0,255,0,0.4);
+}
+.boombox-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 4px;
+    margin: 6px 0;
+}
+.boombox-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: linear-gradient(180deg, #444 0%, #222 100%);
+    border: 1px solid #555;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: default;
+    font-size: 14px;
+    color: #ddd;
+    text-decoration: none;
+    transition: all 0.1s ease;
+}
+.boombox-btn:hover {
+    background: linear-gradient(180deg, #555 0%, #333 100%);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.15);
+    transform: scale(1.05);
+}
+.boombox-btn.play {
+    width: 40px;
+    height: 40px;
+    font-size: 16px;
+    background: linear-gradient(180deg, #2f943c 0%, #1a6b24 100%);
+    border-color: #2f943c;
+}
+.boombox-btn.play:hover {
+    background: linear-gradient(180deg, #3ab84a 0%, #2f943c 100%);
+    box-shadow: 0 0 16px rgba(47,148,60,0.4);
+}
+.boombox-btn.stop {
+    width: 40px;
+    height: 40px;
+    font-size: 16px;
+    background: linear-gradient(180deg, #cc0000 0%, #880000 100%);
+    border-color: #cc0000;
+}
+.boombox-btn.stop:hover {
+    background: linear-gradient(180deg, #ee0000 0%, #aa0000 100%);
+    box-shadow: 0 0 16px rgba(204,0,0,0.4);
+}
+.boombox-btn.vol {
+    width: 28px;
+    height: 28px;
+    font-size: 11px;
+}
+.boombox-btn.nav {
+    width: 30px;
+    height: 30px;
+    font-size: 13px;
+}
+.boombox-tracks {
+    margin-top: 6px;
+    border-top: 1px solid #333;
+    padding-top: 4px;
+    max-height: 120px;
+    overflow-y: auto;
+}
+.boombox-tracks-title {
+    color: #888;
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+}
+.boombox-track-item {
+    padding: 2px 6px;
+    margin: 1px 0;
+    border-radius: 4px;
+    font-size: 11px;
+    color: #aaa;
+    cursor: default;
+    transition: all 0.1s ease;
+}
+.boombox-track-item:hover {
+    background: rgba(255,255,255,0.05);
+    color: #fff;
+}
+.boombox-track-item.active {
+    color: #0f0;
+    text-shadow: 0 0 4px rgba(0,255,0,0.3);
+}
+</style>
+
+<div class="boombox-body">
+    <!-- LED Display -->
+    <div class="boombox-led">
+        <div class="boombox-track">{{:data.track}}</div>
+        <div style="margin-top: 4px;">
+            <div class="boombox-vol-label">VOL</div>
+            <div class="boombox-vol-num">{{:data.volume}} / 50</div>
+            <div style="clear: both;"></div>
+            <div class="boombox-vol-bar">
+                <div class="boombox-vol-fill" style="width:{{:((data.volume / 50) * 100)}}%;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Center Play/Stop + Volume knob area -->
+    <div class="boombox-buttons">
+        {{:helper.link('⏮', null, {'act': 'last'}, null, 'boombox-btn nav')}}
+        {{:helper.link('▼', null, {'act': 'volume', 'dat': -1}, data.volume == 0 ? 'disabled' : null, 'boombox-btn vol')}}
+        {{:helper.link(data.playing ? '⏹' : '▶', null, {'act': data.playing ? 'stop' : 'play'}, null, data.playing ? 'boombox-btn stop' : 'boombox-btn play')}}
+        {{:helper.link('▲', null, {'act': 'volume', 'dat': -2}, data.volume == 50 ? 'disabled' : null, 'boombox-btn vol')}}
+        {{:helper.link('⏭', null, {'act': 'next'}, null, 'boombox-btn nav')}}
+    </div>
+
+    <!-- Track list -->
+    <div class="boombox-tracks">
+        <div class="boombox-tracks-title">Tracks</div>
+        {{for data.tracks}}
+            <div>
+                {{:helper.link(value.track == data.track ? '▸ ' + value.track : '  ' + value.track, null, {'act': 'track', 'dat': value.index}, value.track == data.track ? 'disabled active' : null, 'boombox-track-item' + (value.track == data.track ? ' active' : ''))}}
+            </div>
+        {{/for}}
+    </div>
+</div>

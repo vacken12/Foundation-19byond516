@@ -1,822 +1,833 @@
-
 <!--
-Title: PDA UI
+Title: PDA UI - Modern Redesign
 Used In File(s): \code\game\objects\items\devices\PDA\PDA.dm
  -->
 {{if data.owner}}
-	<div class="item">
-		<div class="itemLabelNarrow">
-			 <b>Functions</b>:
-        </div>
-        <div class="itemContent">
-			<!--{{:helper.link('Refresh', 'refresh', {'choice' : "Refresh"}, null, 'fixedLeft')}}-->
-			{{:helper.link('Close', 'gear', {'choice' : "Close"}, null, 'fixedLeft')}}
-			{{if data.idInserted}} {{:helper.link('Update PDA Info', 'eject', {'choice' : "UpdateInfo"}, null, 'fixedLeftWide')}} {{/if}}
-			{{if data.mode != 0}} {{:helper.link('Return', 'arrowreturn-1-w', {'choice' : "Return"}, null, 'fixedLeft')}} {{/if}}
-		</div>
+
+<!-- Status Bar -->
+<div class="pda-status-bar">
+	<span id="pdaTime">{{:data.stationTime}}</span>
+	<span>{{if data.new_Message}}💬{{else}}📱{{/if}} {{:data.owner}}</span>
+	<span>{{:helper.link('✕', 'close', {'choice' : "Close"}, null, '')}}</span>
+</div>
+
+<!-- Navigation bar -->
+<div style="display: flex; align-items: center; padding: 6px 8px; background: rgba(0,0,0,0.3); border-bottom: 1px solid rgba(64,98,138,0.2);">
+	<div style="flex: 1;">
+		{{if data.mode != 0}} {{:helper.link('← Back', 'arrowreturn-1-w', {'choice' : "Return"}, null, '')}} {{/if}}
+		{{if data.idInserted}} {{:helper.link('🔄 Sync', 'eject', {'choice' : "UpdateInfo"}, null, '')}} {{/if}}
 	</div>
-	<br>
-	<div class="item">
-		<div class="itemLabelNarrow">
-			<b>Local Time</b>:
-		</div>
-		<div class="itemContent">
-			<span class="average">{{:data.stationTime}}</span>
-		</div>
-	</div>
-	<br>
+</div>
 
+{{if data.mode == 0}} <!-- ===== MAIN MENU ===== -->
 
-	{{if data.mode == 0}} <!-- Main Menu -->
-        <div class="item">
-            <div class="itemLabelNarrow">
-                Owner:
-            </div>
-            <div class="itemContent">
-                <span class="average">{{:data.owner}}, {{:data.ownjob}}</span>
-            </div>
-        </div>
-        <br>
-        <div class="item">
-            <div class="itemLabelNarrow">
-                ID:
-            </div>
-            <div class="itemContent">
-                {{:helper.link(data.idLink, 'eject', {'choice' : "Authenticate"}, data.idInserted ? null : 'disabled', data.idInserted ? 'floatright' : 'fixedLeft')}}
-            </div>
-        </div>
-        <br>
-        <div class="item">
-            <div class="itemLabelNarrow">
-                    <b>Cartridge</b>:
-            </div>
-            <div class="itemContent">
-                {{if data.cart_loaded==1}}
-                    {{:helper.link(data.cartridge.name, 'eject', {'choice' : "Eject"},null,null)}}
-                {{else}}
-                    {{:helper.link('None', 'eject', {'choice' : "Eject"},'disabled',null)}}
-                {{/if}}
-            </div>
-        </div>
-        <div class="item">
-            <H2>Functions</H2>
-        </div>
-        <div class="item">
-            <div class="itemLabelNarrow">
-                <b>General</b>:
-            </div>
-            <div class="itemContent">
-                {{:helper.link('Notekeeper', 'note', {'choice' : "1"}, null, 'fixedLeftWide')}}
-                {{:helper.link('Messenger', data.new_Message ? 'mail-closed' : 'mail-open', {'choice' : "2"}, null, 'fixedLeftWide')}}
-                {{:helper.link('Crew Manifest', 'contact', {'choice' : "41"}, null, 'fixedLeftWide')}}
-				{{:helper.link('News', data.new_News ? 'mail-closed' : 'mail-open', {'choice' : "6"}, null, 'fixedLeftWide')}}
-            </div>
-        </div>
-        <br>
-        {{if data.cartridge}}
-            {{if data.cartridge.access.access_clown == 1}}
-                <div class="item">
-                    <div class="itemLabelNarrow">
-                        <b>Clown</b>:
-                    </div>
-                    <div class="itemContent">
-                        {{:helper.link('Honk Synthesizer', 'gear', {'choice' : "Honk"}, null, 'fixedLeftWide')}}
-                    </div>
-                </div>
-                <br>
-            {{/if}}
-            {{if data.cartridge.access.access_engine == 1}}
-                <div class="item">
-                    <div class="itemLabelNarrow">
-                        <b>Engineering</b>:
-                    </div>
-                    <div class="itemContent">
-                        {{:helper.link('Power Monitor', 'alert', {'choice' : "43"}, null, 'fixedLeftWide')}}
-                    </div>
-                </div>
-                 <br>
-            {{/if}}
-            {{if data.cartridge.access.access_quartermaster == 1}}
-                <div class="item">
-                    <div class="itemLabelNarrow">
-                        <b>Quartermaster</b>:
-                    </div>
-                    <div class="itemContent">
-                        {{:helper.link('Supply Records', 'gear', {'choice' : "47"}, null, 'fixedLeftWide')}}
-                        {{:helper.link('Delivery Bot Control', 'gear', {'choice' : "48"}, null, 'fixedLeftWide')}}
-                         <br>
-                    </div>
-                </div>
-                <br>
-            {{/if}}
-        {{/if}}
-        <br>
-        <div class="item">
-            <div class = "itemLabelNarrow">
-                <b>Utilities</b>:
-            </div>
-            <div class = "itemContent">
-                {{if data.cartridge}}
-                    {{if data.cartridge.access.access_status_display == 1}}
-                        {{:helper.link('Status Display', 'gear', {'choice' : "42"}, null, 'fixedLeftWide')}}
-                    {{/if}}
-                    {{if data.cartridge.access.access_janitor==1}}
-                        {{:helper.link('Custodial Locator', 'gear', {'choice' : "49"}, null, 'fixedLeftWide')}}
-                    {{/if}}
-                    {{if data.cartridge.radio == 2}}
-                        {{:helper.link('Signaler System', 'gear', {'choice' : "40"}, null, 'fixedLeftWide')}}
-                    {{/if}}
-                    {{if data.cartridge.access.access_reagent_scanner==1}}
-                        {{:helper.link(data.scanmode == 3 ? 'Disable Reagent Scanner' : 'Enable Reagent Scanner', 'gear', {'choice' : "Reagent Scan"}, null, 'fixedLeftWider')}}
-                    {{/if}}
-                    {{if data.cartridge.access.access_engine==1}}
-                        {{:helper.link(data.scanmode == 4 ? 'Disable Halogen Counter' : 'Enable Halogen Counter', 'gear', {'choice' : "Halogen Counter"}, null, 'fixedLeftWider')}}
-                    {{/if}}
-                    {{if data.cartridge.access.access_atmos==1}}
-                        {{:helper.link(data.scanmode == 5 ? 'Disable Gas Scanner' : 'Enable Gas Scanner', 'gear', {'choice' : "Gas Scan"}, null, 'fixedLeftWide')}}
-                    {{/if}}
-                    {{if data.cartridge.access.access_remote_door==1}}
-                        {{:helper.link('Toggle Door', 'gear', {'choice' : "Toggle Door"}, null, 'fixedLeftWide')}}
-                    {{/if}}
-                {{/if}}
-                {{:helper.link('Atmospheric Scan', 'gear', {'choice' : "3"}, null, 'fixedLeftWide')}}
-                {{:helper.link(data.fon==1 ? 'Disable Flashlight' : 'Enable Flashlight', 'lightbulb', {'choice' : "Light"}, null,'fixedLeftWide')}}
-            </div>
-        </div>
-        {{if data.pai}}
-            <div class="item">
-                <div class = "itemLabelNarrow">
-                    <b>PAI Utilities</b>:
-                </div>
-                <div class = "itemContent">
-                    {{:helper.link('Configuration', 'gear', {'choice' : "pai", 'option' : "1"}, null, 'fixedLeft')}}
-                    {{:helper.link('Eject pAI', 'eject', {'choice' : "pai", 'option' : "2"}, null, 'fixedLeft')}}
-                </div>
-            </div>
-        {{/if}}
-
-
-	{{else data.mode == 1}} <!-- Notekeeper -->
-        <div class="item">
-            <div class="itemLabel">
-                <b>Notes</b>:
-            </div>
-        </div>
-        <div class="statusDisplayRecords">
-            <div class="item">
-                <div class="itemContent" style="width: 100%;">
-                        <span class="average">{{:data.note}}</span>
-                </div>
-            </div>
-        </div>
-        <div class="item">
-            <div class="itemLabel">
-                {{:helper.link('Edit Notes', 'gear', {'choice' : "Edit"}, null, 'fixedLeft')}}
-            </div>
-        </div>
-
-
-    {{else data.mode == 2}} <!-- Messenger -->
-        <H2>SpaceMessenger V4.0.1</H2>
-        <div class="item">
-            <div class="itemLabelNarrow">
-                <b>Messenger Functions</b>:
-            </div>
-            <div class ="itemContent">
-                {{:helper.link(data.message_silent==1 ? 'Ringer: Off' : 'Ringer: On', data.message_silent==1 ? 'volume-off' : 'volume-on', {'choice' : "Toggle Ringer"}, null, 'fixedLeftWide')}}
-                {{:helper.link(data.toff==1 ? 'Messenger: Off' : 'Messenger: On',data.toff==1 ? 'close':'check', {'choice' : "Toggle Messenger"}, null, 'fixedLeftWide')}}
-                {{:helper.link('Set Ringtone', 'comment', {'choice' : "Ringtone"}, null, 'fixedLeftWide')}}
-                {{:helper.link('Delete all Conversations', 'trash', {'choice' : "Clear", 'option' : "All"}, null, 'fixedLeftWider')}}
-            </div>
-        </div>
-        {{if data.toff == 0}}
-            <br><br>
-            {{if data.cartridge}}
-                {{if data.cartridge.charges}}
-                    <div class="item">
-                        <b>{{:data.cartridge.charges}}
-                        {{if data.cartridge.access.access_detonate_pda}} detonation charges left. {{/if}}
-                        {{if data.cartridge.access.access_clown || data.cartridge.access.access_mime}} viral files left. {{/if}}
-                        </b>
-                        <br><br>
-                    </div>
-                {{/if}}
-            {{/if}}
-
-            {{if data.pda_count == 0}}
-                <b>No other PDAS located</b>
-            {{else}}
-                <H3>Current Conversations</H3>
-                {{for data.convopdas}}
-                    <div class="item">
-                        {{:helper.link(value.Name, 'circle-arrow-s', {'choice' : "Select Conversation", 'convo' : value.Reference } , null, value.fixedLeftWider)}}
-                        {{if data.cartridge}}
-                            {{if data.cartridge.access.access_detonate_pda && value.Detonate}}
-                                {{:helper.link('*Detonate*', 'radiation', {'choice' : "Detonate", 'target' : value.Reference}, null, 'fixedLeft')}}
-                            {{/if}}
-                            {{if data.cartridge.access.access_clown}}
-                                {{:helper.link('*Send Virus*', 'star', {'choice' : "Send Honk", 'target' : value.Reference}, null, 'fixedLeft')}}
-                            {{/if}}
-                            {{if data.cartridge.access.access_mime}}
-                                {{:helper.link('*Send Virus*', 'circle-arrow-s', {'choice' : "Send Silence", 'target' : value.Reference}, null, 'fixedLeft')}}
-                            {{/if}}
-                        {{/if}}
-                    </div>
-                {{/for}}
-                <H3>Other PDAs</H3>
-                {{for data.pdas}}
-                    <div class="item">
-                        {{:helper.link(value.Name, 'circle-arrow-s', {'choice' : "Message", 'target' : value.Reference}, null, value.fixedLeftWider)}}
-                        {{if data.cartridge}}
-                            {{if data.cartridge.access.access_detonate_pda && value.Detonate}} {{:helper.link('*Detonate*', 'radiation', {'choice' : "Detonate", 'target' : value.Reference}, null, 'fixedLeft')}}  {{/if}}
-                            {{if data.cartridge.access.access_clown}} {{:helper.link('*Send Virus*', 'star', {'choice' : "Send Honk", 'target' : value.Reference}, null, 'fixedLeft')}}  {{/if}}
-                            {{if data.cartridge.access.access_mime}}  {{:helper.link('*Send Virus*', 'circle-arrow-s', {'choice' : "Send Silence", 'target' : value.Reference}, null, 'fixedLeft')}}  {{/if}}
-                        {{/if}}
-                    </div>
-                {{/for}}
-            {{/if}}
-        {{/if}}
-
-
-	{{else data.mode == 21}} <!-- Messenger -->
-	    <H2>SpaceMessenger V4.0.1</H2>
-        <div class="item">
-            <div class="itemLabel">
-                <b>Messenger Functions</b>:
-            </div>
-            <div class ="itemContent">
-                {{:helper.link('Delete Conversation', 'trash', {'choice' : "Clear", 'option' : "Convo"}, null, 'fixedLeftWide')}}
-            </div>
-        </div>
-        <br>
-        <br>
-        <H3>Conversation with:&nbsp;<span class="average">{{:data.convo_name}}&nbsp;({{:data.convo_job}})</span></H3>
-        <div class="statusDisplay" style="overflow: auto;">
-            <div class="item">
-                <div class="itemContent" style="width: 100%;">
-                    {{for data.messages}}
-                        {{if data.active_conversation == value.target}}
-                            {{if value.sent==0}}
-                                <span class="average">{{:value.timestamp}}- <B>Them</B>: {{:value.message}}</span><br>
-                            {{else}}
-                                <span class="good">{{:value.timestamp}}- <B>You</B>: {{:value.message}}</span><br>
-                            {{/if}}
-                        {{/if}}
-                    {{/for}}
-                </div>
-            </div>
-        </div>
-        {{:helper.link('Reply', 'comment', {'choice' : "Message", 'target': data.active_conversation}, null, 'fixedLeft')}}
-
-
-	{{else data.mode== 41}} <!-- Manifest uses cached data so we only use nanowriter when shit changes.-->
-	    <div class="item">
-            {{:data.crew_manifest}}
-        </div>
-
-
-	{{else data.mode == 3}}
-        <H2>Atmospheric Scan</H2>
-        <div class="statusDisplay" style="height: 250px; overflow: auto;">
-            <div class="item">
-                {{if data.aircontents.reading == 1}}
-                    <div class="itemLabel">
-                        Pressure:
-                    </div>
-                    <div class = "itemContent">
-				        {{:helper.string('<span class="{0}">{1} kPa</span>', data.aircontents.pressure < 80 || data.aircontents.pressure > 120 ? 'bad' : data.aircontents.pressure < 95 || data.aircontents.pressure > 110 ? 'average' : 'good' , data.aircontents.pressure)}}
-                    </div>
-                    <div class="itemLabel">
-                        Temperature:
-                    </div>
-                    <div class = "itemContent">
-				        {{:helper.string('<span class="{0}">{1} &deg;C</span>', data.aircontents.temp < 5 || data.aircontents.temp > 35 ? 'bad' : data.aircontents.temp < 15 || data.aircontents.temp > 25 ? 'average' : 'good' , data.aircontents.temp)}}
-                    </div>
-                    <br>
-                    <div class="itemLabel">
-                        Oxygen:
-                    </div>
-                    <div class = "itemContent">
-                        {{:helper.string('<span class="{0}">{1}%</span>', data.aircontents.oxygen < 17 ? 'bad' : data.aircontents.oxygen < 19 ? 'average' : 'good' , data.aircontents.oxygen)}}
-                    </div>
-                    <div class="itemLabel">
-                        Nitrogen:
-                    </div>
-                    <div class = "itemContent">
-                        {{:helper.string('<span class="{0}">{1}%</span>', data.aircontents.nitrogen > 82 ? 'bad' : data.aircontents.nitrogen > 80 ? 'average' : 'good' , data.aircontents.nitrogen)}}
-                    </div>
-                    <div class="itemLabel">
-                        Carbon Dioxide:
-                    </div>
-                    <div class = "itemContent">
-                        {{:helper.string('<span class="{0}">{1}%</span>', data.aircontents.carbon_dioxide > 5 ? 'bad' : 'good' , data.aircontents.carbon_dioxide)}}
-                    </div>
-                    <div class="itemLabel">
-                        Phoron:
-                    </div>
-                    <div class = "itemContent">
-                        {{:helper.string('<span class="{0}">{1}%</span>', data.aircontents.phoron  > 0 ? 'bad' : 'good' , data.aircontents.phoron)}}
-
-                    </div>
-                    {{if data.aircontents.other > 0}}
-                        <div class="itemLabel">
-                            Unknown:
-                        </div>
-                        <div class = "itemContent">
-                            <span class="bad">{{:data.aircontents.other}}%</span>
-                        </div>
-                    {{/if}}
-                {{else}}
-                    <div class="itemContent" style="width: 100%;">
-                        <span class="average"><b>Unable to get air reading</b></span>
-                    </div>
-                {{/if}}
-            </div>
-        </div>
-
-
-	{{else data.mode == 40}} <!-- Cartridge: Signaler -->
-        <H2>Remote Signaling System</H2>
-        <div class="item">
-            <div class="itemLabel">
-                <b>Frequency</b>:
-            </div>
-            <div class="itemContent">
-                {{:data.records.signal_freq}}
-                <br>
-                &nbsp;
-                {{:helper.link('-1', null, {'cartmenu' : "1", 'choice' : "Signal Frequency", 'sfreq' : "-10"}, null, null)}}&nbsp;
-                {{:helper.link('-.2', null, {'cartmenu' : "1", 'choice' : "Signal Frequency", 'sfreq' : "-2"}, null, null)}}&nbsp;
-
-                {{:helper.link('+.2', null, {'cartmenu' : "1", 'choice' : "Signal Frequency", 'sfreq' : "2"}, null, null)}}&nbsp;
-                {{:helper.link('+1', null, {'cartmenu' : "1", 'choice' : "Signal Frequency", 'sfreq' : "10"}, null, null)}}
-            </div>
-        </div>
-        <br>
-        <br>
-        <div class="item">
-            <div class="itemLabel">
-                    <b>Code</b>:
-            </div>
-            <div class="itemContent">
-                <span class="average">
-                    {{:data.records.signal_code}}<br>
-                </span>
-                {{:helper.link('-5', null, {'cartmenu' : "1", 'choice' : "Signal Code", 'scode' : "-5"}, null, null)}}
-                {{:helper.link('-1', null, {'cartmenu' : "1", 'choice' : "Signal Code", 'scode' : "-1"}, null, null)}}
-                {{:helper.link('+1', null, {'cartmenu' : "1", 'choice' : "Signal Code", 'scode' : "1"}, null, null)}}
-                {{:helper.link('+5', null, {'cartmenu' : "1", 'choice' : "Signal Code", 'scode' : "5"}, null, null)}}
-            </div>
-        </div>
-        <div class="item">
-            {{:helper.link('Send Signal', 'radiation', {'cartmenu' : "1", 'choice' : "Send Signal"}, null, null)}}
-        </div>
-
-
-    {{else data.mode == 42}}
-        <H2>Status Displays Interlink</H2>
-        <div class="item">
-            <div class="itemLabel">
-                <b>General</b>:
-            </div>
-            <div class="itemContent">
-                {{:helper.link('Clear',       'trash', {'cartmenu' : "1", 'choice' : "Status", 'statdisp' : "blank"},   null, null)}}
-                {{:helper.link('Local Time',  'gear',  {'cartmenu' : "1", 'choice' : 'Status', 'statdisp' : "time"},    null, null)}}
-                {{:helper.link('Shuttle ETA', 'gear',  {'cartmenu' : "1", 'choice' : "Status", 'statdisp' : "shuttle"}, null, null)}}
-                {{:helper.link('Message',     'gear',  {'cartmenu' : "1", 'choice' : "Status", 'statdisp' : "message"}, null, null)}}
-            </div>
-        </div>
-        <br>
-        <div class="item">
-            <div class="itemLabel">
-                <b>Message line 1</b>
-            </div>
-            <div class="itemContent">
-                {{:helper.link(data.records.message1 + ' (set)', 'pencil', {'cartmenu' : "1", 'choice' : "Status",'statdisp' : "setmsg1"}, null, null)}}
-            </div>
-        </div>
-        <div class="item">
-            <div class="itemLabel">
-                <b>Message line 2</b>
-            </div>
-            <div class="itemContent">
-                {{:helper.link(data.records.message2 + ' (set)', 'pencil', {'cartmenu' : "1", 'choice' : "Status",'statdisp' : "setmsg2"}, null, null)}}
-            </div>
-        </div>
-
-        <br>
-        <div class="item">
-            <div class="itemLabel">
-                <b>Alert:</b>
-            </div>
-            <div class="itemContent">
-                {{:helper.link('None',                   'alert',     {'cartmenu' : "1", 'choice' : "Status",'statdisp' : "image", 'image' : "default"}, null, null)}}
-                {{:helper.link('Current Security Level', 'alert',     {'cartmenu' : "1", 'choice' : "Status",'statdisp' : 'alert'}, null, null)}}
-                {{:helper.link('Lockdown',               'caution',   {'cartmenu' : "1", 'choice' : "Status",'statdisp' : "image", 'image' : "lockdown"}, null, null)}}
-                {{:helper.link('Biohazard',              'radiation', {'cartmenu' : "1", 'choice' : "Status",'statdisp' : "image", 'image' : "biohazard"}, null, null)}}
-            </div>
-        </div>
-
-    {{else data.mode == 43}}
-        <H2>Sensor Selection</H2>
-        <div class="item">
-            Available Sensors:
-        </div>
-        {{for data.records.power_sensors}}
-            <div class="item">
-                {{:helper.link(value.name_tag, 'plus', {'cartmenu' : "1", 'choice' : "Power Select",'target' : value.name_tag})}}<br>
-            </div>
-        {{/for}}
-
-
-    {{else data.mode == 433}}
-        <H2>Sensor Reading(Simplified View)</H2>
-		{{if data.records.sensor_reading}}
-			<table><tr><th>Area<th>Cell %<th>Load
-			{{for data.records.sensor_reading.apc_data}}
-				<tr><td>{{:value.name}}
-				<td>{{:value.cell_charge}}%
-				<td>{{:value.total_load}}
-			{{empty}}
-				<tr><td>No APCs found!
-			{{/for}}
-			</table>
-			<br><b>Available: {{:data.records.sensor_reading.total_avail}}</b>
-			<br><b>Load: {{:data.records.sensor_reading.total_used_all}}</b>
-		{{else}}
-			Unable to contact sensor controller! Please retry and contact tech support if problem persists.
-		{{/if}}
-
-	{{else data.mode == 44}}
-	    <H2>Medical Record List</H2>
-        <div class="item">
-	        Select A record
-	    </div>
-	    <br>
-		{{for data.records.medical_records}}
-            <div class="item">
-                 {{:helper.link(value.Name, 'gear', {'cartmenu' : "1", 'choice' : "Medical Records",'target' : value.ref}, null, null)}}
-            </div>
-		{{/for}}
-
-
-	{{else data.mode == 441}}
-        <H2>Medical Record</H2>
-        <div class="statusDisplayRecords">
-            <div class="item">
-                <div class="itemContent" style="width: 100%;">
-                    {{if data.records.general_exists == 1}}
-                        <span class="good">Name:		</span> <span class="average">{{:data.records.general.name}}	</span><br>
-                        <span class="good">Sex:			</span> <span class="average">{{:data.records.general.sex}}		</span><br>
-                        <span class="good">Species:		</span> <span class="average">{{:data.records.general.species}}	</span><br>
-                        <span class="good">Age:			</span> <span class="average">{{:data.records.general.age}}		</span><br>
-                        <span class="good">Rank:		</span> <span class="average">{{:data.records.general.rank}}	</span><br>
-                        <span class="good">Fingerprint:		</span> <span class="average">{{:data.records.general.fingerprint}}	</span><br>
-                        <span class="good">Physical Status:	</span> <span class="average">{{:data.records.general.p_stat}}	</span><br>
-                        <span class="good">Mental Status:	</span> <span class="average">{{:data.records.general.m_stat}}	</span><br><br>
-                    {{else}}
-                        <span class="bad">
-                            General Record Lost!<br><br>
-                        </span>
-                    {{/if}}
-                    {{if data.records.medical_exists == 1}}
-                        Medical Data:<br>
-                        <span class="good">Blood Type:		</span> <span class="average">{{:data.records.medical.b_type}}	</span><br><br>
-                        <span class="good">Minor Disabilities:	</span> <span class="average">{{:data.records.medical.mi_dis}}	</span><br>
-                        <span class="good">Details:		</span> <span class="average">{{:data.records.medical.mi_dis_d}}	</span><br><br>
-                        <span class="good">Major Disabilities:	</span> <span class="average">{{:data.records.medical.ma_dis}}	</span><br>
-                        <span class="good">Details:		</span> <span class="average">{{:data.records.medical.ma_dis_d}}	</span><br><br>
-                        <span class="good">Allergies:		</span> <span class="average">{{:data.records.medical.alg}}		</span><br>
-                        <span class="good">Details:		</span> <span class="average">{{:data.records.medical.alg_d}}	</span><br><br>
-                        <span class="good">Current Disease:	</span> <span class="average">{{:data.records.medical.cdi}}		</span><br>
-                        <span class="good">Details:		</span> <span class="average">{{:data.records.medical.alg_d}}	</span><br><br>
-                        <span class="good">Important Notes:	</span> <span class="average">{{:data.records.medical.notes}}	</span>
-                    {{else}}
-                        <span class="bad">
-                            Medical Record Lost!
-                            <br>
-                            <br>
-                        </span>
-                    {{/if}}
-                </div>
-            </div>
-        </div>
-
-
- 	{{else data.mode == 45}}
-        <H2>Security Record List</H2>
-        <div class="item">
-            Select A record
-        </div>
-        <br>
-        {{for data.records.security_records}}
-            <div class="item">
-                 {{:helper.link(value.Name, 'gear', {'cartmenu' : "1", 'choice' : "Security Records",'target' : value.ref}, null, null)}}
-            </div>
-        {{/for}}
-
-
-    {{else data.mode == 451}}
-        <H2>Security Record</H2>
-        <div class="statusDisplayRecords">
-            <div class="item">
-                <div class="itemContent" style="width: 100%;">
-                    {{if data.records.general_exists == 1}}
-                        <span class="good">Name: </span> <span class="average"> {{:data.records.general.name}}</span><br>
-                        <span class="good">Sex: </span>  <span class="average">{{:data.records.general.sex}} </span><br>
-                        <span class="good">Species: </span> <span class="average">{{:data.records.general.species}} </span><br>
-                        <span class="good">Age: </span>  <span class="average">{{:data.records.general.age}} </span><br>
-                        <span class="good">Rank: </span>  <span class="average">{{:data.records.general.rank}} </span><br>
-                        <span class="good">Fingerprint:  </span> <span class="average">{{:data.records.general.fingerprint}} </span><br>
-                        <span class="good">Physical Status:  </span> <span class="average">{{:data.records.general.p_stat}} </span><br>
-                        <span class="good">Mental Status:  </span> <span class="average">{{:data.records.general.m_stat}} </span><br><br>
-                    {{else}}
-                        <span class="bad">
-                            General Record Lost!<br><br>
-                        </span>
-                    {{/if}}
-                    {{if data.records.security_exists == 1}}
-                        Security Data:<br>
-                        <span class="good">Criminal Status:  </span><span class="average">{{:data.records.security.criminal}} </span><br><br>
-                        <span class="good">Minor Crimes:  </span><span class="average">{{:data.records.security.mi_crim}} </span><br>
-                        <span class="good">Details:  </span><span class="average">{{:data.records.security.mi_crim_d}} </span><br><br>
-                        <span class="good">Major Crimes:  </span><span class="average">{{:data.records.security.ma_crim}} </span><br>
-                        <span class="good">Details:  </span><span class="average">{{:data.records.security.ma_crim_d}} </span><br><br>
-                        <span class="good">Important Notes:   </span><span class="average">{{:data.records.security.notes}} </span>
-                    {{else}}
-                        <span class="bad">
-                            Security Record Lost!<br><br>
-                        </span>
-                    {{/if}}
-                </div>
-            </div>
-        </div>
-
-
-	{{else data.mode == 46}}
-	    <H2>Security Bot Control </H2>
-		{{if data.records.beepsky.active == null || data.records.beepsky.active == 0}}
-			{{if data.records.beepsky.count == 0}}
-				<H1><span class="bad">No bots found.</span></H1>
-			{{else}}
-                <div class="item">
-			        Select A Bot.
-                </div>
-                <br>
-                {{for data.records.beepsky.bots}}
-			        <div class="item">
-                         {{:helper.link(value.Name, 'gear', {'radiomenu' : "1", 'op' : "control",'bot' : value.ref}, null, null)}} (Location: {{:value.Location}})
-			        </div>
-                {{/for}}
-			{{/if}}
-			<br>
-            {{:helper.link('Scan for Bots','gear', {'radiomenu' : "1", 'op' : "scanbots"}, null, null)}}
-		{{else}}
-			<H1><span class="average">{{:data.records.beepsky.active}}</span></H1>
-			<br><br>
-			{{if data.records.beepsky.botstatus.mode == -1}}
-                <H1><span class="bad">Waiting for response...</span></H1>
-			{{else}}
-                <H1><span class="good">Status:</span></H1>
-                <br>
-                <div class = "item">
-                    <div class="itemLabel">
-                        <span class="good">Location:</span>
-                    </div>
-                    <div class="itemContent">
-                        <span class="average">{{:data.records.beepsky.botstatus.loca}}</span>
-                    </div>
-                </div>
-                <div class = "item">
-                    <div class="itemLabel">
-                        <span class="good">Mode:</span>
-                    </div>
-                    <div class="itemContent">
-                        <span class="average">
-                            {{if data.records.beepsky.botstatus.mode ==0}}
-                                Ready
-                            {{else data.records.beepsky.botstatus.mode == 1}}
-                                Apprehending target
-                            {{else data.records.beepsky.botstatus.mode ==2 || data.records.beepsky.botstatus.mode == 3}}
-                                Arresting target
-                            {{else data.records.beepsky.botstatus.mode ==4}}
-                                Starting patrol
-                            {{else data.records.beepsky.botstatus.mode ==5}}
-                                On Patrol
-                            {{else data.records.beepsky.botstatus.mode ==6}}
-                                Responding to summons
-                            {{/if}}
-                        </span>
-                    </div>
-                </div>
-                <div class="item">
-                    {{:helper.link('Stop Patrol', 'gear', {'radiomenu' : "1", 'op' : "stop"}, null, null)}}
-                    {{:helper.link('Start Patrol', 'gear', {'radiomenu' : "1", 'op' : "go"}, null, null)}}
-                    {{:helper.link('Summon Bot', 'gear', {'radiomenu' : "1", 'op' : "summon"}, null, null)}}
-                </div>
-			{{/if}}
-			{{:helper.link('Return to Bot list', 'gear', {'radiomenu' : "1", 'op' : "botlist"}, null, null)}}
-		{{/if}}
-
-
-	{{else data.mode == 47}}
-		<H1><span class="average">Supply Record Interlink</span></H1>
-		<div class="item">
-			<div class="itemLabelNarrow">
-				<span class="good">Location:</span>
+	<!-- User Info Card -->
+	<div class="modern-card" style="background: linear-gradient(135deg, rgba(64,98,138,0.2), rgba(0,0,0,0.3)); border-color: rgba(64,98,138,0.3);">
+		<div style="display: flex; align-items: center; gap: 10px;">
+			<div style="font-size: 32px;">👤</div>
+			<div style="flex: 1;">
+				<div style="font-size: 14px; font-weight: bold; color: #fff;">{{:data.owner}}</div>
+				<div style="font-size: 11px; color: rgba(255,255,255,0.6);">{{:data.ownjob}}</div>
 			</div>
-			<div class="itemContent">
-				<span class="average">
-					{{if data.records.supply.shuttle_moving}}
-					    Moving to dock ({{:data.records.supply.shuttle_eta}})
-					{{else}}
-					    Shuttle at {{:data.records.supply.shuttle_loc}}
+			<div style="text-align: right;">
+				<div style="font-size: 10px; color: rgba(255,255,255,0.4);">ID</div>
+				{{:helper.link(data.idLink, 'eject', {'choice' : "Authenticate"}, data.idInserted ? null : 'disabled', '')}}
+			</div>
+		</div>
+	</div>
+
+	<!-- Cartridge Info -->
+	<div class="modern-card" style="padding: 6px 12px;">
+		<div style="display: flex; align-items: center; justify-content: space-between;">
+			<span style="font-size: 10px; color: rgba(255,255,255,0.5);">💾 Cartridge:</span>
+			{{if data.cart_loaded==1}}
+				{{:helper.link(data.cartridge.name, 'eject', {'choice' : "Eject"}, null, '')}}
+			{{else}}
+				<span style="color: rgba(255,255,255,0.3); font-size: 10px;">None inserted</span>
+			{{/if}}
+		</div>
+	</div>
+
+	<!-- Apps Grid - General -->
+	<div class="modern-card">
+		<div class="modern-card-title">📱 Applications</div>
+		<div class="pda-app-grid">
+			<div class="pda-app-icon" onclick="window.location='byond://?src=\ref[src]&choice=1'">
+				<div class="icon-img">📝</div>
+				<div class="icon-label">Notes</div>
+			</div>
+			<div class="pda-app-icon" onclick="window.location='byond://?src=\ref[src]&choice=2'">
+				<div class="icon-img">💬</div>
+				<div class="icon-label">Messenger{{if data.new_Message}} <span class="bad">●</span>{{/if}}</div>
+			</div>
+			<div class="pda-app-icon" onclick="window.location='byond://?src=\ref[src]&choice=41'">
+				<div class="icon-img">👥</div>
+				<div class="icon-label">Crew</div>
+			</div>
+			<div class="pda-app-icon" onclick="window.location='byond://?src=\ref[src]&choice=6'">
+				<div class="icon-img">📰</div>
+				<div class="icon-label">News{{if data.new_News}} <span class="bad">●</span>{{/if}}</div>
+			</div>
+			<div class="pda-app-icon" onclick="window.location='byond://?src=\ref[src]&choice=3'">
+				<div class="icon-img">🌬️</div>
+				<div class="icon-label">Atmos</div>
+			</div>
+			<div class="pda-app-icon" onclick="window.location='byond://?src=\ref[src]&choice=Light'">
+				<div class="icon-img">🔦</div>
+				<div class="icon-label">{{if data.fon==1}}ON{{else}}OFF{{/if}}</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Cartridge Apps -->
+	{{if data.cartridge}}
+	<div class="modern-card">
+		<div class="modern-card-title">🔌 Cartridge Apps</div>
+		<div class="pda-app-grid">
+			{{if data.cartridge.access.access_clown == 1}}
+			<div class="pda-app-icon" onclick="window.location='byond://?src=\ref[src]&choice=Honk'">
+				<div class="icon-img">🤡</div>
+				<div class="icon-label">Honk</div>
+			</div>
+			{{/if}}
+			{{if data.cartridge.access.access_engine == 1}}
+			<div class="pda-app-icon" onclick="window.location='byond://?src=\ref[src]&choice=43'">
+				<div class="icon-img">⚡</div>
+				<div class="icon-label">Power</div>
+			</div>
+			{{/if}}
+			{{if data.cartridge.access.access_quartermaster == 1}}
+			<div class="pda-app-icon" onclick="window.location='byond://?src=\ref[src]&choice=47'">
+				<div class="icon-img">📦</div>
+				<div class="icon-label">Supply</div>
+			</div>
+			<div class="pda-app-icon" onclick="window.location='byond://?src=\ref[src]&choice=48'">
+				<div class="icon-img">🤖</div>
+				<div class="icon-label">MULE</div>
+			</div>
+			{{/if}}
+			{{if data.cartridge.access.access_status_display == 1}}
+			<div class="pda-app-icon" onclick="window.location='byond://?src=\ref[src]&choice=42'">
+				<div class="icon-img">🖥️</div>
+				<div class="icon-label">Status</div>
+			</div>
+			{{/if}}
+			{{if data.cartridge.access.access_janitor==1}}
+			<div class="pda-app-icon" onclick="window.location='byond://?src=\ref[src]&choice=49'">
+				<div class="icon-img">🧹</div>
+				<div class="icon-label">Custodial</div>
+			</div>
+			{{/if}}
+			{{if data.cartridge.radio == 2}}
+			<div class="pda-app-icon" onclick="window.location='byond://?src=\ref[src]&choice=40'">
+				<div class="icon-img">📡</div>
+				<div class="icon-label">Signaler</div>
+			</div>
+			{{/if}}
+			{{if data.cartridge.access.access_reagent_scanner==1}}
+			<div class="pda-app-icon" onclick="window.location='byond://?src=\ref[src]&choice=Reagent Scan'">
+				<div class="icon-img">🧪</div>
+				<div class="icon-label">Reagent{{if data.scanmode == 3}} ✅{{/if}}</div>
+			</div>
+			{{/if}}
+			{{if data.cartridge.access.access_engine==1}}
+			<div class="pda-app-icon" onclick="window.location='byond://?src=\ref[src]&choice=Halogen Counter'">
+				<div class="icon-img">💡</div>
+				<div class="icon-label">Halogen{{if data.scanmode == 4}} ✅{{/if}}</div>
+			</div>
+			{{/if}}
+			{{if data.cartridge.access.access_atmos==1}}
+			<div class="pda-app-icon" onclick="window.location='byond://?src=\ref[src]&choice=Gas Scan'">
+				<div class="icon-img">🫧</div>
+				<div class="icon-label">Gas{{if data.scanmode == 5}} ✅{{/if}}</div>
+			</div>
+			{{/if}}
+			{{if data.cartridge.access.access_remote_door==1}}
+			<div class="pda-app-icon" onclick="window.location='byond://?src=\ref[src]&choice=Toggle Door'">
+				<div class="icon-img">🚪</div>
+				<div class="icon-label">Door</div>
+			</div>
+			{{/if}}
+		</div>
+	</div>
+	{{/if}}
+
+	<!-- pAI -->
+	{{if data.pai}}
+	<div class="modern-card">
+		<div class="modern-card-title">🤖 pAI</div>
+		<div class="pda-app-grid">
+			<div class="pda-app-icon" onclick="window.location='byond://?src=\ref[src]&choice=pai&option=1'">
+				<div class="icon-img">⚙️</div>
+				<div class="icon-label">Config</div>
+			</div>
+			<div class="pda-app-icon" onclick="window.location='byond://?src=\ref[src]&choice=pai&option=2'">
+				<div class="icon-img">⏏️</div>
+				<div class="icon-label">Eject</div>
+			</div>
+		</div>
+	</div>
+	{{/if}}
+
+{{else data.mode == 1}} <!-- ===== NOTEKEEPER ===== -->
+	<div class="modern-card">
+		<div class="modern-card-title">📝 Notes</div>
+		<div class="statusDisplayRecords" style="min-height: 100px;">
+			<div class="item">
+				<div class="itemContent" style="width: 100%;">
+					<span class="average">{{:data.note}}</span>
+				</div>
+			</div>
+		</div>
+		<div style="text-align: center; margin-top: 8px;">
+			{{:helper.link('✏️ Edit Notes', 'gear', {'choice' : "Edit"}, null, '')}}
+		</div>
+	</div>
+
+{{else data.mode == 2}} <!-- ===== MESSENGER ===== -->
+	<div class="modern-card">
+		<div class="modern-card-title" style="display: flex; align-items: center; gap: 8px;">
+			💬 SpaceMessenger V4
+			<span style="flex:1;"></span>
+			<span style="font-size: 9px; opacity: 0.5;">{{:data.message_silent==1 ? '🔇' : '🔔'}}</span>
+		</div>
+
+		<div style="display: flex; gap: 4px; flex-wrap: wrap; margin-bottom: 8px;">
+			{{:helper.link(data.message_silent==1 ? '🔇 Silent' : '🔔 Sound', data.message_silent==1 ? 'volume-off' : 'volume-on', {'choice' : "Toggle Ringer"}, null, '')}}
+			{{:helper.link(data.toff==1 ? '✈️ Offline' : '🟢 Online', data.toff==1 ? 'close':'check', {'choice' : "Toggle Messenger"}, null, '')}}
+			{{:helper.link('🎵 Ringtone', 'comment', {'choice' : "Ringtone"}, null, '')}}
+			{{:helper.link('🗑️ Clear All', 'trash', {'choice' : "Clear", 'option' : "All"}, null, '')}}
+		</div>
+	</div>
+
+	{{if data.toff == 0}}
+		{{if data.cartridge && data.cartridge.charges}}
+		<div style="padding: 4px 12px; background: rgba(205,101,0,0.15); border: 1px solid rgba(205,101,0,0.3); border-radius: 8px; margin: 4px 0; font-size: 10px; color: #cd6500;">
+			⚠ {{:data.cartridge.charges}}
+			{{if data.cartridge.access.access_detonate_pda}} detonation charges {{/if}}
+			{{if data.cartridge.access.access_clown || data.cartridge.access.access_mime}} viral files {{/if}}
+			left
+		</div>
+		{{/if}}
+
+		{{if data.pda_count == 0}}
+		<div class="modern-card" style="text-align: center; padding: 20px;">
+			<div style="font-size: 36px; opacity: 0.3;">📡</div>
+			<div style="color: rgba(255,255,255,0.4); margin-top: 8px;">No other PDAs located</div>
+		</div>
+		{{else}}
+		<div class="modern-card">
+			<div class="modern-card-title">💬 Conversations</div>
+			{{for data.convopdas}}
+			<div style="display: flex; align-items: center; padding: 6px 8px; margin: 2px 0; background: rgba(64,98,138,0.1); border-radius: 8px;">
+				<div style="flex: 1;">
+					{{:helper.link('💬 ' + value.Name, 'circle-arrow-s', {'choice' : "Select Conversation", 'convo' : value.Reference }, null, '')}}
+				</div>
+				{{if data.cartridge}}
+					{{if data.cartridge.access.access_detonate_pda && value.Detonate}}
+						{{:helper.link('💥', 'radiation', {'choice' : "Detonate", 'target' : value.Reference}, null, '')}}
 					{{/if}}
-				</span>
+					{{if data.cartridge.access.access_clown}}
+						{{:helper.link('🤡', 'star', {'choice' : "Send Honk", 'target' : value.Reference}, null, '')}}
+					{{/if}}
+					{{if data.cartridge.access.access_mime}}
+						{{:helper.link('🤫', 'circle-arrow-s', {'choice' : "Send Silence", 'target' : value.Reference}, null, '')}}
+					{{/if}}
+				{{/if}}
+			</div>
+			{{/for}}
+		</div>
+
+		<div class="modern-card">
+			<div class="modern-card-title">📋 All PDAs</div>
+			{{for data.pdas}}
+			<div style="display: flex; align-items: center; padding: 6px 8px; margin: 2px 0; background: rgba(0,0,0,0.2); border-radius: 8px;">
+				<div style="flex: 1;">
+					{{:helper.link('📱 ' + value.Name, 'circle-arrow-s', {'choice' : "Message", 'target' : value.Reference}, null, '')}}
+				</div>
+				{{if data.cartridge}}
+					{{if data.cartridge.access.access_detonate_pda && value.Detonate}}
+						{{:helper.link('💥', 'radiation', {'choice' : "Detonate", 'target' : value.Reference}, null, '')}}
+					{{/if}}
+					{{if data.cartridge.access.access_clown}}
+						{{:helper.link('🤡', 'star', {'choice' : "Send Honk", 'target' : value.Reference}, null, '')}}
+					{{/if}}
+					{{if data.cartridge.access.access_mime}}
+						{{:helper.link('🤫', 'circle-arrow-s', {'choice' : "Send Silence", 'target' : value.Reference}, null, '')}}
+					{{/if}}
+				{{/if}}
+			</div>
+			{{/for}}
+		</div>
+		{{/if}}
+	{{/if}}
+
+{{else data.mode == 21}} <!-- ===== MESSENGER CONVERSATION ===== -->
+	<div class="modern-card">
+		<div class="modern-card-title">
+			💬 {{:data.convo_name}} <span style="font-size: 9px; opacity: 0.5;">({{:data.convo_job}})</span>
+		</div>
+		<div style="margin-bottom: 6px;">
+			{{:helper.link('🗑️ Delete', 'trash', {'choice' : "Clear", 'option' : "Convo"}, null, '')}}
+		</div>
+		<div class="statusDisplay" style="overflow: auto; min-height: 120px; max-height: 300px;">
+			<div class="item">
+				<div class="itemContent" style="width: 100%;">
+					{{for data.messages}}
+						{{if data.active_conversation == value.target}}
+							<div class="convo-bubble {{if value.sent==0}}them{{else}}you{{/if}}">
+								<span style="font-size: 8px; opacity: 0.5;">{{:value.timestamp}}</span><br>
+								{{if value.sent==0}}
+									<b style="color: rgba(64,98,138,0.8);">Them</b>: {{:value.message}}
+								{{else}}
+									<b style="color: rgba(79,117,41,0.8);">You</b>: {{:value.message}}
+								{{/if}}
+							</div>
+							<div style="clear: both;"></div>
+						{{/if}}
+					{{/for}}
+				</div>
 			</div>
 		</div>
+		<div style="text-align: center; margin-top: 8px;">
+			{{:helper.link('✏️ Reply', 'comment', {'choice' : "Message", 'target': data.active_conversation}, null, '')}}
+		</div>
+	</div>
+
+{{else data.mode == 41}} <!-- ===== MANIFEST ===== -->
+	<div class="modern-card">
+		<div class="modern-card-title">👥 Crew Manifest</div>
 		<div class="statusDisplayRecords">
-            <div class="item">
-                <div class="itemContent" style="width: 100%;">
-                    <span class="good"><B>Current Approved Orders</B></span><br>
-                    {{if data.records.supply.approved_count == 0}}
-                        <span class="average"> No current approved orders </span><br><br>
-                    {{else}}
-                        {{for data.records.supply.approved}}
-                            <span class="average">#{{:value.Number}} - {{:value.Name}} approved by {{:value.OrderedBy}}<br>{{if value.Comment != ""}} {{:value.Comment}} <br>{{/if}}<br></span>
-                        {{/for}}
-                    {{/if}}
-                    <br><br>
-                    <span class="good"><B>Current Requested Orders</B></span><br>
-                    {{if data.records.supply.requests_count == 0}}
-                            <span class="average">No current requested orders</span><br><br>
-                    {{else}}
-                        {{for data.records.supply.requests}}
-                            <span class="average">#{{:value.Number}} - {{:value.Name}} requested by {{:value.OrderedBy}}<br>{{if value.Comment != ""}} {{:value.Comment}} <br>{{/if}}<br></span>
-                        {{/for}}
-                    {{/if}}
+			<div class="item">
+				{{:data.crew_manifest}}
+			</div>
+		</div>
+	</div>
+
+{{else data.mode == 3}} <!-- ===== ATMOSPHERIC SCAN ===== -->
+	<div class="modern-card">
+		<div class="modern-card-title">🌬️ Atmospheric Scan</div>
+		<div class="statusDisplay" style="overflow: auto;">
+			<div class="item">
+				{{if data.aircontents.reading == 1}}
+					<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px; padding: 4px;">
+						<div style="background: rgba(0,0,0,0.3); padding: 8px; border-radius: 8px; text-align: center;" class="{{if data.aircontents.pressure < 80 || data.aircontents.pressure > 120}}bad{{else data.aircontents.pressure < 95 || data.aircontents.pressure > 110}}average{{else}}good{{/if}}">
+							<div style="font-size: 9px; color: rgba(255,255,255,0.5);">Pressure</div>
+							<div style="font-size: 16px; font-weight: bold;">{{:data.aircontents.pressure}} kPa</div>
+						</div>
+						<div style="background: rgba(0,0,0,0.3); padding: 8px; border-radius: 8px; text-align: center;" class="{{if data.aircontents.temp < 5 || data.aircontents.temp > 35}}bad{{else data.aircontents.temp < 15 || data.aircontents.temp > 25}}average{{else}}good{{/if}}">
+							<div style="font-size: 9px; color: rgba(255,255,255,0.5);">Temperature</div>
+							<div style="font-size: 16px; font-weight: bold;">{{:data.aircontents.temp}}°C</div>
+						</div>
+						<div style="background: rgba(0,0,0,0.3); padding: 8px; border-radius: 8px; text-align: center;" class="{{if data.aircontents.oxygen < 17}}bad{{else data.aircontents.oxygen < 19}}average{{else}}good{{/if}}">
+							<div style="font-size: 9px; color: rgba(255,255,255,0.5);">O₂</div>
+							<div style="font-size: 16px; font-weight: bold;">{{:data.aircontents.oxygen}}%</div>
+						</div>
+						<div style="background: rgba(0,0,0,0.3); padding: 8px; border-radius: 8px; text-align: center;" class="{{if data.aircontents.nitrogen > 82}}bad{{else data.aircontents.nitrogen > 80}}average{{else}}good{{/if}}">
+							<div style="font-size: 9px; color: rgba(255,255,255,0.5);">N₂</div>
+							<div style="font-size: 16px; font-weight: bold;">{{:data.aircontents.nitrogen}}%</div>
+						</div>
+						<div style="background: rgba(0,0,0,0.3); padding: 8px; border-radius: 8px; text-align: center;" class="{{if data.aircontents.carbon_dioxide > 5}}bad{{else}}good{{/if}}">
+							<div style="font-size: 9px; color: rgba(255,255,255,0.5);">CO₂</div>
+							<div style="font-size: 16px; font-weight: bold;">{{:data.aircontents.carbon_dioxide}}%</div>
+						</div>
+						<div style="background: rgba(0,0,0,0.3); padding: 8px; border-radius: 8px; text-align: center;" class="{{if data.aircontents.phoron > 0}}bad{{else}}good{{/if}}">
+							<div style="font-size: 9px; color: rgba(255,255,255,0.5);">Phoron</div>
+							<div style="font-size: 16px; font-weight: bold;">{{:data.aircontents.phoron}}%</div>
+						</div>
+					</div>
+				{{else}}
+					<div style="text-align: center; padding: 20px;">
+						<div style="font-size: 36px; opacity: 0.3;">🔌</div>
+						<div class="average"><b>Unable to get air reading</b></div>
+					</div>
+				{{/if}}
+			</div>
+		</div>
+	</div>
+
+{{else data.mode == 40}} <!-- ===== SIGNALER ===== -->
+	<div class="modern-card">
+		<div class="modern-card-title">📡 Remote Signaling System</div>
+		<div class="statusDisplay" style="text-align: center;">
+			<div style="font-size: 28px; font-weight: bold; letter-spacing: 2px; margin: 8px 0;">{{:data.records.signal_freq}}</div>
+			<div style="font-size: 10px; color: rgba(255,255,255,0.4);">Frequency</div>
+			<div style="margin: 6px 0; display: flex; gap: 2px; justify-content: center;">
+				{{:helper.link('-1', null, {'cartmenu' : "1", 'choice' : "Signal Frequency", 'sfreq' : "-10"}, null, null)}}
+				{{:helper.link('-.2', null, {'cartmenu' : "1", 'choice' : "Signal Frequency", 'sfreq' : "-2"}, null, null)}}
+				{{:helper.link('+.2', null, {'cartmenu' : "1", 'choice' : "Signal Frequency", 'sfreq' : "2"}, null, null)}}
+				{{:helper.link('+1', null, {'cartmenu' : "1", 'choice' : "Signal Frequency", 'sfreq' : "10"}, null, null)}}
+			</div>
+			<div class="header-accent"></div>
+			<div style="font-size: 24px; font-weight: bold; margin: 8px 0; color: #cd6500;">{{:data.records.signal_code}}</div>
+			<div style="font-size: 10px; color: rgba(255,255,255,0.4);">Code</div>
+			<div style="margin: 6px 0; display: flex; gap: 2px; justify-content: center;">
+				{{:helper.link('-5', null, {'cartmenu' : "1", 'choice' : "Signal Code", 'scode' : "-5"}, null, null)}}
+				{{:helper.link('-1', null, {'cartmenu' : "1", 'choice' : "Signal Code", 'scode' : "-1"}, null, null)}}
+				{{:helper.link('+1', null, {'cartmenu' : "1", 'choice' : "Signal Code", 'scode' : "1"}, null, null)}}
+				{{:helper.link('+5', null, {'cartmenu' : "1", 'choice' : "Signal Code", 'scode' : "5"}, null, null)}}
+			</div>
+			<div style="margin-top: 12px;">
+				{{:helper.link('📡 Send Signal', 'radiation', {'cartmenu' : "1", 'choice' : "Send Signal"}, null, 'selected')}}
+			</div>
+		</div>
+	</div>
+
+{{else data.mode == 42}} <!-- ===== STATUS DISPLAY ===== -->
+	<div class="modern-card">
+		<div class="modern-card-title">🖥️ Status Displays</div>
+		<div class="statusDisplay">
+			<div style="margin-bottom: 8px;">
+				<b>General</b>:<br>
+				<div style="display: flex; gap: 2px; flex-wrap: wrap; margin-top: 4px;">
+					{{:helper.link('Clear', 'trash', {'cartmenu' : "1", 'choice' : "Status", 'statdisp' : "blank"}, null, null)}}
+					{{:helper.link('🕐 Time', 'gear', {'cartmenu' : "1", 'choice' : 'Status', 'statdisp' : "time"}, null, null)}}
+					{{:helper.link('🚀 Shuttle', 'gear', {'cartmenu' : "1", 'choice' : "Status", 'statdisp' : "shuttle"}, null, null)}}
+					{{:helper.link('✏️ Message', 'gear', {'cartmenu' : "1", 'choice' : "Status", 'statdisp' : "message"}, null, null)}}
+				</div>
+			</div>
+			<div class="header-accent"></div>
+			<div style="margin: 8px 0;">
+				<div style="display: flex; align-items: center; padding: 4px 0;">
+					<span style="width: 100px; color: rgba(255,255,255,0.5);">Line 1:</span>
+					{{:helper.link(data.records.message1 + ' (set)', 'pencil', {'cartmenu' : "1", 'choice' : "Status",'statdisp' : "setmsg1"}, null, null)}}
+				</div>
+				<div style="display: flex; align-items: center; padding: 4px 0;">
+					<span style="width: 100px; color: rgba(255,255,255,0.5);">Line 2:</span>
+					{{:helper.link(data.records.message2 + ' (set)', 'pencil', {'cartmenu' : "1", 'choice' : "Status",'statdisp' : "setmsg2"}, null, null)}}
+				</div>
+			</div>
+			<div class="header-accent"></div>
+			<div style="margin-top: 8px;">
+				<b>Alert</b>:<br>
+				<div style="display: flex; gap: 2px; flex-wrap: wrap; margin-top: 4px;">
+					{{:helper.link('None', 'alert', {'cartmenu' : "1", 'choice' : "Status",'statdisp' : "image", 'image' : "default"}, null, null)}}
+					{{:helper.link('⚠️ Security', 'alert', {'cartmenu' : "1", 'choice' : "Status",'statdisp' : 'alert'}, null, null)}}
+					{{:helper.link('🔒 Lockdown', 'caution', {'cartmenu' : "1", 'choice' : "Status",'statdisp' : "image", 'image' : "lockdown"}, null, null)}}
+					{{:helper.link('☣️ Biohazard', 'radiation', {'cartmenu' : "1", 'choice' : "Status",'statdisp' : "image", 'image' : "biohazard"}, null, null)}}
 				</div>
 			</div>
 		</div>
+	</div>
 
+{{else data.mode == 43}} <!-- ===== POWER SENSOR SELECT ===== -->
+	<div class="modern-card">
+		<div class="modern-card-title">⚡ Power Monitor</div>
+		<div class="statusDisplay">
+			Available Sensors:<br><br>
+			{{for data.records.power_sensors}}
+				<div style="padding: 4px 0;">{{:helper.link('🔌 ' + value.name_tag, 'plus', {'cartmenu' : "1", 'choice' : "Power Select",'target' : value.name_tag})}}</div>
+			{{/for}}
+		</div>
+	</div>
 
-	{{else data.mode == 48}}
-		<H2>Mule Control</H2>
-		{{if data.records.mulebotcount == 0}}
-			<H1><span class="bad">No bots found.</span></H1>
+{{else data.mode == 433}} <!-- ===== POWER SENSOR READING ===== -->
+	<div class="modern-card">
+		<div class="modern-card-title">⚡ Power Grid Status</div>
+		{{if data.records.sensor_reading}}
+			<div class="statusDisplay" style="padding: 0; overflow: hidden;">
+				<table style="width: 100%; border-collapse: collapse;">
+					<tr style="background: rgba(64,98,138,0.3);">
+						<th style="padding: 6px 8px; text-align: left; font-size: 9px; text-transform: uppercase;">Area</th>
+						<th style="padding: 6px 8px; text-align: center; font-size: 9px; text-transform: uppercase;">Cell</th>
+						<th style="padding: 6px 8px; text-align: right; font-size: 9px; text-transform: uppercase;">Load</th>
+					</tr>
+					{{for data.records.sensor_reading.apc_data}}
+					<tr style="border-top: 1px solid rgba(255,255,255,0.05);">
+						<td style="padding: 4px 8px;">{{:value.name}}</td>
+						<td style="padding: 4px 8px; text-align: center;">
+							<span class="{{if value.cell_charge >= 50}}good{{else value.cell_charge >= 25}}average{{else}}bad{{/if}}">
+								{{:value.cell_charge}}%
+							</span>
+						</td>
+						<td style="padding: 4px 8px; text-align: right;">{{:value.total_load}}W</td>
+					</tr>
+					{{empty}}
+					<tr><td colspan="3" style="padding: 12px; text-align: center; color: rgba(255,255,255,0.4);">No APCs found!</td></tr>
+					{{/for}}
+				</table>
+			</div>
+			<div style="display: flex; justify-content: space-between; padding: 8px 0;">
+				<span>Available: <b class="good">{{:data.records.sensor_reading.total_avail}}</b></span>
+				<span>Load: <b class="average">{{:data.records.sensor_reading.total_used_all}}</b></span>
+			</div>
 		{{else}}
-			<H2>Mule List</H2>
-			{{for data.records.mulebots}}
+			<div class="notice" style="text-align: center;">
+				Unable to contact sensor controller!<br>
+				<span style="font-size: 10px;">Please retry and contact tech support if problem persists.</span>
+			</div>
+		{{/if}}
+	</div>
+
+{{else data.mode == 44 || data.mode == 441}} <!-- ===== MEDICAL RECORDS ===== -->
+	<div class="modern-card">
+		<div class="modern-card-title">🏥 Medical Records</div>
+		{{if data.mode == 44}}
+			<div class="statusDisplayRecords">
+				Select A record<br><br>
+				{{for data.records.medical_records}}
+					<div style="padding: 4px 0;">{{:helper.link('👤 ' + value.Name, 'gear', {'cartmenu' : "1", 'choice' : "Medical Records",'target' : value.ref}, null, null)}}</div>
+				{{/for}}
+			</div>
+		{{else}}
+			<div class="statusDisplayRecords">
 				<div class="item">
-					<div class="itemLabel">Mulebot #{{:value.name}}</div>
-					<div class="itemContent">Location: {{:value.location}}<br>Home: {{:value.home}}<br>Target: {{:value.target}}<br>Load: {{:value.load}}</div>
-				</div>
-				<div class="item">
-					<div class="itemLabel">Status:</div>
-					<div class="itemContent">
-						{{if value.mode == 0}}
-							Idle
-						{{else value.mode == 1}}
-							Moving
-						{{else value.mode == 2}}
-							Unloading
+					<div class="itemContent" style="width: 100%;">
+						{{if data.records.general_exists == 1}}
+							<div style="display: grid; grid-template-columns: auto 1fr; gap: 2px 8px;">
+								<span class="good">Name:</span><span class="average">{{:data.records.general.name}}</span>
+								<span class="good">Sex:</span><span class="average">{{:data.records.general.sex}}</span>
+								<span class="good">Species:</span><span class="average">{{:data.records.general.species}}</span>
+								<span class="good">Age:</span><span class="average">{{:data.records.general.age}}</span>
+								<span class="good">Rank:</span><span class="average">{{:data.records.general.rank}}</span>
+								<span class="good">Fingerprint:</span><span class="average">{{:data.records.general.fingerprint}}</span>
+								<span class="good">Physical:</span><span class="average">{{:data.records.general.p_stat}}</span>
+								<span class="good">Mental:</span><span class="average">{{:data.records.general.m_stat}}</span>
+							</div>
+							<br>
 						{{else}}
-							Calculating path
+							<span class="bad">⚠ General Record Lost!</span><br><br>
+						{{/if}}
+						{{if data.records.medical_exists == 1}}
+							<span style="font-weight: bold; color: #8BA5C4;">Medical Data</span><br>
+							<div style="display: grid; grid-template-columns: auto 1fr; gap: 2px 8px; margin-top: 4px;">
+								<span class="good">Blood Type:</span><span class="average">{{:data.records.medical.b_type}}</span>
+								<span class="good">Minor Dis:</span><span class="average">{{:data.records.medical.mi_dis}} - {{:data.records.medical.mi_dis_d}}</span>
+								<span class="good">Major Dis:</span><span class="average">{{:data.records.medical.ma_dis}} - {{:data.records.medical.ma_dis_d}}</span>
+								<span class="good">Allergies:</span><span class="average">{{:data.records.medical.alg}} - {{:data.records.medical.alg_d}}</span>
+								<span class="good">Disease:</span><span class="average">{{:data.records.medical.cdi}}</span>
+								<span class="good">Notes:</span><span class="average">{{:data.records.medical.notes}}</span>
+							</div>
+						{{else}}
+							<span class="bad">⚠ Medical Record Lost!</span>
 						{{/if}}
 					</div>
 				</div>
+			</div>
+		{{/if}}
+	</div>
+
+{{else data.mode == 45 || data.mode == 451}} <!-- ===== SECURITY RECORDS ===== -->
+	<div class="modern-card">
+		<div class="modern-card-title">🔒 Security Records</div>
+		{{if data.mode == 45}}
+			<div class="statusDisplayRecords">
+				Select A record<br><br>
+				{{for data.records.security_records}}
+					<div style="padding: 4px 0;">{{:helper.link('👤 ' + value.Name, 'gear', {'cartmenu' : "1", 'choice' : "Security Records",'target' : value.ref}, null, null)}}</div>
+				{{/for}}
+			</div>
+		{{else}}
+			<div class="statusDisplayRecords">
 				<div class="item">
-					{{:helper.link('Go home', null, {'cartmenu' : "1", 'choice' : "MULEbot", 'ref' : value.ref, 'command' : "Home"})}}
-					{{:helper.link('Set destination', null, {'cartmenu' : "1", 'choice' : "MULEbot", 'ref' : value.ref, 'command' : "SetD"})}}
-					{{:helper.link('Go', null, {'cartmenu' : "1", 'choice' : "MULEbot", 'ref' : value.ref, 'command' : "GoTD"})}}
-					{{:helper.link('Stop', null, {'cartmenu' : "1", 'choice' : "MULEbot", 'ref' : value.ref, 'command' : "Stop"})}}
-				</div>
-			{{/for}}
-		{{/if}}
-
-
-	{{else data.mode == 49}}
-        <H2>Janatorial Supplies Locator</H2>
-        <div class="item">
-            <span class="good">Current Location:</span>
-            {{if data.records.janitor.user_loc.x == 0}}
-                <span class="bad">Unknown</span>
-            {{else}}
-                <span class="average"> {{:data.records.janitor.user_loc.x}} / {{:data.records.janitor.user_loc.y}}</span>
-            {{/if}}
-        </div>
-            <div class="item">
-                {{for data.records.janitor.mops}}
-                    {{if value.x==0}}
-                        <span class="bad">Unable to locate Mop</span>
-                    {{else}}
-                        <span class="good">Mop Location:</span>
-                        <span class="average">({{:value.x}} / {{:value.y}}) - {{:value.dir}} - Status: {{:value.status}}</span><br>
-                    {{/if}}
-                {{/for}}
-            </div>
-        <div class="item">
-            {{for data.records.janitor.buckets}}
-                {{if value.x==0}}
-                    <span class="bad">Unable to locate Water Buckets</span>
-                {{else}}
-                    <span class="good">Water Buckets Location:</span>
-                    <span class="average">({{:value.x}} / {{:value.y}}) - {{:value.dir}} - Water Level: {{:value.status}}</span><br>
-                {{/if}}
-            {{/for}}
-        </div>
-        <div class="item">
-            {{for data.records.janitor.cleanbots}}
-                {{if value.x==0}}
-                    <span class="bad">Unable to locate Clean Bots</span>
-                {{else}}
-                    <span class="good">Clean Bots Location:</span>
-                    <span class="average">({{:value.x}} / {{:value.y}}) - {{:value.dir}} - Status: {{:value.status}}</span><br>
-                {{/if}}
-            {{/for}}
-        </div>
-            <div class="item">
-                {{for data.records.janitor.carts}}
-                    {{if value.x==0}}
-                        <span class="bad">Unable to locate Janitorial Cart</span>
-                    {{else}}
-                        <span class="good">Janitorial cart Location:</span>
-                        <span class="average">({{:value.x}} / {{:value.y}}) - {{:value.dir}} - Status: {{:value.status}}</span><br>
-                    {{/if}}
-                {{/for}}
-
-    {{else data.mode == 6}}
-        <H2><span class="white">InstaNews ED 2.0.9</span></H2>
-
-        <div class="item">
-            <div class="itemLabelNarrow">
-                <b>Functions</b>:
-            </div>
-            <div class ="itemContent">
-					{{:helper.link(data.news_silent==1 ? 'Ringer: Off' : 'Ringer: On', data.news_silent==1 ? 'volume-off' : 'volume-on', {'choice' : "Toggle News"}, null, 'fixedLeftWide')}}
-                {{:helper.link('Set news tone', 'comment', {'choice' : "Newstone"}, null, 'fixedLeftWide')}}
-            </div>
-        </div>
-
-		{{if data.reception != 1}}
-			<span class="bad">No reception with newscaster network.</span>
-		{{/if}}
-
-		<div class="item">
-            <div class="itemContent">
-                {{for data.feedChannels}}
-                    {{if value.censored}}
-						{{:helper.link(value.name, 'circle-arrow-s', {'choice' : "Select Feed", 'feed' : value.feed, 'name' : value.name } , null, 'fixedLeftWiderRed')}}
-                    {{else}}
-                        {{:helper.link(value.name, 'circle-arrow-s', {'choice' : "Select Feed", 'feed' : value.feed, 'name' : value.name } , null, 'fixedLeftWider')}}
-                    {{/if}}
-                {{empty}}
-                    <I>No active channels found...</I>
-                {{/for}}
-            </div>
-		</div>
-
-    {{else data.mode == 61}}
-        <H2><span class="white">{{:data.feed.channel}}</span></H2>
-        <div style="overflow: hidden;">
-            <div style="float: left;"><span class="white">Created by: </span><span class="average">{{:data.feed.author}}</span></div>
-            <div style="float: right;"><span class="white">Views: </span><span class="average">{{:data.feed.views}} </span></div>
-        </div>
-
-		{{if data.reception != 1}}
-			<span class="bad">No reception with newscaster network.</span>
-		{{/if}}
-
-        <div class="statusDisplay" style="overflow: auto;">
-            <div class="item">
-                <div class="itemContent" style="width: 100%;">
-					{{if data.feed.censored}}
-						<H3><span class="bad">Attention</span></H3>
-						This channel has been deemed as threatening to the welfare of the crew, and marked with a D-Notice.<br>
-						No further feed story additions are allowed while the D-Notice is in effect.<br>
-					{{else}}
-						{{for data.feed.messages}}
-							-{{:value.body}}<br>
-							{{if value.has_image}}
-								<img src='newscaster_photo_{{:data.feed.channel}}_{{:value.index}}.png' width = '180'><br>
-								{{if value.caption}}
-									<span class="caption">{{:value.caption}}</span><br>
-								{{/if}}
-							{{/if}}
-							<span class="footer">[{{:value.message_type}} by <span class="average">{{:value.author}}</span> - {{:value.time_stamp}}]</span><br>
+					<div class="itemContent" style="width: 100%;">
+						{{if data.records.general_exists == 1}}
+							<div style="display: grid; grid-template-columns: auto 1fr; gap: 2px 8px;">
+								<span class="good">Name:</span><span class="average">{{:data.records.general.name}}</span>
+								<span class="good">Sex:</span><span class="average">{{:data.records.general.sex}}</span>
+								<span class="good">Species:</span><span class="average">{{:data.records.general.species}}</span>
+								<span class="good">Age:</span><span class="average">{{:data.records.general.age}}</span>
+								<span class="good">Rank:</span><span class="average">{{:data.records.general.rank}}</span>
+								<span class="good">Fingerprint:</span><span class="average">{{:data.records.general.fingerprint}}</span>
+								<span class="good">Physical:</span><span class="average">{{:data.records.general.p_stat}}</span>
+								<span class="good">Mental:</span><span class="average">{{:data.records.general.m_stat}}</span>
+							</div>
 							<br>
-						{{empty}}
-							<I>No feed messages found in channel...</I>
+						{{else}}
+							<span class="bad">⚠ General Record Lost!</span><br><br>
+						{{/if}}
+						{{if data.records.security_exists == 1}}
+							<span style="font-weight: bold; color: #8BA5C4;">Security Data</span><br>
+							<div style="display: grid; grid-template-columns: auto 1fr; gap: 2px 8px; margin-top: 4px;">
+								<span class="good">Criminal:</span><span class="average">{{:data.records.security.criminal}}</span>
+								<span class="good">Minor Crimes:</span><span class="average">{{:data.records.security.mi_crim}} - {{:data.records.security.mi_crim_d}}</span>
+								<span class="good">Major Crimes:</span><span class="average">{{:data.records.security.ma_crim}} - {{:data.records.security.ma_crim_d}}</span>
+								<span class="good">Notes:</span><span class="average">{{:data.records.security.notes}}</span>
+							</div>
+						{{else}}
+							<span class="bad">⚠ Security Record Lost!</span>
+						{{/if}}
+					</div>
+				</div>
+			</div>
+		{{/if}}
+	</div>
+
+{{else data.mode == 46}} <!-- ===== SECURITY BOT CONTROL ===== -->
+	<div class="modern-card">
+		<div class="modern-card-title">🚨 Security Bot Control</div>
+		{{if data.records.beepsky.active == null || data.records.beepsky.active == 0}}
+			{{if data.records.beepsky.count == 0}}
+				<div style="text-align: center; padding: 20px;">
+					<div style="font-size: 36px; opacity: 0.3;">🤖</div>
+					<h1><span class="bad">No bots found.</span></h1>
+				</div>
+			{{else}}
+				<div class="statusDisplayRecords">
+					Select A bot:<br><br>
+					{{for data.records.beepsky.bots}}
+						<div style="padding: 4px 0;">
+							{{:helper.link('🤖 ' + value.Name, 'gear', {'radiomenu' : "1", 'op' : "control",'bot' : value.ref}, null, null)}}
+							<span style="font-size: 9px; color: rgba(255,255,255,0.4);">📍 {{:value.Location}}</span>
+						</div>
+					{{/for}}
+				</div>
+				<div style="margin-top: 8px;">{{:helper.link('🔍 Scan for Bots', 'gear', {'radiomenu' : "1", 'op' : "scanbots"}, null, null)}}</div>
+			{{/if}}
+		{{else}}
+			<div style="text-align: center; margin: 8px 0;">
+				<span style="font-size: 24px;">{{:data.records.beepsky.active}}</span>
+			</div>
+			{{if data.records.beepsky.botstatus.mode == -1}}
+				<div style="text-align: center; padding: 12px;"><span class="bad">Waiting for response...</span></div>
+			{{else}}
+				<div class="statusDisplay">
+					<div class="item">
+						<div class="itemLabel">📍 Location:</div>
+						<div class="itemContent"><span class="average">{{:data.records.beepsky.botstatus.loca}}</span></div>
+					</div>
+					<div class="item">
+						<div class="itemLabel">⚙️ Mode:</div>
+						<div class="itemContent">
+							<span class="average">
+								{{if data.records.beepsky.botstatus.mode ==0}}Ready
+								{{else data.records.beepsky.botstatus.mode == 1}}Apprehending
+								{{else data.records.beepsky.botstatus.mode ==2 || data.records.beepsky.botstatus.mode == 3}}Arresting
+								{{else data.records.beepsky.botstatus.mode ==4}}Starting patrol
+								{{else data.records.beepsky.botstatus.mode ==5}}On Patrol
+								{{else data.records.beepsky.botstatus.mode ==6}}Responding
+								{{/if}}
+							</span>
+						</div>
+					</div>
+				</div>
+				<div style="display: flex; gap: 4px; flex-wrap: wrap;">
+					{{:helper.link('⏹️ Stop', 'gear', {'radiomenu' : "1", 'op' : "stop"}, null, null)}}
+					{{:helper.link('▶️ Start', 'gear', {'radiomenu' : "1", 'op' : "go"}, null, null)}}
+					{{:helper.link('📞 Summon', 'gear', {'radiomenu' : "1", 'op' : "summon"}, null, null)}}
+				</div>
+			{{/if}}
+			<div style="margin-top: 8px;">{{:helper.link('← Back to list', 'gear', {'radiomenu' : "1", 'op' : "botlist"}, null, null)}}</div>
+		{{/if}}
+	</div>
+
+{{else data.mode == 47}} <!-- ===== SUPPLY RECORDS ===== -->
+	<div class="modern-card">
+		<div class="modern-card-title">📦 Supply Records</div>
+		<div style="margin-bottom: 8px;">
+			<span class="good">📍 Shuttle:</span>
+			<span class="average">
+				{{if data.records.supply.shuttle_moving}}
+					Moving to dock ({{:data.records.supply.shuttle_eta}})
+				{{else}}
+					At {{:data.records.supply.shuttle_loc}}
+				{{/if}}
+			</span>
+		</div>
+		<div class="statusDisplayRecords">
+			<div class="item">
+				<div class="itemContent" style="width: 100%;">
+					<b style="color: #4f7529;">📋 Approved Orders</b><br>
+					{{if data.records.supply.approved_count == 0}}
+						<span style="color: rgba(255,255,255,0.4);">No current approved orders</span>
+					{{else}}
+						{{for data.records.supply.approved}}
+							<span class="average">#{{:value.Number}} - {{:value.Name}} (by {{:value.OrderedBy}})</span><br>
+							{{if value.Comment != ""}}<span style="font-size: 10px; color: rgba(255,255,255,0.5);">「{{:value.Comment}}」</span><br>{{/if}}
+						{{/for}}
+					{{/if}}
+					<br>
+					<b style="color: #cd6500;">📝 Requested Orders</b><br>
+					{{if data.records.supply.requests_count == 0}}
+						<span style="color: rgba(255,255,255,0.4);">No current requested orders</span>
+					{{else}}
+						{{for data.records.supply.requests}}
+							<span class="average">#{{:value.Number}} - {{:value.Name}} (by {{:value.OrderedBy}})</span><br>
+							{{if value.Comment != ""}}<span style="font-size: 10px; color: rgba(255,255,255,0.5);">「{{:value.Comment}}」</span><br>{{/if}}
 						{{/for}}
 					{{/if}}
 				</div>
-            </div>
-        </div>
+			</div>
+		</div>
+	</div>
 
-    {{/if}}
-{{else}}
-    <div class="wholeScreen">
-        <br><br><br><br><br><br><br>No Owner information found, please swipe ID
-    </div>
+{{else data.mode == 48}} <!-- ===== MULE CONTROL ===== -->
+	<div class="modern-card">
+		<div class="modern-card-title">📦 MULE Control</div>
+		{{if data.records.mulebotcount == 0}}
+			<div style="text-align: center; padding: 20px;">
+				<span class="bad">🤖 No bots found.</span>
+			</div>
+		{{else}}
+			{{for data.records.mulebots}}
+			<div class="statusDisplay" style="margin: 4px 0;">
+				<div style="display: flex; justify-content: space-between; align-items: center;">
+					<b>🤖 Mulebot #{{:value.name}}</b>
+					<span style="font-size: 10px;">
+						{{if value.mode == 0}}💤 Idle
+						{{else value.mode == 1}}🚶 Moving
+						{{else value.mode == 2}}📤 Unloading
+						{{else}}🧭 Calculating{{/if}}
+					</span>
+				</div>
+				<div style="font-size: 10px; color: rgba(255,255,255,0.5); margin: 4px 0;">
+					📍 {{:value.location}} | 🏠 {{:value.home}} | 🎯 {{:value.target}} | 📦 {{:value.load}}
+				</div>
+				<div style="display: flex; gap: 2px; flex-wrap: wrap;">
+					{{:helper.link('🏠 Home', null, {'cartmenu' : "1", 'choice' : "MULEbot", 'ref' : value.ref, 'command' : "Home"})}}
+					{{:helper.link('📍 Set', null, {'cartmenu' : "1", 'choice' : "MULEbot", 'ref' : value.ref, 'command' : "SetD"})}}
+					{{:helper.link('▶️ Go', null, {'cartmenu' : "1", 'choice' : "MULEbot", 'ref' : value.ref, 'command' : "GoTD"})}}
+					{{:helper.link('⏹️ Stop', null, {'cartmenu' : "1", 'choice' : "MULEbot", 'ref' : value.ref, 'command' : "Stop"})}}
+				</div>
+			</div>
+			{{/for}}
+		{{/if}}
+	</div>
+
+{{else data.mode == 49}} <!-- ===== CUSTODIAL LOCATOR ===== -->
+	<div class="modern-card">
+		<div class="modern-card-title">🧹 Custodial Locator</div>
+		<div class="statusDisplay">
+			<div style="margin-bottom: 6px;">
+				📍 <b>Your Location:</b>
+				{{if data.records.janitor.user_loc.x == 0}}
+					<span class="bad">Unknown</span>
+				{{else}}
+					<span class="average">{{:data.records.janitor.user_loc.x}} / {{:data.records.janitor.user_loc.y}}</span>
+				{{/if}}
+			</div>
+			<div class="header-accent"></div>
+			{{for data.records.janitor.mops}}
+			<div style="padding: 2px 0;">
+				🧹 <b>Mop:</b>
+				{{if value.x==0}}
+					<span class="bad">Unable to locate</span>
+				{{else}}
+					<span class="average">({{:value.x}}/{{:value.y}}) - {{:value.dir}} - {{:value.status}}</span>
+				{{/if}}
+			</div>
+			{{/for}}
+			{{for data.records.janitor.buckets}}
+			<div style="padding: 2px 0;">
+				🪣 <b>Bucket:</b>
+				{{if value.x==0}}
+					<span class="bad">Unable to locate</span>
+				{{else}}
+					<span class="average">({{:value.x}}/{{:value.y}}) - {{:value.dir}} - 💧 {{:value.status}}</span>
+				{{/if}}
+			</div>
+			{{/for}}
+			{{for data.records.janitor.cleanbots}}
+			<div style="padding: 2px 0;">
+				🤖 <b>Cleanbot:</b>
+				{{if value.x==0}}
+					<span class="bad">Unable to locate</span>
+				{{else}}
+					<span class="average">({{:value.x}}/{{:value.y}}) - {{:value.dir}} - {{:value.status}}</span>
+				{{/if}}
+			</div>
+			{{/for}}
+			{{for data.records.janitor.carts}}
+			<div style="padding: 2px 0;">
+				🛒 <b>Cart:</b>
+				{{if value.x==0}}
+					<span class="bad">Unable to locate</span>
+				{{else}}
+					<span class="average">({{:value.x}}/{{:value.y}}) - {{:value.dir}} - {{:value.status}}</span>
+				{{/if}}
+			</div>
+			{{/for}}
+		</div>
+	</div>
+
+{{else data.mode == 6 || data.mode == 61}} <!-- ===== NEWS ===== -->
+	<div class="modern-card">
+		<div class="modern-card-title">📰 InstaNews 2.0.9</div>
+
+		{{if data.mode == 6}}
+			<div style="display: flex; gap: 4px; flex-wrap: wrap; margin-bottom: 8px;">
+				{{:helper.link(data.news_silent==1 ? '🔇 Silent' : '🔔 Sound', data.news_silent==1 ? 'volume-off' : 'volume-on', {'choice' : "Toggle News"}, null, '')}}
+				{{:helper.link('🎵 Tone', 'comment', {'choice' : "Newstone"}, null, '')}}
+			</div>
+
+			{{if data.reception != 1}}
+				<div class="notice" style="text-align: center; margin-bottom: 8px;">
+					📡 No reception with newscaster network.
+				</div>
+			{{/if}}
+
+			<div class="statusDisplay" style="overflow: auto;">
+				<div class="item">
+					<div class="itemContent">
+						{{for data.feedChannels}}
+							<div style="padding: 4px 0;">
+								{{if value.censored}}
+									{{:helper.link('🔇 ' + value.name, 'circle-arrow-s', {'choice' : "Select Feed", 'feed' : value.feed, 'name' : value.name }, null, 'fixedLeftWiderRed')}}
+								{{else}}
+									{{:helper.link('📰 ' + value.name, 'circle-arrow-s', {'choice' : "Select Feed", 'feed' : value.feed, 'name' : value.name }, null, '')}}
+								{{/if}}
+							</div>
+						{{empty}}
+							<div style="text-align: center; padding: 12px; color: rgba(255,255,255,0.3);">
+								<i>No active channels found...</i>
+							</div>
+						{{/for}}
+					</div>
+				</div>
+			</div>
+
+		{{else data.mode == 61}}
+			<div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
+				<span class="white">{{:data.feed.channel}}</span>
+				<span style="font-size: 10px; color: rgba(255,255,255,0.4);">👁️ {{:data.feed.views}}</span>
+			</div>
+			<div style="font-size: 10px; color: rgba(255,255,255,0.4); margin-bottom: 8px;">by {{:data.feed.author}}</div>
+
+			{{if data.reception != 1}}
+				<div class="notice" style="text-align: center; margin-bottom: 8px;">
+					📡 No reception with newscaster network.
+				</div>
+			{{/if}}
+
+			<div class="statusDisplay" style="overflow: auto;">
+				<div class="item">
+					<div class="itemContent" style="width: 100%;">
+						{{if data.feed.censored}}
+							<h3><span class="bad">⚠ ATTENTION</span></h3>
+							This channel has been deemed as threatening to the welfare of the crew, and marked with a D-Notice.<br>
+							No further feed story additions are allowed while the D-Notice is in effect.
+						{{else}}
+							{{for data.feed.messages}}
+								<div style="margin: 8px 0; padding: 8px; background: rgba(0,0,0,0.3); border-radius: 8px;">
+									<div>{{:value.body}}</div>
+									{{if value.has_image}}
+										<img src='newscaster_photo_{{:data.feed.channel}}_{{:value.index}}.png' width='180' style="margin: 4px 0; border-radius: 4px;">
+										{{if value.caption}}
+											<div class="caption">{{:value.caption}}</div>
+										{{/if}}
+									{{/if}}
+									<div class="footer" style="margin-top: 4px; color: rgba(255,255,255,0.3);">
+										[{{:value.message_type}} by <span class="average">{{:value.author}}</span> - {{:value.time_stamp}}]
+									</div>
+								</div>
+							{{empty}}
+								<div style="text-align: center; padding: 12px; color: rgba(255,255,255,0.3);">
+									<i>No feed messages found in channel...</i>
+								</div>
+							{{/for}}
+						{{/if}}
+					</div>
+				</div>
+			</div>
+		{{/if}}
+	</div>
+
 {{/if}}
-
+{{else}}
+<div class="wholeScreen">
+	<br><br><br><br><br><br><br>
+	<div style="font-size: 48px; opacity: 0.2;">📱</div>
+	<div style="color: rgba(255,255,255,0.4); margin-top: 12px;">No Owner information found</div>
+	<div style="font-size: 10px; color: rgba(255,255,255,0.2); margin-top: 4px;">Please swipe an ID card</div>
+</div>
+{{/if}}

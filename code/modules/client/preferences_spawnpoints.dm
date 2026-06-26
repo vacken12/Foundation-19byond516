@@ -42,8 +42,8 @@ GLOBAL_VAR(spawntypes)
 #endif
 
 /datum/spawnpoint/arrivals
-	display_name = "Arrivals Shuttle"
-	msg = "has arrived on the station"
+	display_name = "Train Arrival"
+	msg = "has arrived on the Site"
 
 /datum/spawnpoint/arrivals/New()
 	..()
@@ -91,15 +91,16 @@ GLOBAL_VAR(spawntypes)
 
 /datum/spawnpoint/default
 	display_name = DEFAULT_SPAWNPOINT_ID
-	msg = "has arrived on the station"
+	msg = "has arrived on the Site"
 	always_visible = TRUE
 
 /datum/spawnpoint/comms
 	display_name = "Comms Tower"
 	msg = "has started a shift in the Comms Tower"
-	restrict_job = list("Communications Officer", "Communications Technician")
+	restrict_job = list("Communications Officer", "Communications Technician", "Офицер Коммуникации", "Коммуникационный Техник")
 	disallow_job = list(
 	"Class D",
+	"Класс D",
 	"Cell Guard",
 	"Chief Engineer",
 	"Senior Engineer",

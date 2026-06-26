@@ -522,3 +522,10 @@
 	author = "ampersad"
 	license = /decl/license/cc_by_sa_3_0
 	url = "https://www.youtube.com/watch?v=iFUQiEmKdzg"
+
+/decl/audio/track/awoman
+	source = 'sounds/music/awoman.ogg'
+	title = "A Woman"
+	author = "ATLUS Sound Team"
+	license = /decl/license/cc_by_sa_3_0
+	url = "https://www.youtube.com/watch?v=RcpVVwjqEtA"

@@ -4,6 +4,10 @@
 	var/light_outer_range = 0 // range, in tiles, where the light becomes darkness
 	var/light_falloff_curve = 2 // adjusts curve for falloff gradient. Must be greater than 0.
 	var/light_color		// Hexadecimal RGB string representing the colour of the light
+	/// Direction the light faces. 0 = omnidirectional. A direction like NORTH means light shines in that direction in a cone.
+	var/light_direction = 0
+	/// Cone angle in degrees for directional light. 0 = full sphere, 90 = 90-degree cone, 180 = hemisphere
+	var/light_cone = 0
 
 	var/datum/light_source/light
 	var/list/light_sources
@@ -11,7 +15,7 @@
 // Nonsensical value for l_color default, so we can detect if it gets set to null.
 #define NONSENSICAL_VALUE -99999
 #define DEFAULT_FALLOFF_CURVE (2)
-/atom/proc/set_light(l_max_bright, l_inner_range, l_outer_range, l_falloff_curve = NONSENSICAL_VALUE, l_color = NONSENSICAL_VALUE)
+/atom/proc/set_light(l_max_bright, l_inner_range, l_outer_range, l_falloff_curve = NONSENSICAL_VALUE, l_color = NONSENSICAL_VALUE, l_direction = NONSENSICAL_VALUE, l_cone = NONSENSICAL_VALUE)
 	. = 0 //make it less costly if nothing's changed
 
 	if(l_max_bright != null && l_max_bright != light_max_bright)
@@ -34,6 +38,12 @@
 			. = 1
 	if(l_color != NONSENSICAL_VALUE && l_color != light_color)
 		light_color = l_color
+		. = 1
+	if(l_direction != NONSENSICAL_VALUE && l_direction != light_direction)
+		light_direction = l_direction
+		. = 1
+	if(l_cone != NONSENSICAL_VALUE && l_cone != light_cone)
+		light_cone = l_cone
 		. = 1
 
 	if(.) update_light()

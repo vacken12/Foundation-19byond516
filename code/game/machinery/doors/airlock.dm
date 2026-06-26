@@ -1058,9 +1058,8 @@ About the new airlock wires panel:
 		return
 
 	if (!repairing && (stat & BROKEN) && src.locked) //bolted and broken
-		if (!cut_bolts(C,user))
-			..()
-		return
+		if (cut_bolts(C,user))
+			return
 
 	if(!repairing && isWelder(C) && !( operating > 0 ) && density)
 		var/obj/item/weldingtool/W = C

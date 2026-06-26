@@ -75,6 +75,12 @@
 	icon_state = "grass0"
 	initial_flooring = /decl/flooring/grass
 
+/turf/simulated/floor/flesh
+	name = "flesh patch"
+	icon = 'icons/turf/flooring/flesh.dmi'
+	icon_state = "flesh0"
+	initial_flooring = /decl/flooring/flesh
+
 /turf/simulated/floor/carpet
 	name = "carpet"
 	icon = 'icons/turf/flooring/carpet.dmi'

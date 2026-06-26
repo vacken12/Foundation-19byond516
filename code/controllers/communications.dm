@@ -171,6 +171,7 @@ var/list/radiochannels = list(
 	"AI Private"	= AI_FREQ,
 	"Entertainment" = ENT_FREQ,
 	"Medical (I)"	= MED_I_FREQ,
+	"Security (I)"	= SEC_I_FREQ,
 	"Security" 		= SEC_FREQ,
 	"HCZ-Security"	= SEC_HCZ_FREQ,
 	"LCZ-Security"	= SEC_LCZ_FREQ,

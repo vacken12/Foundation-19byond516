@@ -463,9 +463,10 @@
 	has_base_range = 3
 	damage_temperature = T0C + 100
 	build_type = null
-	flags = TURF_ACID_IMMUNE | TURF_REMOVE_CROWBAR
+	flags = TURF_ACID_IMMUNE | TURF_REMOVE_CROWBAR | TURF_HAS_EDGES
 	remove_timer = 60
 	can_engrave = FALSE
+	footstep_type = /decl/footsteps/lava
 
 /decl/flooring/flesh/infested
 	name = "pulsating flesh"

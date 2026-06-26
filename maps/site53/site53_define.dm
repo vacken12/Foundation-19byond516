@@ -100,7 +100,9 @@
 		/decl/audio/track/stuckonthepuzzle,
 		/decl/audio/track/track1,
 		/decl/audio/track/inthehouseinaheartbeat,
-		/decl/audio/track/deaththeme
+		/decl/audio/track/deaththeme,
+		/decl/audio/track/uiutheme,
+		/decl/audio/track/awoman
 	// 	/decl/audio/track/bookburners, // no scp vibe
 	//	/decl/audio/track/the_bookburners_v2, // no scp vibe
 	//	/decl/audio/track/goc_spawn_theme2 // no scp vibe

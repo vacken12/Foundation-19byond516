@@ -12,6 +12,9 @@
 	var/light_outer_range = 0 // range, in tiles, where the light becomes darkness
 	var/light_falloff_curve   // adjusts curve for falloff gradient
 	var/light_color    // The colour of the light, string, decomposed by parse_light_color()
+	var/light_direction = 0   // Direction the light faces. 0 = omnidirectional. Cardinal dirs turn it into a cone.
+	var/light_cone = 0        // Cone angle in degrees. 0 = full sphere, 90 = 90° cone, 180 = hemisphere.
+	                           // Only meaningful if light_direction is nonzero.
 
 	// Variables for keeping track of the colour.
 	var/lum_r
@@ -53,6 +56,8 @@
 	light_outer_range = source_atom.light_outer_range
 	light_falloff_curve = source_atom.light_falloff_curve
 	light_color = source_atom.light_color
+	light_direction = source_atom.light_direction
+	light_cone = source_atom.light_cone
 
 	parse_light_color()
 
@@ -167,6 +172,14 @@
 		parse_light_color()
 		. = 1
 
+	if(source_atom.light_direction != light_direction)
+		light_direction = source_atom.light_direction
+		. = 1
+
+	if(source_atom.light_cone != light_cone)
+		light_cone = source_atom.light_cone
+		. = 1
+
 // Decompile the hexadecimal colour into lumcounts of each perspective.
 /datum/light_source/proc/parse_light_color()
 	if(light_color)
@@ -206,11 +219,29 @@
 		. * applied_lum_b            \
 	);
 
+// Helper: returns the X component of a direction vector for cone math
+// NORTH=+Y, SOUTH=-Y, EAST=+X, WEST=-X
+#define DIR_X(D) (D & EAST ? 1 : (D & WEST ? -1 : 0))
+// Helper: returns the Y component of a direction vector for cone math
+#define DIR_Y(D) (D & NORTH ? 1 : (D & SOUTH ? -1 : 0))
+
 // This is the define used to calculate falloff.
 // Assuming a brightness of 1 at range 1, formula should be (brightness = 1 / distance^2)
 // However, due to the weird range factor, brightness = (-(distance - full_dark_start) / (full_dark_start - full_light_end)) ^ light_max_bright
+// Also supports directional/cone lighting: when light_direction is set, light is concentrated in a cone.
+// Uses cosine attenuation: dot(dir_normal, to_corner) gives 1 in front, 0 to the side, -1 behind.
+// CLAMP01 maps [-1,1] to [0,1] for the cone factor.
 
-#define LUM_FALLOFF(C, T)(CLAMP01(-((((C.x - T.x) ** 2 +(C.y - T.y) ** 2) ** 0.5 - light_outer_range) / max(light_outer_range - light_inner_range, 1))) ** light_falloff_curve)
+#define LUM_FALLOFF(C, T) ( \
+  CLAMP01(-((((C.x - T.x) ** 2 + (C.y - T.y) ** 2) ** 0.5 - light_outer_range) / max(light_outer_range - light_inner_range, 1))) \
+  * (light_direction ? ( \
+    CLAMP01( \
+      (DIR_X(light_direction) * (C.x - T.x) + DIR_Y(light_direction) * (C.y - T.y)) \
+      / max(sqrt((C.x - T.x) ** 2 + (C.y - T.y) ** 2), 0.5) \
+    ) \
+  ) : 1) \
+  ** light_falloff_curve \
+)
 
 
 /datum/light_source/proc/apply_lum()
@@ -326,6 +357,8 @@
 		return O.below
 	return null
 
+#undef DIR_X
+#undef DIR_Y
 #undef effect_update
 #undef LUM_FALLOFF
 #undef REMOVE_CORNER

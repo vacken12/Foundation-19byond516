@@ -939,6 +939,8 @@
 	if(on==1)
 		icon_state = "walkietalkie"
 		item_state = "walkietalkie"
+		set_light(0.2, 0.1, 1, 1, "#ffc800")
 	else
+		set_light(0)
 		icon_state = "walkietalkie-off"
 		item_state = "walkietalkie-off"

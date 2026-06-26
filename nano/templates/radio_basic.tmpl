@@ -1,5 +1,5 @@
 <!--
-Title: Basic Radio UI
+Title: Basic Radio UI - Modern Redesign
 Used In File(s): /code/game/objects/item/devices/radio/radio.dm
 -->
 <head>
@@ -18,7 +18,6 @@ Used In File(s): /code/game/objects/item/devices/radio/radio.dm
 		.srvradio				{color: #6eaa2c;}
 		.seciradio				{color: #935050;}
 		.mediradio				{color: #509190;}
-
 		.exampleradio			{color: #FF00FF;}
 		.voxradio				{color: #f32b06;}
 		.bearcatradio			{color: #590e2d;}
@@ -27,119 +26,127 @@ Used In File(s): /code/game/objects/item/devices/radio/radio.dm
 	</style>
 </head>
 
-
-
-{{if data.useSyndMode}}
-	{{:helper.syndicateMode()}}
-{{/if}}
+<div class="modern-card" style="text-align: center; margin-bottom: 10px;">
+	<h2 style="margin: 0; padding: 0; font-size: 16px; letter-spacing: 2px; text-transform: uppercase; color: #8BA5C4;">
+		Radio Transceiver
+	</h2>
+	<div class="header-accent" style="margin: 6px 0;"></div>
+	<div style="font-size: 9px; color: rgba(255,255,255,0.3); letter-spacing: 1px;">SHORTWAVE COMMUNICATION DEVICE</div>
+</div>
 
 {{if data.charge}}
-	<div class="item">
-		<div class="itemLabelWide">
-			Power
-		</div>
-		<div class="itemContentMedium">
-			{{:helper.link('On', null, {'power' : 0}, data.power ? 'selected' : null)}}
-			{{:helper.link('Off', null, {'power' : 1}, data.power ? null : 'selected')}}
-		</div>
+<div class="modern-card">
+	<div class="modern-card-title">Power</div>
+	<div class="power-bar-container">
+		<span class="power-bar-label">Power State:</span>
+		{{:helper.link('⏻ ON ', null, {'power' : 0}, data.power ? 'selected' : null)}}
+		{{:helper.link('⏻ OFF ', null, {'power' : 1}, data.power ? null : 'selected')}}
 	</div>
+</div>
 {{/if}}
 
-<div class="item">
-	<div class="itemLabelWide">
-		Microphone
-	</div>
-	<div class="itemContentMedium">
+<div class="modern-card">
+	<div class="modern-card-title">Audio Controls</div>
+
+	<!-- Microphone -->
+	<div class="power-bar-container">
+		<span class="power-bar-label">🎙️ Microphone:</span>
 		{{if data.mic_cut}}
-			{{:helper.link('On', null, null, 'disabled')}}
-			{{:helper.link('Off', null, null, 'disabled')}}
+			<span class="bad"><span class="status-dot bad"></span>WIRED CUT</span>
 		{{else}}
-			{{:helper.link('On', null, {'talk' : 0}, data.mic_status ? 'selected' : null)}}
-			{{:helper.link('Off', null, {'talk' : 1}, data.mic_status ? null : 'selected')}}
+			{{:helper.link('🎙️ On ', null, {'talk' : 0}, data.mic_status ? 'selected' : null)}}
+			{{:helper.link('🔇 Off ', null, {'talk' : 1}, data.mic_status ? null : 'selected')}}
 		{{/if}}
 	</div>
-</div>
 
-<div class="item">
-	<div class="itemLabelWide">
-		Speaker
-	</div>
-	<div class="itemContentMedium">
+	<!-- Speaker -->
+	<div class="power-bar-container">
+		<span class="power-bar-label">🔊 Speaker:</span>
 		{{if data.spk_cut}}
-			{{:helper.link('On', null, null, 'disabled')}}
-			{{:helper.link('Off', null, null, 'disabled')}}
+			<span class="bad"><span class="status-dot bad"></span>WIRED CUT</span>
 		{{else}}
-			{{:helper.link('On', null, {'listen' : 0}, data.speaker ? 'selected' : null)}}
-			{{:helper.link('Off', null, {'listen' : 1}, data.speaker ? null : 'selected')}}
+			{{:helper.link('🔊 On ', null, {'listen' : 0}, data.speaker ? 'selected' : null)}}
+			{{:helper.link('🔇 Off ', null, {'listen' : 1}, data.speaker ? null : 'selected')}}
 		{{/if}}
 	</div>
+
+	<!-- Subspace -->
+	{{if data.has_subspace}}
+	<div class="power-bar-container">
+		<span class="power-bar-label">Subspace Tx:</span>
+		{{:helper.link('On ', null, {'mode' : 1}, data.subspace ? 'selected' : null)}}
+		{{:helper.link('Off ', null, {'mode' : 0}, data.subspace ? null : 'selected')}}
+	</div>
+	{{/if}}
+
+	<!-- Loudspeaker -->
+	{{if data.has_loudspeaker}}
+	<div class="power-bar-container">
+		<span class="power-bar-label">📢 Loudspeaker:</span>
+		{{:helper.link('📢 On ', null, {'shutup' : 0}, data.loudspeaker ? 'selected' : null)}}
+		{{:helper.link('🔇 Off ', null, {'shutup' : 1}, data.loudspeaker ? null : 'selected')}}
+	</div>
+	{{/if}}
 </div>
 
-{{if data.has_subspace}}
-	<div class="item">
-		<div class="itemLabelWide">
-			Subspace Transmission:
-		</div>
-		<div class="itemContentMedium">
-			{{:helper.link('On', null, {'mode' : 1}, data.subspace ? 'selected' : null)}}
-			{{:helper.link('Off', null, {'mode' : 0}, data.subspace ? null : 'selected')}}
-		</div>
-	</div>
-{{/if}}
-
-{{if data.has_loudspeaker}}
-	<div class="item">
-		<div class="itemLabelWide">
-			Loudspeaker:
-		</div>
-		<div class="itemContentMedium">
-			{{:helper.link('On', null, {'shutup' : 0}, data.loudspeaker ? 'selected' : null)}}
-			{{:helper.link('Off', null, {'shutup' : 1}, data.loudspeaker ? null : 'selected')}}
-		</div>
-	</div>
-{{/if}}
-
-
+<!-- Battery Status -->
 {{if data.charge}}
-	<div class="item">
-		<div class="itemLabelWide">
-			Battery charge:
+<div class="modern-card">
+	<div class="modern-card-title">Battery</div>
+	<div class="power-bar-container">
+		<span class="power-bar-label">Charge:</span>
+		<div class="power-bar-track" style="flex: 1; max-width: 200px;">
+			<div class="power-bar-fill {{if data.charge >= 50}}good{{else data.charge >= 25}}average{{else}}bad{{/if}}" style="width: {{:data.charge}};">
+				<span class="power-bar-text">{{:data.charge}}</span>
+			</div>
 		</div>
-		<div class="itemContentMedium">
-			{{:data.charge}}
-		</div>
-	</div>
-{{/if}}
-
-<div class="item">
-	<div class="itemLabelWide">
-		Frequency: {{:data.freq}}
-	</div>
-	<div class="itemContentMedium">
-		{{:helper.link('--', null, {'freq' : -10})}}
-		{{:helper.link('-', null, {'freq' : -2})}}
-		{{:helper.link('+', null, {'freq' : 2})}}
-		{{:helper.link('++', null, {'freq' : 10})}}
-		{{if data.default_freq}}
-			{{:helper.link(data.default_freq, null, {'default_freq' : 1})}}
-		{{/if}}
 	</div>
 </div>
+{{/if}}
 
-{{if data.chan_list_len >= 1}}
-	<h3>Channels</h3>
-	<div class="item">
-	{{for data.chan_list}}
-		<div class="itemLabelWide">
-			<span class='{{:value.chan_span}}'>&#9724</span>{{:value.display_name}}
+<!-- Frequency -->
+<div class="modern-card">
+	<div class="modern-card-title"> Frequency</div>
+	<div style="text-align: center;">
+		<div style="font-size: 28px; font-weight: bold; letter-spacing: 2px; margin: 6px 0; color: #8BA5C4;">
+			{{:data.freq}}
 		</div>
-		<div class="itemContentMedium">
-			{{if value.secure_channel}}
-				{{:helper.link('On', null, {'ch_name' : value.chan, 'listen' : value.sec_channel_listen}, value.sec_channel_listen ? null : 'selected')}}
-				{{:helper.link('Off', null, {'ch_name' : value.chan, 'listen' : value.sec_channel_listen}, value.sec_channel_listen ? 'selected' : null)}}
-			{{else}}
-				{{:helper.link('Switch', null, {'spec_freq' : value.chan}, data.rawfreq == value.chan ? 'selected' : null)}}
+		<div style="font-size: 10px; color: rgba(255,255,255,0.4); margin-bottom: 6px;">kHz</div>
+		<div style="display: flex; gap: 4px; justify-content: center; flex-wrap: wrap;">
+			{{:helper.link('––', null, {'freq' : -10})}}
+			{{:helper.link('–', null, {'freq' : -2})}}
+			{{:helper.link('+', null, {'freq' : 2})}}
+			{{:helper.link('++', null, {'freq' : 10})}}
+			{{if data.default_freq}}
+				{{:helper.link('↺ ' + data.default_freq, null, {'default_freq' : 1})}}
 			{{/if}}
 		</div>
-	{{/for}}
+	</div>
+</div>
+
+<!-- Channels -->
+{{if data.chan_list_len >= 1}}
+<div class="modern-card">
+	<div class="modern-card-title">Channels</div>
+	<div class="statusDisplay" style="padding: 4px;">
+		{{for data.chan_list}}
+		<div class="power-bar-container" style="padding: 4px 0;">
+			<span class="power-bar-label" style="width: 100px;">
+				<span class='{{:value.chan_span}}'>●</span>
+				{{:value.display_name}}
+			</span>
+			<div style="flex: 1;"></div>
+			{{if value.secure_channel}}
+				{{if value.sec_channel_listen}}
+					{{:helper.link('🔇 Off ', null, {'ch_name' : value.chan, 'listen' : value.sec_channel_listen}, value.sec_channel_listen ? 'selected' : null)}}
+				{{else}}
+					{{:helper.link('🎧 On ', null, {'ch_name' : value.chan, 'listen' : value.sec_channel_listen}, value.sec_channel_listen ? 'selected' : null)}}
+				{{/if}}
+			{{else}}
+				{{:helper.link('Listen ', null, {'spec_freq' : value.chan}, data.rawfreq == value.chan ? 'selected' : null)}}
+			{{/if}}
+		</div>
+		{{/for}}
+	</div>
+</div>
 {{/if}}

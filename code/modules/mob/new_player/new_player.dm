@@ -317,7 +317,7 @@
 
 	dat = header + dat
 
-	var/datum/browser/popup = new(src, "latechoices", "Choose Profession", 700, 800)
+	var/datum/browser/popup = new(src, "latechoices", "Choose Profession", 720, 800)
 	popup.set_content(jointext(dat, null))
 	popup.open(0)
 
