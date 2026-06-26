@@ -283,7 +283,7 @@
 
 /atom/proc/lava_act()
 	visible_message(SPAN_DANGER("\The [src] sizzles and melts away, consumed by the lava!"))
-	playsound(src, 'sounds/effects/flare_start.ogg', 100, 3)
+	playsound(src, 'sounds/effects/flare.ogg', 100, 3)
 	qdel(src)
 	. = TRUE
 
