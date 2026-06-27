@@ -116,8 +116,8 @@
 // ============================================================================
 
 /mob/living/simple_animal/scp306_frog
-	name = "SCP-306 instance"
-	desc = "A mutated human-frog hybrid. It was once a person."
+	name = "giant frog"
+	desc = "This toad looks suspiciously big."
 	icon = 'icons/SCP/scp-306.dmi'
 	icon_state = "frog"
 	icon_living = "frog"
@@ -127,7 +127,7 @@
 	maxHealth = 200
 	health = 200
 
-	movement_cooldown = 2
+	movement_cooldown = 4
 	movement_sound = 'sounds/scp/306/squish.ogg'
 
 	see_invisible = SEE_INVISIBLE_NOLIGHTING
@@ -150,7 +150,6 @@
 		"giant frog",
 		SCP_KETER,
 		"306",
-		SCP_PLAYABLE
 	)
 	add_verb(src, /client/proc/scpooc)
 	SCP.min_time = 15 MINUTES

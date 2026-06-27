@@ -54,21 +54,22 @@
 	icon_state = "markup_vert"
 
 // ==================== SCP-004 STRUCTURES ====================
-/obj/structure/flora/tree/dead/scp004
+/obj/structure/flora/tree/dead
 	name = "dead tree"
 	icon = 'icons/obj/flora/deadtree96x96.dmi'
 	icon_state = "dead"
+	pixel_x = -16
+	density = TRUE
 
-/obj/machinery/light/streetlight
+/obj/structure/streetlight
 	name = "streetlight"
 	icon = 'icons/obj/streetlight.dmi'
 	icon_state = "lamppost"
-	base_state = "lamppost"
-	light_type = /obj/item/light/bulb
-	construct_type = /obj/machinery/light_construct/small
-	on = TRUE
+	pixel_w = -32
+	anchored = TRUE
+	density = TRUE
 
-/obj/machinery/light/streetlight/Initialize()
+
+/obj/structure/streetlight/Initialize()
 	. = ..()
-	icon_state = "lamppost"
-	set_light(0.8, 1, 5, 2, "#fce8c4")
+	set_light(4, 3, "#ffde9b")
