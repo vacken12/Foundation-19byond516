@@ -15,8 +15,8 @@ GLOBAL_LIST_EMPTY(scp860_return_spawns)
 	var/use_cooldown = 3 MINUTES
 	var/use_cooldown_track = 0
 
-	var/portal_x = 207
-	var/portal_y = 179
+	var/portal_x = 208
+	var/portal_y = 181
 	var/portal_z = 8
 
 	var/return_x = 0
@@ -332,8 +332,8 @@ GLOBAL_LIST_EMPTY(scp860_return_spawns)
 // ============================================================================
 
 /mob/living/simple_animal/hostile/scp860_2
-	name = "leshy"
-	desc = "A gaunt figure with a skull-like head, twisted horns, and hollow yellow eyes. Moss and bark cover its body."
+	name = "monstrous creature"
+	desc = "A monstrous feline creature, his body looks like a tangle of many branches, and his eyes... his yellow hollow eyes..."
 	icon = 'icons/SCP/scp-860_2.dmi'
 	icon_state = "monster"
 	icon_living = "monster"
@@ -343,7 +343,7 @@ GLOBAL_LIST_EMPTY(scp860_return_spawns)
 
 	maxHealth = 2000
 	health = 2000
-	movement_cooldown = 5          // Повышенная скорость (было 10)
+	movement_cooldown = 4
 	attack_delay = 2
 
 	see_invisible = SEE_INVISIBLE_NOLIGHTING
@@ -374,7 +374,7 @@ GLOBAL_LIST_EMPTY(scp860_return_spawns)
 	var/camouflage_cooldown = 10 SECONDS
 	var/camouflage_cooldown_track = 0
 	var/camouflage_active = FALSE
-	var/aiming_mode = FALSE          // Для режима выбора точки прыжка
+	var/aiming_mode = FALSE
 
 	// Sounds
 	var/list/human_sounds = list(
@@ -399,7 +399,7 @@ GLOBAL_LIST_EMPTY(scp860_return_spawns)
 	. = ..()
 	SCP = new /datum/scp(
 		src,
-		"leshy",
+		"monstrous creature",
 		SCP_EUCLID,
 		"860-2",
 		SCP_PLAYABLE|SCP_ROLEPLAY

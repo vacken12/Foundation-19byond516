@@ -169,6 +169,10 @@
 	name = "rusted key I"
 	key_id = 1
 	icon_state = "key_1"
+	key_effect = SCP004_EFFECT_PORTAL
+	portal_x = 46
+	portal_y = 47
+	portal_z = 8
 
 /obj/item/key/scp004/key_2
 	name = "rusted key II"
@@ -230,15 +234,15 @@
 	name = "rusted key X"
 	key_id = 10
 	icon_state = "key_10"
-	key_effect = SCP004_EFFECT_PORTAL
-	portal_x = 66
-	portal_y = 129
-	portal_z = 8
 
 /obj/item/key/scp004/key_11
 	name = "rusted key XI"
 	key_id = 11
 	icon_state = "key_11"
+	key_effect = SCP004_EFFECT_PORTAL
+	portal_x = 43
+	portal_y = 130
+	portal_z = 8
 
 /obj/item/key/scp004/key_12
 	name = "rusted key XII"

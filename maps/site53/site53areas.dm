@@ -1478,9 +1478,10 @@
 	dynamic_lighting = 0
 
 
-/area/scp/dimension004
+/area/scp/dimension004/site62
     name = "SCP-004 Dimension - Site 62"
     has_gravity = 1
+    requires_power = 0
 
 /area/scp/dimension004/scp093
     name = "SCP-004 Dimension - SCP-093 Containment"
@@ -1498,7 +1499,7 @@
     name = "SCP-004 Dimension - SCP-610 Ruin"
     has_gravity = 1
 
-/area/scp/dimension004/scp860
+/area/scp/scp860
 	name = "SCP-860 Dimension - Dark Forest"
 	has_gravity = 1
 

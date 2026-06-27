@@ -11,8 +11,6 @@
 	see_invisible = SEE_INVISIBLE_NOLIGHTING
 	see_in_dark = 7
 	status_flags = NO_ANTAG
-	maxHealth = 200
-	health = 200
 
 	var/emote_cooldown = 5 SECONDS
 	var/emote_cooldown_track = 0
@@ -40,12 +38,6 @@
 	SCP.min_time = 0
 	SCP.min_playercount = 0
 
-	if(!(MUTATION_XRAY in mutations))
-		mutations.Add(MUTATION_XRAY)
-		update_mutations()
-		update_sight()
-
-	queue_icon_update()
 
 	REMOVE_TRAIT(src, TRAIT_HANDS_BLOCKED, STAT_TRAIT)
 	REMOVE_TRAIT(src, TRAIT_CRITICAL_CONDITION, STAT_TRAIT)
@@ -87,6 +79,7 @@
 /mob/living/carbon/human/scp1678/Life()
 	. = ..()
 
+	// Принудительное обнуление всех станов
 	if(lying)
 		lying = 0
 	if(resting)
@@ -95,8 +88,16 @@
 		weakened = 0
 	if(stunned)
 		stunned = 0
+	if(paralysis)
+		paralysis = 0
 	if(stat == UNCONSCIOUS)
 		stat = CONSCIOUS
+
+	// Добавляем защиту от критических трейтов
+	if(HAS_TRAIT(src, TRAIT_CRITICAL_CONDITION))
+		REMOVE_TRAIT(src, TRAIT_CRITICAL_CONDITION, STAT_TRAIT)
+	if(HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
+		REMOVE_TRAIT(src, TRAIT_HANDS_BLOCKED, STAT_TRAIT)
 
 /mob/living/carbon/human/scp1678/get_pressure_weakness()
 	return 0
@@ -159,7 +160,7 @@
 // Death
 // ==================================================================
 
-/mob/living/carbon/human/scp1678/death(gibbed,deathmessage="disappeared into thin air...", show_dead_message = "You have died.")
+/mob/living/carbon/human/scp1678/death(gibbed, deathmessage = "disappeared into thin air...", show_dead_message = "You have died.")
 	playsound(get_turf(src), 'sounds/scp/1678/whistle.ogg', 30, 1)
 	qdel(src)
 
