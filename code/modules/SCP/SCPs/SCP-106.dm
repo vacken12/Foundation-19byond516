@@ -49,6 +49,9 @@
 
 	roundstart_traits = list()
 
+	var/datum/sound_token/following_sound
+	var/sound_id = "106"
+
 /mob/living/carbon/human/scp106/Initialize(mapload, new_species = "SCP-106")
 	. = ..()
 	SCP = new /datum/scp(
@@ -87,10 +90,13 @@
 
 	ADD_TRAIT(src, TRAIT_DISCOORDINATED_TOOL_USER, ROUNDSTART_TRAIT)
 
+	following_sound = GLOB.sound_player.PlayLoopingSound(src, sound_id, 'sounds/scp/scp_following_ost.ogg', volume = 80, range = 5, falloff = 4, prefer_mute = TRUE)
+
 /mob/living/carbon/human/scp106/Destroy()
 	QDEL_NULL(WallEye)
 	target = null
 	WallEye = null
+	QDEL_NULL(following_sound)
 	return ..()
 
 /mob/living/carbon/human/scp106/update_icons()
