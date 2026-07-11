@@ -237,11 +237,130 @@
 	M.adjustBrainLoss(15 * removed)
 
 //Pills and autoinjectors.
+
+// Class A
 /obj/item/storage/pill_bottle/amnesticsa
-	name = "pill bottle (Class-A Amnestics)"
-	desc = "Contains Class-A Amnestics, used to erase recently-formed memories before they enter long-term storage."
+	name = "Class-A amnestics packet"
+	desc = "A small box of Class-A Amnestics. Used to erase recently-formed memories before they enter long-term storage."
+	icon = 'icons/SCP/amnestics.dmi'
+	icon_state = "a-class"
+	open_icon = "a-class_open"
 	startswith = list(/obj/item/reagent_containers/pill/amnestics/classa = 14)
-	wrapper_color = COLOR_RED
+
+/obj/item/storage/pill_bottle/amnesticsa/attack_self(mob/living/user)
+	if(user.get_inactive_hand())
+		to_chat(user, SPAN_NOTICE("You need an empty hand to take something out."))
+		return
+	if(contents.len)
+		var/obj/item/I = contents[1]
+		if(!remove_from_storage(I,user))
+			return
+		if(user.put_in_inactive_hand(I))
+			to_chat(user, SPAN_NOTICE("You take \the [I] out of \the [src]."))
+			if(open_icon)
+				icon_state = open_icon
+			if(iscarbon(user))
+				var/mob/living/carbon/C = user
+				C.swap_hand()
+		else
+			I.dropInto(loc)
+			to_chat(user, SPAN_NOTICE("You fumble around with \the [src] and drop \the [I] on the floor."))
+	else
+		to_chat(user, SPAN_WARNING("\The [src] is empty."))
+		icon_state = initial(icon_state)
+
+// Class B
+/obj/item/storage/pill_bottle/amnesticsb
+	name = "Class-B amnestics packet"
+	desc = "A small box of Class-B Amnestics. Used to erase memories from the last two weeks."
+	icon = 'icons/SCP/amnestics.dmi'
+	icon_state = "b-class"
+	open_icon = "b-class_open"
+	startswith = list(/obj/item/reagent_containers/pill/amnestics/classb = 14)
+
+/obj/item/storage/pill_bottle/amnesticsb/attack_self(mob/living/user)
+	if(user.get_inactive_hand())
+		to_chat(user, SPAN_NOTICE("You need an empty hand to take something out."))
+		return
+	if(contents.len)
+		var/obj/item/I = contents[1]
+		if(!remove_from_storage(I,user))
+			return
+		if(user.put_in_inactive_hand(I))
+			to_chat(user, SPAN_NOTICE("You take \the [I] out of \the [src]."))
+			if(open_icon)
+				icon_state = open_icon
+			if(iscarbon(user))
+				var/mob/living/carbon/C = user
+				C.swap_hand()
+		else
+			I.dropInto(loc)
+			to_chat(user, SPAN_NOTICE("You fumble around with \the [src] and drop \the [I] on the floor."))
+	else
+		to_chat(user, SPAN_WARNING("\The [src] is empty."))
+		icon_state = initial(icon_state)
+
+// Class H
+/obj/item/storage/pill_bottle/amnesticsh
+	name = "Class-H amnestics packet"
+	desc = "A small box of Class-H Amnestics. Used to temporarily prevent the creation of new memories."
+	icon = 'icons/SCP/amnestics.dmi'
+	icon_state = "h-class"
+	open_icon = "h-class_open"
+	startswith = list(/obj/item/reagent_containers/pill/amnestics/classh = 14)
+
+/obj/item/storage/pill_bottle/amnesticsh/attack_self(mob/living/user)
+	if(user.get_inactive_hand())
+		to_chat(user, SPAN_NOTICE("You need an empty hand to take something out."))
+		return
+	if(contents.len)
+		var/obj/item/I = contents[1]
+		if(!remove_from_storage(I,user))
+			return
+		if(user.put_in_inactive_hand(I))
+			to_chat(user, SPAN_NOTICE("You take \the [I] out of \the [src]."))
+			if(open_icon)
+				icon_state = open_icon
+			if(iscarbon(user))
+				var/mob/living/carbon/C = user
+				C.swap_hand()
+		else
+			I.dropInto(loc)
+			to_chat(user, SPAN_NOTICE("You fumble around with \the [src] and drop \the [I] on the floor."))
+	else
+		to_chat(user, SPAN_WARNING("\The [src] is empty."))
+		icon_state = initial(icon_state)
+
+// Class I
+/obj/item/storage/pill_bottle/amnesticsi
+	name = "Class-I amnestics packet"
+	desc = "A small box of Class-I Amnestics. Used to temporarily prevent the recall of the past."
+	icon = 'icons/SCP/amnestics.dmi'
+	icon_state = "i-class"
+	open_icon = "i-class_open"
+	startswith = list(/obj/item/reagent_containers/pill/amnestics/classi = 14)
+
+/obj/item/storage/pill_bottle/amnesticsi/attack_self(mob/living/user)
+	if(user.get_inactive_hand())
+		to_chat(user, SPAN_NOTICE("You need an empty hand to take something out."))
+		return
+	if(contents.len)
+		var/obj/item/I = contents[1]
+		if(!remove_from_storage(I,user))
+			return
+		if(user.put_in_inactive_hand(I))
+			to_chat(user, SPAN_NOTICE("You take \the [I] out of \the [src]."))
+			if(open_icon)
+				icon_state = open_icon
+			if(iscarbon(user))
+				var/mob/living/carbon/C = user
+				C.swap_hand()
+		else
+			I.dropInto(loc)
+			to_chat(user, SPAN_NOTICE("You fumble around with \the [src] and drop \the [I] on the floor."))
+	else
+		to_chat(user, SPAN_WARNING("\The [src] is empty."))
+		icon_state = initial(icon_state)
 
 /obj/item/reagent_containers/pill/amnestics/classa
 	name = "class a amnestic pill (10u)"
@@ -253,12 +372,6 @@
 	reagents.add_reagent(/datum/reagent/medicine/amnestics/classa, 10)
 	color = reagents.get_color()
 
-/obj/item/storage/pill_bottle/amnesticsb
-	name = "pill bottle (Class-B Amnestics)"
-	desc = "Contains Class-B Amnestics, used to erase memories from the last two weeks."
-	startswith = list(/obj/item/reagent_containers/pill/amnestics/classb = 14)
-	wrapper_color = COLOR_CYAN
-
 /obj/item/reagent_containers/pill/amnestics/classb
 	name = "class b amnestic pill (3u)"
 	icon_state = "pill1"
@@ -267,6 +380,26 @@
 /obj/item/reagent_containers/pill/amnestics/classb/New()
 	..()
 	reagents.add_reagent(/datum/reagent/medicine/amnestics/classb, 3)
+	color = reagents.get_color()
+
+/obj/item/reagent_containers/pill/amnestics/classh
+	name = "class h amnestic pill (5u)"
+	icon_state = "pill1"
+	desc = "The taste of this pill is usually the last thing you remember for the day."
+
+/obj/item/reagent_containers/pill/amnestics/classh/New()
+	..()
+	reagents.add_reagent(/datum/reagent/medicine/amnestics/classh, 5)
+	color = reagents.get_color()
+
+/obj/item/reagent_containers/pill/amnestics/classi
+	name = "class i amnestic pill (5u)"
+	icon_state = "pill1"
+	desc = "You always regret the things you do after you take this pill."
+
+/obj/item/reagent_containers/pill/amnestics/classi/New()
+	..()
+	reagents.add_reagent(/datum/reagent/medicine/amnestics/classi, 5)
 	color = reagents.get_color()
 
 /obj/item/reagent_containers/syringe/amnesticsc
@@ -287,16 +420,6 @@
 	reagents.add_reagent(/datum/reagent/medicine/amnestics/classe, 15)
 	update_icon()
 
-/obj/item/reagent_containers/ivbag/amnesticsf
-	name = "\improper IV bag Class-F Amnestics"
-	desc = "An IV bag filled with heavily diluted Class-F Amnestics. Used to erase the patient's entire identity, turning them into a blank slate. It has instructions on it that read : 'To avoid overdose, configure IV drip to tranfer speed of 1u. Only inject one bag, as overdose will cause severe brain damage."
-	volume = 50
-
-/obj/item/reagent_containers/ivbag/amnesticsf/New()
-	..()
-	reagents.add_reagent(/datum/reagent/medicine/amnestics/classf, 20)
-	reagents.add_reagent(/datum/reagent/water, 30)
-
 /obj/item/reagent_containers/syringe/amnesticsg
 	name = "Syringe (Class-G Amnestics)"
 	desc = "A syringe filled with Class-G Amnestics. Used to alter memories of the anomalous to a more dreamlike state. Use only under supervision of medical staff."
@@ -306,37 +429,15 @@
 	reagents.add_reagent(/datum/reagent/medicine/amnestics/classg, 15)
 	update_icon()
 
-/obj/item/storage/pill_bottle/amnesticsh
-	name = "pill bottle (Class-H Amnestics)"
-	desc = "Contains Class-H Amnestics, used to temporarily prevent the creation of new memories."
-	startswith = list(/obj/item/reagent_containers/pill/amnestics/classh = 14)
-	wrapper_color = COLOR_GREEN
+/obj/item/reagent_containers/ivbag/amnesticsf
+	name = "\improper IV bag Class-F Amnestics"
+	desc = "An IV bag filled with heavily diluted Class-F Amnestics. Used to erase the patient's entire identity, turning them into a blank slate. It has instructions on it that read : 'To avoid overdose, configure IV drip to tranfer speed of 1u. Only inject one bag, as overdose will cause severe brain damage."
+	volume = 50
 
-/obj/item/reagent_containers/pill/amnestics/classh
-	name = "class h amnestic pill (5u)"
-	icon_state = "pill1"
-	desc = "The taste of this pill is usually the last thing you remember for the day."
-
-/obj/item/reagent_containers/pill/amnestics/classh/New()
+/obj/item/reagent_containers/ivbag/amnesticsf/New()
 	..()
-	reagents.add_reagent(/datum/reagent/medicine/amnestics/classh, 5)
-	color = reagents.get_color()
-
-/obj/item/storage/pill_bottle/amnesticsi
-	name = "pill bottle (Class-I Amnestics)"
-	desc = "Contains Class-I Amnestics, used to temporarily prevent the recall of the past."
-	startswith = list(/obj/item/reagent_containers/pill/amnestics/classi = 14)
-	wrapper_color = COLOR_PURPLE
-
-/obj/item/reagent_containers/pill/amnestics/classi
-	name = "class i amnestic pill (5u)"
-	icon_state = "pill1"
-	desc = "You always regret the things you do after you take this pill."
-
-/obj/item/reagent_containers/pill/amnestics/classi/New()
-	..()
-	reagents.add_reagent(/datum/reagent/medicine/amnestics/classi, 5)
-	color = reagents.get_color()
+	reagents.add_reagent(/datum/reagent/medicine/amnestics/classf, 20)
+	reagents.add_reagent(/datum/reagent/water, 30)
 
 //Amnestic chemical reactions.
 
