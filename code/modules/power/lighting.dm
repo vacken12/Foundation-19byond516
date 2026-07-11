@@ -610,16 +610,18 @@
 	var/broken_chance = 2
 	atom_flags = ATOM_FLAG_NO_TEMP_CHANGE | ATOM_FLAG_CAN_BE_PAINTED
 
-	var/b_max_bright = 0.9
+	var/b_max_bright = 0.5
 	var/b_inner_range = 1
-	var/b_outer_range = 5
+	var/b_outer_range = 3
 	var/b_curve = 2
 	var/b_colour = "#fffee0"
 	var/list/lighting_modes = list()
 	var/sound_on
 	var/random_tone = TRUE
 	var/list/random_tone_options = list(
-		"#fdfaae", //try to make scp vibe
+	//	"#fdfaae", //try to make scp vibe
+	//	"#e3e09c"
+		"#fdfaae", // more
 		"#e3e09c"
 	//	"#c8ffff", // Celadon sucks
 	//	"#fefefe",
