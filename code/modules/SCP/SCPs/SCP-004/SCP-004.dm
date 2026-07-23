@@ -234,6 +234,10 @@
 	name = "rusted key X"
 	key_id = 10
 	icon_state = "key_10"
+	key_effect = SCP004_EFFECT_PORTAL
+	portal_x = 43
+	portal_y = 130
+	portal_z = 8
 
 /obj/item/key/scp004/key_11
 	name = "rusted key XI"
