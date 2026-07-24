@@ -106,7 +106,7 @@
     grabbed = H
     tentacle_active = TRUE
     flick("tentacle_on", src)
-    playsound(src, 'sounds/effects/splat.ogg', 50, 1)  // звук при появлении
+    playsound(src, 'sounds/effects/splat.ogg', 50, 1)
     addtimer(CALLBACK(src, PROC_REF(set_tentacle_active)), 0.3 SECONDS)
 
     H.visible_message(SPAN_DANGER("\The [src] grabs [H]!"))
@@ -136,7 +136,7 @@
     grabbed = null
     tentacle_active = FALSE
     flick("tentacle_off", src)
-    playsound(src, 'sounds/effects/splat.ogg', 30, 1)  // звук при отпускании
+    playsound(src, 'sounds/effects/splat.ogg', 30, 1)
     addtimer(CALLBACK(src, PROC_REF(reset_tentacle_under)), 0.3 SECONDS)
 
 /obj/effect/decal/cleanable/scp035_goo/proc/reset_tentacle_under()
@@ -292,7 +292,11 @@
 
 /obj/item/clothing/mask/scp035/proc/try_attach(mob/living/carbon/human/H)
     if(!H) return
-    if(H.SCP && !is_scp_human(H)) return
+    if(is_scp106_or_343(H))
+        visible_message(SPAN_DANGER("\The [src] recoils from [H]!"))
+        return
+    if(H.SCP)
+        return
     if(istype(H.wear_mask, /obj/item/clothing/mask/scp035) || H.wear_mask == src) return
     if(H.wear_mask) H.drop_from_inventory(H.wear_mask)
     H.equip_to_slot(src, slot_wear_mask)
@@ -314,42 +318,41 @@
         try_attach(user)
 
 /obj/item/clothing/mask/scp035/proc/on_equipped(mob/living/carbon/human/user)
-	if(user.stat == DEAD)
-		user.revive()
-		user.SCP = new /datum/scp(user, "possessed figure", SCP_KETER, "035", SCP_PLAYABLE)
+    if(user.stat == DEAD)
+        user.revive()
+        user.SCP = new /datum/scp(user, "possessed figure", SCP_KETER, "035", SCP_PLAYABLE)
 
-	add_verb(user, /obj/item/clothing/mask/scp035/verb/Telepathy)
-	add_verb(user, /obj/item/clothing/mask/scp035/verb/SwitchMask)
-	add_verb(user, /obj/item/clothing/mask/scp035/verb/CorrodeDoor)
-	add_verb(user, /obj/item/clothing/mask/scp035/verb/SecreteGoo)
-	add_verb(user, /obj/item/clothing/mask/scp035/verb/SelfHeal)
+    add_verb(user, /obj/item/clothing/mask/scp035/verb/Telepathy)
+    add_verb(user, /obj/item/clothing/mask/scp035/verb/SwitchMask)
+    add_verb(user, /obj/item/clothing/mask/scp035/verb/SecreteGoo)
+    add_verb(user, /obj/item/clothing/mask/scp035/verb/SelfHeal)
 
-	init_skills(user)
+    init_skills(user)
 
-	is_recovering = FALSE
-	decay_level = 0
+    is_recovering = FALSE
+    decay = 0
 
-	user.update_inv_wear_mask()
+    user.update_inv_wear_mask()
 
-	to_chat(user, SPAN_DANGER("<font size='5'>An alien presence coils around your thoughts. A silken voice promises eternity, but your body already begins to rebel. You are now the vessel of SCP-035. Spread its influence. Find new flesh before this one decays.</font>"))
+    to_chat(user, SPAN_DANGER("<font size='5'>An alien presence coils around your thoughts. A silken voice promises eternity, but your body already begins to rebel. You are now the vessel of SCP-035. Spread its influence. Find new flesh before this one decays.</font>"))
 
 /obj/item/clothing/mask/scp035/proc/init_skills(mob/living/carbon/human/user)
-	var/datum/skillset/skillset = user?.skillset
-	if(!skillset)
-		return
-	skillset.skill_list = list()
-	for(var/decl/hierarchy/skill/skill_decl in GLOB.skills)
-		skillset.skill_list[skill_decl.type] = SKILL_UNTRAINED
-	skillset.skill_list[SKILL_COMBAT] = SKILL_MASTER
-	skillset.skill_list[SKILL_WEAPONS] = SKILL_MASTER
-	skillset.skill_list[SKILL_FORENSICS] = SKILL_TRAINED
-	skillset.skill_list[SKILL_HAULING] = SKILL_TRAINED
-	skillset.on_levels_change()
+    var/datum/skillset/skillset = user?.skillset
+    if(!skillset)
+        return
+    skillset.skill_list = list()
+    for(var/decl/hierarchy/skill/skill_decl in GLOB.skills)
+        skillset.skill_list[skill_decl.type] = SKILL_UNTRAINED
+    skillset.skill_list[SKILL_COMBAT] = SKILL_MASTER
+    skillset.skill_list[SKILL_WEAPONS] = SKILL_MASTER
+    skillset.skill_list[SKILL_FORENSICS] = SKILL_TRAINED
+    skillset.skill_list[SKILL_HAULING] = SKILL_TRAINED
+    skillset.on_levels_change()
 
 /obj/item/clothing/mask/scp035/equipped(mob/user)
-	. = ..()
-	if(ishuman(user))
-		on_equipped(user)
+    . = ..()
+    if(ishuman(user))
+        on_equipped(user)
 
 /obj/item/clothing/mask/scp035/proc/on_host_death(mob/living/carbon/human/H)
     H.real_name = "Unknown"
