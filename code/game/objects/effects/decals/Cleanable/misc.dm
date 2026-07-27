@@ -40,6 +40,14 @@
 	icon_state = "flour"
 	persistent = TRUE
 
+/obj/effect/decal/cleanable/milk
+	name = "milk"
+	desc = "It's still good! Yummy!"
+	gender = PLURAL
+	icon = 'icons/effects/blood.dmi'
+	icon_state = "mfloor2"
+	persistent = TRUE
+
 /obj/effect/decal/cleanable/greenglow
 	name = "glowing goo"
 	desc = "Jeez. I hope that's not for lunch."

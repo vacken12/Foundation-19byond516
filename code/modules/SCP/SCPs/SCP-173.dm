@@ -4,6 +4,7 @@
 	icon = 'icons/SCP/scp-173.dmi'
 	icon_state = "173"
 	status_flags = NO_ANTAG
+	animate_movement = 0
 
 	see_invisible = SEE_INVISIBLE_NOLIGHTING
 	see_in_dark = 7

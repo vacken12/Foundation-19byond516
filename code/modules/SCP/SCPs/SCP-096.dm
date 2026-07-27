@@ -199,6 +199,21 @@
 			. += "Locate Y: [Ptarget.y]"
 			. += "Locate Z: [Ptarget.z]"
 //
+/mob/living/scp096/proc/pick_closest_target()
+	var/mob/living/carbon/human/best_target
+	var/min_dist = 9999
+	for(var/mob/living/carbon/human/Ptarget in targets)
+		if(!Ptarget || QDELETED(Ptarget) || Ptarget.z != src.z)
+			continue
+		var/turf/T = get_turf(Ptarget)
+		if(!T)
+			continue
+		var/dist = get_dist(src, Ptarget)
+		if(dist < min_dist)
+			min_dist = dist
+			best_target = Ptarget
+	return best_target
+
 /mob/living/scp096/proc/handle_AI()
 	switch(current_state)
 		if(STATE_096_IDLE)
@@ -206,105 +221,77 @@
 				audible_message(pick("[src] cries.", "[src] sobs.", "[src] wails."))
 				playsound(src, 'sounds/scp/096/096-idle.ogg', 80, ignore_walls = TRUE)
 				emote_cooldown_track = world.time
-		if(STATE_096_CHASING)
-			//Find path to target
-			for(var/mob/living/carbon/human/Ptarget in targets)
-				if(LAZYLEN(current_path))
-					break
-				target = Ptarget
-				lastTargetTurf = get_turf(target)
-				current_path = get_path_to(src, target, maxJPSdistance)
-			//If we have no more targets, we go back to idle
-			if(!LAZYLEN(targets))
-				current_state = STATE_096_IDLE
-				icon_state = "scp"
-				target = null
-				current_path = null
-				//This resets the screaming noise for everyone.
-				for(var/mob/living/carbon/human/hearer in hearers(world.view, src))
-					sound_to(hearer, sound(null))
-				update_icon()
-				return
-			//If we havent found a path for any of our targets, we notify admins and switch ourselves to the first target in our list. Path code will also use byond's inherent pathfinding for this life call.
-			if(!LAZYLEN(current_path))
-				log_and_message_staff("Instance of SCP-[SCP.designation] failed to find paths for targets. Switching to byond pathfinding for current life iteration.", src, loc)
-				target = targets[1]
-				lastTargetTurf = get_turf(target)
-			//If the target moved, we must regenerate the path list
-			if(get_turf(target) != lastTargetTurf)
-				current_path = get_path_to(src, target, maxJPSdistance)
-				//if we cant path to target we reset the target
-				if(!LAZYLEN(current_path))
+
+		if(STATE_096_SCREAMING)
+			// Wait for screaming timer to finish
+
+		if(STATE_096_CHASING, STATE_096_SLAUGHTER)
+			// Try to pick a valid target if lost
+			if(!target || QDELETED(target) || target.z != src.z)
+				target = pick_closest_target()
+				if(target)
+					lastTargetTurf = get_turf(target)
+					current_path = get_path_to(src, target, maxJPSdistance)
+					LAZYINITLIST(current_path)
+				else if(!LAZYLEN(targets))
+					// No valid targets at all, go idle
+					current_state = STATE_096_IDLE
+					icon_state = "scp"
 					target = null
+					current_path = null
+					for(var/mob/living/carbon/human/hearer in hearers(world.view, src))
+						sound_to(hearer, sound(null))
+					update_icon()
 					return
-				lastTargetTurf = get_turf(target)
-		if(STATE_096_STAGGERED)
-			if(world.time > stagger_counter)
-				current_state = STATE_096_CHASING
-	switch(current_state)
-		if(STATE_096_IDLE)
-			if(prob(45) && ((world.time - emote_cooldown_track) > emote_cooldown))
-				audible_message(pick("[src] cries.", "[src] sobs.", "[src] wails."))
-				playsound(src, 'sounds/scp/096/096-idle.ogg', 80, ignore_walls = TRUE)
-				emote_cooldown_track = world.time
-		if(STATE_096_CHASING)
-			//Find path to target
-			for(var/mob/living/carbon/human/Ptarget in targets)
-				if(LAZYLEN(current_path))
-					break
-				target = Ptarget
-				lastTargetTurf = get_turf(target)
-				current_path = get_path_to(src, target, maxJPSdistance)
-			//If we have no more targets, we go back to idle
-			if(!LAZYLEN(targets))
-				current_state = STATE_096_IDLE
-				icon_state = "scp"
+			// Clean up invalid targets from list
+			if(QDELETED(target) || target.z != src.z)
+				targets -= target
 				target = null
 				current_path = null
-				//This resets the screaming noise for everyone.
-				for(var/mob/living/carbon/human/hearer in hearers(world.view, src))
-					sound_to(hearer, sound(null))
-				update_icon()
-				return
-			//If we havent found a path for any of our targets, we notify admins and switch ourselves to the first target in our list. Path code will also use byond's inherent pathfinding for this life call.
-			if(!LAZYLEN(current_path))
-				log_and_message_staff("Instance of SCP-[SCP.designation] failed to find paths for targets. Switching to byond pathfinding for current life iteration.", src, loc)
-				target = targets[1]
-				lastTargetTurf = get_turf(target)
-			//If the target moved, we must regenerate the path list
-			if(get_turf(target) != lastTargetTurf)
-				current_path = get_path_to(src, target, maxJPSdistance)
-				//if we cant path to target we reset the target
-				if(!LAZYLEN(current_path))
+			//If target is valid but path is empty or stale, try to find path
+			if(target && (!LAZYLEN(current_path) || !lastTargetTurf || (lastTargetTurf && get_turf(target) != lastTargetTurf)))
+				var/turf/T = get_turf(target)
+				if(T)
+					current_path = get_path_to(src, target, maxJPSdistance)
+					if(LAZYLEN(current_path))
+						lastTargetTurf = T
+					else
+						// Path failed, clear target to try again next tick
+						target = null
+						current_path = null
+						return
+				else
 					target = null
+					current_path = null
 					return
-				lastTargetTurf = get_turf(target)
-			//Gets our next step
-			LAZYINITLIST(current_path)
-			var/turf/next_step = LAZYLEN(current_path) ? current_path[1] : get_step_towards(src, target)
-			//Get rid of obstacles
-			if(next_step.contains_dense_objects())
-				for(var/atom/obstacle in next_step)
-					if(!obstacle.density)
-						continue
-					if(isturf(obstacle) && !istype(obstacle, /turf/simulated/wall))
-						continue
-					UnarmedAttack(obstacle)
-				if(!(src in next_step))
+			// Only proceed with movement if we have a valid target
+			if(target && LAZYLEN(current_path))
+				//Gets our next step
+				var/turf/next_step = current_path[1]
+				//Get rid of obstacles
+				if(next_step.contains_dense_objects())
+					for(var/atom/obstacle in next_step)
+						if(!obstacle.density)
+							continue
+						if(isturf(obstacle) && !istype(obstacle, /turf/simulated/wall))
+							continue
+						UnarmedAttack(obstacle)
+					if(!(src in next_step))
+						return
+				//Murder!
+				if(get_dist(src, target) <= 1)
+					UnarmedAttack(target)
 					return
-			//Murder!
-			if(get_dist(src, target) <= 1)
-				UnarmedAttack(target)
-				return
-			else if((get_dist(src, target) <= scp096_leap_range) && leapHandler.can_be_used_by(src, target, TRUE))
-				leapHandler.perform(src, target, 5)
-				return
-			step_towards(src, next_step, scp096_speed)
-			if(get_turf(src) != next_step)
-				target = null
-				current_path = null
-				return
-			current_path -= next_step
+				else if((get_dist(src, target) <= scp096_leap_range) && leapHandler.can_be_used_by(src, target, TRUE))
+					leapHandler.perform(src, target, 5)
+					return
+				step_towards(src, next_step, scp096_speed)
+				if(get_turf(src) != next_step)
+					target = null
+					current_path = null
+					return
+				current_path -= next_step
+
 		if(STATE_096_STAGGERED)
 			if(world.time > stagger_counter)
 				current_state = STATE_096_CHASING

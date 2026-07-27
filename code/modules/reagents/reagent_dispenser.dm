@@ -276,6 +276,15 @@
 	initial_reagent_types = list(/datum/reagent/capsaicin/condensed = 1)
 
 
+/obj/structure/reagent_dispensers/consideredmilktank
+	name = "considered milk tank"
+	desc = "Refills our mouth with considered milk!"
+	icon = 'icons/obj/objects.dmi'
+	icon_state = "sgushenka"
+	amount_per_transfer_from_this = 5
+	initial_reagent_types = list(/datum/reagent/drink/milk/soymilk = 1)
+
+
 /obj/structure/reagent_dispensers/water_cooler
 	name = "water cooler"
 	desc = "A machine that dispenses cool water to drink."
