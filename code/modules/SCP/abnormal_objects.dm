@@ -2,23 +2,33 @@
 // Diamond Brick
 // -----------------------------------------------------------------------------
 /obj/item/material/diamond_brick
-	name = "diamond brick"
-	desc = "A brick carved from a single 24,000-carat diamond."
-	icon = 'icons/SCP/abnormal_objects.dmi'
-	icon_state = "brick"
-	default_material = MATERIAL_DIAMOND
-	applies_material_name = 0
-	max_force = 10
-	force_multiplier = 0.3
-	thrown_force_multiplier = 0.5
-	w_class = ITEM_SIZE_NORMAL
-	attack_verb = list("bashed", "crushed")
+    name = "anomalous diamond"
+    desc = "A diamond shaped like an inverted cone. It occasionally emits a faint pulse of light."
+    icon = 'icons/SCP/abnormal_objects.dmi'
+    icon_state = "gem"
+    default_material = MATERIAL_DIAMOND
+    applies_material_name = 0
+    max_force = 10
+    force_multiplier = 0.3
+    thrown_force_multiplier = 0.5
+    w_class = ITEM_SIZE_NORMAL
+    attack_verb = list("bashed", "crushed")
 
-/obj/item/material/diamond_brick/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/weldingtool))
-		to_chat(user, SPAN_NOTICE("[src] heats up slightly but remains unharmed."))
-		return TRUE
-	return ..()
+    var/list/gem_animations = list("gem_1", "gem_2", "gem_3")
+
+/obj/item/material/diamond_brick/Initialize()
+    . = ..()
+    schedule_animation()
+
+/obj/item/material/diamond_brick/proc/schedule_animation()
+    if(QDELETED(src)) return
+    addtimer(CALLBACK(src, PROC_REF(play_animation)), rand(30, 120) SECONDS)
+
+/obj/item/material/diamond_brick/proc/play_animation()
+    if(QDELETED(src)) return
+    var/chosen = pick(gem_animations)
+    flick(chosen, src)
+    schedule_animation()
 
 // -----------------------------------------------------------------------------
 // Spear of Betrayal
@@ -64,7 +74,6 @@
 	desc = "A pristine white cowboy hat. It fills you with an inexplicable urge to dance."
 	icon = 'icons/SCP/abnormal_objects.dmi'
 	icon_state = "compulsive"
-	item_state = "compulsive"
 	body_parts_covered = 0
 	var/last_yeehaw = 0
 	var/going_up = TRUE
@@ -131,9 +140,9 @@
 	icon_state = "fire"
 	anchored = TRUE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	layer = ABOVE_HUMAN_LAYER + 1      // чтобы точно поверх моба
-	plane = EFFECTS_ABOVE_LIGHTING_PLANE // гарантированно над всеми объектами
-	pixel_y = 6                         // 3 + 3 пикселя выше
+	layer = ABOVE_HUMAN_LAYER + 1
+	plane = EFFECTS_ABOVE_LIGHTING_PLANE
+	pixel_y = 6
 	var/mob/living/following
 
 /obj/effect/blue_flame/proc/attach_to(mob/living/M)
@@ -263,10 +272,6 @@
 	item_state = "scp"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 
-/obj/item/clothing/suit/scp_tshirt/examine(mob/user, distance, infix, suffix)
-	. = ..()
-	. += SPAN_WARNING("This item is a direct violation of the Veil Protocol.")
-
 // -----------------------------------------------------------------------------
 // Suspicious Apple
 // -----------------------------------------------------------------------------
@@ -283,6 +288,9 @@
 /obj/item/melee/suspicious_apple/resolve_attackby(atom/A, mob/user)
 	. = ..()
 
+// -----------------------------------------------------------------------------
+// Boomerang Baseball
+// -----------------------------------------------------------------------------
 /obj/item/boomerang_baseball
 	name = "baseball"
 	desc = "A regular baseball. Something about its trajectory seems... off."
