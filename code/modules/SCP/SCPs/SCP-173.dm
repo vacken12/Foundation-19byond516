@@ -31,7 +31,7 @@
 	var/defication_max = 60
 
 	/// If TRUE - 173 will automatically trigger attack when bumping a human mob
-	var/bump_attack = FALSE
+	var/bump_attack = TRUE
 
 	/// If TRUE - we will ignore anyone looking at us
 	var/ignore_vision = FALSE
