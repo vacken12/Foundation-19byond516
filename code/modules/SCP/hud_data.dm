@@ -115,3 +115,17 @@
 		"belt" =        list("loc" = ui_belt,       "name" = "Belt",         "slot" = slot_belt,      "state" = "belt"),
 		"back" =        list("loc" = ui_back,        "name" = "Back",         "slot" = slot_back,      "state" = "back")
 	)
+
+/datum/hud_data/scp106
+	has_a_intent = 1
+	has_m_intent = 2
+	has_warnings = 1
+	has_pressure = 1
+	has_nutrition = 0
+	has_bodytemp = 1
+	has_hands = 1
+	has_drop = 1
+	has_throw = 1
+	has_resist = 1
+	has_internals = 1
+	gear = list()

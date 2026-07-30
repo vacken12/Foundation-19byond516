@@ -3,6 +3,7 @@
 	name_plural = "SCP-049s"
 	icon_template = 'icons/SCP/scp-049.dmi'
 	has_organ = list()
+	hud_type = /datum/hud_data/scp049
 	siemens_coefficient = 0
 	show_ssd = null
 	show_coma = null

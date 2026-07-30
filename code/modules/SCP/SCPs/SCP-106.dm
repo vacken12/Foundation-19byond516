@@ -21,6 +21,8 @@
 	///Sound cooldown
 	var/sound_cooldown_time = 4 SECONDS
 
+	hud_type = /datum/hud_data/scp106
+
 	//Mechanical
 
 	///Our current target
@@ -51,6 +53,7 @@
 
 	var/datum/sound_token/following_sound
 	var/sound_id = "106"
+	var/currentLoopingSound = 'sounds/scp/scp_following_ost.ogg'
 
 /mob/living/carbon/human/scp106/Initialize(mapload, new_species = "SCP-106")
 	. = ..()
@@ -90,7 +93,7 @@
 
 	ADD_TRAIT(src, TRAIT_DISCOORDINATED_TOOL_USER, ROUNDSTART_TRAIT)
 
-	following_sound = GLOB.sound_player.PlayLoopingSound(src, sound_id, 'sounds/scp/scp_following_ost.ogg', volume = 80, range = 5, falloff = 4, prefer_mute = TRUE)
+	following_sound = GLOB.sound_player.PlayLoopingSound(src, sound_id, sound = currentLoopingSound, volume = 80, range = 6, falloff = 4, prefer_mute = TRUE)
 
 /mob/living/carbon/human/scp106/Destroy()
 	QDEL_NULL(WallEye)

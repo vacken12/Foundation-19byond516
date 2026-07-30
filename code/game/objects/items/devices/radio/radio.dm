@@ -935,6 +935,7 @@
 
 /obj/item/device/radio/update_icon()
 	if(istype(src, /obj/item/device/radio/intercom)) return
+	if(istype(src, /obj/item/device/radio/headset)) return
 
 	if(on==1)
 		icon_state = "walkietalkie"

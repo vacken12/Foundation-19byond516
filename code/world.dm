@@ -5,13 +5,13 @@
 
 /world
 	mob = /mob/new_player
-	turf = /turf/space
-	area = /area/space
+	turf = /turf/unsimulated/mineral
+	area = /area/site53/surface/surface/upper
 	view = "15x15"
 	cache_lifespan = 7
 	hub = "Exadv1.spacestation13"
 	icon_size = WORLD_ICON_SIZE
-	fps = 20
+	fps = 40
 #ifdef FIND_REF_NO_CHECK_TICK
 	loop_checks = FALSE
 #endif

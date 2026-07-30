@@ -36,7 +36,7 @@
 	uniform = /obj/item/clothing/under/rank/janitor
 	shoes = /obj/item/clothing/shoes/workboots
 	l_pocket = /obj/item/device/radio
-	id_type = /obj/item/card/id/sciencelvl1
+	id_type = /obj/item/card/id/janitor
 	l_ear = /obj/item/device/radio/headset/headset_service
 
 /decl/hierarchy/outfit/job/civ/chef

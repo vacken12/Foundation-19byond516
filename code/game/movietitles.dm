@@ -26,10 +26,10 @@ GLOBAL_LIST(end_titles)
 		if(mob.get_preference_value(/datum/client_preference/play_lobby_music) == GLOB.PREF_YES)
 			sound_to(mob, sound(null, channel = GLOB.lobby_sound_channel))
 			if(GLOB.end_credits_song == null)
-				var/title_song = pick('sounds/music/THUNDERDOME.ogg', 'sounds/music/europa/Chronox_-_03_-_In_Orbit.ogg', 'sounds/music/europa/asfarasitgets.ogg')
-				sound_to(mob, sound(title_song, wait = 0, volume = 40, channel = GLOB.lobby_sound_channel))
+				var/title_song = 'sounds/music/SCPCB_credits.ogg'
+				sound_to(mob, sound(title_song, wait = 0, volume = 60, channel = GLOB.lobby_sound_channel))
 			else if(get_preference_value(/datum/client_preference/play_admin_midis) == GLOB.PREF_YES)
-				sound_to(mob, sound(GLOB.end_credits_song, wait = 0, volume = 40, channel = GLOB.lobby_sound_channel))
+				sound_to(mob, sound(GLOB.end_credits_song, wait = 0, volume = 60, channel = GLOB.lobby_sound_channel))
 	sleep(50)
 	var/list/_credits = credits
 	add_verb(src, /client/proc/ClearCredits)

@@ -375,6 +375,7 @@
 ///Checks if a human can make direct contact with another human's bare skin, factoring in HCZ hazmat protection.
 ///Uses the attacker's selected zone (zone_sel.selecting) to determine which body part is being targeted.
 ///Returns FALSE if the targeted body part is protected by hazmat gear, meaning the attacker cannot make contact with bare skin there.
+///Returns TRUE if the targeted body part is not protected by hazmat gear (or if zone selection is unavailable).
 /mob/living/carbon/human/proc/can_touch_hazmat_bare_skin(mob/living/carbon/human/target)
 	// Accumulate body coverage flags from the target's hazmat equipment
 	var/hazmat_covered = 0
@@ -386,6 +387,11 @@
 	if(istype(target.head, /obj/item/clothing/head/hcz_hazmat))
 		var/obj/item/clothing/head/hcz_hazmat/helmet = target.head
 		hazmat_covered |= helmet.body_parts_covered
+
+	// If zone_sel is not available (e.g. no client), we can't determine the targeted zone.
+	// Default to allowing contact (FALSE = blocked, return TRUE = not blocked).
+	if(!zone_sel)
+		return TRUE
 
 	// Check the specific body part the attacker is targeting
 	switch(zone_sel.selecting)
@@ -427,4 +433,4 @@
 				return FALSE
 
 	// Targeted zone is not covered by hazmat — fall through to standard bare-skin check
-	return
+	return TRUE

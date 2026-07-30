@@ -96,7 +96,12 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	'sounds/ambience/EchoesoftheInfinite.ogg',
 	'sounds/ambience/StepsintotheAbyss.ogg',
 	'sounds/ambience/MorphingShadows.ogg',
-	'sounds/ambience/UnleashedReality.ogg'
+	'sounds/ambience/UnleashedReality.ogg',
+	'sounds/ambience/nostalgia1.ogg',
+	'sounds/ambience/nostalgia2.ogg',
+	'sounds/ambience/nostalgia3.ogg',
+	'sounds/ambience/nostalgia4.ogg',
+	'sounds/ambience/nostalgia5.ogg'
 	)
 	var/list/forced_ambience = null
 	var/sound_env = STANDARD_STATION

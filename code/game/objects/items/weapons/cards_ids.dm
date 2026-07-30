@@ -1189,6 +1189,14 @@ GLOBAL_LIST_EMPTY(conversion_cards)
 	item_state = "Science_ID1"
 	job_access_type = /datum/job/chef
 
+/obj/item/card/id/janitor
+	name = "janitor ID"
+	desc = "A purple ID. Haven't you seen a janitor with this before?"
+	access_level = 1
+	icon_state = "janitor"
+	item_state = "janitor"
+	job_access_type = /datum/job/janitor
+
 /obj/item/card/id/bartender
 	name = "bartender ID"
 	desc = "A light blue ID. Haven't you seen a janitor with this before?"
@@ -1201,8 +1209,8 @@ GLOBAL_LIST_EMPTY(conversion_cards)
 	name = "Office Staff ID"
 	desc = "A low level ID issued to office workers."
 	access_level = 1
-	icon_state = "adminlvl1"
-	item_state = "Admin_ID"
+	icon_state = "officeworker"
+	item_state = "officeworker"
 	job_access_type = /datum/job/officeworker
 
 /obj/item/card/id/classd
