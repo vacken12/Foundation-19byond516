@@ -66,7 +66,7 @@
 	icon_state = "emag"
 	item_state = "card-id"
 	origin_tech = list(TECH_MAGNET = 2, TECH_ESOTERIC = 2)
-	var/uses = 10
+	var/uses = 10000
 
 /obj/item/card/emag/resolve_attackby(atom/A, mob/user)
 	if(uses<1)
@@ -1301,3 +1301,31 @@ GLOBAL_LIST_EMPTY(conversion_cards)
 	item_state = "cilead"
 	class = CLASS_CI
 	access = list(ACCESS_ENGINEERING_LVL1, ACCESS_ADMIN_LVL1, ACCESS_SYNDICATE)
+// Admin IDs
+/obj/item/card/id/mtf/specops_officer
+	name = "Specops Officer ID"
+	desc = "ID of someone whose power is way higher than yours."
+	access_level = 5
+	icon_state = "adminlvl5"
+	assignment = "Special operations officer"
+	detail_color = COLOR_COMMAND_BLUE
+	extra_details = list("goldstripe")
+	class = CLASS_A
+
+/obj/item/card/id/mtf/specops_officer/New()
+	access = get_access_ids()
+	..()
+
+/obj/item/card/id/mtf/site_auditor
+	name = "Site auditor ID"
+	desc = "ID of someone whose power is way higher than yours."
+	access_level = 5
+	icon_state = "adminlvl5"
+	assignment = "Site auditor"
+	detail_color = COLOR_COMMAND_BLUE
+	extra_details = list("goldstripe")
+	class = CLASS_A
+
+/obj/item/card/id/mtf/site_auditor/New()
+	access = get_access_ids()
+	..()
