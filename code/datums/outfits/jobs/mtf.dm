@@ -269,7 +269,7 @@
 /decl/hierarchy/outfit/mtf/site_auditor
 	name = OUTFIT_JOB_NAME("Site auditor")
 	uniform = /obj/item/clothing/under/auditor
-	suit = /obj/item/clothing/suit/armor/specops_officer
+	suit = /obj/item/clothing/suit/armor/specops_officer/auditor
 	mask = /obj/item/clothing/mask/specops_cigar
 	head = /obj/item/clothing/head/beret/specops_officer/auditor
 	gloves = null
