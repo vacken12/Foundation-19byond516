@@ -401,8 +401,8 @@
 		/obj/item/stack/medical
 		)
 /obj/item/storage/firstaid/light/deluxe
-	name = "Personal first-aid kit"
-	desc = "It's a small emergency medical kit."
+	name = "Deluxe personal first-aid kit"
+	desc = "It's a small emergency medical kit. Deluxe edition!"
 	icon_state = "light_firstaid_deluxe"
 	open_icon = "light_firstaid_deluxeopen"
 	storage_slots = 7
