@@ -297,7 +297,7 @@
 						vmask = FALSE, vmessage = message, radio = src,
 						message = message, name = from, job = null, realname = from, vname = from,
 						data = 0, compression = 0, level = GetConnectedZlevels(position.z), freq = connection.frequency, verbage = "states", speaking = null,
-						channel_tag = "[connection.frequency]", channel_color = channel_color_presets["Menacing Maroon"])
+						channel_tag = "Common", channel_color = channel_color_presets["Global Green"])
 
 // Interprets the message mode when talking into a radio, possibly returning a connection datum
 /obj/item/device/radio/proc/handle_message_mode(mob/living/M as mob, message, message_mode)
