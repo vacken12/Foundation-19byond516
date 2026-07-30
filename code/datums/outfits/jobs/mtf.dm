@@ -200,10 +200,10 @@
 	name = OUTFIT_JOB_NAME("Internal Security Department Field Uniform")
 	uniform = /obj/item/clothing/under/rank/security/isd
 	suit = /obj/item/clothing/suit/storage/vest/nt/isd
-	mask = null
+	mask = /obj/item/clothing/mask/gas/isd
 	head = /obj/item/clothing/head/beret/isd
 	gloves = /obj/item/clothing/gloves/tactical/scp
-	glasses = /obj/item/clothing/glasses/sunglasses
+	glasses = /obj/item/clothing/glasses/sunglasses/sechud
 	shoes = /obj/item/clothing/shoes/combat/lcz
 	suit_store = /obj/item/gun/projectile/automatic/machine_pistol
 	r_hand = /obj/item/clothing/accessory/storage/holster/thigh
@@ -213,15 +213,23 @@
 	id_type = /obj/item/card/id/mtf/isd
 	belt = /obj/item/storage/belt/holster/security/fullusp45
 	back = /obj/item/storage/backpack/satchel/leather/black
-	backpack_contents = list(/obj/item/storage/firstaid/adv = 1,/obj/item/crowbar/prybar = 1,/obj/item/stamp/scp/o5rep = 1,/obj/item/melee/baton/loaded = 1,/obj/item/clothing/mask/gas/isd = 1, /obj/item/ammo_magazine/machine_pistol = 2, /obj/item/ammo_magazine/scp/usp45 = 1)
+	backpack_contents = list(/obj/item/storage/firstaid/adv = 1,/obj/item/crowbar/prybar = 1,/obj/item/stamp/scp/o5rep = 1,/obj/item/melee/baton/loaded = 1, /obj/item/ammo_magazine/machine_pistol = 2, /obj/item/ammo_magazine/scp/usp45 = 1,/obj/item/melee/telebaton = 1)
 
-/decl/hierarchy/outfit/mtf/isd/formal
+/decl/hierarchy/outfit/mtf/isd_formal
 	name = OUTFIT_JOB_NAME("Internal Security Department Formal Uniform")
 	uniform = /obj/item/clothing/under/rank/security/isd/suit
 	suit = /obj/item/clothing/suit/armor/vest/scp/isd
 	head = /obj/item/clothing/head/beret/isd/fedora
 	l_pocket = /obj/item/reagent_containers/spray/pepper
-	belt = /obj/item/gun/projectile/automatic/machine_pistol
+	r_pocket = /obj/item/handcuffs
+	glasses = /obj/item/clothing/glasses/sunglasses/sechud
+	shoes = /obj/item/clothing/shoes/dress
+	r_hand = null
+	l_hand = null
+	id_type = /obj/item/card/id/mtf/isd
+	belt = /obj/item/gun/projectile/pistol/usp45
+	back = /obj/item/storage/backpack/satchel/leather/black
+	backpack_contents = list(/obj/item/crowbar/prybar = 1,/obj/item/stamp/scp/o5rep = 1, /obj/item/ammo_magazine/scp/usp45 = 5,/obj/item/melee/telebaton = 1)
 
 /decl/hierarchy/outfit/mtf/o5rep
 	name = OUTFIT_JOB_NAME("O5 Representative")
@@ -235,3 +243,44 @@
 	id_type = /obj/item/card/id/mtf/o5rep
 	backpack_contents = list(/obj/item/ammo_magazine/speedloader/heavy = 2)
 	belt = /obj/item/gun/projectile/revolver/military/heavy
+
+
+// Admin roles
+
+/decl/hierarchy/outfit/mtf/specops_officer
+	name = OUTFIT_JOB_NAME("Special operations officer")
+	uniform = /obj/item/clothing/under/syndicate/combat
+	suit = /obj/item/clothing/suit/armor/specops_officer
+	mask = /obj/item/clothing/mask/specops_cigar
+	head = /obj/item/clothing/head/beret/specops_officer
+	gloves = /obj/item/clothing/gloves/tactical/scp
+	glasses = /obj/item/clothing/glasses/sunglasses/sechud
+	shoes = /obj/item/clothing/shoes/combat/lcz
+	suit_store = /obj/item/gun/energy/pulse_rifle/destroyer
+	r_hand = null
+	l_hand = null
+	l_pocket = /obj/item/handcuffs
+	r_pocket = /obj/item/melee/telebaton
+	id_type = /obj/item/card/id/mtf/specops_officer
+	belt = /obj/item/storage/belt/holster/security/fullusp45
+	back = /obj/item/storage/backpack/satchel/leather/black
+	backpack_contents = list(/obj/item/crowbar/prybar = 1,/obj/item/stamp/scp/o5rep = 1, /obj/item/ammo_magazine/scp/usp45 = 3,/obj/item/reagent_containers/glass/bottle/adminordrazine = 1,/obj/item/storage/mre = 1, /obj/item/reagent_containers/food/drinks/cans/waterbottle = 1, /obj/item/storage/box/handcuffs = 1)
+
+/decl/hierarchy/outfit/mtf/site_auditor
+	name = OUTFIT_JOB_NAME("Site auditor")
+	uniform = /obj/item/clothing/under/auditor
+	suit = /obj/item/clothing/suit/armor/specops_officer
+	mask = /obj/item/clothing/mask/specops_cigar
+	head = /obj/item/clothing/head/beret/specops_officer/auditor
+	gloves = null
+	glasses = /obj/item/clothing/glasses/sunglasses
+	shoes = /obj/item/clothing/shoes/dress
+	suit_store = null
+	r_hand = null
+	l_hand = null
+	l_pocket = /obj/item/handcuffs
+	r_pocket = /obj/item/reagent_containers/spray/pepper
+	id_type = /obj/item/card/id/mtf/site_auditor
+	belt = /obj/item/gun/projectile/pistol/usp45
+	back = /obj/item/storage/backpack/satchel/leather/black
+	backpack_contents = list(/obj/item/crowbar/prybar = 1,/obj/item/stamp/scp/o5rep = 1, /obj/item/ammo_magazine/scp/usp45 = 5,/obj/item/reagent_containers/glass/bottle/adminordrazine = 1,/obj/item/storage/mre = 1, /obj/item/reagent_containers/food/drinks/cans/waterbottle = 1, /obj/item/melee/telebaton = 1)
