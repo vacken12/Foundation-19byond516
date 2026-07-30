@@ -380,13 +380,21 @@
 	// Accumulate body coverage flags from the target's hazmat equipment
 	var/hazmat_covered = 0
 
-	if(istype(target.wear_suit, /obj/item/clothing/suit/hcz_hazmat))
+	if(istype(target.wear_suit, /obj/item/clothing/suit/hcz_hazmat)) //HCZ HAZMAT
 		var/obj/item/clothing/suit/hcz_hazmat/suit = target.wear_suit
 		hazmat_covered |= suit.body_parts_covered
 
 	if(istype(target.head, /obj/item/clothing/head/hcz_hazmat))
 		var/obj/item/clothing/head/hcz_hazmat/helmet = target.head
 		hazmat_covered |= helmet.body_parts_covered
+
+	if(istype(target.head, /obj/item/clothing/head/bio_hood)) // BIO SUIT
+		var/obj/item/clothing/head/bio_hood/helmet = target.head
+		hazmat_covered |= helmet.body_parts_covered
+
+	if(istype(target.wear_suit, /obj/item/clothing/suit/bio_suit))
+		var/obj/item/clothing/suit/bio_suit/suit = target.wear_suit
+		hazmat_covered |= suit.body_parts_covered
 
 	// If zone_sel is not available (e.g. no client), we can't determine the targeted zone.
 	// Default to allowing contact (FALSE = blocked, return TRUE = not blocked).
