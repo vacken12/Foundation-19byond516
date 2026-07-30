@@ -204,14 +204,14 @@
 /decl/hierarchy/outfit/job/security/lcz_medic
 	name = OUTFIT_JOB_NAME("LCZ Combat Medic")
 	uniform = /obj/item/clothing/under/rank/security/lcz/medic
-	glasses = /obj/item/clothing/glasses/hud/health/visor
+	glasses = /obj/item/clothing/glasses/sunglasses/sechud/goggles
 	suit = /obj/item/clothing/suit/armor/vest/scp/medarmor/medic
 	shoes = /obj/item/clothing/shoes/dutyboots
 	id_type = /obj/item/card/id/seclvl2lczdivision
 	l_ear = /obj/item/device/radio/headset/headset_sec_lcz/medic
 	l_pocket = /obj/item/handcuffs
 	r_pocket = /obj/item/melee/telebaton
-	backpack_contents = list(/obj/item/storage/firstaid/adv = 1, /obj/item/storage/firstaid/combat = 1)
+	backpack_contents = list(/obj/item/storage/firstaid/adv = 1, /obj/item/storage/firstaid/combat = 1, /obj/item/clothing/glasses/hud/health/visor = 1)
 	belt = /obj/item/storage/belt/holster/security/fullmk9
 	head = /obj/item/clothing/head/helmet/scp/security/medic
 	mask = /obj/item/clothing/mask/balaclava
