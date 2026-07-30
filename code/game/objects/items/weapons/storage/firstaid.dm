@@ -376,21 +376,41 @@
 		)
 
 /obj/item/storage/firstaid/light
-	name = "light first-aid kit"
+	name = "Personal first-aid kit"
 	desc = "It's a small emergency medical kit."
 	icon_state = "light_firstaid"
-	storage_slots = 5
+	open_icon = "light_firstaidopen"
+	use_sound = "sounds/items/zip.ogg"
+	storage_slots = 6
 	w_class = ITEM_SIZE_SMALL
 	max_w_class = ITEM_SIZE_SMALL
 	startswith = list(
-	/obj/item/clothing/gloves/latex/nitrile,
-	/obj/item/reagent_containers/hypospray/autoinjector,
-	/obj/item/reagent_containers/hypospray/autoinjector/pouch_auto/deletrathol,
-	/obj/item/reagent_containers/hypospray/autoinjector/pouch_auto/dexalin,
-	/obj/item/stack/medical/bruise_pack
+		/obj/item/stack/medical/bruise_pack = 2,
+		/obj/item/stack/medical/ointment = 1,
+		/obj/item/reagent_containers/hypospray/autoinjector/pouch_auto/inaprovaline = 1,
+		/obj/item/reagent_containers/hypospray/autoinjector/pouch_auto/adrenaline = 1,
+		/obj/item/reagent_containers/hypospray/autoinjector/pouch_auto/dylovene = 1,
 		)
 	can_hold = list(
+		/obj/item/storage/pill_bottle,
+		/obj/item/reagent_containers/pill,
+		/obj/item/reagent_containers/syringe,
+		/obj/item/reagent_containers/glass/bottle,
 		/obj/item/clothing/gloves/latex,
-		/obj/item/reagent_containers/hypospray/autoinjector,
-		/obj/item/stack/medical/bruise_pack
+		/obj/item/reagent_containers/hypospray,
+		/obj/item/stack/medical
+		)
+/obj/item/storage/firstaid/light/deluxe
+	name = "Personal first-aid kit"
+	desc = "It's a small emergency medical kit."
+	icon_state = "light_firstaid_deluxe"
+	open_icon = "light_firstaid_deluxeopen"
+	storage_slots = 7
+	startswith = list(
+		/obj/item/stack/medical/advanced/bruise_pack = 2,
+		/obj/item/stack/medical/advanced/ointment = 1,
+		/obj/item/reagent_containers/hypospray/autoinjector/pouch_auto/inaprovaline = 1,
+		/obj/item/reagent_containers/hypospray/autoinjector/pouch_auto/adrenaline = 1,
+		/obj/item/reagent_containers/hypospray/autoinjector/pouch_auto/dylovene = 1,
+		/obj/item/reagent_containers/hypospray/autoinjector/pain = 1
 		)
