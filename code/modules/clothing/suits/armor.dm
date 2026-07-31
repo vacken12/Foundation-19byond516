@@ -464,3 +464,39 @@
 		energy = ARMOR_ENERGY_MINOR,
 		bomb = ARMOR_BOMB_PADDED
 		)
+// Admin coat
+/obj/item/clothing/suit/armor/specops_officer
+	name = "Officer coat"
+	desc = "An armored coat used by elite officers."
+	icon_state = "detective"
+	item_state = "detective"
+	blood_overlay_type = "coat"
+	max_pressure_protection = VOIDSUIT_MAX_PRESSURE
+	min_pressure_protection = 0
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS|HANDS|LEGS|FEET
+	cold_protection = UPPER_TORSO|LOWER_TORSO|ARMS|HANDS|LEGS|FEET
+	heat_protection = UPPER_TORSO|LOWER_TORSO|ARMS|HANDS|LEGS|FEET
+	valid_accessory_slots = list(ACCESSORY_SLOT_INSIGNIA)
+	armor = list(
+		melee = 150,
+		bullet = 150,
+		laser = 125,
+		energy = 125,
+		bomb = 100,
+		bio = 100,
+		rad = 100
+		)
+/obj/item/clothing/suit/armor/specops_officer/auditor
+	name = "Auditor coat"
+	desc = "A fancy coat used by site auditors."
+	icon_state = "leathercoat"
+	item_state = "leathercoat"
+	armor = list(
+		melee = 30,
+		bullet = 50,
+		laser = 25,
+		energy = 25,
+		bomb = 20,
+		bio = 20,
+		rad = 20
+		)

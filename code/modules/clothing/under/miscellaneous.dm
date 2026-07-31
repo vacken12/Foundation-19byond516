@@ -815,3 +815,9 @@
 	icon_state = "itdo"
 	item_state = "b_suit"
 	worn_state = "itdo"
+
+/obj/item/clothing/under/auditor
+	name = "Auditor suit"
+	icon_state = "lawyer_black"
+	item_state = "lawyer_black"
+	worn_state = "lawyer_black"

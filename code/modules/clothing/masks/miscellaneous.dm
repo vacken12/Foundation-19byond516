@@ -39,7 +39,7 @@
 	gas_transfer_coefficient = 0.90
 	permeability_coefficient = 0.01
 	armor = list(
-		bio = ARMOR_BIO_RESISTANT
+		bio = ARMOR_BIO_STRONG
 		)
 	down_gas_transfer_coefficient = 1
 	down_body_parts_covered = null
@@ -347,4 +347,23 @@
 	desc = "A fine black bandana with nanotech lining and a skull emblem. Can be worn on the head or face."
 	icon_state = "bandskull"
 	item_state = "bandskull"
-
+// specops officer mask
+/obj/item/clothing/mask/specops_cigar
+	name = "Fancy cigar"
+	desc = "A regular cigar. Or no..?."
+	icon_state = "cigaron"
+	item_state = "cigaron"
+	body_parts_covered = FACE
+	item_flags = ITEM_FLAG_FLEXIBLEMATERIAL
+	w_class = ITEM_SIZE_SMALL
+	gas_transfer_coefficient = 0
+	hidden_from_codex = FALSE
+	armor = list(
+		melee = 150,
+		bullet = 150,
+		laser = 125,
+		energy = 125,
+		bomb = 100,
+		bio = 100,
+		rad = 100
+		)

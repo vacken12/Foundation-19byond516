@@ -27,9 +27,9 @@
 #define  ARMOR_LASER_RIFLES 70 //Blocks laser rifles
 #define  ARMOR_LASER_HEAVY 100
 
-#define  ARMOR_MELEE_MINOR 5
-#define  ARMOR_MELEE_SMALL 10
-#define  ARMOR_MELEE_KNIVES 15 //Blocks most knives
+#define  ARMOR_MELEE_MINOR 10
+#define  ARMOR_MELEE_SMALL 15
+#define  ARMOR_MELEE_KNIVES 20 //Blocks most knives
 #define  ARMOR_MELEE_MID 25
 #define  ARMOR_MELEE_RESISTANT 30 //Blocks large weapons like swords and toolboxes
 #define  ARMOR_MELEE_VRESISTANT 35

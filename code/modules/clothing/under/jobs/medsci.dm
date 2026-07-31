@@ -8,7 +8,8 @@
 	item_state = "bl_suit"
 	worn_state = "rdclothes"
 	armor = list(
-		bio = ARMOR_BIO_MINOR
+		bio = ARMOR_BIO_MINOR,
+		melee = ARMOR_MELEE_SMALL,
 		)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 
@@ -19,7 +20,8 @@
 	item_state = "lb_suit"
 	worn_state = "director"
 	armor = list(
-		bio = ARMOR_BIO_MINOR
+		bio = ARMOR_BIO_MINOR,
+		melee = ARMOR_MELEE_SMALL,
 		)
 
 /obj/item/clothing/under/rank/research_director/rdalt
@@ -29,7 +31,8 @@
 	item_state = "lb_suit"
 	worn_state = "rdalt"
 	armor = list(
-		bio = ARMOR_BIO_MINOR
+		bio = ARMOR_BIO_MINOR,
+		melee = ARMOR_MELEE_SMALL,
 		)
 
 /obj/item/clothing/under/rank/research_director/dress_rd
@@ -39,7 +42,8 @@
 	item_state = "lb_suit"
 	worn_state = "dress_rd"
 	armor = list(
-		bio = ARMOR_BIO_MINOR
+		bio = ARMOR_BIO_MINOR,
+		melee = ARMOR_MELEE_SMALL,
 		)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 
@@ -50,7 +54,7 @@
 	item_state = "w_suit"
 	worn_state = "seniorscience"
 	armor = list(
-		bio = ARMOR_BIO_MINOR
+		bio = ARMOR_BIO_MINOR,
 		)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 
@@ -61,7 +65,7 @@
 	item_state = "w_suit"
 	worn_state = "junscience"
 	armor = list(
-		bio = ARMOR_BIO_MINOR
+		bio = ARMOR_BIO_MINOR,
 		)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 
@@ -74,7 +78,7 @@
 	gender_icons = 1
 	permeability_coefficient = 0.50
 	armor = list(
-		bio = ARMOR_BIO_MINOR
+		bio = ARMOR_BIO_MINOR,
 		)
 /*
  * Medical
@@ -87,7 +91,8 @@
 	worn_state = "cmo"
 	permeability_coefficient = 0.50
 	armor = list(
-		bio = ARMOR_BIO_MINOR
+		bio = ARMOR_BIO_MINOR,
+		melee = ARMOR_MELEE_SMALL,
 		)
 
 /obj/item/clothing/under/rank/chief_medical_officer/turtleneck
@@ -98,7 +103,8 @@
 	worn_state = "cmoturtle"
 	permeability_coefficient = 0.50
 	armor = list(
-		bio = ARMOR_BIO_MINOR
+		bio = ARMOR_BIO_MINOR,
+		melee = ARMOR_MELEE_SMALL,
 		)
 
 /obj/item/clothing/under/rank/chief_medical_officer/skirt
@@ -107,6 +113,9 @@
 	icon_state = "cmo_skirt"
 	item_state = "w_suit"
 	worn_state = "cmo_skirt"
+	armor = list(
+		bio = ARMOR_BIO_MINOR,
+		)
 
 /obj/item/clothing/under/rank/geneticist
 	desc = "It's made of a special fiber that gives special protection against biohazards. It has a genetics rank stripe on it."
@@ -116,7 +125,7 @@
 	worn_state = "geneticswhite"
 	permeability_coefficient = 0.50
 	armor = list(
-		bio = ARMOR_BIO_MINOR
+		bio = ARMOR_BIO_MINOR,
 		)
 
 /obj/item/clothing/under/rank/virologist
@@ -128,7 +137,7 @@
 	gender_icons = 1
 	permeability_coefficient = 0.50
 	armor = list(
-		bio = ARMOR_BIO_MINOR
+		bio = ARMOR_BIO_MINOR,
 		)
 
 /obj/item/clothing/under/rank/nursesuit
@@ -139,7 +148,7 @@
 	worn_state = "nursesuit"
 	permeability_coefficient = 0.50
 	armor = list(
-		bio = ARMOR_BIO_MINOR
+		bio = ARMOR_BIO_MINOR,
 		)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 
@@ -151,7 +160,7 @@
 	worn_state = "nurse"
 	permeability_coefficient = 0.50
 	armor = list(
-		bio = ARMOR_BIO_MINOR
+		bio = ARMOR_BIO_MINOR,
 		)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 
@@ -164,7 +173,7 @@
 	gender_icons = 1
 	permeability_coefficient = 0.50
 	armor = list(
-		bio = ARMOR_BIO_MINOR
+		bio = ARMOR_BIO_MINOR,
 		)
 
 /obj/item/clothing/under/rank/medical
@@ -176,7 +185,7 @@
 	gender_icons = 1
 	permeability_coefficient = 0.50
 	armor = list(
-		bio = ARMOR_BIO_MINOR
+		bio = ARMOR_BIO_MINOR,
 		)
 
 /obj/item/clothing/under/rank/medical/paramedic
@@ -185,12 +194,18 @@
 	icon_state = "medical"
 	item_state = "medical_short"
 	worn_state = "medical_short"
+	armor = list(
+		bio = ARMOR_BIO_MINOR,
+		)
 
 /obj/item/clothing/under/rank/medical/scrubs
 	name = "white scrubs"
 	desc = "A sterile pair of scrubs, usually helpful in the case of biohazardous spills."
 	icon_state = "scrubs"
 	worn_state = "scrubs"
+	armor = list(
+		bio = ARMOR_BIO_MINOR,
+		)
 
 /obj/item/clothing/under/rank/medical/scrubs/blue
 	name = "blue scrubs"
@@ -236,6 +251,9 @@
 	item_state = "w_suit"
 	worn_state = "psych"
 	gender_icons = 1
+	armor = list(
+		bio = ARMOR_BIO_MINOR,
+		)
 
 /obj/item/clothing/under/rank/psych/turtleneck
 	desc = "A turqouise sweater and a pair of dark blue slacks."
@@ -256,7 +274,7 @@
 	worn_state = "genetics_new"
 	permeability_coefficient = 0.50
 	armor = list(
-		bio = ARMOR_BIO_MINOR
+		bio = ARMOR_BIO_MINOR,
 		)
 
 /obj/item/clothing/under/rank/chemist_new
@@ -267,7 +285,7 @@
 	worn_state = "chemist_new"
 	permeability_coefficient = 0.50
 	armor = list(
-		bio = ARMOR_BIO_MINOR
+		bio = ARMOR_BIO_MINOR,
 		)
 
 /obj/item/clothing/under/rank/scientist_new
@@ -278,7 +296,7 @@
 	worn_state = "scientist_new"
 	permeability_coefficient = 0.50
 	armor = list(
-		bio = ARMOR_BIO_MINOR
+		bio = ARMOR_BIO_MINOR,
 		)
 
 /obj/item/clothing/under/rank/virologist_new
@@ -289,7 +307,7 @@
 	worn_state = "virologist_new"
 	permeability_coefficient = 0.50
 	armor = list(
-		bio = ARMOR_BIO_MINOR
+		bio = ARMOR_BIO_MINOR,
 		)
 
 /obj/item/clothing/under/rank/medical/skirt
@@ -298,3 +316,6 @@
 	icon_state = "medical_skirt"
 	item_state = "w_suit"
 	worn_state = "medical_skirt"
+	armor = list(
+		bio = ARMOR_BIO_MINOR,
+		)

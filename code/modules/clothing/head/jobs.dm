@@ -268,3 +268,22 @@
 	desc = "A simple, solid color beret. This one has no emblems or insignia on it."
 	icon_state = "beret_white"
 	armor = list(melee = 5, bullet = 5, laser = 5,energy = 5, bomb = 5, bio = 15, rad = 15)
+/obj/item/clothing/head/beret/specops_officer
+	name = "Specops officer beret"
+	desc = "A cool tactical beret, used by elite officers"
+	icon_state = "beret_corporate_navy_hos"
+	permeability_coefficient = 0
+	gas_transfer_coefficient = 0
+	min_cold_protection_temperature = SPACE_SUIT_MIN_COLD_PROTECTION_TEMPERATURE
+	max_heat_protection_temperature = FIRESUIT_MAX_HEAT_PROTECTION_TEMPERATURE
+	max_pressure_protection = FIRESUIT_MAX_PRESSURE
+	item_flags = ITEM_FLAG_THICKMATERIAL|ITEM_FLAG_PHORONGUARD|ITEM_FLAG_AIRTIGHT
+	body_parts_covered = HEAD|FACE|EYES
+	cold_protection = HEAD 
+	heat_protection = HEAD
+	armor = list(melee = 150, bullet = 150, laser = 125,energy = 125, bomb = 100, bio = 100, rad = 100)
+/obj/item/clothing/head/beret/specops_officer/auditor
+	name = "Auditor fedora"
+	icon_state = "fedora"
+	desc = "A sharp, stylish hat."
+
