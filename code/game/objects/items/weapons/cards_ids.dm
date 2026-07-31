@@ -1303,13 +1303,11 @@ GLOBAL_LIST_EMPTY(conversion_cards)
 	access = list(ACCESS_ENGINEERING_LVL1, ACCESS_ADMIN_LVL1, ACCESS_SYNDICATE)
 // Admin IDs
 /obj/item/card/id/mtf/specops_officer
-	name = "Specops Officer ID"
+	name = "Crisis Center Officer ID"
 	desc = "ID of someone whose power is way higher than yours."
 	access_level = 5
 	icon_state = "adminlvl5"
-	assignment = "Special operations officer"
-	detail_color = COLOR_COMMAND_BLUE
-	extra_details = list("goldstripe")
+	assignment = "Crisis Center Officer"
 	class = CLASS_A
 
 /obj/item/card/id/mtf/specops_officer/New()
