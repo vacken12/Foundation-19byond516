@@ -490,6 +490,7 @@
 	name = "Auditor coat"
 	desc = "A fancy coat used by site auditors."
 	icon_state = "leathercoat"
+	item_state = "leathercoat"
 	armor = list(
 		melee = 30,
 		bullet = 50,
