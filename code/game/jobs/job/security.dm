@@ -511,6 +511,67 @@
 	)
 	skill_points = 17
 
+/datum/job/lcz_medicaldoctor
+	title = "Врач ЛЗС"
+	department = "Лёгкая Зона Содержания"
+	selection_color = "#601c1c"
+	department_flag = SEC|LCZ
+	total_positions = 1
+	spawn_positions = 1
+	supervisors = "Сержанты ЛЗС и Лейтенант зоны"
+	economic_power = 4
+	requirements = list(EXP_TYPE_LCZ = 480)
+	alt_titles = list()
+	minimal_player_age = 0
+	ideal_character_age = 25
+	balance_limited = TRUE
+	outfit_type = /decl/hierarchy/outfit/job/lcz_medicaldoctor
+	class = CLASS_C
+	hud_icon = "hudlczmedicaldoctor"
+
+	access = list(
+		ACCESS_SEC_COMMS,
+		ACCESS_SECURITY_LVL1,
+		ACCESS_SECURITY_LVL2,
+		ACCESS_SCIENCE_LVL1,
+		ACCESS_SCIENCE_LVL2,
+		ACCESS_MED_COMMS,
+		ACCESS_MEDICAL_EQUIP,
+		ACCESS_MEDICAL_LVL1,
+		ACCESS_MEDICAL_LVL2,
+		ACCESS_MEDICAL_LVL3,
+		ACCESS_DCLASS_KITCHEN,
+		ACCESS_DCLASS_BOTANY,
+		ACCESS_DCLASS_MINING,
+		ACCESS_DCLASS_JANITORIAL,
+		ACCESS_DCLASS_MEDICAL,
+		ACCESS_DCLASS_LUXURY
+	)
+	minimal_access = list()
+
+	min_skill = list(
+	    SKILL_COMPUTER    = SKILL_BASIC,
+	    SKILL_HAULING     = SKILL_TRAINED,
+	    SKILL_COMBAT      = SKILL_BASIC,
+	    SKILL_WEAPONS     = SKILL_BASIC,
+		SKILL_FORENSICS   = SKILL_BASIC,
+	    SKILL_MEDICAL     = SKILL_TRAINED,
+	    SKILL_ANATOMY     = SKILL_TRAINED,
+		SKILL_CHEMISTRY   = SKILL_BASIC,
+		SKILL_DEVICES     = SKILL_TRAINED,
+		SKILL_SCIENCE     = SKILL_BASIC
+	)
+
+	max_skill = list(
+		SKILL_COMBAT      = SKILL_TRAINED,
+	    SKILL_WEAPONS     = SKILL_TRAINED,
+	    SKILL_FORENSICS   = SKILL_TRAINED,
+		SKILL_MEDICAL     = SKILL_EXPERIENCED,
+	    SKILL_ANATOMY     = SKILL_EXPERIENCED,
+	    SKILL_CHEMISTRY   = SKILL_EXPERIENCED
+	)
+	skill_points = 25
+
 /datum/job/enlistedofficerhcz
 	title = "Охранник ТЗС"
 	department = "Тяжёлая Зона Содержания"

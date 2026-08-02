@@ -216,6 +216,14 @@
 	..()
 	reagents.add_reagent(/datum/reagent/medicine/bicaridine, 20)
 	color = reagents.get_color()
+/obj/item/reagent_containers/pill/meraline
+	name = "Meraline (15u)"
+	desc = "Used to treat physical injuries."
+	icon_state = "pill2"
+/obj/item/reagent_containers/pill/meraline/New()
+	..()
+	reagents.add_reagent(/datum/reagent/medicine/meraline, 15)
+	color = reagents.get_color()
 
 
 /obj/item/reagent_containers/pill/happy

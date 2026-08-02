@@ -143,6 +143,11 @@
 	desc = "A black beret with a red badge, in the shape of two chevrons, it feels durable due to the materials it's been made from."
 	icon_state = "beret_guard"
 	armor = list(melee = 30, bullet = 30, laser = 20,energy = 20, bomb = 15, bio = 15, rad = 15)
+/obj/item/clothing/head/beret/lcz_medicaldoctor
+	name = "Guard medic beret"
+	desc = "A white beret with a red badge, in the shape of two chevrons, it feels durable due to the materials it's been made from."
+	icon_state = "beret_lczmedicaldoctor"
+	armor = list(melee = 20, bullet = 20, laser = 15,energy = 15, bomb = 15, bio = 50, rad = 15)
 
 /obj/item/clothing/head/beret/sec/guard_ez
 	name = "EZ Guard Beret"
@@ -279,7 +284,7 @@
 	max_pressure_protection = FIRESUIT_MAX_PRESSURE
 	item_flags = ITEM_FLAG_THICKMATERIAL|ITEM_FLAG_PHORONGUARD|ITEM_FLAG_AIRTIGHT
 	body_parts_covered = HEAD|FACE|EYES
-	cold_protection = HEAD 
+	cold_protection = HEAD
 	heat_protection = HEAD
 	armor = list(melee = 150, bullet = 150, laser = 125,energy = 125, bomb = 100, bio = 100, rad = 100)
 /obj/item/clothing/head/beret/specops_officer/auditor

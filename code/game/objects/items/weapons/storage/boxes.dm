@@ -76,7 +76,7 @@
 	name = "crew survival kit"
 	desc = "A box decorated in warning colors that contains a limited supply of survival tools. The panel and white stripe indicate this one contains oxygen."
 	icon_state = "survival"
-	startswith = list(/obj/item/storage/firstaid/light = 1,
+	startswith = list(/obj/item/storage/firstaid/personal = 1,
 					/obj/item/device/flashlight/flare/glowstick = 1,
 					/obj/item/reagent_containers/food/snacks/proteinbar = 1,
 					/obj/item/device/oxycandle = 1)
@@ -85,7 +85,7 @@
 	if(has_station_trait(/datum/station_trait/premium_crewbox))
 		startswith = list(/obj/item/clothing/mask/breath/scba = 1,
 						/obj/item/tank/emergency/oxygen = 1,
-						/obj/item/storage/firstaid/light/deluxe = 1,
+						/obj/item/storage/firstaid/personal/deluxe = 1,
 						/obj/item/device/flashlight/flare/glowstick = 1,
 						/obj/item/reagent_containers/food/snacks/proteinbar = 1,
 						/obj/item/device/oxycandle = 1)
@@ -96,7 +96,7 @@
 	icon_state = "survivalvox"
 	startswith = list(/obj/item/clothing/mask/breath = 1,
 					/obj/item/tank/emergency/nitrogen/double = 2,
-					/obj/item/storage/firstaid/light = 1,
+					/obj/item/storage/firstaid/personal = 1,
 					/obj/item/device/flashlight/flare/glowstick = 1,
 					/obj/item/reagent_containers/food/snacks/proteinbar = 1)
 
@@ -104,7 +104,7 @@
 	if(has_station_trait(/datum/station_trait/premium_crewbox))
 		startswith = list(/obj/item/clothing/mask/breath = 1,
 						/obj/item/tank/emergency/nitrogen/double = 2,
-						/obj/item/storage/firstaid/light/deluxe = 1,
+						/obj/item/storage/firstaid/personal/deluxe = 1,
 						/obj/item/device/flashlight/flare/glowstick = 1,
 						/obj/item/reagent_containers/food/snacks/proteinbar = 1)
 	. = ..()
@@ -115,7 +115,7 @@
 	icon_state = "survivaleng"
 	startswith = list(/obj/item/clothing/mask/breath/scba = 1,
 					/obj/item/tank/emergency/oxygen/engi = 1,
-					/obj/item/storage/firstaid/light = 1,
+					/obj/item/storage/firstaid/personal = 1,
 					/obj/item/reagent_containers/hypospray/autoinjector/antirad = 1,
 					/obj/item/device/flashlight/flare/glowstick = 1,
 					/obj/item/reagent_containers/food/snacks/proteinbar = 1,
@@ -125,7 +125,7 @@
 	if(has_station_trait(/datum/station_trait/premium_crewbox))
 		startswith = list(/obj/item/clothing/mask/breath/scba = 1,
 						/obj/item/tank/emergency/oxygen/engi = 1,
-						/obj/item/storage/firstaid/light/deluxe = 1,
+						/obj/item/storage/firstaid/personal/deluxe = 1,
 						/obj/item/reagent_containers/hypospray/autoinjector/antirad = 1,
 						/obj/item/device/flashlight/flare/glowstick = 1,
 						/obj/item/reagent_containers/food/snacks/proteinbar = 1,

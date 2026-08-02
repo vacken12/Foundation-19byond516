@@ -36,7 +36,7 @@
 	display_name = "integrated health HUD (head)"
 	cost = 4
 	path = /obj/item/organ/internal/augment/active/hud/health
-	allowed_roles = list(/datum/job/cmo, /datum/job/chemist, /datum/job/surgeon, /datum/job/emt, /datum/job/psychiatrist, /datum/job/medicaldoctor, /datum/job/enlistedofficerlcz, /datum/job/enlistedofficerhcz, /datum/job/enlistedofficerez, /datum/job/ncoofficerez, /datum/job/ncoofficerhcz, /datum/job/ncoofficerlcz)
+	allowed_roles = list(/datum/job/cmo, /datum/job/chemist, /datum/job/surgeon, /datum/job/emt, /datum/job/psychiatrist, /datum/job/medicaldoctor, /datum/job/lcz_medicaldoctor)
 
 /datum/gear/augment/integrated_security_hud
 	display_name = "integrated security HUD (head)"

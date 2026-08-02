@@ -546,7 +546,7 @@
 		/obj/item/tape_roll,
 		/obj/item/clothing/head/beret,
 		/obj/item/material/knife/folding/,
-		/obj/item/storage/firstaid/light,
+		/obj/item/storage/firstaid/personal,
 		/obj/item/device/flash
 		)
 	can_holster = list(/obj/item/material/hatchet/machete)
