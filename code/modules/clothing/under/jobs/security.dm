@@ -32,6 +32,8 @@
 	desc = "A white, tactical security uniform with SCP insignia on it, with red shoulder and wrist markings, as well as medical insignia. Weaved with a durable fabric to absorb melee hits. Sterilized fabric for better treatment, and less likely for infections."
 	icon_state = "lczmed_guard"
 	worn_state = "lczmed_guard"
+/obj/item/clothing/under/rank/security/lcz/medic/lcz_medicaldoctor
+	name = "LCZ Medical Doctor uniform"
 
 /obj/item/clothing/under/rank/security/lcz/riot
 	name = "LCZ Riot Control Unit uniform"

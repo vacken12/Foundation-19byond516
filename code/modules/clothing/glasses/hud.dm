@@ -53,6 +53,14 @@
 	item_state = "medhud_visor"
 	body_parts_covered = EYES
 
+/obj/item/clothing/glasses/hud/health/visor/security
+	name = "Security medical HUD visor"
+	desc = "A medical HUD integrated with a wide visor and flash protection."
+	icon_state = "medhud_secvisor"
+	off_state = "medhud_visor_off"
+	item_state = "medhud_secvisor"
+	flash_protection = FLASH_PROTECTION_MODERATE
+
 /obj/item/clothing/glasses/hud/security
 	name = "security HUD"
 	desc = "A heads-up display that scans the humans in view and provides accurate data about their ID status and security records."

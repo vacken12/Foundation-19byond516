@@ -684,6 +684,30 @@ GLOBAL_LIST_EMPTY(conversion_cards)
 		ACCESS_DCLASS_MEDICAL,
 		ACCESS_DCLASS_LUXURY
 	)
+/obj/item/card/id/lcz_medicaldoctor
+	name = "security ID"
+	desc = "A light blue card. Seems almost as unimportant as the person itself."
+	access_level = 2
+	icon_state = "securitylvl2"
+	item_state = "Sec_ID2"
+	assignment = "LCZ Medical Doctor"
+	access = list(
+		ACCESS_SEC_COMMS,
+		ACCESS_SECURITY_LVL1,
+		ACCESS_SECURITY_LVL2,
+		ACCESS_SCIENCE_LVL1,
+		ACCESS_SCIENCE_LVL2,
+		ACCESS_MEDICAL_LVL1,
+		ACCESS_MEDICAL_LVL2,
+		ACCESS_MEDICAL_LVL3,
+		ACCESS_MEDICAL_EQUIP,
+		ACCESS_DCLASS_KITCHEN,
+		ACCESS_DCLASS_BOTANY,
+		ACCESS_DCLASS_MINING,
+		ACCESS_DCLASS_JANITORIAL,
+		ACCESS_DCLASS_MEDICAL,
+		ACCESS_DCLASS_LUXURY
+	)
 
 // Riot Control Unit Sergeant
 /obj/item/card/id/seclvl2lczdivision2

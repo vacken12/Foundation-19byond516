@@ -39,6 +39,7 @@
 		"HCZ Sergeant" = "Сержант ТЗС",
 		"EZ Senior Agent" = "Старший агент ВЗ",
 		"LCZ Guard" = "Охранник ЛЗС",
+		"LCZ Medical Doctor" = "Врач ЛЗС",
 		"HCZ Guard" = "Охранник ТЗС",
 		"EZ Agent" = "Агент ВЗ",
 		"LCZ Cadet" = "Кадет ЛЗС",
