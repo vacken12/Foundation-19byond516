@@ -44,11 +44,14 @@
 		return
 	user.visible_message(SPAN_NOTICE("\The [user] begins to put on \the [src]."))
 	update_vision()
-	if(do_after(user, wear_time, user))
-		to_dimension(user)
-		update_vision()
+	if(!do_after(user, wear_time, user))
+		return
+	to_dimension(user)
+	update_vision()
 
 /obj/item/clothing/mask/scp1499/dropped(mob/user)
+	if(!do_after(user, wear_time, user))
+		return
 	if(in_pocket_dimension && user)
 		to_return(user)
 		update_vision()
@@ -105,8 +108,6 @@
 	name = "creature"
 	desc = "A sanity-destroying otherthing."
 
-
-
 	icon = 'icons/SCP/scp-1499.dmi'
 	icon_state = "scp-1499-1"
 	icon_living = "scp-1499-1"
@@ -116,7 +117,8 @@
 
 	health = 200
 	maxHealth = 200
-	natural_weapon = /obj/item/natural_weapon/bite/strong
+	natural_weapon = /obj/item/natural_weapon/claws/strong
+	melee_attack_delay = 1 SECOND
 	faction = "creature"
 	movement_cooldown = 4
 	supernatural = 1
@@ -136,3 +138,11 @@
 	icon_state = icon_states_pick
 	icon_living = icon_states_pick
 	icon_dead = icon_states_pick
+
+
+
+/obj/effect/projectile/invislight/scp1499
+	light_max_bright = 0.15
+	light_inner_range = 1
+	light_outer_range = 6
+	light_color = "#d09343"

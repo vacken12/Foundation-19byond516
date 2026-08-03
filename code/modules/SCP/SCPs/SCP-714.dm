@@ -4,7 +4,7 @@
 	icon = 'icons/SCP/scp-714.dmi'
 	icon_state = "scp-714"
 	item_icons = list(slot_gloves_str = 'icons/SCP/scp-714.dmi')
-	item_state_slots = list(slot_gloves_str = "scp-714_worn")
+	item_state_slots = list(slot_gloves_str = "scp-ring_worn")
 
 
 /obj/item/clothing/ring/scp714/Initialize()
