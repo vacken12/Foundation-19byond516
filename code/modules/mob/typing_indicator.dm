@@ -10,6 +10,7 @@ I IS TYPIN'!'
 	follow_proc = TYPE_PROC_REF(/atom/movable, move_to_turf_or_null)
 	icon = 'icons/mob/talk.dmi'
 	icon_state = "typing"
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
 /atom/movable/overlay/typing_indicator/Initialize()
 	. = ..()

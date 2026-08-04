@@ -42,20 +42,26 @@
 	. = ..()
 	if(slot != slot_wear_mask)
 		return
-	user.visible_message(SPAN_NOTICE("\The [user] begins to put on \the [src]."))
+	user.visible_message(SPAN_NOTICE("\The [user] puts on \the [src]."))
 	update_vision()
-	if(!do_after(user, wear_time, user))
-		return
-	to_dimension(user)
-	update_vision()
+	var/datum/callback/worn_check = CALLBACK(src, TYPE_PROC_REF(/obj/item/clothing/mask/scp1499, mask_is_worn), user)
+	if(do_after(user, wear_time, user, extra_checks = worn_check))
+		to_dimension(user)
+		update_vision()
 
 /obj/item/clothing/mask/scp1499/dropped(mob/user)
-	if(!do_after(user, wear_time, user))
-		return
-	if(in_pocket_dimension && user)
-		to_return(user)
-		update_vision()
+	if(in_pocket_dimension && user && last_x != -1)
+		var/datum/callback/removed_check = CALLBACK(src, TYPE_PROC_REF(/obj/item/clothing/mask/scp1499, mask_is_removed), user)
+		if(do_after(user, wear_time, user, extra_checks = removed_check))
+			to_return(user)
+			update_vision()
 	. = ..()
+
+/obj/item/clothing/mask/scp1499/proc/mask_is_worn(mob/user)
+	return istype(user) && user.get_equipped_item(slot_wear_mask) == src
+
+/obj/item/clothing/mask/scp1499/proc/mask_is_removed(mob/user)
+	return istype(user) && user.get_equipped_item(slot_wear_mask) != src
 
 /obj/item/clothing/mask/scp1499/proc/to_dimension(mob/living/user)
 	if(!istype(user) || user.get_equipped_item(slot_wear_mask) != src)
@@ -145,4 +151,4 @@
 	light_max_bright = 0.15
 	light_inner_range = 1
 	light_outer_range = 6
-	light_color = "#d09343"
+	light_color = "#ff9102"

@@ -81,12 +81,12 @@ Bonus
 	desc = "The virus causes a hormone imbalance, making the host sleepy."
 	stealth = -1
 	resistance = -2
-	stage_speed = -3
+	stage_speed = 4
 	transmittable = 0
 	level = 6
-	symptom_delay_min = 20
+	symptom_delay_min = 10
 	symptom_delay_max = 30
-	severity = 4
+	severity = 5
 	var/yawning = FALSE
 	threshold_descs = list(
 		"Stealth 4" = "The symptom remains hidden until active.",
@@ -111,19 +111,19 @@ Bonus
 	var/mob/living/M = A.affected_mob
 	switch(A.stage)
 		if(1)
-			if(!suppress_warning && prob(50))
+			if(!suppress_warning)
 				to_chat(M, "<span class='warning'>You feel tired.</span>")
 			M.adjust_drowsiness(5 SECONDS)
 		if(2)
-			if(!suppress_warning && prob(50))
+			if(!suppress_warning)
 				to_chat(M, "<span class='warning'>You feel very tired.</span>")
 			M.adjust_drowsiness(10 SECONDS)
 		if(3)
-			if(!suppress_warning && prob(50))
+			if(!suppress_warning)
 				to_chat(M, "<span class='warning'>You try to focus on staying awake.</span>")
 			M.adjust_drowsiness(15 SECONDS)
 		if(4)
-			if(!suppress_warning && prob(50))
+			if(!suppress_warning)
 				if(yawning)
 					to_chat(M, "<span class='warning'>You try and fail to suppress a yawn.</span>")
 				else
@@ -132,8 +132,7 @@ Bonus
 			if(yawning)
 				M.emote("yawn")
 		if(5)
-			if(prob(50))
-				to_chat(M, "<span class='warning'>[pick("So tired...","You feel very sleepy.","You have a hard time keeping your eyes open.","You try to stay awake.")]</span>")
+			to_chat(M, "<span class='warning'>[pick("So tired...","You feel very sleepy.","You have a hard time keeping your eyes open.","You try to stay awake.")]</span>")
 			M.adjust_drowsiness(30 SECONDS)
 			if(yawning)
 				M.emote("yawn")
