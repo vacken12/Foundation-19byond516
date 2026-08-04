@@ -103,6 +103,7 @@
 	r_pocket = /obj/item/storage/chewables/candy/cookies
 	belt = /obj/item/gun/projectile/pistol/mk9
 	id_type = /obj/item/card/id/classd
+	back = /obj/item/storage/backpack/rucksack/ci
 	backpack_contents = list(/obj/item/ammo_magazine/scp/mk9 = 2,/obj/item/storage/firstaid/regular = 1, /obj/item/material/knife/kitchen = 1, /obj/item/crowbar/emergency_forcing_tool = 1)
 	pda_type = null
 
