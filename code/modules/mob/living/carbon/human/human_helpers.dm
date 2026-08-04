@@ -77,7 +77,7 @@
 			equipment_overlays |= /atom/movable/screen/fullscreen/hud/nvg
 		// === КОНЕЦ БЛОКА ===
 		if(istype(src.wear_mask, /obj/item/clothing/mask))
-			add_clothing_protection(wear_mask)
+			process_mask(wear_mask)
 		if(istype(back,/obj/item/rig))
 			process_rig(back)
 		if(istype(src.r_ear, /obj/item/clothing/ears))
@@ -98,8 +98,10 @@
 			else
 				equipment_see_invis = G.see_invisible
 
-		add_clothing_protection(G)
-		G.process_hud(src)
+/mob/living/carbon/human/proc/process_mask(obj/item/clothing/mask/M)
+	add_clothing_protection(M)
+	if(M.overlay)
+		equipment_overlays |= M.overlay
 
 /mob/living/carbon/human/proc/process_rig(obj/item/rig/O)
 	if(O.visor && O.visor.active && O.visor.vision && O.visor.vision.glasses && (!O.helmet || (head && O.helmet == head)))
@@ -395,6 +397,10 @@
 	if(istype(target.wear_suit, /obj/item/clothing/suit/bio_suit))
 		var/obj/item/clothing/suit/bio_suit/suit = target.wear_suit
 		hazmat_covered |= suit.body_parts_covered
+
+	if(istype(target.gloves, /obj/item/clothing/ring/scp714)) // jude ring
+		var/obj/item/clothing/ring/scp714/ring = target // protects full body
+		hazmat_covered |= ring.body_parts_covered
 
 	// If zone_sel is not available (e.g. no client), we can't determine the targeted zone.
 	// Default to allowing contact (FALSE = blocked, return TRUE = not blocked).

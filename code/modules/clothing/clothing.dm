@@ -598,6 +598,8 @@ BLIND     // can't see anything
 	var/pull_mask = 0
 	var/hanging = 0
 	var/list/filtered_gases
+	/// Fullscreen overlay applied when the mask is worn
+	var/atom/movable/screen/fullscreen/overlay = null
 	blood_overlay_type = "maskblood"
 	hidden_from_codex = TRUE
 

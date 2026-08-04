@@ -234,6 +234,10 @@
 					H.Weaken(10)
 					return
 				visible_message(SPAN_WARNING(SPAN_ITALIC("[src] reaches towards [H], but nothing happens...")))
+				if(istype(H.gloves, /obj/item/clothing/ring/scp714))
+					to_chat(src, SPAN_WARNING("\The [H] is protected by a jade ring!"))
+					playsound(src, 'sounds/magic/blind.ogg', 60)
+					return
 				to_chat(src, SPAN_WARNING("\The target's [zone_sel.selecting] is covered. You must make contact with bare skin to kill!"))
 			return
 	return ..()

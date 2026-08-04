@@ -382,6 +382,7 @@
 		"Tuxedo" = "tuxedo",
 		"Dress" = "monroe",
 		"Fighter" = "goro",
+		"Mercenary" = "mercenary", //tf2 sprite by Maestro
 	)
 
 /obj/structure/scp082_trunk/attack_hand(mob/user)

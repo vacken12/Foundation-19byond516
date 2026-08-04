@@ -73,3 +73,12 @@
 	C.neutered = TRUE
 	symptoms += C
 	..()
+
+//   scp714 narcolepsy like
+/datum/disease/advance/scp714
+	copy_type = /datum/disease/advance
+
+/datum/disease/advance/scp714/New()
+	name = "Exhaustion"
+	symptoms += new /datum/symptom/scp714
+	..()
