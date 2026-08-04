@@ -9,7 +9,7 @@
 	r_hand = null
 	l_hand = /obj/item/material/knife/combat
 	l_ear = /obj/item/device/radio/headset/ert
-	l_pocket = /obj/item/grenade/frag
+	l_pocket = /obj/item/storage/firstaid/pocket
 	r_pocket = /obj/item/card/emag
 	back = /obj/item/storage/backpack/rucksack/ci
 
@@ -21,14 +21,14 @@
 	name = OUTFIT_JOB_NAME("Chaos Insurgency Soldier")
 	suit_store = /obj/item/gun/projectile/automatic/scp/ak47
 	belt = /obj/item/storage/belt/ci
-	backpack_contents = list(/obj/item/storage/box/ifak = 1,/obj/item/ammo_magazine/scp/ak = 3,/obj/item/ammo_magazine/scp/uzim9mm = 2,/obj/item/grenade/smokebomb = 1,/obj/item/gun/projectile/automatic/machine_pistol)
+	backpack_contents = list(/obj/item/ammo_magazine/scp/ak = 3,/obj/item/ammo_magazine/scp/uzim9mm = 2,/obj/item/grenade/smokebomb = 1,/obj/item/gun/projectile/automatic/machine_pistol)
 
 /decl/hierarchy/outfit/chaos/heavy_soldier
 	name = OUTFIT_JOB_NAME("Chaos Insurgency Heavy Soldier")
 	head = /obj/item/clothing/head/helmet/scp/security/chaos
 	suit_store = /obj/item/gun/projectile/automatic/scp/rpk
 	belt = /obj/item/storage/belt/ci/rig
-	backpack_contents = list(/obj/item/storage/box/ifak = 1,/obj/item/ammo_magazine/scp/ak/big = 5,/obj/item/grenade/frag = 1,/obj/item/gun/projectile/shotgun/doublebarrel/sawn)
+	backpack_contents = list(/obj/item/ammo_magazine/scp/ak/big = 5,/obj/item/grenade/frag = 1,/obj/item/gun/projectile/shotgun/doublebarrel/sawn)
 
 /decl/hierarchy/outfit/chaos/leader
 	name = OUTFIT_JOB_NAME("Chaos Insurgency Squad Leader")
@@ -36,7 +36,7 @@
 	suit_store = /obj/item/gun/projectile/automatic/scp/ak47
 	belt = /obj/item/storage/belt/ci/rig
 	id_type = /obj/item/card/id/chaos/lead
-	backpack_contents = list(/obj/item/storage/box/ifak = 1,/obj/item/ammo_magazine/scp/ak = 5,/obj/item/grenade/smokebomb = 1)
+	backpack_contents = list(/obj/item/ammo_magazine/scp/ak = 5,/obj/item/grenade/smokebomb = 1)
 
 /decl/hierarchy/outfit/chaos/pilot
 	name = OUTFIT_JOB_NAME("Chaos Insurgency Pilot")
@@ -50,7 +50,7 @@
 	r_hand = null
 	l_hand = null
 	l_ear = /obj/item/device/radio/headset
-	l_pocket = null
+	l_pocket = /obj/item/storage/firstaid/pocket
 	r_pocket = null
 	back = null
 	id_type = /obj/item/card/id/chaos
@@ -63,7 +63,7 @@
 	suit_store = null
 	l_hand = null
 	l_ear = /obj/item/device/radio/headset
-	l_pocket = null
+	l_pocket = /obj/item/storage/firstaid/pocket
 	r_pocket = null
 	belt = /obj/item/storage/belt/ci
 	id_type = /obj/item/card/id/chaos
@@ -75,7 +75,7 @@
 	suit_store = null
 	l_hand = null
 	l_ear = /obj/item/device/radio/headset
-	l_pocket = null
+	l_pocket = /obj/item/storage/firstaid/pocket
 	r_pocket = null
 	belt = /obj/item/storage/belt/ci/rig
 	id_type = /obj/item/card/id/chaos
@@ -87,8 +87,23 @@
 	suit_store = null
 	l_hand = null
 	l_ear = /obj/item/device/radio/headset
-	l_pocket = null
+	l_pocket = /obj/item/storage/firstaid/pocket
 	r_pocket = null
 	belt = /obj/item/storage/belt/ci/rig
 	id_type = /obj/item/card/id/chaos/lead
 	backpack_contents = null
+
+/decl/hierarchy/outfit/classd_survivor
+	name = OUTFIT_JOB_NAME("Survivor Class-D")
+	head = /obj/item/clothing/head/hardhat/red
+	suit = /obj/item/clothing/suit/armor/vest
+	uniform = /obj/item/clothing/under/scp/dclass
+	shoes = /obj/item/clothing/shoes/workboots
+	l_pocket = /obj/item/device/flashlight/maglight
+	r_pocket = /obj/item/storage/chewables/candy/cookies
+	belt = /obj/item/gun/projectile/pistol/mk9
+	id_type = /obj/item/card/id/classd
+	back = /obj/item/storage/backpack/rucksack/ci
+	backpack_contents = list(/obj/item/ammo_magazine/scp/mk9 = 2,/obj/item/storage/firstaid/regular = 1, /obj/item/material/knife/kitchen = 1, /obj/item/crowbar/emergency_forcing_tool = 1)
+	pda_type = null
+

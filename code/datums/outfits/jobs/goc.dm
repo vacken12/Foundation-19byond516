@@ -18,9 +18,9 @@
 	name = OUTFIT_JOB_NAME("UNGOC PHYSICS Trooper")
 	r_hand = /obj/item/gun/projectile/automatic/scp/fnfal
 	l_hand = /obj/item/grenade/frag
-	l_pocket = /obj/item/ammo_magazine/scp
+	l_pocket = /obj/item/storage/firstaid/pocket
 	r_pocket = /obj/item/card/emag
-	backpack_contents = list(/obj/item/storage/box/ifak = 1,/obj/item/storage/box/handcuffs = 1,/obj/item/ammo_magazine/scp/fnfal=6)
+	backpack_contents = list(/obj/item/storage/box/handcuffs = 1,/obj/item/ammo_magazine/scp/fnfal=6)
 
 /decl/hierarchy/outfit/goc/machinegunner
 	name = OUTFIT_JOB_NAME("UNGOC PHYSICS Machinegunner") //I am heavy weapons guy
@@ -28,9 +28,9 @@
 	suit = /obj/item/clothing/suit/armor/goc/heavy
 	r_hand = /obj/item/gun/projectile/automatic/l6_saw //and THIS... is my weapon
 	l_hand = null
-	l_pocket = /obj/item/grenade/frag
+	l_pocket = /obj/item/storage/firstaid/pocket
 	r_pocket = /obj/item/card/emag
-	backpack_contents = list(/obj/item/storage/box/ifak = 1,/obj/item/storage/box/handcuffs = 1, /obj/item/ammo_magazine/box/machinegun = 4)
+	backpack_contents = list(/obj/item/storage/box/handcuffs = 1, /obj/item/ammo_magazine/box/machinegun = 4)
 
 /decl/hierarchy/outfit/goc/grenadier
 	name = OUTFIT_JOB_NAME("UNGOC PHYSICS Grenadier")
@@ -38,9 +38,9 @@
 	suit = /obj/item/clothing/suit/armor/goc
 	r_hand = /obj/item/gun/launcher/grenade/thumper // LEEEET'S DO IIIT
 	l_hand = /obj/item/material/knife/combat
-	l_pocket = /obj/item/plastique
+	l_pocket = /obj/item/storage/firstaid/pocket
 	r_pocket = /obj/item/card/emag
-	backpack_contents = list(/obj/item/storage/box/ifak = 1,/obj/item/storage/box/fragshells = 5,/obj/item/clothing/accessory/storage/bandolier = 1)
+	backpack_contents = list(/obj/item/storage/box/fragshells = 5,/obj/item/clothing/accessory/storage/bandolier = 1, /obj/item/plastique = 1)
 
 /decl/hierarchy/outfit/goc/pointman
 	name = OUTFIT_JOB_NAME("UNGOC PHYSICS Pointman")
@@ -48,9 +48,9 @@
 	suit = /obj/item/clothing/suit/armor/goc/heavy
 	r_hand = /obj/item/shield/riot/metal // BULLETS? WHAT BULLETS?
 	l_hand = /obj/item/melee/baton/loaded
-	l_pocket = /obj/item/grenade/flashbang
+	l_pocket = /obj/item/storage/firstaid/pocket
 	r_pocket = /obj/item/card/emag
-	backpack_contents = list(/obj/item/storage/box/ifak = 1,/obj/item/storage/box/handcuffs = 1,/obj/item/grenade/smokebomb = 2,/obj/item/grenade/flashbang/clusterbang = 1)
+	backpack_contents = list(/obj/item/storage/box/handcuffs = 1,/obj/item/grenade/smokebomb = 2,/obj/item/grenade/flashbang/clusterbang = 2)
 
 /decl/hierarchy/outfit/goc/leader
 	name = OUTFIT_JOB_NAME("UNGOC PHYSICS Team Leader")
@@ -58,17 +58,17 @@
 	suit = /obj/item/clothing/suit/armor/goc/heavy
 	r_hand = /obj/item/gun/projectile/automatic/scp/ak74
 	l_hand = /obj/item/material/knife/combat
-	l_pocket = /obj/item/grenade/frag
+	l_pocket = /obj/item/storage/firstaid/pocket
 	r_pocket = /obj/item/card/emag
-	backpack_contents = list(/obj/item/storage/box/ifak = 1,/obj/item/storage/box/handcuffs = 1,/obj/item/ammo_magazine/scp/ak/big = 3)
+	backpack_contents = list(/obj/item/storage/box/handcuffs = 1,/obj/item/ammo_magazine/scp/ak/big = 3, /obj/item/grenade/frag = 1)
 
 /decl/hierarchy/outfit/goc/trooper/corpse
 	name = OUTFIT_JOB_NAME("UNGOC PHYSICS Trooper Corpse")
 	r_hand = null
 	l_hand = null
-	l_pocket = null
+	l_pocket = /obj/item/storage/firstaid/pocket
 	r_pocket = null
-	backpack_contents = list(/obj/item/storage/box/ifak = 1,/obj/item/storage/box/handcuffs = 1,/obj/item/ammo_magazine/scp/fnfal=6)
+	backpack_contents = list(/obj/item/storage/box/handcuffs = 1,/obj/item/ammo_magazine/scp/fnfal=6)
 
 /decl/hierarchy/outfit/goc/machinegunner/corpse
 	name = OUTFIT_JOB_NAME("UNGOC PHYSICS Machinegunner Corpse")
@@ -76,7 +76,7 @@
 	suit = /obj/item/clothing/suit/armor/goc/heavy
 	r_hand = null
 	l_hand = null
-	l_pocket = null
+	l_pocket = /obj/item/storage/firstaid/pocket
 	r_pocket = null
 	backpack_contents = null
 
@@ -86,7 +86,7 @@
 	suit = /obj/item/clothing/suit/armor/goc
 	r_hand = null
 	l_hand = null
-	l_pocket = null
+	l_pocket = /obj/item/storage/firstaid/pocket
 	r_pocket = null
 	backpack_contents = null
 
@@ -96,9 +96,9 @@
 	suit = /obj/item/clothing/suit/armor/goc/heavy
 	r_hand = null
 	l_hand = null
-	l_pocket = null
+	l_pocket = /obj/item/storage/firstaid/pocket
 	r_pocket = null
-	backpack_contents = list(/obj/item/storage/box/ifak = 1,/obj/item/storage/box/handcuffs = 1,/obj/item/ammo_magazine/scp/ak/big = 3)
+	backpack_contents = list(/obj/item/storage/box/handcuffs = 1,/obj/item/ammo_magazine/scp/ak/big = 3)
 
 
 /decl/hierarchy/outfit/goc/trooper/corpse/empty

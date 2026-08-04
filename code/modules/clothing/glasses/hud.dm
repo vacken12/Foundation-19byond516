@@ -58,7 +58,7 @@
 	icon_state = "medhud_secvisor"
 	off_state = "medhud_visor_off"
 	item_state = "medhud_secvisor"
-	hud_type = HUD_MEDICAL
+	body_parts_covered = EYES
 	clothing_traits = list(TRAIT_NEARSIGHTED_CORRECTED)
 	flash_protection = FLASH_PROTECTION_MODERATE
 
