@@ -32,7 +32,6 @@
 	off_state = "healthhud_off"
 	hud_type = HUD_MEDICAL
 	body_parts_covered = 0
-	req_access = list(ACCESS_MEDICAL_LVL1)
 
 /obj/item/clothing/glasses/hud/health/process_hud(mob/M)
 	process_med_hud(M, 1)
@@ -59,6 +58,8 @@
 	icon_state = "medhud_secvisor"
 	off_state = "medhud_visor_off"
 	item_state = "medhud_secvisor"
+	body_parts_covered = EYES
+	clothing_traits = list(TRAIT_NEARSIGHTED_CORRECTED)
 	flash_protection = FLASH_PROTECTION_MODERATE
 
 /obj/item/clothing/glasses/hud/security

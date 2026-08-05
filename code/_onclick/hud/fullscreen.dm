@@ -157,3 +157,7 @@
 	icon_state = "brutedamageoverlay6"
 	alpha = 0
 
+/atom/movable/screen/fullscreen/protivogaz
+	icon_state = "protivogaz"
+
+

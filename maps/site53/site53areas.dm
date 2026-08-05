@@ -526,6 +526,24 @@
 	area_flags = AREA_FLAG_RAD_SHIELDED
 	sound_env = SMALL_ENCLOSED
 
+/area/site53/llcz/scp1499
+	name = "\improper SCP-1499"
+	icon_state = "research"
+	area_flags = AREA_FLAG_RAD_SHIELDED
+	sound_env = SMALL_ENCLOSED
+
+/area/site53/llcz/scp714
+	name = "\improper SCP-714"
+	icon_state = "research"
+	area_flags = AREA_FLAG_RAD_SHIELDED
+	sound_env = SMALL_ENCLOSED
+
+/area/site53/llcz/scp1025
+	name = "\improper SCP-1025"
+	icon_state = "research"
+	area_flags = AREA_FLAG_RAD_SHIELDED
+	sound_env = SMALL_ENCLOSED
+
 /area/site53/llcz/scp5295
 	name = "\improper SCP-5295"
 	icon_state = "research"
@@ -651,6 +669,16 @@
 	icon_state = "conference"
 	area_flags = AREA_FLAG_RAD_SHIELDED
 	sound_env = SMALL_ENCLOSED
+
+/area/site53/ulcz/engistorage
+	name = "\improper Engineering Storage"
+	icon_state = "conference"
+	area_flags = AREA_FLAG_RAD_SHIELDED
+
+/area/site53/ulcz/engismesstorage
+	name = "\improper SMES Storage"
+	icon_state = "conference"
+	area_flags = AREA_FLAG_RAD_SHIELDED
 
 /area/site53/lowertrams/maintenance
 	name = "\improper Lower Hub Maintenance"
@@ -1507,3 +1535,18 @@
 	name = "SCP-1678 Dimension - New London"
 	has_gravity = 1
 	requires_power = 0
+
+/area/scp/dimension004/scp1499
+	name = "Unknown"
+	desc = "SCP-1499 Dimension"
+	has_gravity = 1
+	requires_power = 0
+
+/area/scp/dimension004/scp1499/Initialize()
+	. = ..()
+	return INITIALIZE_HINT_LATELOAD
+
+/area/scp/dimension004/scp1499/LateInitialize()
+	for(var/turf/simulated/floor/T in src)
+		if((T.x % 8) == 0 && (T.y % 8) == 0)
+			new /obj/effect/projectile/invislight/scp1499(T)
