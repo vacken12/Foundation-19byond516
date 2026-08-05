@@ -1,7 +1,7 @@
 /mob/living/scp1366
 	name = "Uncle Styopa"
 	desc = "A towering figure, seemingly benevolent, with a deep and calming presence."
-	icon = 'icons/SCP/SCP_1366_RU_small.dmi'
+	icon = 'icons/SCP/scp-1366_RU.dmi'
 	icon_state = "Small"
 	maxHealth = 200
 	health = 200
