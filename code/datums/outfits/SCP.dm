@@ -2,8 +2,16 @@
 	name = "SCP-527"
 	uniform = /obj/item/clothing/under/scp/hdclass
 	shoes = /obj/item/clothing/shoes/dress
+	head = /obj/item/clothing/head/collectable/tophat/scp527
 	l_pocket = /obj/item/card/id/dassignment/dluxury
 	flags = OUTFIT_HAS_BACKPACK | OUTFIT_RESET_EQUIPMENT
+
+/obj/item/clothing/head/collectable/tophat/scp527
+	name = "Mr.Fish's top hat"
+	desc = "A stylish top hat that completes Mr.Fish's look."
+	icon_state = "tophat"
+	item_state = null
+	canremove = FALSE
 
 /decl/hierarchy/outfit/scp347
 	name = "SCP-347"

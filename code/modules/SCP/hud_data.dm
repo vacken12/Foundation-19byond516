@@ -88,34 +88,6 @@
 	has_internals = TRUE
 	gear = list()
 
-/datum/hud_data/scp527
-	has_a_intent = TRUE
-	has_m_intent = TRUE
-	has_warnings = TRUE
-	has_pressure = TRUE
-	has_nutrition = TRUE
-	has_bodytemp = TRUE
-	has_hands = TRUE
-	has_drop = TRUE
-	has_throw = TRUE
-	has_resist = TRUE
-	has_internals = TRUE
-	gear = list(
-		"uniform" =     list("loc" = ui_iclothing, "name" = "Uniform",      "slot" = slot_w_uniform, "state" = "center"),
-		"gloves" =      list("loc" = ui_gloves,    "name" = "Gloves",       "slot" = slot_gloves,    "state" = "gloves"),
-		"eyes" =        list("loc" = ui_glasses,   "name" = "Glasses",      "slot" = slot_glasses,   "state" = "glasses"),
-		"l_ear" =       list("loc" = ui_l_ear,     "name" = "Left Ear",     "slot" = slot_l_ear,     "state" = "ears"),
-		"r_ear" =       list("loc" = ui_r_ear,     "name" = "Right Ear",    "slot" = slot_r_ear,     "state" = "ears"),
-		"mask" =        list("loc" = ui_mask,      "name" = "Mask",         "slot" = slot_wear_mask, "state" = "mask"),
-		"shoes" =       list("loc" = ui_shoes,     "name" = "Shoes",        "slot" = slot_shoes,     "state" = "shoes"),
-		"suit" =        list("loc" = ui_oclothing, "name" = "Suit",         "slot" = slot_wear_suit, "state" = "suit"),
-		"id" =          list("loc" = ui_id,         "name" = "ID",           "slot" = slot_wear_id,   "state" = "id"),
-		"storage1" =    list("loc" = ui_storage1,   "name" = "Left Pocket",  "slot" = slot_l_store,   "state" = "pocket"),
-		"storage2" =    list("loc" = ui_storage2,   "name" = "Right Pocket", "slot" = slot_r_store,   "state" = "pocket"),
-		"belt" =        list("loc" = ui_belt,       "name" = "Belt",         "slot" = slot_belt,      "state" = "belt"),
-		"back" =        list("loc" = ui_back,        "name" = "Back",         "slot" = slot_back,      "state" = "back")
-	)
-
 /datum/hud_data/scp106
 	has_a_intent = 1
 	has_m_intent = 2
