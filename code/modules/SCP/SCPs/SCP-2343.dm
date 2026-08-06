@@ -1,7 +1,7 @@
 /mob/living/carbon/human/scp343/scp2343
 	name = "strange american man"
 	desc = "A brusk and wiley man of american decent."
-	icon = 'icons/SCP/scp_2343.dmi'
+	icon = 'icons/SCP/scp-2343.dmi'
 	icon_state = "americangod"
 	status_flags = NO_ANTAG
 

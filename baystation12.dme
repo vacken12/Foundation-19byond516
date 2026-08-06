@@ -3203,6 +3203,7 @@
 #include "code\modules\SCP\SCPs\SCP-5295.dm"
 #include "code\modules\SCP\SCPs\SCP-682.dm"
 #include "code\modules\SCP\SCPs\SCP-714.dm"
+#include "code\modules\SCP\SCPs\SCP-729-J.dm"
 #include "code\modules\SCP\SCPs\SCP-860.dm"
 #include "code\modules\SCP\SCPs\SCP-895.dm"
 #include "code\modules\SCP\SCPs\SCP-912.dm"

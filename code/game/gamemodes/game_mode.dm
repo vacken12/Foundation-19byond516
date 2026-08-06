@@ -186,7 +186,7 @@ var/global/list/additional_antag_types = list()
 	refresh_event_modifiers()
 
 	addtimer(CALLBACK(null, GLOBAL_PROC_REF(display_roundstart_logout_report)), ROUNDSTART_LOGOUT_REPORT_TIME)
-  
+
 	addtimer(CALLBACK(src, PROC_REF(announce_ert_disabled)), rand(70 SECONDS, 190 SECONDS))
 
 	//Assign all antag types for this game mode. Any players spawned as antags earlier should have been removed from the pending list, so no need to worry about those.
@@ -195,7 +195,7 @@ var/global/list/additional_antag_types = list()
 			antag.attempt_spawn() //select antags to be spawned
 		antag.finalize_spawn() //actually spawn antags
 
-	//Finally do post spawn antagonist stuff.
+//Finally do post spawn antagonist stuff.
 	for(var/datum/antagonist/antag in antag_templates)
 		antag.post_spawn()
 
@@ -211,7 +211,17 @@ var/global/list/additional_antag_types = list()
 	if(SSticker.mode)
 		SSstatistics.set_field_details("game_mode","[SSticker.mode]")
 	SSstatistics.set_field_details("server_ip","[world.internet_address]:[world.port]")
+
+	if(!SSticker.round_start_time)
+		SSticker.round_start_time = world.time
+
+	addtimer(CALLBACK(src, PROC_REF(send_foundation_goals)), 1 MINUTE)
+
 	return 1
+
+/datum/game_mode/proc/send_foundation_goals()
+	var/datum/foundation_goal/goal = new()
+	goal.send_report()
 
 /datum/game_mode/proc/fail_setup()
 	for(var/datum/antagonist/antag in antag_templates)
