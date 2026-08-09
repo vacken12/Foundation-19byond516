@@ -1511,11 +1511,6 @@
     has_gravity = 1
     requires_power = 0
 
-/area/scp/dimension004/scp093
-    name = "SCP-004 Dimension - SCP-093 Containment"
-    has_gravity = 1
-    luminosity = 1
-    dynamic_lighting = 0
 
 /area/site53/lhcz/scp004room
 	name = "\improper SCP-004 Containment Chamber"

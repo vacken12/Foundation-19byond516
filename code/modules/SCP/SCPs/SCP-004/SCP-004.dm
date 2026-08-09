@@ -170,7 +170,7 @@
 	key_id = 1
 	icon_state = "key_1"
 	key_effect = SCP004_EFFECT_PORTAL
-	portal_x = 46
+	portal_x = 44
 	portal_y = 47
 	portal_z = 8
 
@@ -179,23 +179,24 @@
 	key_id = 2
 	icon_state = "key_2"
 	key_effect = SCP004_EFFECT_PORTAL
-	portal_x = 97
-	portal_y = 229
-	portal_z = 8
+	portal_x = 32
+	portal_y = 22
+	portal_z = 5
 
 /obj/item/key/scp004/key_3
 	name = "rusted key III"
 	key_id = 3
 	icon_state = "key_3"
+	key_effect = SCP004_EFFECT_PORTAL
+	portal_x = 161
+	portal_y = 181
+	portal_z = 5
 
 /obj/item/key/scp004/key_4
 	name = "rusted key IV"
 	key_id = 4
 	icon_state = "key_4"
 	key_effect = SCP004_EFFECT_PORTAL
-	portal_x = 32
-	portal_y = 22
-	portal_z = 5
 
 /obj/item/key/scp004/key_5
 	name = "rusted key V"
@@ -207,8 +208,8 @@
 	key_id = 6
 	icon_state = "key_6"
 	key_effect = SCP004_EFFECT_PORTAL
-	portal_x = 221
-	portal_y = 108
+	portal_x = 231
+	portal_y = 117
 	portal_z = 2
 
 /obj/item/key/scp004/key_7
@@ -221,9 +222,6 @@
 	key_id = 8
 	icon_state = "key_8"
 	key_effect = SCP004_EFFECT_PORTAL
-	portal_x = 161
-	portal_y = 181
-	portal_z = 5
 
 /obj/item/key/scp004/key_9
 	name = "rusted key IX"
@@ -235,9 +233,6 @@
 	key_id = 10
 	icon_state = "key_10"
 	key_effect = SCP004_EFFECT_PORTAL
-	portal_x = 43
-	portal_y = 130
-	portal_z = 8
 
 /obj/item/key/scp004/key_11
 	name = "rusted key XI"
