@@ -1,16 +1,9 @@
-// code/modules/SCP/SCPs/SCP-004_structures.dm
-
 // ==================== SCP-004 FLOOR ====================
 /turf/simulated/floor/scp004
 	name = "dimension floor"
 	desc = "A cold, dark stone floor that seems to absorb light. The surface feels unnaturally smooth."
 	icon = 'icons/SCP/scp-004.dmi'
 	icon_state = "floor"
-
-/turf/simulated/floor/soil
-	name = "rocky sand"
-	icon = 'icons/turf/flooring/asteroid.dmi'
-	icon_state = "asteroid"
 
 /turf/simulated/floor/asphalt
 	name = "asphalt"
@@ -68,8 +61,10 @@
 	pixel_w = -32
 	anchored = TRUE
 	density = TRUE
-
+	var/light_on = TRUE
+	light_color = "#ffde9b"
 
 /obj/structure/streetlight/Initialize()
 	. = ..()
-	set_light(4, 3, "#ffde9b")
+	if(light_on)
+		set_light(1, 1, 5)
