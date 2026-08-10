@@ -217,10 +217,10 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 /obj/item/clothing/suit/storage/toggle/labcoat/armored
 	name = "Armored labcoat"
-	desc = "A labcoat with additional armor plates. This one has red trim."
-	icon_state = "armored_labcoat_open"
-	icon_open = "armored_labcoat_open"
-	icon_closed = "armored_labcoat"
+	desc = "A labcoat with additional armor plates, used by security medics."
+	icon_state = "blue_edge_labcoat_open"
+	icon_open = "blue_edge_labcoat_open"
+	icon_closed = "blue_edge_labcoat"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	armor = list(
 		bio = ARMOR_BIO_RESISTANT,
