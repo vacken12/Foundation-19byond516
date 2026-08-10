@@ -215,3 +215,19 @@
 	icon_open = "assistlabcoat_open"
 	icon_closed = "assistlabcoat"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
+/obj/item/clothing/suit/storage/toggle/labcoat/armored
+	name = "Armored labcoat"
+	desc = "A labcoat with additional armor plates. This one has red trim."
+	icon_state = "armored_labcoat_open"
+	icon_open = "armored_labcoat_open"
+	icon_closed = "armored_labcoat"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
+	armor = list(
+		bio = ARMOR_BIO_RESISTANT,
+		melee = ARMOR_MELEE_VRESISTANT,
+		bullet = ARMOR_BALLISTIC_SMALL_MID,
+		rad = ARMOR_RAD_SMALL,
+		laser = ARMOR_LASER_SMALL_MID,
+		energy = ARMOR_ENERGY_SMALL,
+		bomb = ARMOR_BOMB_PADDED
+		)
