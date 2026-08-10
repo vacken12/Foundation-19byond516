@@ -97,7 +97,10 @@
 			delete_me = 1
 			return
 		if ("scp999")
-			new /mob/living/scp999 (loc)
+			if(prob(10))
+				new /mob/living/simple_animal/scp306_frog (loc)
+			else
+				new /mob/living/scp999 (loc)
 			delete_me = 1
 			return
 		if ("scp343")
