@@ -2,7 +2,7 @@
 	name = "On Mount Golgotha"
 	icon = 'icons/SCP/scp-012.dmi'
 	desc = "An old paper of handwritten sheet music, titled \"On Mount Golgotha\". The writing is in a conspicuous blood red."
-	icon_state = "scp-012"
+	icon_state = null
 
 	w_class = ITEM_SIZE_NO_CONTAINER
 	show_title = FALSE

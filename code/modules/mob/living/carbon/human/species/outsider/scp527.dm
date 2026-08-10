@@ -8,8 +8,6 @@
 
 	genders = list(MALE)
 
-	hud_type = /datum/hud_data/scp527
-
 	icobase = 'icons/SCP/scp-527.dmi'
 	deform = null
 

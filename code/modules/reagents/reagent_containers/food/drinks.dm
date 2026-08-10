@@ -241,7 +241,7 @@
 /obj/item/reagent_containers/food/drinks/sillycup/scp294cup
 	name = "A strange cup"
 	desc = "Weird cup seemingly made of styrofoam."
-	icon = 'icons/SCP/scp294.dmi'
+	icon = 'icons/SCP/scp-294.dmi'
 
 	volume = 20
 
@@ -256,7 +256,7 @@
 	if(reagents.total_volume)
 		icon_state = "294_cup"
 		underlays.Cut()
-		var/icon/chem_layer = new /icon('icons/SCP/scp294.dmi', "294_reagent")
+		var/icon/chem_layer = new /icon('icons/SCP/scp-294.dmi', "294_reagent")
 		chem_layer.ColorTone(reagents.get_color())
 		underlays += chem_layer
 	else

@@ -5,11 +5,3 @@
 	round_description = "Just have fun and roleplay!"
 	extended_round_description = "There are no antagonists during extended. Just play your character, mess around with your job, and have fun."
 	addantag_allowed = ADDANTAG_ADMIN // No add antag vote allowed on extended, except when manually called by admins.
-
-/datum/game_mode/extended/post_setup()
-	..()
-	addtimer(CALLBACK(src, .proc/send_initial_goals), 30 SECONDS)
-
-/datum/game_mode/extended/proc/send_initial_goals()
-	var/datum/foundation_goal/goal = new()
-	goal.send_report()
