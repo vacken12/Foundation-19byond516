@@ -383,3 +383,19 @@
 
 	ghost_owner.client.JoinResponseTeam()
 
+/atom/movable/screen/alert/chaos
+	name = "Join Chaos Insurgents"
+	desc = "Chaos Insurgents are being dispatched! Click to join."
+	icon_state = "ert"
+	timeout = 300
+
+/atom/movable/screen/alert/chaos/Click()
+	. = ..()
+	if(!.)
+		return
+
+	var/mob/observer/ghost/ghost_owner = owner
+	if(!istype(ghost_owner))
+		return
+
+	ghost_owner.client.JoinChaosTeam()
