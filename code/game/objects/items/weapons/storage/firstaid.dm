@@ -450,3 +450,5 @@
 		/obj/item/reagent_containers/hypospray,
 		/obj/item/stack/medical
 		)
+/obj/item/storage/firstaid/pocket/empty
+	startswith = list()
