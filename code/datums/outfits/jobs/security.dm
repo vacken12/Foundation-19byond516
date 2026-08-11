@@ -221,7 +221,7 @@
 	name = OUTFIT_JOB_NAME("LCZ Medical Doctor")
 	uniform = /obj/item/clothing/under/rank/security/lcz/medic/lcz_medicaldoctor
 	glasses = /obj/item/clothing/glasses/hud/health/visor/security
-	suit = /obj/item/clothing/suit/storage/toggle/labcoat/blue
+	suit = /obj/item/clothing/suit/storage/toggle/labcoat/armored
 	shoes = /obj/item/clothing/shoes/white
 	id_type = /obj/item/card/id/lcz_medicaldoctor
 	l_ear = /obj/item/device/radio/headset/headset_sec_lcz/medic
