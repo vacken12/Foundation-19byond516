@@ -45,7 +45,7 @@
 	var/agonyforce = 20 //Adding more pain if harming,less if not equal OR better at cqc AND atlethics(hauling)
 	var/stunforce = 1 //applied if in HvH user is dangerous to target(either equal or better cqc+hauling or target's legs broken)
 	var/on = 0
-	var/integrity_hits = 12 //how many hits we can make before steel go "unusable"
+	var/integrity_hits = 16 //how many hits we can make before steel go "unusable"
 	var/breaked = 0 //for delayed attack_self realisation
 
 	drop_sound = SFX_DROP_CROWBAR
@@ -54,7 +54,7 @@
 /obj/item/melee/telebaton/examine(mob/user, distance)
 	. = ..()
 	switch(integrity_hits)
-		if(10 to 12)
+		if(10 to 16)
 			to_chat(user, SPAN_GOOD("Baton's rod is looking normal"))
 		if(7 to 9)
 			to_chat(user, SPAN_WARNING("Baton's rod is looking damaged"))

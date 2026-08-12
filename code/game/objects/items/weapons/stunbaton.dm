@@ -11,13 +11,13 @@
 	w_class = ITEM_SIZE_NORMAL
 	origin_tech = list(TECH_COMBAT = 2)
 	attack_verb = list("beaten")
-	base_parry_chance = 30
+	base_parry_chance = 35
 	attack_ignore_harm_check = TRUE
-	var/stunforce = 0
-	var/agonyforce = 30
+	var/stunforce = 5
+	var/agonyforce = 50
 	var/status = 0		//whether the thing is on or not
 	var/obj/item/cell/bcell
-	var/hitcost = 7
+	var/hitcost = 5
 
 /obj/item/melee/baton/loaded
 	bcell = /obj/item/cell/device/high
@@ -157,10 +157,9 @@
 		if(.)
 			return
 
-		//whacking someone causes a much poorer electrical contact than deliberately prodding them.
-		stun *= 0.5
+		stun *= 1.2
 		if(status)		//Checks to see if the stunbaton is on.
-			agony *= 0.5	//whacking someone causes a much poorer contact than prodding them.
+			agony *= 1	//whacking someone causes a much poorer contact than prodding them.
 		else
 			agony = 0	//Shouldn't really stun if it's off, should it?
 		//we can't really extract the actual hit zone from ..(), unfortunately. Just act like they attacked the area they intended to.
