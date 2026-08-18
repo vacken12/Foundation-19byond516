@@ -791,6 +791,12 @@
 	area_flags = AREA_FLAG_RAD_SHIELDED
 	sound_env = LARGE_ENCLOSED
 
+/area/site53/uez/conference_room
+	name = "\improper Conference Room"
+	icon_state = "conference"
+	area_flags = AREA_FLAG_RAD_SHIELDED
+	sound_env = LARGE_ENCLOSED
+
 /area/site53/uez/bridge
 	name = "\improper Bridge"
 	icon_state = "hallC1"
@@ -800,7 +806,7 @@
 	dynamic_lighting = 1
 
 
-/area/site53/uez/sd_office
+/area/site53/uez/sitedirector_office
 	name = "\improper Site Director`s Office"
 	icon_state = "hallC1"
 	area_flags = AREA_FLAG_RAD_SHIELDED
@@ -1211,7 +1217,7 @@
 	icon_state = "medbay3"
 	ambience = list('sounds/ambience/signal.ogg')
 	area_flags = AREA_FLAG_RAD_SHIELDED
-/area/site53/medical/cmo
+/area/site53/medical/cmo_office
 	name = "\improper Chief Medical Officer's Office"
 	icon_state = "medbay3"
 	ambience = list('sounds/ambience/signal.ogg')
