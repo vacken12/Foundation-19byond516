@@ -106,8 +106,8 @@
 	open_icon = "bezerkopen"
 
 	startswith = list(
-		/obj/item/storage/pill_bottle/meraline,
-		/obj/item/storage/pill_bottle/dermaline,
+		/obj/item/storage/pill_bottle/bicaridine,
+		/obj/item/storage/pill_bottle/kelotane,
 		/obj/item/storage/pill_bottle/dexalin_plus,
 		/obj/item/storage/pill_bottle/dylovene,
 		/obj/item/storage/pill_bottle/tramadol,
@@ -388,7 +388,7 @@
 	icon_state = "personal_firstaid"
 	open_icon = "personal_firstaidopen"
 	use_sound = 'sounds/items/zip.ogg'
-	storage_slots = 6
+	storage_slots = 7
 	w_class = ITEM_SIZE_SMALL
 	max_w_class = ITEM_SIZE_SMALL
 	startswith = list(
@@ -403,6 +403,8 @@
 		/obj/item/reagent_containers/pill,
 		/obj/item/reagent_containers/syringe,
 		/obj/item/reagent_containers/glass/bottle,
+		/obj/item/reagent_containers/glass/beaker,
+		/obj/item/device/scanner/health,
 		/obj/item/clothing/gloves/latex,
 		/obj/item/reagent_containers/hypospray,
 		/obj/item/stack/medical
@@ -446,7 +448,11 @@
 		/obj/item/reagent_containers/pill,
 		/obj/item/reagent_containers/syringe,
 		/obj/item/reagent_containers/glass/bottle,
+		/obj/item/reagent_containers/glass/beaker,
+		/obj/item/device/scanner/health,
 		/obj/item/clothing/gloves/latex,
 		/obj/item/reagent_containers/hypospray,
 		/obj/item/stack/medical
 		)
+/obj/item/storage/firstaid/pocket/empty
+	startswith = list()

@@ -30,7 +30,7 @@
 	products = list(
 		/obj/item/gun/projectile/automatic/scp/ak74 = 5,
 		/obj/item/gun/projectile/pistol = 5,
-		/obj/item/ammo_magazine/scp/ak = 5
+		/obj/item/ammo_magazine/scp/ak = 15
 	)
 
 /obj/machinery/vending/weaponry/chaos/specialized
@@ -70,6 +70,8 @@
 	products = list(
 		/obj/item/ammo_magazine/box/a57/rubber = 30,
 		/obj/item/ammo_magazine/scp/p90_mag/rubber = 24,
+		/obj/item/ammo_magazine/scp/mk9/rubber = 30,
+		/obj/item/ammo_magazine/box/a9mm/rubber = 12,
 		/obj/item/gun/energy/stunrevolver/taser = 6,
 		/obj/item/gun/energy/stunrevolver/rifle = 2,
 		/obj/item/gun/energy/ionrifle = 1

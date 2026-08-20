@@ -785,6 +785,18 @@
 	name = "EZ Armory"
 	icon_state = "security"
 
+/area/site53/uez/control_room
+	name = "\improper Control Room"
+	icon_state = "hallC1"
+	area_flags = AREA_FLAG_RAD_SHIELDED
+	sound_env = LARGE_ENCLOSED
+
+/area/site53/uez/conference_room
+	name = "\improper Conference Room"
+	icon_state = "conference"
+	area_flags = AREA_FLAG_RAD_SHIELDED
+	sound_env = LARGE_ENCLOSED
+
 /area/site53/uez/bridge
 	name = "\improper Bridge"
 	icon_state = "hallC1"
@@ -792,6 +804,13 @@
 	sound_env = LARGE_ENCLOSED
 	requires_power = 0
 	dynamic_lighting = 1
+
+
+/area/site53/uez/sitedirector_office
+	name = "\improper Site Director`s Office"
+	icon_state = "hallC1"
+	area_flags = AREA_FLAG_RAD_SHIELDED
+	sound_env = LARGE_ENCLOSED
 
 /area/site53/uez/mcrsubstation
 	name = "Main Control Room Substation"
@@ -1198,6 +1217,11 @@
 	icon_state = "medbay3"
 	ambience = list('sounds/ambience/signal.ogg')
 	area_flags = AREA_FLAG_RAD_SHIELDED
+/area/site53/medical/cmo_office
+	name = "\improper Chief Medical Officer's Office"
+	icon_state = "medbay3"
+	ambience = list('sounds/ambience/signal.ogg')
+	area_flags = AREA_FLAG_RAD_SHIELDED
 
 /area/site53/medical/morgue
 	name = "\improper Morgue"
@@ -1213,6 +1237,11 @@
 	name = "\improper Equipment Storage"
 	icon_state = "medbay4"
 	ambience = list('sounds/ambience/signal.ogg')
+	area_flags = AREA_FLAG_RAD_SHIELDED
+
+/area/site53/engineering/ce_office
+	icon_state = "engineering_locker"
+	sound_env = SMALL_ENCLOSED
 	area_flags = AREA_FLAG_RAD_SHIELDED
 
 /area/site53/engineering/engine_smes
@@ -1492,6 +1521,10 @@
 
 /area/site53/science/seniorresearcherc
 	name = "\improper Senior Researcher's Office C"
+	icon_state = "research"
+
+/area/site53/science/reaserchdirector
+	name= "\improper Research Director`s Office"
 	icon_state = "research"
 
 //Logistics
