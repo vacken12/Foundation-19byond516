@@ -174,10 +174,9 @@
 	nutriment_amt = 2
 	bitesize = 20
 	food_reagents = list(
-	/datum/reagent/nutriment/protein = 3,
-	/datum/reagent/medicine/bicaridine = 3,
-	/datum/reagent/medicine/kelotane = 3,
+	/datum/reagent/nutriment/protein = 2,
+	/datum/reagent/medicine/tricordrazine = 4,
 	/datum/reagent/medicine/stimulant/hyperzine = 4,
-	/datum/reagent/medicine/painkiller/tramadol = 3,
+	/datum/reagent/medicine/painkiller/tramadol = 4,
 	/datum/reagent/psilocybin = 4
 	)
