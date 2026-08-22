@@ -1,0 +1,44 @@
+[
+  {
+    "code": "FND-MED-PRESCRIPTION",
+    "category": "Медицинская служба",
+    "name": "Назначение рецепта медицинского препарата",
+    "info": "[grid][row][cell][center][medlogo][/center][cell]\n[cell][b][center][h2]Рецепт медицинского препарата[/h2][/center][/b]\n[cell][row]\n[small][b]Объект:[/b] [u]зона 53[/u][/small]\n[small][b]Время:[/b] [u][time][/u][/small]\n[small][b]Дата:[/b] [u][date][/u]\n[/grid][hr][hr][center][large][b]Рецепт[/b][/large][br]\"[u][field][/u]\" [u][field][/u].[/center][hr][b]Ф.И.О. пациента:[/b] [u][field][/u][br]Возраст: [u][field][/u][br]Раса: [u][field][/u][br][b]Ф.И.О. врача:[/b] [u][field][/u][table][row][cell][center]Название препарата[/center][cell][center]Рекомендованная дозировка[/center][row][cell][center][field][/center][cell][center][field][/center][/table][br][/center][small]Рецепт действителен 30 (тридцать) стандартных земных суток с момента выдачи, начиная со дня получения.[/small][hr][b]Подпись врача:[/b] [u][field][/u][br][b]Подпись Медицинского директора:[/b] [u][field][/u][hr][small][i]*Данная форма документа, обязательно должна подтверждаться печатью ответственного лица. В случае наличия опечаток и отсутствия подписей или печатей, документ будет являться недействительным.[/i] [/small]"
+  },
+  {
+    "code": "FND-MED-INSANITY",
+    "category": "Медицинская служба",
+    "name": "Постановление о невменяемости",
+    "info": "[grid][row][cell][center][medlogo][/center][cell]\n[cell][b][center][h2]Справка о невменяемости[/h2][/center][/b]\n[cell][row]\n[small][b]Объект:[/b] [u]Зона 53[/u][/small]\n[small][b]Время:[/b] [u][time][/u][/small]\n[small][b]Дата:[/b] [u][date][/u]\n[/grid][hr][hr][b]Полное имя пациента:[/b] [field][br][b]Дата рождения:[/b] [u][field][/u][br][b]Возраст: [u][/b][field][/u][br][b]Должность:[/b] [u][field][/u][br][br][b]Диагноз:[/b][br][field][br][b]Постановление главного врача:[/b][br][field][hr][b]Подпись Медицинского директора или менталиста(советника):[/b] [u][field][/u][hr][i][small]*Признание невменяемым означает полное отстранение от выполнения должностных обязанностей. Документ является недействительным при отсутствии подписи и печати Медицинского директора.[/small][/i]"
+  },
+  {
+    "code": "FND-MED-AUTOPSY",
+    "category": "Медицинская служба",
+    "name": "Отчет о вскрытии",
+    "info": "[grid][row][cell][center][medlogo][/center][cell]\n[cell][b][center][h2]Отчет о вскрытии[/h2][/center][/b]\n[cell][row]\n[small][b]Объект:[/b] [u]Зона 53[/u][/small]\n[small][b]Время:[/b] [u][time][/u][/small]\n[small][b]Дата:[/b] [u][date][/u]\n[/grid][hr][hr][b]Полное имя погибшего: [/b][u][field][/u]\n[b]Пол:[/b] [u][field][/u]\n[b]Возраст:[/b] [u][field][/u]\n[b]Должность:[/b] [u][field][/u][br][br][b]Дата смерти:[/b] [u][field][/u]\n[b]Время смерти:[/b] [u][field][/u]\n[b]Причина(ы) смерти:[/b] [i][field][/i]\n[b]Дополнительные сведения:[/b] [i][field][/i][br]\n[b]Дата вскрытия:[/b] [u][field][/u]\n[b]Время вскрытия:[/b] [u][field][/u]\n[b]Вскрытие проводил:[/b] [i][field][/i][hr][b]Подпись коронера: [/b][u][field][/u]\n[hr][i][small]Сотрудник, проводящий вскрытие, обязан обеспечить безопасную доставку личных и служебных вещей погибшего в Служба безопасности объекта, либо их хранение в морге объекта.[/i][/small]"
+  },
+  {
+    "code": "FND-MED-SERVICE",
+    "category": "Медицинская служба",
+    "name": "Справка об оказании медицинских услуг",
+    "info": "[grid][row][cell][center][medlogo][/center][cell]\n[cell][b][center][h2]Справка об оказании медицинских услуг #[field][/h2][/center][/b]\n[cell][row]\n[small][b]Объект:[/b] [u]Зона 53[/u][/small]\n[small][b]Время:[/b] [u][time][/u][/small]\n[small][b]Дата:[/b] [u][date][/u]\n[/grid][hr][hr][b]Полное Ф.И.О. пациента:[/b] [u][field][/u]\n[b]Пол:[/b] [u][field][/u]\n[b]Возраст:[/b] [u][field][/u]\n[b]Причины госпитализации:[/b][br][i][field][/i]\n[b]Синопсис оказанных услуг:[/b][br][i][field][/i]\n[b]Дополнительные сведения:[/b][br][i][field][/i]\n[b]Дата оказания услуги:[/b] [u][date][/u]\n[b]Время заполнения:[/b] [u][time][/u]\n[b]Лечение проводил:[/b] [u][field][/u][hr][b]Подпись лечащего врача:[/b] [u][field][/u]\n[hr][i][small]*Документ имеет юридическую силу исключительно в случае наличия подписи сотрудника, а также печати Медицинского директора, либо любых двух и более печатей действующих на объекте сотрудников Административной службы.[/small][/i]"
+  },
+  {
+    "code": "FND-MED-CONSULT",
+    "category": "Медицинская служба",
+    "name": "Консультация узконаправленного специалиста",
+    "info": "[grid][row][cell][center][medlogo][/center][cell]\n[cell][b][center][h2]Приём и консультация[field][/h2][/center][/b]\n[cell][row]\n[small][b]Объект:[/b] [u]Зона 53[/u][/small]\n[small][b]Время:[/b] [u][time][/u][/small]\n[small][b]Дата:[/b] [u][date][/u]\n[/grid][hr][b]Пациент: [/b][field][/b]\n[b]Дата рождения:[/b] [b][field][/b]\n[b]Возраст:[/b] [b][field][/b]\n[b]Врач: [/b][b][field][/b]\n[hr][small]Протокол подписан: [field]. Дата: [field] Время: [field][hr]Параметры[list]Жалобы: [small][field][/small][br][/small]\nАнамнез заболевания: [small][field][/small][br]\nАнамнез жизни: [small][field][/small][br]\nОбъективные данные: [small][field][/small][br]\nДиагноз: [small][field][/small][br]\nСопутствующий диагноз: [field][br]\nРекомендовано: [field][br]\nЛечение: [field][br]\n[small]C диагнозом, планом обследования и лечения ознакомлен(-а). Согласен(-а)[u][b][field][/b][/u][/small]\nПодпись врача: [field]"
+  },
+  {
+    "code": "FND-MED-EXAM",
+    "category": "Медицинская служба",
+    "name": "Заключение медосмотра",
+    "info": "[grid][row][cell][center][medlogo][/center][cell]\n[cell][b][center][h2]Заключение №[field][br]по результатам периодического[br]медицинского осмотра[/h2][/center][/b]\n[cell][row]\n[small][b]Объект:[/b] [u]Зона 53[/u][/small]\n[small][b]Время:[/b] [u][time][/u][/small]\n[small][b]Дата:[/b] [u][date][/u]\n[/grid][hr] [list]C [field] по [field] произведён периодический медицинский осмотр.[/list]1. Пациент: [field], [field] г.р., пол - [field].\n2. Наименование службы: [field]\n3. Наименование должности (профессии): [field]\n4. Наименование вредного производственного фактора(-ов) и (или) виды работы: [field]\n5. Результат медицинского осмотра: [field]\n[list]Дата: [field]\nМедицинский директор/Председатель медицинской комиссии [field] Подпись: [field][/list]"
+  },
+  {
+    "code": "FND-MCD-REPORT",
+    "category": "Медицинская служба",
+    "name": "Отчёт Маршалл, Картер и Дарк",
+    "info": "{{paperwork\n|title=Отчёт МКиД\n|content=<pre>\n[center] [h1]Отчёт МКиД[field][/h1] [/center] \n[b][small][center] Зона 53 [/center][/small][/b] \n[center] [mcdlogo] [/center] \n[center] [i][b] \"Маршалл, Картер и Дарк\" [/b][/i] [/center][hr] \n[b]Ответственное лицо[/b]: [field]\n[b]Состояние ответственного лица[/b]: [field]\n \n[b]Код на объекте[/b]: [field]\n[b]Состояние активов[/b]: [field]\n[b]Возможные угрозы активам[/b]: [field]\n \n[b]Дополнительная информация[/b]: [field]\n[hr][b]Подпись ответственного лица[/b]: [field]"
+  }
+]

@@ -1,0 +1,38 @@
+[
+  {
+    "code": "FND-SCI-CONTAIN",
+    "category": "Научная служба",
+    "name": "Отчёт о постановке на содержание SCP",
+    "info": "[grid][row][cell][center][scilogo][/center][cell]\n[cell][b][center][h2]Отчёт о постановке на содержание SCP[/h2][/center][/b]\n[cell][row]\n[small][b]Объект:[/b] [u]Зона 53[/u][/small]\n[small][b]Время:[/b] [u][time][/u][/small]\n[small][b]Дата:[/b] [u][date][/u]\n[/grid][hr][hr][large][b]SCP-[/b] [/large][u][large][field][/large][/u]\n[hr][b]Класс объекта:[/b][i][field][/i]\n[b]Особые условия содержания: [/b][i][field][/i]\n[b]Описание: [/b][i][field][/i]\n[br][b]Отчёт заполнял:[/b] [u][field][/u][hr][b]Заметки Директора Исследований:[/b]"
+  },
+  {
+    "code": "FND-SCI-PROTOCOL",
+    "category": "Научная служба",
+    "name": "Утверждение протокола исследования SCP",
+    "info": "[grid][row][cell][center][scilogo][/center][cell]\n[cell][b][center][h2]Протокол исследований[/h2][/center][/b]\n[cell][row]\n[small][b]Объект:[/b] [u]Зона 53[/u][/small]\n[small][b]Время:[/b] [u][time][/u][/small]\n[small][b]Дата:[/b] [u][date][/u]\n[/grid][hr][hr][large][b]SCP-[/b] [/large][u][large][field][/large][/u]\n[hr][b]Класс объекта: [/b][i][field][/i]\n[b]Предпологаемый ход исследований: [/b][i][field][/i]\n[br][b]Протокол исследований заполнял:[/b] [u][field][/u][hr][b]Заметки Директора Исследований:[/b]"
+  },
+  {
+    "code": "FND-SCI-RESEARCH",
+    "category": "Научная служба",
+    "name": "Отчет исследования",
+    "info": "[grid][row][cell][center][scilogo][/center][cell]\n[cell][b][center][h2]Отчет исследования[/h2][/center][/b]\n[cell][row]\n[small][b]Объект:[/b] [u]Зона 53[/u][/small]\n[small][b]Время:[/b] [u][time][/u][/small]\n[small][b]Дата:[/b] [u][date][/u]\n[/grid][hr][hr][large][b]SCP-[/b] [/large][u][large][field][/large][/u]\n[hr][b]Класс объекта: [/b][i][field][/i]\n[b]Ход исследования: [/b][i][field][/i]\n[b]Вывод: [/b][i][field][/i]\n[br][b]Отчет исследования заполнял:[/b] [u][field][/u][hr][b]Заметки Директора Исследований:[/b]\n[hr][hr][small][i]*К данной форме обязательно должен быть подшит протокол исследования.[/i][/small]"
+  },
+  {
+    "code": "FND-SCI-VOLUNTEER",
+    "category": "Научная служба",
+    "name": "Форма добровольца для исследований",
+    "info": "[grid][row][cell][center][scilogo][/center][cell]\n[cell][b][center][h2]Договор на добровольное\nучастие в исследовании[/h2][/center][/b]\n[cell][row]\n[small][b]Объект:[/b] [u]Зона 53[/u][/small]\n[small][b]Время:[/b] [u][time][/u][/small]\n[small][b]Дата:[/b] [u][date][/u]\n[/grid][hr][hr][large]Номер(а) и класс(ы) объекта(ов): [/large][field][br]\n[table][row][cell][cell]Волонтёрская сторона[cell]Ответственная сторона[row][cell]Имя, Фамилия[cell][field][cell][field][row][cell]Должность, класс[cell][field][cell][field][row][cell]Подпись[cell][field][cell][field][/table]\n[/center]\n[hr][hr][small][i]*Данная форма документа, обязательно должна подтверждаться печатью ответственной стороны. В случае наличия опечаток и отсутствия подписей или печатей, договор будет являться недействительным.\n*К данному договору должна обязательно прилагаться фотография добровольца.[/i][/small]"
+  },
+  {
+    "code": "FND-SCI-VOLUNTEER-END",
+    "category": "Научная служба",
+    "name": "Форма добровольца о завершении исследований",
+    "info": "[grid][row][cell][center][scilogo][/center][cell]\n[cell][b][center][h2]Документ на расторжение договора\nна добровольное участие в исследовании[/h2][/center][/b]\n[cell][row]\n[small][b]]Номер(а) и класс(ы) объекта(ов):[field] [/b]\n[small][b]Объект:[/b] [u]Зона 53[/u][/small]\n[small][b]Время:[/b] [u][time][/u][/small]\n[small][b]Дата:[/b] [u][date][/u]\n[/grid][hr][hr][b]Имя добровольца:[/b][field]\n[b]Причина прекращения:[/b][field]\n[b]Подпись:[/b][u][field][/u]\n[hr][hr][small][i]*В случае наличия опечаток и отсутствия подписей или печатей, документ будет являться недействительным.[/i][/small]"
+  },
+  {
+    "code": "FND-SCI-DCLASS",
+    "category": "Научная служба",
+    "name": "Запрос на сотрудника класса-Д",
+    "info": "[grid][row][cell][center][scilogo][/center][cell]\n[cell][b][center][h2]Запрос на сотрудника класса-Д[/h2][/center][/b]\n[cell][row]\n[small][b]Объект:[/b] [u]Зона 53[/u][/small]\n[small][b]Время:[/b] [u][time][/u][/small]\n[small][b]Дата:[/b] [u][date][/u]\n[/grid][hr][hr]\n[b]Для чего нужен класс-Д:[/b] [u][field][/u]\n[b]Количество:[/b] [u][field][/u]\n[hr][b]Данные подающего запрос[/b]\n[table][row][cell][b]Имя[/b][cell][b]Должность[/b][cell][b]Класс[/b][cell][b]Подпись[/b]\n[row][cell][b][field][/b][cell][field][cell][field][cell][field][/table]\n[hr][b]Данные сотрудника охраны ЛЗС, который одобрил запрос[/b]\n[table][row][cell][b]Имя[/b][cell][b]Должность[/b][cell][b]Класс[/b][cell][b]Подпись[/b]\n[row][cell][b][field][/b][cell][field][cell][field][cell][field]\n[/table]"
+  }
+]
