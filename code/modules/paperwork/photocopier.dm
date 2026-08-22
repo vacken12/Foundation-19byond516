@@ -22,8 +22,7 @@
 /obj/machinery/photocopier/interact(mob/user)
 	user.set_machine(src)
 
-	var/datum/browser/popup = new(user, "copier_window", "Photocopier", 400, 300)
-
+	var/datum/browser/popup = new(user, "copier_window", "Photocopier", 550, 450)
 
 	var/dat = ""
 	if(copyitem)
@@ -35,6 +34,23 @@
 			dat += "<a href='byond://?src=\ref[src];add=1'>+</a><BR><BR>"
 	else if(toner)
 		dat += "Please insert something to copy.<BR><BR>"
+
+	if(GLOB.paper_blanks && GLOB.paper_blanks.len)
+		dat += "<HR><B>Print blanks:</B><BR>"
+		var/last_category = ""
+		for(var/code in GLOB.paper_blanks)
+			var/list/blank_data = GLOB.paper_blanks[code]
+			if(!islist(blank_data))
+				continue
+			var/category = blank_data["category"]
+			if(category != last_category)
+				if(last_category != "")
+					dat += "<BR>"
+				dat += "<B>[category]:</B><BR>"
+				last_category = category
+			dat += "<a href='byond://?src=\ref[src];printblank=[code]'>[blank_data["name"]]</a><BR>"
+		dat += "<HR>"
+
 	if(istype(user,/mob/living/silicon))
 		dat += "<a href='byond://?src=\ref[src];aipic=1'>Print photo from database</a><BR><BR>"
 	dat += "Current toner level: [toner]"
@@ -43,8 +59,6 @@
 
 	popup.set_content(dat)
 	popup.open()
-	//show_browser(user, dat, "window=copier")
-	//onclose(user, "copier")
 	return
 
 /obj/machinery/photocopier/OnTopic(user, href_list, state)
@@ -104,6 +118,22 @@
 			sleep(15)
 		return TOPIC_REFRESH
 
+	if(href_list["printblank"])
+		var/blank_id = href_list["printblank"]
+		var/list/selected_blank = GLOB.paper_blanks[blank_id]
+		if(!selected_blank)
+			to_chat(user, SPAN_WARNING("Blank not found!"))
+			return TOPIC_REFRESH
+		if(toner < 1)
+			to_chat(user, SPAN_WARNING("Not enough toner!"))
+			return TOPIC_REFRESH
+
+		var/obj/item/paper/P = new /obj/item/paper(loc, selected_blank["info"], "paper - '[selected_blank["name"]]'")
+		P.update_icon()
+		toner--
+		to_chat(user, SPAN_NOTICE("You print a blank form: [selected_blank["name"]]"))
+		return TOPIC_REFRESH
+
 /obj/machinery/photocopier/proc/OnRemove(mob/user)
 	if(copyitem)
 		user.put_in_hands(copyitem)
@@ -132,7 +162,8 @@
 			updateUsrDialog()
 		else
 			to_chat(user, SPAN_NOTICE("This cartridge is not yet ready for replacement! Use up the rest of the toner."))
-	else ..()
+	else
+		..()
 
 /obj/machinery/photocopier/ex_act(severity)
 	switch(severity)
@@ -242,3 +273,19 @@
 	name = "toner cartridge"
 	icon_state = "tonercartridge"
 	var/toner_amount = 30
+
+GLOBAL_LIST_INIT(paper_blanks, init_paper_blanks())
+
+/proc/init_paper_blanks()
+	var/list/all_blanks = list()
+	var/list/files = flist("config/blanks/")
+	for(var/file in files)
+		if(findtext(file, ".json"))
+			var/list/data = json_decode(file2text("config/blanks/[file]"))
+			if(islist(data))
+				for(var/blank in data)
+					if(islist(blank))
+						var/code = blank["code"]
+						if(code)
+							all_blanks[code] = blank
+	return all_blanks
