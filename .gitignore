@@ -19,7 +19,9 @@ atupdate
 
 # ignore config, but not subdirs
 !config/*/
-config/*
+config/moderators.txt
+config/admins.txt
+config/config.txt
 sql/test_db
 
 # byond-tracy, we intentionally do not ship this and do not want to maintain it

@@ -1,0 +1,25 @@
+# MySQL Connection Configuration
+
+# First of all, should SQL be used at all. Unhash next line, if yes
+ENABLED
+
+# Server the MySQL database can be found at
+# Examples: localhost, 200.135.5.43, www.mysqldb.com, etc.
+ADDRESS localhost
+
+# MySQL server port (default is 3306)
+PORT 6053
+
+# Database the population, death, karma, etc. tables may be found in
+DATABASE scp13
+
+# Username/Login used to access the database
+LOGIN scp13-user
+
+# Password used to access the database
+PASSWORD jIpAkeMiKu41h67iFO1orIzOMOqECe
+
+# The following information is for feedback tracking via the blackbox server
+FEEDBACK_DATABASE scp13
+FEEDBACK_LOGIN scp13-user
+FEEDBACK_PASSWORD jIpAkeMiKu41h67iFO1orIzOMOqECe

@@ -1,0 +1,12 @@
+[
+  {
+    "id" : "webhook_roundend",
+    "url" : "https://discord.com/api/webhooks/1419893243449184316/tHmEfOjNbpVGN-8C1vI1oTeWaS8xAL-CQRNuOugKLbTnri6TPxzNpeYn91KpgbR-Q0SS",
+    "mentions" : []
+  },
+  {
+    "id" : "webhook_roundstart"
+    "url" : "https://discord.com/api/webhooks/1419893243449184316/tHmEfOjNbpVGN-8C1vI1oTeWaS8xAL-CQRNuOugKLbTnri6TPxzNpeYn91KpgbR-Q0SS",
+    "mentions" : []
+  }
+]
