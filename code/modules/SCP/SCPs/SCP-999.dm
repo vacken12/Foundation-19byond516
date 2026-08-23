@@ -86,6 +86,17 @@
 	sound_cooldown = world.time + sound_cooldown_time
 
 /mob/living/scp999/UnarmedAttack(atom/a)
+	if(istype(a, /obj/item/reagent_containers/food/snacks)) 	//Eat snacks from the floor
+		visible_message(SPAN_NOTICE("[src] slurps up [a]!"), SPAN_NOTICE("You slurp up [a]!"))
+		resize *= 1.01
+		transform = matrix() * resize
+		feeding_count++
+		if(feeding_count >= 5)
+			feeding_count = 0
+			pixel_y += 1
+		qdel(a)
+		setClickCooldown(CLICK_CD_ATTACK)
+		return
 	if(ishuman(a))
 		var/mob/living/carbon/human/H = a
 		switch(a_intent)
