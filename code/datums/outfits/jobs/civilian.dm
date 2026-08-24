@@ -13,8 +13,14 @@
 
 /decl/hierarchy/outfit/job/civ/classd/post_equip(mob/living/carbon/human/H)
 	..()
+	var/obj/item/backpack = H.get_equipped_item(slot_back)
+	if(istype(backpack, /obj/item/storage))
+		for(var/obj/item/storage/box/survival/survival_box in backpack)
+			for(var/obj/item/crowbar/prybar/unwanted_prybar in survival_box)
+				qdel(unwanted_prybar) // Д-класс будет спавнится без лома в красной коробке
+
 	if(prob(15))
-		var/path = pick( /obj/item/wrench, /obj/item/screwdriver)
+		var/path = pick( /obj/item/wrench, /obj/item/screwdriver, /obj/item/crowbar/prybar)
 		H.equip_to_slot_or_store_or_drop(new path (H), slot_r_store)
 
 /decl/hierarchy/outfit/job/civ/classd/high

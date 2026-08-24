@@ -79,7 +79,9 @@
 	startswith = list(/obj/item/storage/firstaid/personal = 1,
 					/obj/item/device/flashlight/flare/glowstick = 1,
 					/obj/item/reagent_containers/food/snacks/proteinbar = 1,
-					/obj/item/device/oxycandle = 1)
+					/obj/item/device/oxycandle = 1,
+					/obj/item/crowbar/prybar = 1
+					)
 
 /obj/item/storage/box/survival/Initialize()
 	if(has_station_trait(/datum/station_trait/premium_crewbox))
