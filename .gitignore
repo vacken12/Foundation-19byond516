@@ -22,6 +22,15 @@ atupdate
 config/moderators.txt
 config/admins.txt
 config/config.txt
+
+# ignore webhooks
+ban_bots.py
+ban_log.py
+code\modules\admin\db_ban\functions.dm
+config\webhooks.json
+
+
+
 sql/test_db
 
 # byond-tracy, we intentionally do not ship this and do not want to maintain it
