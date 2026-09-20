@@ -258,6 +258,14 @@ var/list/gamemode_cache = list()
 	var/cross_comms_network = null
 	var/list/cross_servers = list()
 
+	/* SCPnet */
+	var/scpnet_enabled = FALSE
+	var/scpnet_interactive = TRUE
+	var/scpnet_api_url = null
+	var/scpnet_server_key = null
+	var/scpnet_editor_url = "https://ntnet.wiki-ss13.space"
+	var/scpnet_sandbox_host = "sandbox.wiki-ss13.space"
+
 /datum/configuration/New()
 	var/list/L = subtypesof(/datum/game_mode)
 	for (var/thing in L)
@@ -927,6 +935,23 @@ var/list/gamemode_cache = list()
 					config.cross_comms_network = value
 				if("cross_servers")
 					config.cross_servers = params2list(value)
+
+		else if(type == "scpnet")
+			switch (name)
+				if("scpnet_enabled")
+					config.scpnet_enabled = TRUE
+				if("scpnet_interactive")
+					config.scpnet_interactive = text2num(value) != 0
+				if("scpnet_api_url")
+					config.scpnet_api_url = value
+				if("scpnet_server_key")
+					config.scpnet_server_key = value
+				if("scpnet_editor_url")
+					config.scpnet_editor_url = value
+				if("scpnet_sandbox_host")
+					config.scpnet_sandbox_host = value
+				else
+					log_misc("Unknown setting in configuration: '[name]'")
 
 	fps = round(fps)
 	if(fps <= 0)

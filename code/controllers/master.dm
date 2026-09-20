@@ -75,6 +75,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 		config.load("config/config.txt")
 		config.load("config/game_options.txt","game_options")
 		config.load("config/comms.txt", "comms")
+		config.load("config/scpnet.txt", "scpnet")
 		config.load_text("config/motd.txt", "motd")
 		config.load_text("config/event.txt", "event")
 		config.loadsql("config/dbconfig.txt")

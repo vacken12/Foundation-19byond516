@@ -66,6 +66,8 @@
 	install_default_hardware()
 	if(hard_drive)
 		install_default_programs()
+		if(SSscpnet.is_enabled())
+			hard_drive.store_file(new /datum/computer_file/program/scpnet)
 	if(scanner)
 		scanner.do_after_install(null, src)
 	update_icon()

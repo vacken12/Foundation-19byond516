@@ -119,3 +119,12 @@
 
 	//Cooldown for messages in pray and adminhelp
 	var/to_admins_cooldown
+
+	/// One-time SCPnet editor code and the state of the request that fetched it
+	var/scpnet_code
+	var/scpnet_code_expires = 0
+	var/scpnet_login_pending = FALSE
+	var/scpnet_login_retry = 0
+	var/scpnet_login_request = 0
+	var/scpnet_login_error
+	var/scpnet_light_theme = FALSE
