@@ -61,6 +61,10 @@ Class Procs:
 
 */
 
+// If enabled, SSair will not process anything (no fires, no gas diffusion, no edge ticks).
+// Air still exists on simulated turfs (created from initial_gas_mix), so mobs can breathe.
+#define AIR_DISABLE_PROCESSING 1
+
 SUBSYSTEM_DEF(air)
 	name = "Air"
 	priority = SS_PRIORITY_AIR
@@ -122,6 +126,17 @@ SUBSYSTEM_DEF(air)
 
 /datum/controller/subsystem/air/Initialize(timeofday, simulate = TRUE)
 
+#ifdef AIR_DISABLE_PROCESSING
+	// Atmosphere is not simulated on this build.
+	// We still want every simulated turf to have breathable air, so we fill turfs
+	// with their initial_gas_mix during turf initialization (handled by the turf itself),
+	// and we skip the whole geometry + settling pipeline entirely.
+	can_fire = FALSE
+	report_progress("Air processing disabled via AIR_DISABLE_PROCESSING. Skipping geometry build.")
+	..(timeofday)
+	return
+#endif
+
 	var/starttime = REALTIMEOFDAY
 	report_progress("Processing Geometry...")
 
@@ -152,6 +167,10 @@ Total Unsimulated Turfs: [world.maxx*world.maxy*world.maxz - simulated_turf_coun
 	..(timeofday)
 
 /datum/controller/subsystem/air/fire(resumed = FALSE, no_mc_tick = FALSE)
+#ifdef AIR_DISABLE_PROCESSING
+	return
+#endif
+
 	if (!resumed)
 		processing_edges = active_edges.Copy()
 		processing_fires = active_fire_zones.Copy()
@@ -432,3 +451,5 @@ Total Unsimulated Turfs: [world.maxx*world.maxy*world.maxz - simulated_turf_coun
 		active_edges -= E
 	if(processing_edges)
 		processing_edges -= E
+
+#undef AIR_DISABLE_PROCESSING

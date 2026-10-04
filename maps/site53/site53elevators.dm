@@ -64,3 +64,15 @@
 		/area/turbolift/site53/low82,
 		/area/turbolift/site53/up082
 		)
+
+/obj/turbolift_map_holder/site47
+	name = "site47 turbolift map placeholder"
+	depth = 3
+	lift_size_x = 2
+	lift_size_y = 3
+
+	areas_to_use = list(
+		/area/site53/uhcz/securitypost,
+		/area/site53/lowertrams/brownline,
+		/area/site53/entrancezone/hallway
+		)
