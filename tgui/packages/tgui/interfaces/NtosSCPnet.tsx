@@ -54,33 +54,23 @@ const PALETTES: Record<string, Palette> = {
 
 const FRAME_ADDRESS =
   /^https:\/\/[a-z0-9.-]{4,64}\/i\/[a-f0-9]{32}\/[a-z0-9][a-z0-9-]{0,62}$/;
-const FRAME_SITE = /^[a-f0-9]{32}$/;
-const FRAME_SLUG = /^[a-z0-9](?:[a-z0-9-]{0,62}[a-z0-9])?$/;
 const FRAME_SANDBOX = 'allow-scripts';
-const FRAME_POLICY_VERSION = 3;
-const SANDBOX_MIRROR = 'https://sandbox-ru.wiki-ss13.space';
-const framePolicy = (url: string) =>
-  [
-    "default-src 'none'",
-    "script-src 'unsafe-inline'",
-    "style-src 'unsafe-inline'",
-    'img-src https: data:',
-    'media-src https:',
-    "font-src data:",
-    `connect-src ${url.slice(0, url.indexOf('/', 'https://'.length))} ${SANDBOX_MIRROR}`,
-    "form-action 'none'",
-    "frame-src 'none'",
-    "child-src 'none'",
-    "worker-src 'none'",
-    "object-src 'none'",
-    "base-uri 'none'",
-    'sandbox allow-scripts',
-  ].join('; ');
-
-const tokenRequest = (value: any) =>
-  value && typeof value === 'object' && value.ntnet === 'token'
-    ? { renew: value.renew === true }
-    : null;
+const FRAME_POLICY = [
+  "default-src 'none'",
+  "script-src 'unsafe-inline'",
+  "style-src 'unsafe-inline'",
+  'img-src https: data:',
+  'media-src https:',
+  "font-src data:",
+  "connect-src 'none'",
+  "form-action 'none'",
+  "frame-src 'none'",
+  "child-src 'none'",
+  "worker-src 'none'",
+  "object-src 'none'",
+  "base-uri 'none'",
+  'sandbox allow-scripts',
+].join('; ');
 const PROBE_TIMEOUT = 700;
 const LAG_TICK = 1000;
 const LAG_LIMIT = 4000;
@@ -151,23 +141,6 @@ const rendererAllows = (): Promise<boolean> => {
   return rendererCheck;
 };
 
-const navigationRequest = (value: any) => {
-  if (!value || typeof value !== 'object') {
-    return null;
-  }
-  const { ntnet, site, slug } = value;
-  if (
-    ntnet !== 'navigate' ||
-    typeof site !== 'string' ||
-    typeof slug !== 'string' ||
-    !FRAME_SITE.test(site) ||
-    !FRAME_SLUG.test(slug)
-  ) {
-    return null;
-  }
-  return { siteId: site, slug };
-};
-
 type SitePage = {
   slug: string;
   title: string;
@@ -204,18 +177,11 @@ type Tab = {
   active: boolean;
 };
 
-type Viewer = {
-  token: string | null;
-  error: string | null;
-};
-
 type Data = {
   tabs: Tab[];
   can_open_tab: boolean;
   available: boolean;
   loading: boolean;
-  failed?: boolean;
-  viewer?: Viewer;
   catalog: Site[];
   site: Site | null;
   page: Page | null;
@@ -781,14 +747,6 @@ const SearchPage = (props, context) => {
   const { act, data } = useBackend<Data>(context);
   const { search } = data;
   const t = palette(data);
-  if (search.pending) {
-    return (
-      <Box style={{ padding: '40px', 'text-align': 'center', color: t.muted }}>
-        <Icon name="spinner" spin mr={1} />
-        Ищем «{search.query}» в SCPnet…
-      </Box>
-    );
-  }
   return (
     <Box style={{ padding: '24px' }}>
       <Box mb={2} style={{ color: t.muted }}>
@@ -838,76 +796,24 @@ type FrameProps = {
   title: string;
   t: Palette;
   fallback: any;
-  viewer?: Viewer;
-  onNavigate: (siteId: string, slug: string) => void;
-  onToken: (renew: boolean) => void;
 };
 
 type FrameState = {
   allowed: boolean | null;
   stopped: boolean;
-  loaded: boolean;
 };
 
 class PageFrame extends Component<FrameProps, FrameState> {
   private alive = true;
   private timer = 0;
   private lastTick = 0;
-  private frame: any = null;
-  private wantsToken = false;
-  private staleToken: string | null = null;
-
-  private deliverToken() {
-    const target = this.frame && this.frame.contentWindow;
-    const viewer = this.props.viewer;
-    if (!this.wantsToken || !target || !viewer) {
-      return;
-    }
-    if (viewer.token && viewer.token !== this.staleToken) {
-      target.postMessage({ ntnet: 'token', token: viewer.token }, '*');
-      this.staleToken = null;
-    } else if (viewer.error) {
-      target.postMessage({ ntnet: 'token', error: viewer.error }, '*');
-    } else {
-      return;
-    }
-    this.wantsToken = false;
-  }
-
-  private receive = (event: MessageEvent) => {
-    if (!this.frame || event.source !== this.frame.contentWindow) {
-      return;
-    }
-    const asked = tokenRequest(event.data);
-    if (asked) {
-      this.wantsToken = true;
-      const viewer = this.props.viewer;
-      if (asked.renew) {
-        this.staleToken = (viewer && viewer.token) || null;
-        this.props.onToken(true);
-      } else if (!viewer || !viewer.token) {
-        this.props.onToken(false);
-      }
-      this.deliverToken();
-      return;
-    }
-    const request = navigationRequest(event.data);
-    if (request) {
-      this.props.onNavigate(request.siteId, request.slug);
-    }
-  };
 
   constructor(props: FrameProps) {
     super(props);
-    this.state = { allowed: null, stopped: false, loaded: false };
-  }
-
-  componentDidUpdate() {
-    this.deliverToken();
+    this.state = { allowed: null, stopped: false };
   }
 
   componentDidMount() {
-    window.addEventListener('message', this.receive);
     rendererAllows().then((result) => {
       if (this.alive) {
         this.setState({ allowed: result });
@@ -918,7 +824,6 @@ class PageFrame extends Component<FrameProps, FrameState> {
 
   componentWillUnmount() {
     this.alive = false;
-    window.removeEventListener('message', this.receive);
     window.clearInterval(this.timer);
   }
 
@@ -941,7 +846,7 @@ class PageFrame extends Component<FrameProps, FrameState> {
 
   render() {
     const { url, title, t, fallback } = this.props;
-    const { allowed, stopped, loaded } = this.state as FrameState;
+    const { allowed, stopped } = this.state as FrameState;
     if (allowed === null) {
       return <Box style={{ padding: '24px', color: t.muted }}>Загрузка…</Box>;
     }
@@ -958,55 +863,32 @@ class PageFrame extends Component<FrameProps, FrameState> {
       );
     }
     return (
-      <Box style={{ position: 'relative', height: '100%' }}>
-        <iframe
-          title={title}
-          ref={(node: any) => {
-            this.frame = node;
-            if (!node || node.dataset.scpnetLoaded === url) {
-              return;
-            }
-            node.dataset.scpnetLoaded = url;
-            node.addEventListener('load', () => {
-              if (this.alive) {
-                this.setState({ loaded: true });
-              }
-            });
-            node.setAttribute('sandbox', FRAME_SANDBOX);
-            node.setAttribute('csp', framePolicy(url));
-            node.setAttribute('referrerpolicy', 'no-referrer');
-            node.setAttribute('allow', '');
-            node.setAttribute('src', `${url}?csp=${FRAME_POLICY_VERSION}`);
-          }}
-          style={{
-            width: '100%',
-            height: '100%',
-            border: 'none',
-            background: '#ffffff',
-          }}
-        />
-        {!loaded && (
-          <Box
-            style={{
-              position: 'absolute',
-              top: '0',
-              left: '0',
-              right: '0',
-              padding: '24px',
-              color: '#5c6b77',
-            }}
-          >
-            <Icon name="spinner" spin mr={1} />
-            Загрузка страницы…
-          </Box>
-        )}
-      </Box>
+      <iframe
+        title={title}
+        ref={(node: any) => {
+          if (!node || node.dataset.scpnetLoaded === url) {
+            return;
+          }
+          node.dataset.scpnetLoaded = url;
+          node.setAttribute('sandbox', FRAME_SANDBOX);
+          node.setAttribute('csp', FRAME_POLICY);
+          node.setAttribute('referrerpolicy', 'no-referrer');
+          node.setAttribute('allow', '');
+          node.setAttribute('src', url);
+        }}
+        style={{
+          width: '100%',
+          height: '100%',
+          border: 'none',
+          background: '#ffffff',
+        }}
+      />
     );
   }
 }
 
 export const NtosSCPnet = (props, context) => {
-  const { act, data } = useBackend<Data>(context);
+  const { data } = useBackend<Data>(context);
   const { available, loading, site, page, view, search } = data;
   const t = palette(data);
   const frame = page && FRAME_ADDRESS.test(page.frame || '') ? page.frame : null;
@@ -1065,28 +947,10 @@ export const NtosSCPnet = (props, context) => {
                       title={title}
                       t={t}
                       fallback={<PageText text={page.text} t={t} />}
-                      viewer={data.viewer}
-                      onNavigate={(siteId, slug) =>
-                        act('open', { site_id: siteId, slug })
-                      }
-                      onToken={(renew) =>
-                        act('token', renew ? { renew: 1 } : {})
-                      }
                     />
                   )) || <PageText text={page.text} t={t} />)) || (
                   <Box style={{ padding: '24px', color: t.muted }}>
-                    Страница не открылась.{' '}
-                    <Box
-                      as="span"
-                      onClick={() => act('refresh')}
-                      style={{
-                        color: t.accent,
-                        cursor: 'pointer',
-                        'text-decoration': 'underline',
-                      }}
-                    >
-                      Повторить
-                    </Box>
+                    Страница не открылась.
                   </Box>
                 ))) ||
               (search.query && <SearchPage />) ||
