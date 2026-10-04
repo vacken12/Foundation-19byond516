@@ -34,6 +34,7 @@
 	#include "structures/closets/supply.dm"
 
 	#include "site47.dmm"
+	#include "crutch.dmm"
 	#include "z1_admin.dmm"
 	#include "z2_transit.dmm"
 	#include "away_mission-1.dmm"
