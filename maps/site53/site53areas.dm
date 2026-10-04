@@ -1578,3 +1578,26 @@
 	for(var/turf/simulated/floor/T in src)
 		if((T.x % 8) == 0 && (T.y % 8) == 0)
 			new /obj/effect/projectile/invislight/scp1499(T)
+
+/area/site53/uhcz/scp2851containment
+	name = "\improper SCP-2851 Containment Chamber"
+	icon_state = "research"
+	area_flags = AREA_FLAG_RAD_SHIELDED
+
+/area/site53/llcz/scp154
+	name = "\improper SCP-154"
+	icon_state = "research"
+	area_flags = AREA_FLAG_RAD_SHIELDED
+	sound_env = SMALL_ENCLOSED
+
+/area/site53/llcz/scp1360
+	name = "\improper SCP-1360"
+	icon_state = "research"
+	area_flags = AREA_FLAG_RAD_SHIELDED
+	sound_env = SMALL_ENCLOSED
+
+/area/site53/llcz/abnormalitems
+	name = "\improper Abnormal Items Storage"
+	icon_state = "research"
+	area_flags = AREA_FLAG_RAD_SHIELDED
+	sound_env = SMALL_ENCLOSED

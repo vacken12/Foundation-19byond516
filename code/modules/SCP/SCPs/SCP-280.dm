@@ -43,7 +43,7 @@
 
 	//Mechanics
 
-	var/regen_multiply = 1.5
+	var/regen_multiply = 2 // 20 HP per tick
 	var/door_cooldown = 5 SECONDS
 	var/door_cooldown_track
 	var/area/spawn_area
@@ -138,7 +138,7 @@
 			to_chat(src, SPAN_WARNING("In the light your camouflage disappears!"))
 			alpha = 255
 
-		adjustBruteLoss(80 * lumcount) // DAMAGE CHANGED 10 -> 80
+		adjustBruteLoss(60 * lumcount) // DAMAGE CHANGED 80 -> 60
 		movement_cooldown = 7 // The light slows down
 
 		if((world.time - damage_message_cooldown) > 2 SECONDS)
@@ -154,10 +154,14 @@
 
 		movement_cooldown = 1 // In the dark it becomes faster
 		if (health < maxHealth)
-			adjustBruteLoss(-10 * regen_multiply) // Regeneration in the dark
+			adjustBruteLoss(-10 * regen_multiply) // 20 HP per tick
 
 	if(lumcount >= 0.6)
 		ai_holder.set_stance(STANCE_FLEE)
+
+	// Prevent health from dropping below 10%
+	if(health <= 40)
+		health = 40
 
 //Overrides
 
@@ -198,18 +202,15 @@
 	var/turf/new_target_turf = pick_turf_in_range(T, 15, list(GLOBAL_PROC_REF(isfloor), GLOBAL_PROC_REF(is_dark)))
 	if(new_target_turf)
 		forceMove(new_target_turf)
-		health = maxHealth
+		health = 40 // 10% HP
 		return
 	else if(spawn_area) // If there save area, we return to it.
 		forceMove(spawn_area)
-		health = maxHealth * 0.1 // Need time to recover
+		health = 40 // 10% HP
 		return
 	else
 		ghostize() // Catch wrong state...
 		qdel_self()
-
-	. = ..() // Moved down due to logic issues
-
 
 /mob/living/simple_animal/hostile/scp280/proc/OpenDoor(obj/machinery/door/A)
 	if((world.time - door_cooldown_track) < door_cooldown)
@@ -338,14 +339,3 @@
 
 	mymob.client.screen |= action_intent
 	mymob.client.screen |= mymob.healths
-
-// Verbs
-
-/mob/living/simple_animal/hostile/scp280/verb/Health_check()
-	set category = "SCP-280"
-	set name = "Check Health"
-
-	to_chat(src, SPAN_WARNING(SPAN_ITALIC("You feel like you have [health] density now.")))
-
-
-

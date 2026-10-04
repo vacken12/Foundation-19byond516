@@ -28,6 +28,11 @@
 	///minimium distance we have to be away in order to be able to fire on scp 247
 	var/min_fire_distance = 3
 
+	///Is SCP-247 currently pacified?
+	var/pacified = FALSE
+	///How long pacify lasts
+	var/pacify_duration = 3 MINUTES
+
 /mob/living/simple_animal/hostile/scp247/Initialize()
 	. = ..()
 	SCP = new /datum/scp(
@@ -38,6 +43,7 @@
 		SCP_PLAYABLE
 	)
 	add_verb(src, /client/proc/scpooc)
+	add_verb(src, /mob/living/simple_animal/hostile/scp247/verb/purr)
 
 	SCP.min_time = 30 MINUTES
 	SCP.min_playercount = 18
@@ -58,6 +64,33 @@
 	. = ..()
 	home_turf = get_turf(holder)
 
+/datum/ai_holder/simple_animal/melee/evasive/scp247/can_attack(atom/movable/the_target, vision_required = TRUE)
+	var/mob/living/simple_animal/hostile/scp247/owner = holder
+	if(owner && owner.pacified)
+		return ATTACK_FAILED
+	return ..()
+
+// Verbs
+
+/mob/living/simple_animal/hostile/scp247/verb/purr()
+	set name = "Purr"
+	set category = "SCP-247"
+	set desc = "Let out a cute purr."
+
+	if(world.time < last_special + 2 SECONDS)
+		to_chat(src, SPAN_WARNING("You purred too recently!"))
+		return
+
+	var/sound_file = pick(list(
+		'sounds/scp/247/purr1.ogg',
+		'sounds/scp/247/purr2.ogg',
+		'sounds/scp/247/purr3.ogg',
+		'sounds/scp/247/purr4.ogg'
+	))
+	playsound(src, sound_file, 50, 1)
+	visible_message(SPAN_NOTICE("[src] purrs softly."))
+	last_special = world.time
+
 // Overrides
 
 /mob/living/simple_animal/hostile/scp247/bullet_act(obj/item/projectile/Proj) //This is a little bad but its the best way to keep this localized within 247
@@ -73,3 +106,74 @@
 		return
 	else
 		return ..()
+
+/mob/living/simple_animal/hostile/scp247/attackby(obj/item/O, mob/user)
+	if(istype(O, /obj/item/reagent_containers/food/snacks/meat))
+		if(pacified)
+			to_chat(user, SPAN_WARNING("[src] is already full!"))
+			return
+		to_chat(user, SPAN_NOTICE("You feed [src] some meat."))
+		visible_message(SPAN_NOTICE("[src] happily eats the meat, purring gently."))
+		// Heal
+		var/heal_amt = 30
+		if(istype(O, /obj/item/reagent_containers/food/snacks/meat/human))
+			heal_amt = 40
+		adjustBruteLoss(-heal_amt)
+		adjustFireLoss(-heal_amt)
+		adjustToxLoss(-heal_amt)
+		adjustOxyLoss(-heal_amt)
+		// Pacify
+		pacified = TRUE
+		addtimer(CALLBACK(src, PROC_REF(remove_pacify)), pacify_duration)
+		// Remove meat
+		qdel(O)
+		return
+	return ..()
+
+/mob/living/simple_animal/hostile/scp247/ClickOn(atom/A, params)
+	if(istype(A, /obj/item/reagent_containers/food/snacks/meat) && Adjacent(A))
+		if(pacified)
+			to_chat(src, SPAN_WARNING("You are already full!"))
+			return
+		var/obj/item/reagent_containers/food/snacks/meat/M = A
+		visible_message(SPAN_NOTICE("[src] eats [M]."))
+		var/heal_amt = 30
+		if(istype(M, /obj/item/reagent_containers/food/snacks/meat/human))
+			heal_amt = 40
+		adjustBruteLoss(-heal_amt)
+		adjustFireLoss(-heal_amt)
+		adjustToxLoss(-heal_amt)
+		adjustOxyLoss(-heal_amt)
+		pacified = TRUE
+		addtimer(CALLBACK(src, PROC_REF(remove_pacify)), pacify_duration)
+		qdel(M)
+		return
+	..()
+
+/mob/living/simple_animal/hostile/scp247/proc/remove_pacify()
+	pacified = FALSE
+	visible_message(SPAN_WARNING("[src]'s eyes narrow and it looks hungry again."))
+
+/mob/living/simple_animal/hostile/scp247/UnarmedAttack(atom/A)
+	if(pacified)
+		to_chat(src, SPAN_NOTICE("You are too full and calm to attack right now."))
+		return
+	// If target is a dead mob, consume it for healing
+	if(ismob(A))
+		var/mob/target = A
+		if(target.stat == DEAD)
+			visible_message(SPAN_DANGER("[src] pounces on [target] and begins feasting!"))
+			if(do_after(src, 3 SECONDS, target))
+				var/heal_amt = 60
+				if(ishuman(target))
+					heal_amt = 80
+				adjustBruteLoss(-heal_amt)
+				adjustFireLoss(-heal_amt)
+				adjustToxLoss(-heal_amt)
+				adjustOxyLoss(-heal_amt)
+				pacified = TRUE
+				addtimer(CALLBACK(src, PROC_REF(remove_pacify)), pacify_duration)
+				target.ghostize()
+				qdel(target)
+			return
+	return ..()
