@@ -1579,7 +1579,7 @@
 		if((T.x % 8) == 0 && (T.y % 8) == 0)
 			new /obj/effect/projectile/invislight/scp1499(T)
 
-/area/site53/uhcz/scp2851containment
+/area/site47/scp2851containment
 	name = "\improper SCP-2851 Containment Chamber"
 	icon_state = "research"
 	area_flags = AREA_FLAG_RAD_SHIELDED
@@ -1598,6 +1598,18 @@
 
 /area/site53/llcz/abnormalitems
 	name = "\improper Abnormal Items Storage"
+	icon_state = "research"
+	area_flags = AREA_FLAG_RAD_SHIELDED
+	sound_env = SMALL_ENCLOSED
+
+/area/site47/scp4348upper
+	name = "\improper Scp4348 Upper Rooms"
+	icon_state = "research"
+	area_flags = AREA_FLAG_RAD_SHIELDED
+	sound_env = SMALL_ENCLOSED
+
+/area/site47/scp4348lower
+	name = "\improper Scp4348 Lower Rooms"
 	icon_state = "research"
 	area_flags = AREA_FLAG_RAD_SHIELDED
 	sound_env = SMALL_ENCLOSED
