@@ -127,9 +127,9 @@
 	l_ear = /obj/item/device/radio/headset/headset_sec_ecz
 	l_pocket = /obj/item/book/manual/scp/secsop
 	suit = /obj/item/clothing/suit/armor/pcarrier/scp/medium
-	l_pocket = /obj/item/handcuffs
+	l_pocket = /obj/item/storage/firstaid/pocket/standart_issue
 	r_pocket = /obj/item/melee/telebaton
-	backpack_contents = list(/obj/item/storage/firstaid/adv = 1, /obj/item/storage/firstaid/combat = 1)
+	backpack_contents = list(/obj/item/storage/firstaid/adv = 1, /obj/item/handcuffs = 1)
 	belt = /obj/item/storage/belt/holster/security/fullmk9
 	glasses = /obj/item/clothing/glasses/sunglasses/sechud
 	head = /obj/item/clothing/head/helmet/scp/hczsecurityguard
@@ -209,9 +209,9 @@
 	shoes = /obj/item/clothing/shoes/dutyboots
 	id_type = /obj/item/card/id/seclvl2lczdivision
 	l_ear = /obj/item/device/radio/headset/headset_sec_lcz/medic
-	l_pocket = /obj/item/handcuffs
+	l_pocket = /obj/item/storage/firstaid/pocket/standart_issue
 	r_pocket = /obj/item/melee/telebaton
-	backpack_contents = list(/obj/item/storage/firstaid/adv = 1, /obj/item/storage/firstaid/combat = 1)
+	backpack_contents = list(/obj/item/storage/firstaid/adv = 1, /obj/item/handcuffs = 1)
 	belt = /obj/item/storage/belt/holster/security/fullmk9
 	head = /obj/item/clothing/head/helmet/scp/security/medic
 	mask = /obj/item/clothing/mask/balaclava
@@ -226,9 +226,9 @@
 	id_type = /obj/item/card/id/lcz_medicaldoctor
 	l_ear = /obj/item/device/radio/headset/headset_sec_lcz/medic
 	l_pocket = /obj/item/melee/telebaton
-	r_pocket = /obj/item/reagent_containers/spray/pepper
-	backpack_contents = list(/obj/item/storage/firstaid/combat = 1, /obj/item/device/flash = 1, /obj/random/soap = 1)
-	belt = null
+	r_pocket = /obj/item/storage/firstaid/pocket/standart_issue
+	backpack_contents = list(/obj/item/storage/firstaid/adv = 1, /obj/item/device/flash = 1, /obj/item/reagent_containers/spray/pepper = 1, /obj/random/soap = 1)
+	belt = /obj/item/storage/belt/holster/security/fullusp45
 	head = /obj/item/clothing/head/beret/lcz_medicaldoctor
 	mask = null
 	gloves = null
