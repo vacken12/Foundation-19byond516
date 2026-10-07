@@ -78,17 +78,16 @@
 	icon_state = "survival"
 	startswith = list(/obj/item/storage/firstaid/personal = 1,
 					/obj/item/device/flashlight/flare/glowstick = 1,
+					/obj/item/reagent_containers/food/drinks/cans/waterbottle = 1,
 					/obj/item/reagent_containers/food/snacks/proteinbar = 1,
 					/obj/item/device/oxycandle = 1,
-					/obj/item/crowbar/prybar = 1
 					)
 
 /obj/item/storage/box/survival/Initialize()
 	if(has_station_trait(/datum/station_trait/premium_crewbox))
-		startswith = list(/obj/item/clothing/mask/breath/scba = 1,
-						/obj/item/tank/emergency/oxygen = 1,
-						/obj/item/storage/firstaid/personal/deluxe = 1,
+		startswith = list(/obj/item/storage/firstaid/personal/deluxe = 1,
 						/obj/item/device/flashlight/flare/glowstick = 1,
+						/obj/item/reagent_containers/food/drinks/cans/waterbottle = 1,
 						/obj/item/reagent_containers/food/snacks/proteinbar = 1,
 						/obj/item/device/oxycandle = 1)
 	. = ..()
@@ -100,6 +99,7 @@
 					/obj/item/tank/emergency/nitrogen/double = 2,
 					/obj/item/storage/firstaid/personal = 1,
 					/obj/item/device/flashlight/flare/glowstick = 1,
+					/obj/item/reagent_containers/food/drinks/cans/waterbottle = 1,
 					/obj/item/reagent_containers/food/snacks/proteinbar = 1)
 
 /obj/item/storage/box/vox/Initialize()

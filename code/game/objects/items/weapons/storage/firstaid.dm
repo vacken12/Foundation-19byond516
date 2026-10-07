@@ -456,3 +456,21 @@
 		)
 /obj/item/storage/firstaid/pocket/empty
 	startswith = list()
+/obj/item/storage/firstaid/pocket/standart_issue
+	name = "Pocket first-aid kit"
+	desc = "It's a small medical kit."
+	icon_state = "pocket_firstaid"
+	open_icon = "pocket_firstaidopen"
+	use_sound = 'sounds/effects/storage/briefcase.ogg'
+	storage_slots = 7
+	w_class = ITEM_SIZE_SMALL
+	max_w_class = ITEM_SIZE_SMALL
+	startswith = list(
+		/obj/item/stack/medical/advanced/bruise_pack = 1,
+		/obj/item/stack/medical/advanced/ointment = 1,
+		/obj/item/stack/medical/splint = 1,
+		/obj/item/storage/pill_bottle/inaprovaline = 1,
+		/obj/item/storage/pill_bottle/bicaridine = 1,
+		/obj/item/storage/pill_bottle/kelotane = 1,
+		/obj/item/storage/pill_bottle/tramadol = 1
+		)
