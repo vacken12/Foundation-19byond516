@@ -6,6 +6,7 @@
 	gloves = /obj/item/clothing/gloves/thick/combat
 	back = /obj/item/storage/backpack/satchel
 	belt = /obj/item/gun/projectile/revolver
+	backpack_contents = list(/obj/item/storage/box/ifak, /obj/item/ammo_magazine/box/a357, /obj/item/crowbar/prybar)
 
 /decl/hierarchy/outfit/job/survivor
 	name = "Survivor"

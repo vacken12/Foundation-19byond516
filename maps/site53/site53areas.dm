@@ -785,6 +785,10 @@
 	name = "EZ Armory"
 	icon_state = "security"
 
+/area/site53/uez/roadcheckpoint
+	name = "Road Checkpoint"
+	icon_state = "security"
+
 /area/site53/uez/control_room
 	name = "\improper Control Room"
 	icon_state = "hallC1"
@@ -960,6 +964,11 @@
 	name = "\improper CDCZ Morgue"
 	area_flags = AREA_FLAG_RAD_SHIELDED
 	icon_state = "kitchen"
+
+/area/site53/llcz/dclass/medicalpost/chemistry
+	name = "\improper CDCZ Chemistry"
+	area_flags = AREA_FLAG_RAD_SHIELDED
+	icon_state = "chem"
 
 /area/site53/llcz/dclass/eclass/hallways
 	name = "\improper CECZ Hallways"

@@ -23,14 +23,17 @@
 // Default contents of ALL guard lockers
 /obj/structure/closet/secure_closet/guard/WillContain()
 	return list(
-		/obj/item/handcuffs = 4,
+		/obj/item/handcuffs = 2,
 		/obj/item/storage/box/ifak,
 		/obj/item/crowbar/emergency_forcing_tool,
 		/obj/item/clothing/accessory/armor/unobtainable/tag/base/sec,
 		/obj/item/clothing/accessory/storage/black_vest,
 		/obj/item/clothing/accessory/storage/holster/thigh,
 		/obj/item/clothing/accessory/solgov/department/security/marine,
-	)
+		/obj/item/clothing/mask/gas/security,
+		/obj/item/gun/energy/taser,
+		/obj/item/melee/telebaton,
+		)
 
 /obj/structure/closet/secure_closet/guard/attackby(obj/item/W, mob/user)
 	if(opened)
@@ -89,11 +92,15 @@
 // Default contents of ALL cadet lockers
 /obj/structure/closet/secure_closet/cadet/WillContain()
 	return list(
-		/obj/item/handcuffs = 4,
+		/obj/item/handcuffs = 2,
 		/obj/item/storage/box/ifak,
 		/obj/item/crowbar/emergency_forcing_tool,
 		/obj/item/clothing/accessory/armor/unobtainable/tag/base/sec,
+		/obj/item/clothing/accessory/storage/holster/thigh,
+		/obj/item/gun/energy/taser,
 		/obj/item/clothing/accessory/storage/black_vest,
+		/obj/item/clothing/mask/gas/security,
+		/obj/item/melee/telebaton,
 	)
 
 /obj/structure/closet/secure_closet/cadet/attackby(obj/item/W, mob/user)
@@ -153,7 +160,9 @@
 		/obj/item/clothing/suit/armor/vest/scp/medarmor,
 		/obj/item/clothing/head/helmet/scp/security/cadet,
 		/obj/item/ammo_magazine/box/a9mm,
-		/obj/item/ammo_magazine/scp/mk9 = 3,
+		/obj/item/ammo_magazine/scp/mk9 = 1,
+		/obj/item/ammo_magazine/scp/mk9/rubber = 2,
+		/obj/item/clothing/accessory/solgov/rank/fleet/enlisted,
 	)
 
 // LCZ - Guard
@@ -171,7 +180,49 @@
 		/obj/item/clothing/suit/armor/vest/scp/medarmor,
 		/obj/item/clothing/head/helmet/scp/security,
 		/obj/item/clothing/head/beret/sec/guard,
-		/obj/item/ammo_magazine/scp/mk9 = 3,
+		/obj/item/ammo_magazine/scp/mk9 = 1,
+		/obj/item/ammo_magazine/scp/mk9/rubber = 2,
+		/obj/item/clothing/suit/armor/pcarrier/scp/medium,
+		/obj/item/gun/projectile/automatic/scp/p90,
+		/obj/item/ammo_magazine/box/a57/rubber,
+		/obj/item/ammo_magazine/scp/p90_mag/rubber = 3,
+		/obj/item/ammo_magazine/scp/p90_mag = 2,
+		/obj/item/clothing/accessory/solgov/rank/fleet/enlisted/e2,
+	)
+
+// LCZ - Medical Doctor
+/obj/structure/closet/secure_closet/lcz/medical_doctor
+	name = "LCZ Medical Doctor`s Locker"
+	req_access = list("ACCESS_MEDICAL_LEVEL3")
+	icon = 'icons/obj/closet_new.dmi'
+	icon_state = "securemed1"
+	icon_closed = "securemed"
+	icon_locked = "securemed1"
+	icon_opened = "securemedopen"
+	icon_off = "securemedoff"
+
+/obj/structure/closet/secure_closet/lcz/medical_doctor/WillContain()
+	return ..() | list(
+		/obj/item/storage/firstaid/combat,
+		/obj/item/storage/firstaid/pocket/standart_issue,
+		/obj/item/storage/pill_bottle/amnesticsa,
+		/obj/item/melee/telebaton,
+		/obj/item/device/flashlight/maglight,
+		/obj/item/clothing/accessory/storage/holster/thigh,
+		/obj/item/gun/energy/taser,
+		/obj/item/clothing/suit/armor/pcarrier/scp/medium,
+		/obj/item/clothing/head/helmet/scp/security,
+		/obj/item/modular_computer/tablet/preset/custom_loadout/advanced,
+		/obj/item/modular_computer/laptop/preset/custom_loadout/advanced,
+		/obj/item/storage/belt/medical/emt,
+		/obj/item/taperoll/medical,
+		/obj/item/clothing/accessory/stethoscope,
+		/obj/item/clothing/accessory/storage/white_vest,
+		/obj/item/clothing/gloves/latex/nitrile,
+		/obj/item/clothing/mask/surgical,
+		/obj/item/device/flashlight/pen,
+		/obj/item/crowbar/prybar,
+		/obj/item/clothing/mask/gas/security,
 	)
 
 // LCZ - Sergeant
@@ -186,18 +237,32 @@
 
 /obj/structure/closet/secure_closet/guard/lcz/sergeant/WillContain()
 	return list(
-		/obj/item/handcuffs = 4,
+		/obj/item/handcuffs = 2,
 		/obj/item/storage/box/ifak,
 		/obj/item/crowbar/emergency_forcing_tool,
 		/obj/item/clothing/accessory/armor/unobtainable/tag/base/sec,
 		/obj/item/clothing/accessory/storage/black_vest,
 		/obj/item/clothing/accessory/storage/holster/thigh,
 		/obj/item/clothing/accessory/solgov/department/security/marine,
+		/obj/item/clothing/mask/gas/security,
+		/obj/item/gun/energy/taser,
+		/obj/item/ammo_magazine/scp/mk9 = 1,
+		/obj/item/ammo_magazine/scp/mk9/rubber = 2,
 		/obj/item/clothing/accessory/storage/bandolier,
 		/obj/item/clothing/suit/armor/vest/scp/medarmor,
 		/obj/item/clothing/head/helmet/scp/security,
 		/obj/item/clothing/head/beret/sec/sergeant,
-		/obj/item/ammo_magazine/scp/mk9 = 3,
+		/obj/item/modular_computer/laptop/preset/custom_loadout/advanced,
+		/obj/item/melee/telebaton,
+		/obj/item/storage/belt/holster/security/fullusp45,
+		/obj/item/clothing/shoes/combat/lcz,
+		/obj/item/clothing/suit/armor/pcarrier/scp/medium,
+		/obj/item/gun/projectile/automatic/scp/p90,
+		/obj/item/ammo_magazine/box/a57/rubber,
+		/obj/item/ammo_magazine/scp/p90_mag/rubber = 3,
+		/obj/item/ammo_magazine/scp/p90_mag = 2,
+		/obj/item/clothing/accessory/solgov/rank/fleet/enlisted/e5,
+		/obj/item/melee/telebaton,
 	)
 
 // HCZ - Cadet
@@ -221,6 +286,8 @@
 		/obj/item/gun/energy/taser,
 		/obj/item/ammo_magazine/box/a9mm,
 		/obj/item/ammo_magazine/scp/mk9 = 3,
+		/obj/item/clothing/mask/breath/scba,
+		/obj/item/clothing/accessory/solgov/rank/fleet/enlisted/e2,
 	)
 
 // HCZ - Guard
@@ -246,6 +313,8 @@
 		/obj/item/clothing/suit/armor/pcarrier/scp/medium,
 		/obj/item/clothing/head/beret/sec/guard,
 		/obj/item/ammo_magazine/scp/usp45 = 3,
+		/obj/item/clothing/mask/breath/scba,
+		/obj/item/clothing/accessory/solgov/rank/fleet/enlisted/e3,
 	)
 
 // HCZ - Sergeant
@@ -259,7 +328,7 @@
 
 /obj/structure/closet/secure_closet/guard/hcz/sergeant/WillContain()
 	return list(
-		/obj/item/handcuffs = 4,
+		/obj/item/handcuffs = 2,
 		/obj/item/storage/box/ifak,
 		/obj/item/crowbar/emergency_forcing_tool,
 		/obj/item/clothing/accessory/armor/unobtainable/tag/base/sec,
@@ -278,6 +347,9 @@
 		/obj/item/clothing/suit/armor/pcarrier/scp/medium,
 		/obj/item/clothing/head/beret/sec/sergeant,
 		/obj/item/ammo_magazine/scp/usp45 = 3,
+		/obj/item/clothing/mask/breath/scba,
+		/obj/item/clothing/accessory/solgov/rank/fleet/enlisted/e6,
+		/obj/item/melee/telebaton,
 	)
 
 // EZ - Cadet
@@ -298,7 +370,10 @@
 		/obj/item/clothing/accessory/storage/holster/thigh,
 		/obj/item/gun/energy/taser,
 		/obj/item/ammo_magazine/box/a9mm,
-		/obj/item/ammo_magazine/scp/mk9 = 3,
+		/obj/item/ammo_magazine/scp/mk9 = 1,
+		/obj/item/ammo_magazine/scp/mk9/rubber = 2,
+		/obj/item/taperoll/police,
+		/obj/item/clothing/accessory/solgov/rank/fleet/enlisted/e2,
 	)
 
 // EZ - Guard
@@ -318,8 +393,11 @@
 		/obj/item/ammo_magazine/scp/smgm9mm = 4,
 		/obj/item/ammo_magazine/box/a9mm,
 		/obj/item/gun/energy/stunrevolver/taser,
-		/obj/item/ammo_magazine/scp/mk9 = 3,
-		/obj/item/clothing/head/beret/sec/guard_ez
+		/obj/item/ammo_magazine/scp/mk9 = 1,
+		/obj/item/ammo_magazine/scp/mk9/rubber = 2,
+		/obj/item/clothing/head/beret/sec/guard_ez,
+		/obj/item/taperoll/police,
+		/obj/item/clothing/accessory/solgov/rank/fleet/enlisted/e3,
 	)
 
 // EZ - Sergeant
@@ -333,7 +411,7 @@
 
 /obj/structure/closet/secure_closet/guard/ez/sergeant/WillContain()
 	return list(
-		/obj/item/handcuffs = 4,
+		/obj/item/handcuffs = 2,
 		/obj/item/storage/box/ifak,
 		/obj/item/crowbar/emergency_forcing_tool,
 		/obj/item/clothing/accessory/armor/unobtainable/tag/base/sec,
@@ -346,7 +424,11 @@
 		/obj/item/ammo_magazine/box/a9mm,
 		/obj/item/clothing/gloves/tactical/scp,
 		/obj/item/gun/energy/stunrevolver/taser,
-		/obj/item/ammo_magazine/scp/mk9 = 3,
+		/obj/item/ammo_magazine/scp/mk9 = 1,
+		/obj/item/ammo_magazine/scp/mk9/rubber = 2,
+		/obj/item/taperoll/police,
+		/obj/item/clothing/accessory/solgov/rank/fleet/enlisted/e6,
+		/obj/item/melee/telebaton,
 	)
 
 // Guard Commander
@@ -361,7 +443,7 @@
 
 /obj/structure/closet/secure_closet/guard/guard_commander/WillContain()
 	return list(
-		/obj/item/handcuffs = 4,
+		/obj/item/handcuffs = 2,
 		/obj/item/storage/box/ifak,
 		/obj/item/crowbar/emergency_forcing_tool,
 		/obj/item/material/knife/combat,
@@ -374,15 +456,27 @@
 		/obj/item/clothing/head/beret/sec/guardcom,
 		/obj/item/clothing/head/beret/sec/corporate/hos,
 		/obj/item/clothing/suit/armor/pcarrier/scp/tactical,
+		/obj/item/clothing/suit/armor/hos/vest,
+		/obj/item/clothing/suit/armor/hos/coat,
+		/obj/item/clothing/suit/armor/hos/jensen,
+		/obj/item/clothing/suit/armor/hos,
+		/obj/item/clothing/accessory/solgov/rank/fleet/officer/o6,
 		/obj/item/clothing/under/rank/head_of_security/guardcom,
 		/obj/item/clothing/under/rank/head_of_security/guardcom/alt,
+		/obj/item/clothing/mask/gas/security,
+		/obj/item/taperoll/police,
+//		/obj/item/gun/projectile/automatic/scp/m4a1,
+//		/obj/item/ammo_magazine/box/a556,
+//		/obj/item/ammo_magazine/scp/m16_mag = 4,
+//		/obj/item/implanter,
+//		/obj/item/implantcase/death_alarm,  they just don`t fit in a closet xd
 		/obj/item/gun/projectile/pistol/mk9,
 		/obj/item/ammo_magazine/scp/mk9 = 3,
 		/obj/item/ammo_magazine/box/a9mm,
 		/obj/item/gun/energy/taser/carbine,
 	)
 
-// Zone Commander
+// Zone Commander. This one belongs to LCZ
 /obj/structure/closet/secure_closet/guard/zone_commander
 	name = "LCZ Zone Lieutenant's Locker"
 	req_access = list(ACCESS_SECURITY_LVL4)
@@ -394,13 +488,14 @@
 
 /obj/structure/closet/secure_closet/guard/zone_commander/WillContain()
 	return list(
-		/obj/item/handcuffs = 4,
+		/obj/item/handcuffs = 2,
 		/obj/item/storage/box/ifak,
 		/obj/item/crowbar/emergency_forcing_tool,
 		/obj/item/material/knife/combat,
 		/obj/item/melee/telebaton,
 		/obj/item/clothing/accessory/storage/black_vest,
 		/obj/item/clothing/accessory/storage/holster/thigh,
+		/obj/item/gun/energy/taser,
 		/obj/item/clothing/glasses/sunglasses/sechud/goggles,
 		/obj/item/clothing/accessory/armor/unobtainable/tag/base/com/zonecomm,
 		/obj/item/storage/belt/holster/security/tactical,
@@ -412,17 +507,40 @@
 		/obj/item/gun/projectile/pistol/usp45,
 		/obj/item/ammo_magazine/scp/usp45 = 3,
 		/obj/item/ammo_magazine/box/acp45,
+		/obj/item/clothing/mask/gas/security,
+		/obj/item/implantcase/death_alarm,
+		/obj/item/implanter,
+		/obj/item/clothing/accessory/solgov/rank/fleet/junofficer,
+		/obj/item/clothing/shoes/combat/lcz,
+		/obj/item/ammo_magazine/box/buckshot,
+		/obj/item/ammo_magazine/scp/saiga12/flash,
+		/obj/item/ammo_magazine/scp/saiga12/buckshot,
+		/obj/item/ammo_magazine/scp/saiga12/beanbag,
+		/obj/item/ammo_magazine/box/beanbag,
+		/obj/item/gun/projectile/automatic/scp/saiga12/beanbag,
+		/obj/item/clothing/mask/gas/security,
+		/obj/item/melee/telebaton,
 	)
+
+/obj/structure/closet/secure_closet/guard/zone_commander/ez
+	name = "EZ Zone Supervisor's Locker"
+	req_access = list(ACCESS_SECURITY_LVL4)
+	icon_state = "ezcomm1"
+	icon_closed = "ezcomm"
+	icon_locked = "ezcomm1"
+	icon_opened = "ezopen"
+	icon_off = "ezcommoff"
 
 /obj/structure/closet/secure_closet/guard/zone_commander/ez/WillContain()
 	return list(
-		/obj/item/handcuffs = 4,
+		/obj/item/handcuffs = 2,
 		/obj/item/storage/box/ifak,
 		/obj/item/crowbar/emergency_forcing_tool,
 		/obj/item/material/knife/combat,
 		/obj/item/melee/telebaton,
 		/obj/item/clothing/accessory/storage/black_vest,
 		/obj/item/clothing/accessory/storage/holster/thigh,
+		/obj/item/gun/energy/taser,
 		/obj/item/clothing/glasses/sunglasses/sechud/goggles,
 		/obj/item/clothing/accessory/armor/unobtainable/tag/base/com/zonecomm,
 		/obj/item/storage/belt/holster/security/tactical,
@@ -434,8 +552,12 @@
 		/obj/item/gun/projectile/pistol/usp45,
 		/obj/item/ammo_magazine/scp/usp45 = 3,
 		/obj/item/ammo_magazine/box/acp45,
-		/obj/item/clothing/head/beret/sec/supervisor_ez
-
+		/obj/item/clothing/head/beret/sec/supervisor_ez,
+		/obj/item/clothing/mask/gas/security,
+		/obj/item/taperoll/police,
+		/obj/item/implantcase/death_alarm,
+		/obj/item/implanter,
+		/obj/item/melee/telebaton,
 	)
 
 /obj/structure/closet/secure_closet/guard/zone_commander/hcz
@@ -447,14 +569,34 @@
 	icon_opened = "hczopen"
 	icon_off = "hczcommoff"
 
-/obj/structure/closet/secure_closet/guard/zone_commander/ez
-	name = "EZ Zone Supervisor's Locker"
-	req_access = list(ACCESS_SECURITY_LVL4)
-	icon_state = "ezcomm1"
-	icon_closed = "ezcomm"
-	icon_locked = "ezcomm1"
-	icon_opened = "ezopen"
-	icon_off = "ezcommoff"
+/obj/structure/closet/secure_closet/guard/zone_commander/hcz/WillContain()
+	return list(
+		/obj/item/handcuffs = 2,
+		/obj/item/storage/box/ifak,
+		/obj/item/crowbar/emergency_forcing_tool,
+		/obj/item/material/knife/combat,
+		/obj/item/melee/telebaton,
+		/obj/item/clothing/accessory/storage/black_vest,
+		/obj/item/clothing/accessory/storage/holster/thigh,
+		/obj/item/gun/energy/taser,
+		/obj/item/clothing/glasses/sunglasses/sechud/goggles,
+		/obj/item/clothing/accessory/armor/unobtainable/tag/base/com/zonecomm,
+		/obj/item/storage/belt/holster/security/tactical,
+		/obj/item/clothing/head/beret/sec/corporate/hos,
+		/obj/item/clothing/suit/armor/pcarrier/scp/tactical,
+		/obj/item/clothing/suit/bio_suit/security,
+		/obj/item/clothing/head/bio_hood/security,
+		/obj/item/storage/pill_bottle/amnesticsa,
+		/obj/item/gun/projectile/pistol/usp45,
+		/obj/item/ammo_magazine/scp/usp45 = 3,
+		/obj/item/ammo_magazine/box/acp45,
+		/obj/item/clothing/mask/gas/security,
+		/obj/item/clothing/mask/breath/scba,
+		/obj/item/implantcase/death_alarm,
+		/obj/item/implanter,
+		/obj/item/clothing/accessory/solgov/rank/fleet/junofficer/o2,
+		/obj/item/melee/telebaton,
+	)
 
 /obj/structure/closet/secure_closet/guard/breachautomatics
 	name = "Assault rifle locker"
