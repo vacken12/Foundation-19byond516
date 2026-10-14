@@ -360,7 +360,7 @@
 /obj/item/projectile/bullet/shotgun/beanbag		//because beanbags are not bullets
 	name = "beanbag"
 	damage = DAM_BULLET_HEAVY_RUBBER
-	agony = 70
+	agony = 75
 	embed = FALSE
 	sharp = FALSE
 	armor_penetration = 0
@@ -380,7 +380,7 @@
 /obj/item/projectile/bullet/pellet/shotgun/rubbershot
 	name = "rubbershot"
 	damage = DAM_BULLET_RUBBER
-	pellets = 8
+	pellets = 9
 	range_step = 1
 	spread_step = 10
 	agony = 25
