@@ -128,4 +128,3 @@
 	var/scpnet_login_request = 0
 	var/scpnet_login_error
 	var/scpnet_light_theme = FALSE
-	var/list/scpnet_viewer_tokens = list()
