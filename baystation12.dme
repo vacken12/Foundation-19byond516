@@ -3655,8 +3655,6 @@
 #include "maps\EVENTS\random_ruins\space_ruins\space_ruins.dm"
 #include "maps\EVENTS\random_ruins\space_ruins\multi_zas_test.dmm"
 #include "maps\SCPdimensions\scp_dimensions.dmm"
-#include "maps\site53\site53.dm"
-#include "maps\site47\site47.dm"
 #include "maps\~mapsystem\map_preferences.dm"
 #include "maps\~mapsystem\maps.dm"
 #include "maps\~mapsystem\maps_announcements.dm"
