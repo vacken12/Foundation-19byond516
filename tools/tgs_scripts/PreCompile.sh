@@ -13,7 +13,7 @@ cd "$1"
 # --- Auto-select map from vote for _map_include.dm ---
 # Moved here (before the rust-g/cargo build) so that data/changemaplog is
 # always written, even if a later step aborts the script under `set -e`.
-MAP_DATA_FILE="data/use_map"
+MAP_DATA_FILE="tools/tgs_scripts/use_map"
 MAP_INCLUDE="maps/_map_include.dm"
 DEFAULT_MAP="site53"
 CHANGE_MAP_LOG="data/changemaplog"

@@ -33,8 +33,8 @@
 	if(M)
 	{
 		to_world("<span class='notice'>Map has been changed to: <b>[M.name]</b></span>")
-		fdel("data/use_map") // del last cache file
-		text2file("[M.type]", "data/use_map") // and make new
+		fdel("tools/tgs_scripts/use_map") // del last cache file
+		text2file("[M.type]", "tools/tgs_scripts/use_map") // and make new
 		return
 	}
 
