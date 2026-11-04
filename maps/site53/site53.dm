@@ -4,6 +4,5 @@
 #include "site53elevators.dm"
 #include "site53_presets.dm"
 #include "site53shuttles.dm"
-#include "site53_define.dm"
 
 #define using_map_DATUM /datum/map/site53
