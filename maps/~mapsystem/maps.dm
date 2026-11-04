@@ -26,6 +26,7 @@ var/const/MAP_HAS_RANK = 2		//Rank system, also togglable
 	var/full_name = "Unnamed Map"
 	var/path
 	var/config_path = null
+	var/datum/map/next_map = null // The map to load after the current round ends, set by admins via Change Map verb
 
 	var/list/station_levels = list() // Z-levels the station exists on
 	var/list/admin_levels = list()   // Z-levels for admin functionality (Centcom, shuttle transit, etc)
@@ -201,7 +202,7 @@ var/const/MAP_HAS_RANK = 2		//Rank system, also togglable
 	// List of events specific to a map
 	var/list/map_event_container = list()
 
-	var/can_be_voted = FALSE // Can be this map voted in change map vote?
+	var/can_be_voted = TRUE // Can be this map voted in change map vote?
 
 /datum/map/New()
 	if(!map_levels)

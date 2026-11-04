@@ -997,3 +997,42 @@ var/list/admin_verbs_mentors = list(
 			M = M.client.SpawnPrefsCharacter(get_turf(M))
 
 	dressup_human(M, outfit, TRUE)
+
+/mob/new_player/verb/changemap()
+	set popup_menu = FALSE
+	set name = "Change Map"
+	set category = "Server"
+
+	if(!check_rights(R_SERVER)) return
+
+	var/list/map_names = list()
+	for(var/map_path in GLOB.all_maps)
+		var/datum/map/M = GLOB.all_maps[map_path]
+		if(M.can_be_voted)
+			map_names += M.name
+
+	if(!map_names.len)
+		to_chat(src, "There are no maps available to change to.")
+		return
+
+	var/selected_name = input(src, "Select the map to load after the round ends.", "Change Next Map") as null|anything in map_names
+	if(!selected_name) return
+
+	var/datum/map/selected_map
+	for(var/map_path in GLOB.all_maps)
+		var/datum/map/M = GLOB.all_maps[map_path]
+		if(M.name == selected_name)
+			selected_map = M
+			break
+
+	if(!selected_map)
+		to_chat(src, "Selected map could not be found.")
+		return
+
+	GLOB.using_map.next_map = selected_map
+	fdel("data/use_map")
+	text2file("[selected_map.type]", "data/use_map")
+
+	to_world("<span class='notice'>The next map has been set to: <b>[selected_map.name]</b> ([selected_map.full_name]). It will load when the round ends.</span>")
+	log_and_message_staff("[src] sets the next map to [selected_map.name].")
+	SSstatistics.add_field_details("admin_verb","CRM") //Unique identifier

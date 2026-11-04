@@ -188,8 +188,13 @@ var/datum/evacuation_controller/evacuation_controller
 		var/datum/map/current_map = GLOB.using_map
 		var/datum/map/next_map = current_map
 
-		while (next_map.type == current_map.type)
-			next_map = GLOB.all_maps[pick(GLOB.all_maps)]
+		// If an admin has pre-selected the next map (via the Change Map admin verb), use it instead of a random one.
+		if(istype(GLOB.using_map.next_map, /datum/map) && GLOB.using_map.next_map.type != current_map.type)
+			next_map = GLOB.using_map.next_map
+			GLOB.using_map.next_map = null
+		else
+			while (next_map.type == current_map.type)
+				next_map = GLOB.all_maps[pick(GLOB.all_maps)]
 
 		to_world("<span class='notice'>Map has been changed to: <b>[next_map.name]</b></span>")
 		fdel("data/use_map")
