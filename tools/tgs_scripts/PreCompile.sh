@@ -26,9 +26,14 @@ MAP_SOURCE="default"
 
 if [[ -f "$MAP_DATA_FILE" ]]; then
     MAP_TYPE="$(cat "$MAP_DATA_FILE" | tr -d '[:space:]')"
+    echo "PreCompile: read vote file '$MAP_DATA_FILE' = '$MAP_TYPE'"
     if [[ -n "$MAP_TYPE" && "$MAP_TYPE" == /datum/map/* ]]; then
         # Extract name of map like /datum/map/site47 -> site47
         MAP_NAME="${MAP_TYPE##*/}"
+        MAP_SOURCE="vote"
+    elif [[ -n "$MAP_TYPE" ]]; then
+        # Allow raw map name like "site53" without /datum/map/ prefix
+        MAP_NAME="$MAP_TYPE"
         MAP_SOURCE="vote"
     else
         echo "Warning: Invalid map type in $MAP_DATA_FILE: '$MAP_TYPE', using default $DEFAULT_MAP"
@@ -56,8 +61,9 @@ else
     echo "$(date '+%Y-%m-%d %H:%M:%S') - Using default map: $MAP_NAME" >> "$CHANGE_MAP_LOG"
 fi
 
-echo "PreCompile: selected map = $MAP_NAME"
+echo "PreCompile: selected map = $MAP_NAME (source: $MAP_SOURCE)"
 printf '#include "maps\\%s\\%s.dm"\n' "$MAP_NAME" "$MAP_NAME" > "$MAP_INCLUDE"
+echo "PreCompile: wrote $MAP_INCLUDE"
 
 . dependencies.sh
 cd "$original_dir"
