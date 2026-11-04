@@ -10,36 +10,51 @@ set -x
 original_dir=$PWD
 cd "$1"
 
+# Resolve the game/instance root that really contains maps/, data/, etc.
+# $1 may be the game root itself or a subdirectory (e.g. Configuration/EventScripts).
+# All map/vote paths below are resolved against this directory, not against $1.
+GAME_DIR="$PWD"
+while [[ "$GAME_DIR" != "/" && ! -d "$GAME_DIR/maps" && ! -f "$GAME_DIR/baystation12.dme" ]]; do
+    GAME_DIR="$(dirname "$GAME_DIR")"
+done
+if [[ ! -d "$GAME_DIR/maps" ]]; then
+    echo "Warning: Could not auto-detect game root above $1; using $1 as game root" >&2
+    GAME_DIR="$1"
+fi
+
 # --- Auto-select map from vote for _map_include.dm ---
 # Moved here (before the rust-g/cargo build) so that data/changemaplog is
 # always written, even if a later step aborts the script under `set -e`.
 MAP_DATA_FILE="data/use_map"
-MAP_INCLUDE="maps/_map_include.dm"
+MAP_DATA_PATH="$GAME_DIR/data/use_map"
+MAP_INCLUDE="$GAME_DIR/maps/_map_include.dm"
 DEFAULT_MAP="site53"
-CHANGE_MAP_LOG="data/changemaplog"
+CHANGE_MAP_LOG="$GAME_DIR/data/changemaplog"
+LAUNCH_DATA_PATH="$original_dir/data/use_map"
 
 # Ensure data directory exists for logging
 mkdir -p "$(dirname "$CHANGE_MAP_LOG")"
 
+echo "PreCompile: game dir = $GAME_DIR"
 echo "PreCompile: PWD after cd = $PWD"
-echo "PreCompile: looking for vote file: $PWD/$MAP_DATA_FILE (or $original_dir/$MAP_DATA_FILE)"
+echo "PreCompile: looking for vote file: $MAP_DATA_PATH (or $LAUNCH_DATA_PATH)"
 
 MAP_NAME="$DEFAULT_MAP"
 MAP_SOURCE="default"
 
-# Try to find use_map relative to $1 first, then relative to the dir we launched from
-if [[ -f "$MAP_DATA_FILE" ]]; then
+# Try to find use_map in the game root first, then relative to the dir we launched from
+if [[ -f "$MAP_DATA_PATH" ]]; then
     :
-elif [[ -f "$original_dir/$MAP_DATA_FILE" ]]; then
-    MAP_DATA_FILE="$original_dir/$MAP_DATA_FILE"
+elif [[ -n "$original_dir" && -f "$LAUNCH_DATA_PATH" ]]; then
+    MAP_DATA_PATH="$LAUNCH_DATA_PATH"
 else
-    echo "$(date '+%Y-%m-%d %H:%M:%S') - No change: $MAP_DATA_FILE not found in $PWD or $original_dir, keeping default $DEFAULT_MAP" >> "$CHANGE_MAP_LOG"
+    echo "$(date '+%Y-%m-%d %H:%M:%S') - No change: $MAP_DATA_FILE not found in $GAME_DIR or $original_dir, keeping default $DEFAULT_MAP" >> "$CHANGE_MAP_LOG"
     MAP_NAME="$DEFAULT_MAP"
 fi
 
-if [[ -f "$MAP_DATA_FILE" ]]; then
-    MAP_TYPE="$(cat "$MAP_DATA_FILE" | tr -d '[:space:]')"
-    echo "PreCompile: read vote file '$MAP_DATA_FILE' = '$MAP_TYPE'"
+if [[ -f "$MAP_DATA_PATH" ]]; then
+    MAP_TYPE="$(cat "$MAP_DATA_PATH" | tr -d '[:space:]')"
+    echo "PreCompile: read vote file '$MAP_DATA_PATH' = '$MAP_TYPE'"
     if [[ -n "$MAP_TYPE" && "$MAP_TYPE" == /datum/map/* ]]; then
         # Extract name of map like /datum/map/site47 -> site47
         MAP_NAME="${MAP_TYPE##*/}"
@@ -49,17 +64,17 @@ if [[ -f "$MAP_DATA_FILE" ]]; then
         MAP_NAME="$MAP_TYPE"
         MAP_SOURCE="vote"
     else
-        echo "Warning: Invalid map type in $MAP_DATA_FILE: '$MAP_TYPE', using default $DEFAULT_MAP"
-        echo "$(date '+%Y-%m-%d %H:%M:%S') - No change: invalid vote '$MAP_TYPE' in $MAP_DATA_FILE, keeping default $DEFAULT_MAP" >> "$CHANGE_MAP_LOG"
+        echo "Warning: Invalid map type in $MAP_DATA_PATH: '$MAP_TYPE', using default $DEFAULT_MAP"
+        echo "$(date '+%Y-%m-%d %H:%M:%S') - No change: invalid vote '$MAP_TYPE' in $MAP_DATA_PATH, keeping default $DEFAULT_MAP" >> "$CHANGE_MAP_LOG"
         MAP_NAME="$DEFAULT_MAP"
     fi
 fi
 
-MAP_DM="maps/${MAP_NAME}/${MAP_NAME}.dm"
-echo "PreCompile: checking map file: $PWD/$MAP_DM"
+MAP_DM="$GAME_DIR/maps/${MAP_NAME}/${MAP_NAME}.dm"
+echo "PreCompile: checking map file: $MAP_DM"
 if [[ ! -f "$MAP_DM" ]]; then
-    echo "Warning: Map '$MAP_NAME' ($MAP_DM) not found. PWD=$PWD, falling back to $DEFAULT_MAP"
-    echo "$(date '+%Y-%m-%d %H:%M:%S') - Change failed: map '$MAP_NAME' not found at $MAP_DM (PWD=$PWD), falling back to $DEFAULT_MAP" >> "$CHANGE_MAP_LOG"
+    echo "Warning: Map '$MAP_NAME' ($MAP_DM) not found. GAME_DIR=$GAME_DIR, PWD=$PWD, falling back to $DEFAULT_MAP"
+    echo "$(date '+%Y-%m-%d %H:%M:%S') - Change failed: map '$MAP_NAME' not found at $MAP_DM (GAME_DIR=$GAME_DIR, PWD=$PWD), falling back to $DEFAULT_MAP" >> "$CHANGE_MAP_LOG"
     MAP_NAME="$DEFAULT_MAP"
     MAP_SOURCE="fallback"
 fi
