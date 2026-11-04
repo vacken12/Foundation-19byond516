@@ -71,6 +71,7 @@ var/list/admin_verbs_admin = list(
 	/client/proc/cmd_admin_say,			//admin-only ooc chat,
 	/datum/admins/proc/togglehubvisibility, //toggles visibility on the BYOND Hub,
 	/datum/admins/proc/PlayerNotes,
+	/client/proc/changemap,
 	/client/proc/cmd_mentor_say,
 	/datum/admins/proc/show_player_info,
 	/client/proc/free_slot_submap,
@@ -301,6 +302,7 @@ var/list/admin_verbs_mod = list(
 	/client/proc/watched_variables,
 	/client/proc/debug_global_variables,// as above but for global variables,
 	/datum/admins/proc/PlayerNotes,
+	/client/proc/changemap,
 	/client/proc/admin_ghost,			// allows us to ghost/reenter body at will,
 	/client/proc/cmd_mentor_say,
 	/datum/admins/proc/show_player_info,
@@ -998,7 +1000,7 @@ var/list/admin_verbs_mentors = list(
 
 	dressup_human(M, outfit, TRUE)
 
-/mob/new_player/verb/changemap()
+/client/proc/changemap()
 	set popup_menu = FALSE
 	set name = "Change Map"
 	set category = "Server"
