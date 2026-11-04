@@ -106,7 +106,7 @@ Thanks to spacemaniac and mcdonald for help with the JS side of this.
 	winset(src, "outputwindow", "text-color = #000000;text-color = [COLOR_DARKMODE_TEXT]")
 	winset(src, "statwindow", "background-color = none;background-color = [COLOR_DARKMODE_DARKBACKGROUND]")
 	winset(src, "statwindow", "text-color = #000000;text-color = [COLOR_DARKMODE_TEXT]")
-	winset(src, "info", "background-color = #FFFFFF;background-color = [COLOR_DARKMODE_DARKBACKGROUND]")
+	winset(src, "info", "background-color = #000000;background-color = [COLOR_DARKMODE_DARKBACKGROUND]")
 	winset(src, "info", "tab-background-color = none;tab-background-color = [COLOR_DARKMODE_BACKGROUND]")
 	winset(src, "info", "text-color = #000000;text-color = [COLOR_DARKMODE_TEXT]")
 	winset(src, "info", "tab-text-color = #000000;tab-text-color = [COLOR_DARKMODE_TEXT]")

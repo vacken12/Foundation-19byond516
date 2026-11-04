@@ -1,0 +1,14 @@
+"a" = (/turf/simulated/floor/textured_white,/area/space)
+"f" = (/obj/effect/landmark/siteCB/exit_south,/turf/simulated/floor/textured_white,/area/space)
+"g" = (/obj/effect/landmark/siteCB/exit_north,/turf/simulated/floor/textured_white,/area/space)
+"m" = (/turf/simulated/wall/r_titanium,/area/space)
+
+(1,1,1) = {"
+mmgmm
+maaam
+maaam
+maaam
+maaam
+maaam
+mmfmm
+"}

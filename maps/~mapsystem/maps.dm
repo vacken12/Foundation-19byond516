@@ -88,13 +88,47 @@ var/const/MAP_HAS_RANK = 2		//Rank system, also togglable
 	var/overmap_event_areas = 0 //How many event "clouds" will be generated
 
 	var/decl/audio/track/lobby_track                     // The track that will play in the lobby screen.
-	var/list/lobby_tracks = list()                  // The list of lobby tracks to pick() from. If left unset will randomly select among all available decl/audio/track subtypes.
+	var/list/lobby_tracks = list(                  // The list of lobby tracks to pick() from. If left unset will randomly select among all available decl/audio/track subtypes.
+		/decl/audio/track/dieinthedark,
+		/decl/audio/track/perdition,
+		/decl/audio/track/ajoura,
+		/decl/audio/track/days,
+		/decl/audio/track/hie,
+		/decl/audio/track/chaos,
+		/decl/audio/track/dread,
+		/decl/audio/track/animosity,
+		/decl/audio/track/animosity_v2,
+		/decl/audio/track/surface_area,
+		/decl/audio/track/main_astowo,
+		/decl/audio/track/final_flash,
+		/decl/audio/track/duplicity_and_disillusion,
+		/decl/audio/track/battle_for_ganzir,
+		/decl/audio/track/purge_protocol,
+		/decl/audio/track/uiu_spawn_theme,
+		/decl/audio/track/let_me_be_alive,
+		/decl/audio/track/in_the_pines,
+		/decl/audio/track/author_of_my_obituary,
+		/decl/audio/track/fall_of_ganzir,
+		/decl/audio/track/dawn_of_the_moors_main_menu,
+		/decl/audio/track/scp_cb_main_menu,
+		/decl/audio/track/severedreality,
+		/decl/audio/track/stuckonthepuzzle,
+		/decl/audio/track/track1,
+		/decl/audio/track/inthehouseinaheartbeat,
+		/decl/audio/track/deaththeme,
+		/decl/audio/track/uiutheme,
+		/decl/audio/track/awoman
+	// 	/decl/audio/track/bookburners, // no scp vibe
+	//	/decl/audio/track/the_bookburners_v2, // no scp vibe
+	//	/decl/audio/track/goc_spawn_theme2 // no scp vibe
+	)
+
 	var/welcome_sound = 'sounds/AI/welcome.ogg'		// Sound played on roundstart
 
 	var/default_law_type = /datum/ai_laws/foundation_alt  // The default lawset use by synth units, if not overriden by their laws var.
 	var/security_state = /decl/security_state // The default security state system to use.
 
-	var/id_hud_icons = 'icons/mob/hud.dmi' // Used by the ID HUD (primarily sechud) overlay.
+	var/id_hud_icons = 'icons/assignment_hud.dmi' // Used by the ID HUD (primarily sechud) overlay.
 
 	var/num_exoplanets = 0
 	var/list/planet_size  //dimensions of planet zlevel, defaults to world size. Due to how maps are generated, must be (2^n+1) e.g. 17,33,65,129 etc. Map will just round up to those if set to anything other.
@@ -118,33 +152,30 @@ var/const/MAP_HAS_RANK = 2		//Rank system, also togglable
 	var/game_year
 
 	var/list/available_cultural_info = list(
-		TAG_HOMEWORLD = list(
-			HOME_SYSTEM_EARTH
-		),
-		TAG_FACTION = list(
-			FACTION_SCP_FOUNDATION
-		),
+		TAG_HOMEWORLD = list(HOME_SYSTEM_EARTH),
+		TAG_FACTION = list(FACTION_SCP_FOUNDATION),
 		TAG_CULTURE = list(
-			CULTURE_HUMAN_EARTH
-		),
+			CULTURE_HUMAN_EARTH,
+			CULTURE_HUMAN_ARABIC,
+			CULTURE_HUMAN_BRITISH,
+			CULTURE_HUMAN_CHINESE,
+			CULTURE_HUMAN_EASTSLAVIC,
+			CULTURE_HUMAN_FRENCH,
+			CULTURE_HUMAN_GERMAN,
+			CULTURE_HUMAN_GOIDELIC,
+			CULTURE_HUMAN_ITALIAN,
+			CULTURE_HUMAN_JAPANESE,
+			CULTURE_HUMAN_LATINAMERICAN),
 		TAG_RELIGION = list(
 			RELIGION_OTHER,
 			RELIGION_JUDAISM,
 			RELIGION_HINDUISM,
 			RELIGION_BUDDHISM,
-			RELIGION_SIKHISM,
-			RELIGION_JAINISM,
 			RELIGION_ISLAM,
 			RELIGION_CHRISTIANITY,
-			RELIGION_BAHAI_FAITH,
 			RELIGION_AGNOSTICISM,
-			RELIGION_DEISM,
 			RELIGION_ATHEISM,
-			RELIGION_THELEMA,
-			RELIGION_SPIRITUALISM,
-			RELIGION_SHINTO,
-			RELIGION_TAOISM
-		)
+		),
 	)
 
 	var/list/default_cultural_info = list(
@@ -169,6 +200,8 @@ var/const/MAP_HAS_RANK = 2		//Rank system, also togglable
 
 	// List of events specific to a map
 	var/list/map_event_container = list()
+
+	var/can_be_voted = FALSE // Can be this map voted in change map vote?
 
 /datum/map/New()
 	if(!map_levels)

@@ -71,76 +71,7 @@
 
 	away_site_budget = 3
 
-	id_hud_icons = 'maps/site53/icons/assignment_hud.dmi'
-
-	lobby_tracks = list(
-		/decl/audio/track/dieinthedark,
-		/decl/audio/track/perdition,
-		/decl/audio/track/ajoura,
-		/decl/audio/track/days,
-		/decl/audio/track/hie,
-		/decl/audio/track/chaos,
-		/decl/audio/track/dread,
-		/decl/audio/track/animosity,
-		/decl/audio/track/animosity_v2,
-		/decl/audio/track/surface_area,
-		/decl/audio/track/main_astowo,
-		/decl/audio/track/final_flash,
-		/decl/audio/track/duplicity_and_disillusion,
-		/decl/audio/track/battle_for_ganzir,
-		/decl/audio/track/purge_protocol,
-		/decl/audio/track/uiu_spawn_theme,
-		/decl/audio/track/let_me_be_alive,
-		/decl/audio/track/in_the_pines,
-		/decl/audio/track/author_of_my_obituary,
-		/decl/audio/track/fall_of_ganzir,
-		/decl/audio/track/dawn_of_the_moors_main_menu,
-		/decl/audio/track/scp_cb_main_menu,
-		/decl/audio/track/severedreality,
-		/decl/audio/track/stuckonthepuzzle,
-		/decl/audio/track/track1,
-		/decl/audio/track/inthehouseinaheartbeat,
-		/decl/audio/track/deaththeme,
-		/decl/audio/track/uiutheme,
-		/decl/audio/track/awoman
-	// 	/decl/audio/track/bookburners, // no scp vibe
-	//	/decl/audio/track/the_bookburners_v2, // no scp vibe
-	//	/decl/audio/track/goc_spawn_theme2 // no scp vibe
-	)
-
-	available_cultural_info = list(
-		TAG_HOMEWORLD = list(HOME_SYSTEM_EARTH),
-		TAG_FACTION = list(FACTION_SCP_FOUNDATION),
-		TAG_CULTURE = list(
-			CULTURE_HUMAN_EARTH,
-			CULTURE_HUMAN_ARABIC,
-			CULTURE_HUMAN_BRITISH,
-			CULTURE_HUMAN_CHINESE,
-			CULTURE_HUMAN_EASTSLAVIC,
-			CULTURE_HUMAN_FRENCH,
-			CULTURE_HUMAN_GERMAN,
-			CULTURE_HUMAN_GOIDELIC,
-			CULTURE_HUMAN_ITALIAN,
-			CULTURE_HUMAN_JAPANESE,
-			CULTURE_HUMAN_LATINAMERICAN),
-		TAG_RELIGION = list(
-			RELIGION_OTHER,
-			RELIGION_JUDAISM,
-			RELIGION_HINDUISM,
-			RELIGION_BUDDHISM,
-			RELIGION_ISLAM,
-			RELIGION_CHRISTIANITY,
-			RELIGION_AGNOSTICISM,
-			RELIGION_ATHEISM,
-		),
-	)
-
-	default_cultural_info = list(
-		TAG_HOMEWORLD = HOME_SYSTEM_EARTH,
-		TAG_FACTION =   FACTION_SCP_FOUNDATION,
-		TAG_CULTURE =   CULTURE_HUMAN_EARTH,
-		TAG_RELIGION =  RELIGION_AGNOSTICISM
-	)
+	can_be_voted = TRUE
 
 /*
 /datum/map/torch/setup_map()

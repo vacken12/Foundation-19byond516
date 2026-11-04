@@ -1,0 +1,12 @@
+"F" = (/obj/effect/landmark/siteCB/exit_east,/turf/simulated/floor/textured_white,/area/space)
+"I" = (/obj/effect/landmark/siteCB/exit_west,/turf/simulated/floor/textured_white,/area/space)
+"J" = (/turf/simulated/wall/r_titanium,/area/space)
+"K" = (/turf/simulated/floor/textured_white,/area/space)
+
+(1,1,1) = {"
+JJJJJJJJJ
+JKKKKKKKJ
+IKKKKKKKF
+JKKKKKKKJ
+JJJJJJJJJ
+"}

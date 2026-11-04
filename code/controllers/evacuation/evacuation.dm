@@ -144,6 +144,7 @@ var/datum/evacuation_controller/evacuation_controller
 	else
 		priority_announcement.Announce(replacetext(replacetext(GLOB.using_map.shuttle_leaving_dock, "%dock_name%", "[GLOB.using_map.dock_name]"),  "%ETA%", "[round(get_eta()/60,1)] minute\s"))
 
+	launch_map_vote()
 	return 1
 
 /datum/evacuation_controller/proc/finish_evacuation()
@@ -181,3 +182,15 @@ var/datum/evacuation_controller/evacuation_controller
 
 /datum/evacuation_controller/proc/should_call_autotransfer_vote()
 	return (state == EVAC_IDLE)
+
+/datum/evacuation_controller/proc/launch_map_vote()
+	if(GLOB.all_maps.len > 1)
+		var/datum/map/current_map = GLOB.using_map
+		var/datum/map/next_map = current_map
+
+		while (next_map.type == current_map.type)
+			next_map = GLOB.all_maps[pick(GLOB.all_maps)]
+
+		to_world("<span class='notice'>Map has been changed to: <b>[next_map.name]</b></span>")
+		fdel("data/use_map")
+		text2file("[next_map.type]", "data/use_map")

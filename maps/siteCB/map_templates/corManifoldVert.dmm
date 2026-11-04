@@ -1,0 +1,16 @@
+"a" = (/turf/simulated/floor/textured_white,/area/site53/surface/surface/upper)
+"f" = (/turf/unsimulated/mineral,/area/site53/surface/surface/upper)
+"g" = (/turf/simulated/wall/r_titanium,/area/site53/surface/surface/upper)
+"h" = (/obj/effect/landmark/siteCB/exit_west,/turf/simulated/floor/textured_white,/area/site53/surface/surface/upper)
+"m" = (/obj/effect/landmark/siteCB/exit_north,/turf/simulated/floor/textured_white,/area/site53/surface/surface/upper)
+"K" = (/obj/effect/landmark/siteCB/exit_south,/turf/simulated/floor/textured_white,/area/site53/surface/surface/upper)
+
+(1,1,1) = {"
+fggmggf
+ggaaagg
+gaaaaag
+haaaaag
+gaaaaag
+ggaaagg
+fggKggf
+"}

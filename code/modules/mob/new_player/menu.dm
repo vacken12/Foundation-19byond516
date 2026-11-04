@@ -53,7 +53,7 @@
 
 /atom/movable/screen/new_player/title
 	name = "Russian Foundation 13"
-	icon = 'maps/site53/icons/lobby.dmi'
+	icon = 'icons/lobby.dmi'
 	icon_state = "title_new"
 	screen_loc = "SOUTH,CENTER-7"
 	layer = HUD_ABOVE_ITEM_LAYER
@@ -108,10 +108,12 @@
 
 /atom/movable/screen/new_player/selection/MouseEntered(location, control, params)
 	animate(src, easing=QUAD_EASING|EASE_IN, color = color_rotation(rand(-11,12)*15), time = 3, transform = matrix()*1.08, pixel_x+=10)
+	sound_to(src, 'sounds/effects/menu_click.ogg')
 	return ..()
 
 /atom/movable/screen/new_player/selection/MouseExited(location, control, params)
 	animate(src, easing=QUAD_EASING|EASE_OUT, color = null, time = 3, transform = null, pixel_x-=10)
+	sound_to(src, 'sounds/effects/menu_click.ogg')
 	return ..()
 
 /atom/movable/screen/new_player/selection/join_game
@@ -283,6 +285,7 @@
 		return
 
 	GLOB.changelog_tgui.tgui_interact(player)
+	to_chat(player, SPAN_NOTICE("Sorry! Our changelog is not synced!"))
 
 /atom/movable/screen/new_player/selection/polls
 	name = "Polls"

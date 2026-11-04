@@ -27,7 +27,7 @@ GLOBAL_LIST(end_titles)
 			sound_to(mob, sound(null, channel = GLOB.lobby_sound_channel))
 			if(GLOB.end_credits_song == null)
 				var/title_song = 'sounds/music/SCPCB_credits.ogg'
-				sound_to(mob, sound(title_song, wait = 0, volume = 60, channel = GLOB.lobby_sound_channel))
+				sound_to(mob, sound(title_song, wait = 0, volume = 90, channel = GLOB.lobby_sound_channel))
 			else if(get_preference_value(/datum/client_preference/play_admin_midis) == GLOB.PREF_YES)
 				sound_to(mob, sound(GLOB.end_credits_song, wait = 0, volume = 60, channel = GLOB.lobby_sound_channel))
 	sleep(50)
@@ -52,7 +52,6 @@ GLOBAL_LIST(end_titles)
 	QDEL_NULL_LIST(credits)
 	mob.clear_fullscreen("fishbed")
 	mob.clear_fullscreen("fadeout")
-	sound_to(mob, sound(null, channel = GLOB.lobby_sound_channel))
 
 /atom/movable/screen/credit
 	icon_state = "blank"

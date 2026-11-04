@@ -453,7 +453,7 @@
 
 /mob/new_player/verb/next_lobby_track() // for admin to all players in lobby
 	set popup_menu = FALSE
-	set name = "Play Different Lobby Track"
+	set name = "Change (global) Lobby Track"
 	set category = "Server"
 
 	if(!check_rights(R_SERVER)) return
@@ -484,7 +484,7 @@
 
 	for(var/mob/new_player/N in GLOB.player_list)
 		sound_to(N, sound(selected_track.source, repeat = 1, volume = 100, channel = GLOB.lobby_sound_channel))
-		to_chat(world, selected_track.get_info())
+	to_chat(world, selected_track.get_info())
 
 /mob/new_player/verb/player_next_lobby_track() // for players in lobby
 	set name = "Change Lobby Track"
