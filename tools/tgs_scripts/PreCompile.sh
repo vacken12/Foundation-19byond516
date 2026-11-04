@@ -13,7 +13,7 @@ cd "$1"
 # --- Auto-select map from vote for _map_include.dm ---
 # Moved here (before the rust-g/cargo build) so that data/changemaplog is
 # always written, even if a later step aborts the script under `set -e`.
-MAP_DATA_FILE="tools/tgs_scripts/use_map"
+MAP_DATA_FILE="data/use_map"
 MAP_INCLUDE="maps/_map_include.dm"
 DEFAULT_MAP="site53"
 CHANGE_MAP_LOG="data/changemaplog"
@@ -21,8 +21,21 @@ CHANGE_MAP_LOG="data/changemaplog"
 # Ensure data directory exists for logging
 mkdir -p "$(dirname "$CHANGE_MAP_LOG")"
 
+echo "PreCompile: PWD after cd = $PWD"
+echo "PreCompile: looking for vote file: $PWD/$MAP_DATA_FILE (or $original_dir/$MAP_DATA_FILE)"
+
 MAP_NAME="$DEFAULT_MAP"
 MAP_SOURCE="default"
+
+# Try to find use_map relative to $1 first, then relative to the dir we launched from
+if [[ -f "$MAP_DATA_FILE" ]]; then
+    :
+elif [[ -f "$original_dir/$MAP_DATA_FILE" ]]; then
+    MAP_DATA_FILE="$original_dir/$MAP_DATA_FILE"
+else
+    echo "$(date '+%Y-%m-%d %H:%M:%S') - No change: $MAP_DATA_FILE not found in $PWD or $original_dir, keeping default $DEFAULT_MAP" >> "$CHANGE_MAP_LOG"
+    MAP_NAME="$DEFAULT_MAP"
+fi
 
 if [[ -f "$MAP_DATA_FILE" ]]; then
     MAP_TYPE="$(cat "$MAP_DATA_FILE" | tr -d '[:space:]')"
@@ -40,14 +53,13 @@ if [[ -f "$MAP_DATA_FILE" ]]; then
         echo "$(date '+%Y-%m-%d %H:%M:%S') - No change: invalid vote '$MAP_TYPE' in $MAP_DATA_FILE, keeping default $DEFAULT_MAP" >> "$CHANGE_MAP_LOG"
         MAP_NAME="$DEFAULT_MAP"
     fi
-else
-    echo "$(date '+%Y-%m-%d %H:%M:%S') - No change: $MAP_DATA_FILE not found, keeping default $DEFAULT_MAP" >> "$CHANGE_MAP_LOG"
 fi
 
 MAP_DM="maps/${MAP_NAME}/${MAP_NAME}.dm"
+echo "PreCompile: checking map file: $PWD/$MAP_DM"
 if [[ ! -f "$MAP_DM" ]]; then
-    echo "Warning: Map '$MAP_NAME' ($MAP_DM) not found, falling back to $DEFAULT_MAP"
-    echo "$(date '+%Y-%m-%d %H:%M:%S') - Change failed: map '$MAP_NAME' not found at $MAP_DM, falling back to $DEFAULT_MAP" >> "$CHANGE_MAP_LOG"
+    echo "Warning: Map '$MAP_NAME' ($MAP_DM) not found. PWD=$PWD, falling back to $DEFAULT_MAP"
+    echo "$(date '+%Y-%m-%d %H:%M:%S') - Change failed: map '$MAP_NAME' not found at $MAP_DM (PWD=$PWD), falling back to $DEFAULT_MAP" >> "$CHANGE_MAP_LOG"
     MAP_NAME="$DEFAULT_MAP"
     MAP_SOURCE="fallback"
 fi
