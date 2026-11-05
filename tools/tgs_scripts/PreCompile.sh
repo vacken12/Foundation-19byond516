@@ -7,17 +7,17 @@ set -x
 
 #load dep exports
 #need to switch to game dir for Dockerfile weirdness
-original_dir=$PWD
+original_dir="$(pwd)"
 cd "$1"
 
 # Resolve the game/instance root that really contains maps/, data/, etc.
 # $1 may be the game root itself or a subdirectory (e.g. Configuration/EventScripts).
 # All map/vote paths below are resolved against this directory, not against $1.
 GAME_DIR="$PWD"
-while [[ "$GAME_DIR" != "/" && ! -d "$GAME_DIR/maps" && ! -f "$GAME_DIR/baystation12.dme" ]]; do
+while [[ "$GAME_DIR" != "/" && (! -d "$GAME_DIR/maps" || ! -f "$GAME_DIR/baystation12.dme") ]]; do
     GAME_DIR="$(dirname "$GAME_DIR")"
 done
-if [[ ! -d "$GAME_DIR/maps" ]]; then
+if [[ ! -d "$GAME_DIR/maps" || ! -f "$GAME_DIR/baystation12.dme" ]]; then
     echo "Warning: Could not auto-detect game root above $1; using $1 as game root" >&2
     GAME_DIR="$1"
 fi
@@ -89,7 +89,7 @@ else
 fi
 
 echo "PreCompile: selected map = $MAP_NAME (source: $MAP_SOURCE)"
-printf '#include "maps\\%s\\%s.dm"\n' "$MAP_NAME" "$MAP_NAME" > "$MAP_INCLUDE"
+printf '#include "%s/%s.dm"\n' "$MAP_NAME" "$MAP_NAME" > "$MAP_INCLUDE"
 echo "PreCompile: wrote $MAP_INCLUDE"
 
 . dependencies.sh
